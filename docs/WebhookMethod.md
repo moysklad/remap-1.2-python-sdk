@@ -1,0 +1,11 @@
+# WebhookMethod
+
+HTTP-метод запроса к URL подписчика. Известные значения для поля method сущности Webhook
+
+## Enum
+
+* `POST` (value: `'POST'`)
+
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+
