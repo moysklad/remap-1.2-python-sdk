@@ -39,7 +39,7 @@ Name | Type | Description | Notes
 **product_folder** | [**ProductFolder**](ProductFolder.md) | Метаданные группы Товара | [optional] 
 **images** | [**ImageList**](ImageList.md) | Массив изображений | [optional] 
 **files** | [**FileList**](FileList.md) | Метаданные массива Файлов | [optional] 
-**barcodes** | [**List[Barcode]**](Barcode.md) | Штрихкоды товара | [optional] 
+**barcodes** | [**List[Barcode]**](Barcode.md) | Штрихкоды Товара | [optional] 
 **packs** | [**List[Pack]**](Pack.md) | Упаковки товара | [optional] 
 **tracking_type** | **str** | Тип маркируемой продукции. Известные значения описаны в TrackingType | [optional] 
 **tnved** | **str** | Код ТН ВЭД | [optional] 

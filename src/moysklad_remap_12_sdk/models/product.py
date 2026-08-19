@@ -79,7 +79,7 @@ class Product(ProductMarker):
     product_folder: Optional[ProductFolder] = Field(default=None, description="Метаданные группы Товара", alias="productFolder")
     images: Optional[ImageList] = Field(default=None, description="Массив изображений")
     files: Optional[FileList] = Field(default=None, description="Метаданные массива Файлов")
-    barcodes: Optional[List[Barcode]] = Field(default=None, description="Штрихкоды товара")
+    barcodes: Optional[List[Barcode]] = Field(default=None, description="Штрихкоды Товара")
     packs: Optional[List[Pack]] = Field(default=None, description="Упаковки товара")
     tracking_type: Optional[StrictStr] = Field(default=None, description="Тип маркируемой продукции. Известные значения описаны в TrackingType", alias="trackingType")
     tnved: Optional[Annotated[str, Field(strict=True, max_length=255)]] = Field(default=None, description="Код ТН ВЭД")
