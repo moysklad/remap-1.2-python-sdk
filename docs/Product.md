@@ -16,7 +16,7 @@ Name | Type | Description | Notes
 **external_code** | **str** | Внешний код товара | [optional] 
 **path_name** | **str** | Наименование группы, в которую входит товар | [optional] [readonly] 
 **article** | **str** | Артикул | [optional] 
-**description** | **str** | Описание товара | [optional] 
+**description** | **str** | Описание Товара | [optional] 
 **vat** | **int** | НДС % | [optional] 
 **vat_enabled** | **bool** | Включен ли НДС для товара | [optional] 
 **use_parent_vat** | **bool** | Используется ли ставка НДС родительской группы | [optional] 

@@ -56,7 +56,7 @@ class Product(ProductMarker):
     external_code: Optional[Annotated[str, Field(strict=True, max_length=255)]] = Field(default=None, description="Внешний код товара", alias="externalCode")
     path_name: Optional[StrictStr] = Field(default=None, description="Наименование группы, в которую входит товар", alias="pathName")
     article: Optional[Annotated[str, Field(strict=True, max_length=255)]] = Field(default=None, description="Артикул")
-    description: Optional[Annotated[str, Field(strict=True, max_length=4096)]] = Field(default=None, description="Описание товара")
+    description: Optional[Annotated[str, Field(strict=True, max_length=4096)]] = Field(default=None, description="Описание Товара")
     vat: Optional[Annotated[int, Field(le=99, strict=True, ge=0)]] = Field(default=None, description="НДС %")
     vat_enabled: Optional[StrictBool] = Field(default=None, description="Включен ли НДС для товара", alias="vatEnabled")
     use_parent_vat: Optional[StrictBool] = Field(default=None, description="Используется ли ставка НДС родительской группы", alias="useParentVat")

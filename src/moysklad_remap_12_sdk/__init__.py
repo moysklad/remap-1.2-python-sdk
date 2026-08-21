@@ -14,7 +14,7 @@
 """  # noqa: E501
 
 
-__version__ = "0.21.0"
+__version__ = "0.23.0"
 
 # Define package exports
 __all__ = [
@@ -73,7 +73,10 @@ __all__ = [
     "PurchaseReturnsApi",
     "RegionsApi",
     "ReportsApi",
+    "ReportsByOperationsApi",
     "ReportsStockAllApi",
+    "ReportsStockByOperationApi",
+    "ReportsStockByStoreApi",
     "RetailDemandsApi",
     "RetailDrawerCashInsApi",
     "RetailDrawerCashOutsApi",
@@ -153,6 +156,15 @@ __all__ = [
     "BundleComponentList",
     "BundleList",
     "BundleOverhead",
+    "ByOperationsInTransit",
+    "ByOperationsInTransitList",
+    "ByOperationsReserve",
+    "ByOperationsReserveList",
+    "ByOperationsStock",
+    "ByOperationsStockAssortment",
+    "ByOperationsStockList",
+    "ByOperationsStockOperation",
+    "ByOperationsStockStore",
     "CashIn",
     "CashInList",
     "CashOut",
@@ -509,6 +521,12 @@ __all__ = [
     "StateType",
     "StockAll",
     "StockAllList",
+    "StockByOperation",
+    "StockByOperationList",
+    "StockByOperationPosition",
+    "StockByStore",
+    "StockByStoreItem",
+    "StockByStoreList",
     "Store",
     "StoreBalance",
     "StoreBalanceList",
@@ -625,7 +643,10 @@ from moysklad_remap_12_sdk.api.purchase_orders_api import PurchaseOrdersApi as P
 from moysklad_remap_12_sdk.api.purchase_returns_api import PurchaseReturnsApi as PurchaseReturnsApi
 from moysklad_remap_12_sdk.api.regions_api import RegionsApi as RegionsApi
 from moysklad_remap_12_sdk.api.reports_api import ReportsApi as ReportsApi
+from moysklad_remap_12_sdk.api.reports_by_operations_api import ReportsByOperationsApi as ReportsByOperationsApi
 from moysklad_remap_12_sdk.api.reports_stock_all_api import ReportsStockAllApi as ReportsStockAllApi
+from moysklad_remap_12_sdk.api.reports_stock_by_operation_api import ReportsStockByOperationApi as ReportsStockByOperationApi
+from moysklad_remap_12_sdk.api.reports_stock_by_store_api import ReportsStockByStoreApi as ReportsStockByStoreApi
 from moysklad_remap_12_sdk.api.retail_demands_api import RetailDemandsApi as RetailDemandsApi
 from moysklad_remap_12_sdk.api.retail_drawer_cash_ins_api import RetailDrawerCashInsApi as RetailDrawerCashInsApi
 from moysklad_remap_12_sdk.api.retail_drawer_cash_outs_api import RetailDrawerCashOutsApi as RetailDrawerCashOutsApi
@@ -709,6 +730,15 @@ from moysklad_remap_12_sdk.models.bundle_component import BundleComponent as Bun
 from moysklad_remap_12_sdk.models.bundle_component_list import BundleComponentList as BundleComponentList
 from moysklad_remap_12_sdk.models.bundle_list import BundleList as BundleList
 from moysklad_remap_12_sdk.models.bundle_overhead import BundleOverhead as BundleOverhead
+from moysklad_remap_12_sdk.models.by_operations_in_transit import ByOperationsInTransit as ByOperationsInTransit
+from moysklad_remap_12_sdk.models.by_operations_in_transit_list import ByOperationsInTransitList as ByOperationsInTransitList
+from moysklad_remap_12_sdk.models.by_operations_reserve import ByOperationsReserve as ByOperationsReserve
+from moysklad_remap_12_sdk.models.by_operations_reserve_list import ByOperationsReserveList as ByOperationsReserveList
+from moysklad_remap_12_sdk.models.by_operations_stock import ByOperationsStock as ByOperationsStock
+from moysklad_remap_12_sdk.models.by_operations_stock_assortment import ByOperationsStockAssortment as ByOperationsStockAssortment
+from moysklad_remap_12_sdk.models.by_operations_stock_list import ByOperationsStockList as ByOperationsStockList
+from moysklad_remap_12_sdk.models.by_operations_stock_operation import ByOperationsStockOperation as ByOperationsStockOperation
+from moysklad_remap_12_sdk.models.by_operations_stock_store import ByOperationsStockStore as ByOperationsStockStore
 from moysklad_remap_12_sdk.models.cash_in import CashIn as CashIn
 from moysklad_remap_12_sdk.models.cash_in_list import CashInList as CashInList
 from moysklad_remap_12_sdk.models.cash_out import CashOut as CashOut
@@ -1065,6 +1095,12 @@ from moysklad_remap_12_sdk.models.state_row_result import StateRowResult as Stat
 from moysklad_remap_12_sdk.models.state_type import StateType as StateType
 from moysklad_remap_12_sdk.models.stock_all import StockAll as StockAll
 from moysklad_remap_12_sdk.models.stock_all_list import StockAllList as StockAllList
+from moysklad_remap_12_sdk.models.stock_by_operation import StockByOperation as StockByOperation
+from moysklad_remap_12_sdk.models.stock_by_operation_list import StockByOperationList as StockByOperationList
+from moysklad_remap_12_sdk.models.stock_by_operation_position import StockByOperationPosition as StockByOperationPosition
+from moysklad_remap_12_sdk.models.stock_by_store import StockByStore as StockByStore
+from moysklad_remap_12_sdk.models.stock_by_store_item import StockByStoreItem as StockByStoreItem
+from moysklad_remap_12_sdk.models.stock_by_store_list import StockByStoreList as StockByStoreList
 from moysklad_remap_12_sdk.models.store import Store as Store
 from moysklad_remap_12_sdk.models.store_balance import StoreBalance as StoreBalance
 from moysklad_remap_12_sdk.models.store_balance_list import StoreBalanceList as StoreBalanceList
