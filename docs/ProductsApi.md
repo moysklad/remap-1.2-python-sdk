@@ -414,7 +414,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **create_product_store_balance**
-> StoreBalance create_product_store_balance(id, store_balance, accept=accept, accept_encoding=accept_encoding, content_type=content_type)
+> List[StoreBalance] create_product_store_balance(id, store_balance, accept=accept, accept_encoding=accept_encoding, content_type=content_type)
 
 Создать НСО товара для склада
 
@@ -487,7 +487,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**StoreBalance**](StoreBalance.md)
+[**List[StoreBalance]**](StoreBalance.md)
 
 ### Authorization
 

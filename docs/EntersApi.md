@@ -589,7 +589,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **create_enter_position**
-> EnterPosition create_enter_position(id, enter_position, expand=expand, accept=accept, accept_encoding=accept_encoding, content_type=content_type)
+> List[EnterPosition] create_enter_position(id, enter_position, expand=expand, accept=accept, accept_encoding=accept_encoding, content_type=content_type)
 
 Создать и обновить позицию Оприходования
 
@@ -662,7 +662,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**EnterPosition**](EnterPosition.md)
+[**List[EnterPosition]**](EnterPosition.md)
 
 ### Authorization
 

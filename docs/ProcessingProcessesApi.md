@@ -115,7 +115,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **create_processing_process_position**
-> ProcessingProcessPosition create_processing_process_position(id, processing_process_position, expand=expand, accept=accept, accept_encoding=accept_encoding, content_type=content_type)
+> List[ProcessingProcessPosition] create_processing_process_position(id, processing_process_position, expand=expand, accept=accept, accept_encoding=accept_encoding, content_type=content_type)
 
 Создать и обновить позицию Техпроцесса
 
@@ -188,7 +188,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ProcessingProcessPosition**](ProcessingProcessPosition.md)
+[**List[ProcessingProcessPosition]**](ProcessingProcessPosition.md)
 
 ### Authorization
 

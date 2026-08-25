@@ -594,7 +594,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **create_customer_order_position**
-> CustomerOrderPosition create_customer_order_position(id, customer_order_position, expand=expand, accept=accept, accept_encoding=accept_encoding, content_type=content_type)
+> List[CustomerOrderPosition] create_customer_order_position(id, customer_order_position, expand=expand, accept=accept, accept_encoding=accept_encoding, content_type=content_type)
 
 Создать и обновить позицию Заказа покупателя
 
@@ -667,7 +667,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CustomerOrderPosition**](CustomerOrderPosition.md)
+[**List[CustomerOrderPosition]**](CustomerOrderPosition.md)
 
 ### Authorization
 

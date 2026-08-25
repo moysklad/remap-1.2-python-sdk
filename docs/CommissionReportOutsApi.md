@@ -687,7 +687,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **create_commission_report_out_position**
-> CommissionReportOutPosition create_commission_report_out_position(id, commission_report_out_position, expand=expand, accept=accept, accept_encoding=accept_encoding, content_type=content_type)
+> List[CommissionReportOutPosition] create_commission_report_out_position(id, commission_report_out_position, expand=expand, accept=accept, accept_encoding=accept_encoding, content_type=content_type)
 
 Создать и обновить позицию Выданного отчета комиссионера
 
@@ -760,7 +760,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CommissionReportOutPosition**](CommissionReportOutPosition.md)
+[**List[CommissionReportOutPosition]**](CommissionReportOutPosition.md)
 
 ### Authorization
 

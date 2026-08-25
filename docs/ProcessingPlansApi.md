@@ -224,7 +224,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **create_processing_plan_materials**
-> ProcessingPlanMaterial create_processing_plan_materials(id, processing_plan_material, expand=expand, accept=accept, accept_encoding=accept_encoding, content_type=content_type)
+> List[ProcessingPlanMaterial] create_processing_plan_materials(id, processing_plan_material, expand=expand, accept=accept, accept_encoding=accept_encoding, content_type=content_type)
 
 Создать материал Техкарты
 
@@ -299,7 +299,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ProcessingPlanMaterial**](ProcessingPlanMaterial.md)
+[**List[ProcessingPlanMaterial]**](ProcessingPlanMaterial.md)
 
 ### Authorization
 

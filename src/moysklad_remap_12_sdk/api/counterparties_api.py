@@ -1089,7 +1089,7 @@ class CounterpartiesApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> Account:
+    ) -> List[Account]:
         """Создать счёт контрагента
 
         Создание нового счёта у данного Контрагента.
@@ -1139,7 +1139,7 @@ class CounterpartiesApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "Account",
+            '200': "List[Account]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1172,7 +1172,7 @@ class CounterpartiesApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[Account]:
+    ) -> ApiResponse[List[Account]]:
         """Создать счёт контрагента
 
         Создание нового счёта у данного Контрагента.
@@ -1222,7 +1222,7 @@ class CounterpartiesApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "Account",
+            '200': "List[Account]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1305,7 +1305,7 @@ class CounterpartiesApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "Account",
+            '200': "List[Account]",
         }
         response_data = self.api_client.call_api(
             *_param,

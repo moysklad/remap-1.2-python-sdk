@@ -489,7 +489,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **create_internal_order_position**
-> InternalOrderPosition create_internal_order_position(id, internal_order_position, expand=expand, accept=accept, accept_encoding=accept_encoding, content_type=content_type)
+> List[InternalOrderPosition] create_internal_order_position(id, internal_order_position, expand=expand, accept=accept, accept_encoding=accept_encoding, content_type=content_type)
 
 Создать и обновить позицию Внутреннего заказа
 
@@ -562,7 +562,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InternalOrderPosition**](InternalOrderPosition.md)
+[**List[InternalOrderPosition]**](InternalOrderPosition.md)
 
 ### Authorization
 

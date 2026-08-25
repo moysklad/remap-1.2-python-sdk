@@ -737,7 +737,7 @@ class EmissionOrdersApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> EmissionOrderPosition:
+    ) -> List[EmissionOrderPosition]:
         """Создать и обновить позицию Заказа кодов маркировки
 
 
@@ -789,7 +789,7 @@ class EmissionOrdersApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "EmissionOrderPosition",
+            '200': "List[EmissionOrderPosition]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -823,7 +823,7 @@ class EmissionOrdersApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[EmissionOrderPosition]:
+    ) -> ApiResponse[List[EmissionOrderPosition]]:
         """Создать и обновить позицию Заказа кодов маркировки
 
 
@@ -875,7 +875,7 @@ class EmissionOrdersApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "EmissionOrderPosition",
+            '200': "List[EmissionOrderPosition]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -961,7 +961,7 @@ class EmissionOrdersApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "EmissionOrderPosition",
+            '200': "List[EmissionOrderPosition]",
         }
         response_data = self.api_client.call_api(
             *_param,

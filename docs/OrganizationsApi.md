@@ -1602,7 +1602,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **update_organization_accounts**
-> Account update_organization_accounts(id, account, accept=accept, accept_encoding=accept_encoding, content_type=content_type)
+> List[Account] update_organization_accounts(id, account, accept=accept, accept_encoding=accept_encoding, content_type=content_type)
 
 Изменить счета юрлица
 
@@ -1675,7 +1675,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Account**](Account.md)
+[**List[Account]**](Account.md)
 
 ### Authorization
 

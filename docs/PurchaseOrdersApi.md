@@ -588,7 +588,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **create_purchase_order_position**
-> PurchaseOrderPosition create_purchase_order_position(id, purchase_order_position, expand=expand, accept=accept, accept_encoding=accept_encoding, content_type=content_type)
+> List[PurchaseOrderPosition] create_purchase_order_position(id, purchase_order_position, expand=expand, accept=accept, accept_encoding=accept_encoding, content_type=content_type)
 
 Создать и обновить позицию Заказа поставщику
 
@@ -661,7 +661,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PurchaseOrderPosition**](PurchaseOrderPosition.md)
+[**List[PurchaseOrderPosition]**](PurchaseOrderPosition.md)
 
 ### Authorization
 

@@ -406,7 +406,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **create_move_position**
-> MovePosition create_move_position(id, move_position, expand=expand, accept=accept, accept_encoding=accept_encoding, content_type=content_type)
+> List[MovePosition] create_move_position(id, move_position, expand=expand, accept=accept, accept_encoding=accept_encoding, content_type=content_type)
 
 Создать и обновить позицию Перемещения
 
@@ -479,7 +479,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**MovePosition**](MovePosition.md)
+[**List[MovePosition]**](MovePosition.md)
 
 ### Authorization
 

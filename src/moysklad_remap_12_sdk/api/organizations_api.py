@@ -5578,7 +5578,7 @@ class OrganizationsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> Account:
+    ) -> List[Account]:
         """Изменить счета юрлица
 
         Создание нового счёта у данного юрлица
@@ -5628,7 +5628,7 @@ class OrganizationsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "Account",
+            '200': "List[Account]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -5661,7 +5661,7 @@ class OrganizationsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[Account]:
+    ) -> ApiResponse[List[Account]]:
         """Изменить счета юрлица
 
         Создание нового счёта у данного юрлица
@@ -5711,7 +5711,7 @@ class OrganizationsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "Account",
+            '200': "List[Account]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -5794,7 +5794,7 @@ class OrganizationsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "Account",
+            '200': "List[Account]",
         }
         response_data = self.api_client.call_api(
             *_param,

@@ -329,7 +329,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **create_counterparty_account**
-> Account create_counterparty_account(id, account, accept=accept, accept_encoding=accept_encoding, content_type=content_type)
+> List[Account] create_counterparty_account(id, account, accept=accept, accept_encoding=accept_encoding, content_type=content_type)
 
 Создать счёт контрагента
 
@@ -402,7 +402,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Account**](Account.md)
+[**List[Account]**](Account.md)
 
 ### Authorization
 

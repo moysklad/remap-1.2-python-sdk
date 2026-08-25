@@ -404,7 +404,7 @@ class ProcessingProcessesApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ProcessingProcessPosition:
+    ) -> List[ProcessingProcessPosition]:
         """Создать и обновить позицию Техпроцесса
 
 
@@ -456,7 +456,7 @@ class ProcessingProcessesApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "ProcessingProcessPosition",
+            '200': "List[ProcessingProcessPosition]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -490,7 +490,7 @@ class ProcessingProcessesApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[ProcessingProcessPosition]:
+    ) -> ApiResponse[List[ProcessingProcessPosition]]:
         """Создать и обновить позицию Техпроцесса
 
 
@@ -542,7 +542,7 @@ class ProcessingProcessesApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "ProcessingProcessPosition",
+            '200': "List[ProcessingProcessPosition]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -628,7 +628,7 @@ class ProcessingProcessesApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "ProcessingProcessPosition",
+            '200': "List[ProcessingProcessPosition]",
         }
         response_data = self.api_client.call_api(
             *_param,

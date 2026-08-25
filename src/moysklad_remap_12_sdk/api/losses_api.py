@@ -1059,7 +1059,7 @@ class LossesApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> LossPosition:
+    ) -> List[LossPosition]:
         """Создать и обновить позицию Списания
 
 
@@ -1111,7 +1111,7 @@ class LossesApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "LossPosition",
+            '200': "List[LossPosition]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1145,7 +1145,7 @@ class LossesApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[LossPosition]:
+    ) -> ApiResponse[List[LossPosition]]:
         """Создать и обновить позицию Списания
 
 
@@ -1197,7 +1197,7 @@ class LossesApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "LossPosition",
+            '200': "List[LossPosition]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1283,7 +1283,7 @@ class LossesApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "LossPosition",
+            '200': "List[LossPosition]",
         }
         response_data = self.api_client.call_api(
             *_param,

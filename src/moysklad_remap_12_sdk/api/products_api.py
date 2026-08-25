@@ -1406,7 +1406,7 @@ class ProductsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> StoreBalance:
+    ) -> List[StoreBalance]:
         """Создать НСО товара для склада
 
         Создание нового Неснижаемого остатка Товара для склада.
@@ -1456,7 +1456,7 @@ class ProductsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "StoreBalance",
+            '200': "List[StoreBalance]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1489,7 +1489,7 @@ class ProductsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[StoreBalance]:
+    ) -> ApiResponse[List[StoreBalance]]:
         """Создать НСО товара для склада
 
         Создание нового Неснижаемого остатка Товара для склада.
@@ -1539,7 +1539,7 @@ class ProductsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "StoreBalance",
+            '200': "List[StoreBalance]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1622,7 +1622,7 @@ class ProductsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "StoreBalance",
+            '200': "List[StoreBalance]",
         }
         response_data = self.api_client.call_api(
             *_param,

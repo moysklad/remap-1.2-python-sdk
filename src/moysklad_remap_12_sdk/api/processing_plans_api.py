@@ -749,7 +749,7 @@ class ProcessingPlansApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ProcessingPlanMaterial:
+    ) -> List[ProcessingPlanMaterial]:
         """Создать материал Техкарты
 
         Запрос на создание нового материала в Техкарте
@@ -802,7 +802,7 @@ class ProcessingPlansApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "ProcessingPlanMaterial",
+            '200': "List[ProcessingPlanMaterial]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -836,7 +836,7 @@ class ProcessingPlansApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[ProcessingPlanMaterial]:
+    ) -> ApiResponse[List[ProcessingPlanMaterial]]:
         """Создать материал Техкарты
 
         Запрос на создание нового материала в Техкарте
@@ -889,7 +889,7 @@ class ProcessingPlansApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "ProcessingPlanMaterial",
+            '200': "List[ProcessingPlanMaterial]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -976,7 +976,7 @@ class ProcessingPlansApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "ProcessingPlanMaterial",
+            '200': "List[ProcessingPlanMaterial]",
         }
         response_data = self.api_client.call_api(
             *_param,

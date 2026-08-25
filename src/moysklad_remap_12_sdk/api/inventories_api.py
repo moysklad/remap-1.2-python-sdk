@@ -2037,7 +2037,7 @@ class InventoriesApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> InventoryPosition:
+    ) -> List[InventoryPosition]:
         """Создать и обновить позицию Инвентаризации
 
 
@@ -2089,7 +2089,7 @@ class InventoriesApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "InventoryPosition",
+            '200': "List[InventoryPosition]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2123,7 +2123,7 @@ class InventoriesApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[InventoryPosition]:
+    ) -> ApiResponse[List[InventoryPosition]]:
         """Создать и обновить позицию Инвентаризации
 
 
@@ -2175,7 +2175,7 @@ class InventoriesApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "InventoryPosition",
+            '200': "List[InventoryPosition]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2261,7 +2261,7 @@ class InventoriesApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "InventoryPosition",
+            '200': "List[InventoryPosition]",
         }
         response_data = self.api_client.call_api(
             *_param,

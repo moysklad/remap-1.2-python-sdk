@@ -1697,7 +1697,7 @@ class InternalOrdersApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> InternalOrderPosition:
+    ) -> List[InternalOrderPosition]:
         """Создать и обновить позицию Внутреннего заказа
 
 
@@ -1749,7 +1749,7 @@ class InternalOrdersApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "InternalOrderPosition",
+            '200': "List[InternalOrderPosition]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1783,7 +1783,7 @@ class InternalOrdersApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[InternalOrderPosition]:
+    ) -> ApiResponse[List[InternalOrderPosition]]:
         """Создать и обновить позицию Внутреннего заказа
 
 
@@ -1835,7 +1835,7 @@ class InternalOrdersApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "InternalOrderPosition",
+            '200': "List[InternalOrderPosition]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1921,7 +1921,7 @@ class InternalOrdersApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "InternalOrderPosition",
+            '200': "List[InternalOrderPosition]",
         }
         response_data = self.api_client.call_api(
             *_param,

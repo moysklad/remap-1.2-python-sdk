@@ -1700,7 +1700,7 @@ class CommissionReportInsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> CommissionReportInPosition:
+    ) -> List[CommissionReportInPosition]:
         """Создать и обновить позицию Полученного отчета комиссионера
 
 
@@ -1752,7 +1752,7 @@ class CommissionReportInsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "CommissionReportInPosition",
+            '200': "List[CommissionReportInPosition]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1786,7 +1786,7 @@ class CommissionReportInsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[CommissionReportInPosition]:
+    ) -> ApiResponse[List[CommissionReportInPosition]]:
         """Создать и обновить позицию Полученного отчета комиссионера
 
 
@@ -1838,7 +1838,7 @@ class CommissionReportInsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "CommissionReportInPosition",
+            '200': "List[CommissionReportInPosition]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1924,7 +1924,7 @@ class CommissionReportInsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "CommissionReportInPosition",
+            '200': "List[CommissionReportInPosition]",
         }
         response_data = self.api_client.call_api(
             *_param,

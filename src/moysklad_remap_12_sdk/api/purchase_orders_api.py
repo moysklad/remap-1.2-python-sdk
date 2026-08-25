@@ -2035,7 +2035,7 @@ class PurchaseOrdersApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> PurchaseOrderPosition:
+    ) -> List[PurchaseOrderPosition]:
         """Создать и обновить позицию Заказа поставщику
 
 
@@ -2087,7 +2087,7 @@ class PurchaseOrdersApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "PurchaseOrderPosition",
+            '200': "List[PurchaseOrderPosition]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2121,7 +2121,7 @@ class PurchaseOrdersApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[PurchaseOrderPosition]:
+    ) -> ApiResponse[List[PurchaseOrderPosition]]:
         """Создать и обновить позицию Заказа поставщику
 
 
@@ -2173,7 +2173,7 @@ class PurchaseOrdersApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "PurchaseOrderPosition",
+            '200': "List[PurchaseOrderPosition]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2259,7 +2259,7 @@ class PurchaseOrdersApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "PurchaseOrderPosition",
+            '200': "List[PurchaseOrderPosition]",
         }
         response_data = self.api_client.call_api(
             *_param,

@@ -306,7 +306,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **create_loss_position**
-> LossPosition create_loss_position(id, loss_position, expand=expand, accept=accept, accept_encoding=accept_encoding, content_type=content_type)
+> List[LossPosition] create_loss_position(id, loss_position, expand=expand, accept=accept, accept_encoding=accept_encoding, content_type=content_type)
 
 Создать и обновить позицию Списания
 
@@ -379,7 +379,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**LossPosition**](LossPosition.md)
+[**List[LossPosition]**](LossPosition.md)
 
 ### Authorization
 

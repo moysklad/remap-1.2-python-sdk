@@ -590,7 +590,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **create_processing_order_position**
-> ProcessingOrderPosition create_processing_order_position(id, processing_order_position, expand=expand, accept=accept, accept_encoding=accept_encoding, content_type=content_type)
+> List[ProcessingOrderPosition] create_processing_order_position(id, processing_order_position, expand=expand, accept=accept, accept_encoding=accept_encoding, content_type=content_type)
 
 Обновить позицию ProcessingOrder
 
@@ -663,7 +663,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ProcessingOrderPosition**](ProcessingOrderPosition.md)
+[**List[ProcessingOrderPosition]**](ProcessingOrderPosition.md)
 
 ### Authorization
 

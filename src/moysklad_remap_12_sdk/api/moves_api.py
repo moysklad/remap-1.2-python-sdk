@@ -1398,7 +1398,7 @@ class MovesApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> MovePosition:
+    ) -> List[MovePosition]:
         """Создать и обновить позицию Перемещения
 
 
@@ -1450,7 +1450,7 @@ class MovesApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "MovePosition",
+            '200': "List[MovePosition]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1484,7 +1484,7 @@ class MovesApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[MovePosition]:
+    ) -> ApiResponse[List[MovePosition]]:
         """Создать и обновить позицию Перемещения
 
 
@@ -1536,7 +1536,7 @@ class MovesApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "MovePosition",
+            '200': "List[MovePosition]",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1622,7 +1622,7 @@ class MovesApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "MovePosition",
+            '200': "List[MovePosition]",
         }
         response_data = self.api_client.call_api(
             *_param,

@@ -306,7 +306,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **create_sales_return_position**
-> SalesReturnPosition create_sales_return_position(id, sales_return_position, expand=expand, accept=accept, accept_encoding=accept_encoding, content_type=content_type)
+> List[SalesReturnPosition] create_sales_return_position(id, sales_return_position, expand=expand, accept=accept, accept_encoding=accept_encoding, content_type=content_type)
 
 Создать и обновить позицию Возврата покупателя
 
@@ -379,7 +379,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**SalesReturnPosition**](SalesReturnPosition.md)
+[**List[SalesReturnPosition]**](SalesReturnPosition.md)
 
 ### Authorization
 
