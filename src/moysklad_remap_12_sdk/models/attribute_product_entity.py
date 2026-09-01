@@ -20,8 +20,8 @@ import json
 from pydantic import ConfigDict, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
 from moysklad_remap_12_sdk.models.attribute_abstract import AttributeAbstract
+from moysklad_remap_12_sdk.models.entity_with_meta import EntityWithMeta
 from moysklad_remap_12_sdk.models.meta import Meta
-from moysklad_remap_12_sdk.models.product_marker import ProductMarker
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -30,7 +30,7 @@ class AttributeProductEntity(AttributeAbstract):
     AttributeProductEntity
     """ # noqa: E501
     type: Optional[StrictStr] = None
-    value: Optional[ProductMarker] = None
+    value: Optional[EntityWithMeta] = None
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["id", "name", "type", "meta"]
 
@@ -116,7 +116,7 @@ class AttributeProductEntity(AttributeAbstract):
 
 
 
-from moysklad_remap_12_sdk.models.product_marker import ProductMarker
+from moysklad_remap_12_sdk.models.entity_with_meta import EntityWithMeta
 
 
 

@@ -19,6 +19,7 @@ import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictInt
 from typing import Any, ClassVar, Dict, List, Optional
+from moysklad_remap_12_sdk.models.meta import Meta
 from moysklad_remap_12_sdk.models.price_type import PriceType
 from typing import Optional, Set
 from typing_extensions import Self
@@ -28,9 +29,10 @@ class SpecialPriceDiscountSpecialPrice(BaseModel):
     Спец. цена (используется при usePriceType=true)
     """ # noqa: E501
     value: Optional[StrictInt] = Field(default=None, description="Значение цены")
+    meta: Optional[Meta] = None
     price_type: Optional[PriceType] = Field(default=None, alias="priceType")
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["value", "priceType"]
+    __properties: ClassVar[List[str]] = ["value", "meta", "priceType"]
 
     model_config = ConfigDict(
         extra="allow",
@@ -69,6 +71,8 @@ class SpecialPriceDiscountSpecialPrice(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        if self.meta:
+            _dict['meta'] = self.meta.to_dict()
         if self.price_type:
             _dict['priceType'] = self.price_type.to_dict()
         if self.additional_properties is not None:
@@ -89,6 +93,7 @@ class SpecialPriceDiscountSpecialPrice(BaseModel):
         _data = dict(obj)
         _data.update({
             "value": obj.get("value"),
+            "meta": Meta.from_dict(obj["meta"]) if obj.get("meta") is not None else None,
             "priceType": PriceType.from_dict(obj["priceType"]) if obj.get("priceType") is not None else None
         })
         _obj = cls.model_validate(_data)
@@ -99,6 +104,10 @@ class SpecialPriceDiscountSpecialPrice(BaseModel):
         return _obj
 
 
+
+
+
+from moysklad_remap_12_sdk.models.meta import Meta
 
 
 

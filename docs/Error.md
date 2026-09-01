@@ -5,7 +5,15 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**errors** | [**List[ErrorErrorsInner]**](ErrorErrorsInner.md) |  | 
+**error** | **str** | Заголовок ошибки | 
+**parameter** | **str** | Параметр, на котором произошла ошибка | [optional] 
+**code** | **int** | Код ошибки | [optional] 
+**error_message** | **str** | Сообщение, прилагаемое к ошибке | [optional] 
+**more_info** | **str** | Ссылка на документацию с описанием ошибки | [optional] 
+**line** | **int** | Строка JSON, на которой произошла ошибка | [optional] 
+**column** | **int** | Координата элемента в строке, на котором произошла ошибка | [optional] 
+**dependencies** | [**List[Meta]**](Meta.md) | Список метаданных зависимых сущностей | [optional] 
+**meta** | [**Meta**](Meta.md) |  | [optional] 
 
 ## Example
 

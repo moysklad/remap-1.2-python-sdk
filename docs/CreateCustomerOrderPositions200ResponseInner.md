@@ -6,7 +6,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **meta** | [**Meta**](Meta.md) |  | [optional] 
-**id** | **str** | ID позиции | [optional] [readonly] 
+**id** | **str** | ID позиции | [optional] 
 **account_id** | **str** | ID учетной записи | [optional] [readonly] 
 **quantity** | **float** | Количество товаров данного вида в позиции | [optional] 
 **price** | **float** | Цена товара/услуги в копейках | [optional] 
@@ -19,7 +19,7 @@ Name | Type | Description | Notes
 **assortment** | [**ProductMarker**](ProductMarker.md) | Метаданные товара/услуги/модификации/комплекта, которую представляет собой позиция | [optional] 
 **pack** | [**Pack**](Pack.md) | Упаковка Товара | [optional] 
 **stock** | [**PositionStock**](PositionStock.md) | Остатки и себестоимость позиции. Не выводится по умолчанию. Для получения передайте параметр &#x60;?fields&#x3D;stock&#x60;.  | [optional] 
-**errors** | [**List[ErrorErrorsInner]**](ErrorErrorsInner.md) |  | 
+**errors** | [**List[Error]**](Error.md) |  | 
 
 ## Example
 

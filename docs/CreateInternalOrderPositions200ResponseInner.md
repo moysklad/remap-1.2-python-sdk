@@ -6,7 +6,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **meta** | [**Meta**](Meta.md) |  | [optional] 
-**id** | **str** | ID позиции | [optional] [readonly] 
+**id** | **str** | ID позиции | [optional] 
 **account_id** | **str** | ID учетной записи | [optional] [readonly] 
 **quantity** | **float** | Количество товаров данного вида в позиции | [optional] 
 **price** | **float** | Цена товара/услуги в копейках | [optional] 
@@ -14,7 +14,7 @@ Name | Type | Description | Notes
 **vat_enabled** | **bool** | Включен ли НДС для позиции | [optional] 
 **assortment** | [**ProductMarker**](ProductMarker.md) | Метаданные товара/услуги/модификации/комплекта, которую представляет собой позиция | [optional] 
 **pack** | [**Pack**](Pack.md) | Упаковка Товара | [optional] 
-**errors** | [**List[ErrorErrorsInner]**](ErrorErrorsInner.md) |  | 
+**errors** | [**List[Error]**](Error.md) |  | 
 
 ## Example
 

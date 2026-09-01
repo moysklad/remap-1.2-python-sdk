@@ -34,6 +34,7 @@ from moysklad_remap_12_sdk.api.invoice_ins_api import InvoiceInsApi
 from moysklad_remap_12_sdk.api.invoice_outs_api import InvoiceOutsApi
 from moysklad_remap_12_sdk.api.labels_api import LabelsApi
 from moysklad_remap_12_sdk.api.losses_api import LossesApi
+from moysklad_remap_12_sdk.api.metadata_api import MetadataApi
 from moysklad_remap_12_sdk.api.moves_api import MovesApi
 from moysklad_remap_12_sdk.api.notifications_api import NotificationsApi
 from moysklad_remap_12_sdk.api.organizations_api import OrganizationsApi

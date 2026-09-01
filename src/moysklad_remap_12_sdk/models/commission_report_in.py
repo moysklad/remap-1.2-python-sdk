@@ -76,7 +76,7 @@ class CommissionReportIn(EntityWithMeta):
     published: Optional[StrictBool] = Field(default=None, description="Опубликован ли документ")
     rate: Optional[CurrencyRate] = None
     return_to_commissioner_positions: Optional[CommissionReportInReturnedPositionList] = Field(default=None, description="""Метаданные позиций возврата на склад комиссионера Полученного отчета комиссионера""", alias="returnToCommissionerPositions")
-    reward_percent: Optional[Annotated[int, Field(le=100, strict=True, ge=0)]] = Field(default=None, description="Процент вознаграждения", alias="rewardPercent")
+    reward_percent: Optional[Union[Annotated[float, Field(le=100, strict=True, ge=0)], Annotated[int, Field(le=100, strict=True, ge=0)]]] = Field(default=None, description="Процент вознаграждения", alias="rewardPercent")
     reward_type: Optional[Annotated[str, Field(strict=True, max_length=255)]] = Field(default=None, description="Тип Вознаграждения. Известные значения описаны в RewardType", alias="rewardType")
     sales_channel: Optional[SalesChannel] = Field(default=None, description="Метаданные канала продаж", alias="salesChannel")
     shared: Optional[StrictBool] = Field(default=None, description="Общий доступ")

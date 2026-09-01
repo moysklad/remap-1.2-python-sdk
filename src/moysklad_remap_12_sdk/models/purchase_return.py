@@ -217,9 +217,6 @@ class PurchaseReturn(EntityWithMeta):
         if self.files is None and "files" in self.model_fields_set:
             _dict['files'] = None
 
-        if self.positions is None and "positions" in self.model_fields_set:
-            _dict['positions'] = None
-
         if self.supply is None and "supply" in self.model_fields_set:
             _dict['supply'] = None
 

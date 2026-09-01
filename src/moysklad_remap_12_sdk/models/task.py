@@ -22,8 +22,8 @@ from typing import Any, ClassVar, Dict, List, Optional
 from typing_extensions import Annotated
 from moysklad_remap_12_sdk.models.agent import Agent
 from moysklad_remap_12_sdk.models.application import Application
-from moysklad_remap_12_sdk.models.document_metadata import DocumentMetadata
 from moysklad_remap_12_sdk.models.employee import Employee
+from moysklad_remap_12_sdk.models.entity_with_meta import EntityWithMeta
 from moysklad_remap_12_sdk.models.file_list import FileList
 from moysklad_remap_12_sdk.models.meta import Meta
 from moysklad_remap_12_sdk.models.state import State
@@ -52,7 +52,7 @@ class Task(EntityWithMeta):
     files: Optional[FileList] = Field(default=None, description="Метаданные массива Файлов")
     implementer: Optional[Employee] = None
     notes: Optional[TaskNotes] = None
-    operation: Optional[DocumentMetadata] = None
+    operation: Optional[EntityWithMeta] = None
     state: Optional[State] = Field(default=None, description="Метаданные типа задачи")
     updated: Optional[StrictStr] = Field(default=None, description="Момент последнего обновления Задачи")
     additional_properties: Dict[str, Any] = {}
@@ -175,7 +175,7 @@ class Task(EntityWithMeta):
             "files": FileList.from_dict(obj["files"]) if obj.get("files") is not None else None,
             "implementer": Employee.from_dict(obj["implementer"]) if obj.get("implementer") is not None else None,
             "notes": TaskNotes.from_dict(obj["notes"]) if obj.get("notes") is not None else None,
-            "operation": DocumentMetadata.from_dict(obj["operation"]) if obj.get("operation") is not None else None,
+            "operation": EntityWithMeta.from_dict(obj["operation"]) if obj.get("operation") is not None else None,
             "state": State.from_dict(obj["state"]) if obj.get("state") is not None else None,
             "updated": obj.get("updated")
         })
@@ -234,7 +234,7 @@ from moysklad_remap_12_sdk.models.task_notes import TaskNotes
 
 
 
-from moysklad_remap_12_sdk.models.document_metadata import DocumentMetadata
+from moysklad_remap_12_sdk.models.entity_with_meta import EntityWithMeta
 
 
 

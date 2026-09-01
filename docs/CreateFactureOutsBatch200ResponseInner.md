@@ -41,7 +41,7 @@ Name | Type | Description | Notes
 **consignee** | [**Agent**](Agent.md) | Грузополучатель (контрагент или юрлицо) | [optional] 
 **payment_number** | **str** | Название платежного документа | [optional] 
 **payment_date** | **str** | Дата платежного документа | [optional] 
-**errors** | [**List[ErrorErrorsInner]**](ErrorErrorsInner.md) |  | 
+**errors** | [**List[Error]**](Error.md) |  | 
 
 ## Example
 

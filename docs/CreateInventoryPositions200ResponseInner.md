@@ -6,7 +6,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **meta** | [**Meta**](Meta.md) |  | [optional] 
-**id** | **str** | ID позиции | [optional] [readonly] 
+**id** | **str** | ID позиции | [optional] 
 **account_id** | **str** | ID учетной записи | [optional] [readonly] 
 **assortment** | [**ProductMarker**](ProductMarker.md) | Метаданные товара/услуги/партии/модификации, которую представляет собой позиция | [optional] 
 **calculated_quantity** | **float** | Расчетный остаток | [optional] 
@@ -16,7 +16,7 @@ Name | Type | Description | Notes
 **price** | **float** | Цена товара/услуги в копейках | [optional] 
 **things** | **List[str]** | Серийные номера. Игнорируется, если товар позиции не на серийном учёте; иначе количество единиц в позиции совпадает с числом переданных серийных номеров.  | [optional] 
 **quantity** | **float** | Количество товаров/услуг данного вида в позиции. Если позиция - товар,  у которого включен учет по серийным номерам, то значение в этом поле всегда  будет равно количеству серийных номеров для данной позиции в документе.  | [optional] 
-**errors** | [**List[ErrorErrorsInner]**](ErrorErrorsInner.md) |  | 
+**errors** | [**List[Error]**](Error.md) |  | 
 
 ## Example
 

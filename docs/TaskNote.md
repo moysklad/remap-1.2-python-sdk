@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 **author_application** | [**Application**](Application.md) |  | [optional] 
 **moment** | **str** | Момент создания комментария | [optional] [readonly] 
 **text** | **str** | Текст комментария | [optional] 
-**files** | [**TaskNoteFileList**](TaskNoteFileList.md) | Метаданные массива Файлов | [optional] 
+**files** | [**FileList**](FileList.md) | Метаданные массива Файлов | [optional] 
 
 ## Example
 

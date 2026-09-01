@@ -97,7 +97,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Успешный запрос. JSON представление показателей за день |  -  |
-**0** | Ошибка запроса (тело — объект или массив объектов с полем errors) |  -  |
+**0** | Ошибка запроса (тело — объект с полем errors) |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -187,7 +187,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Успешный запрос. JSON представление показателей за месяц |  -  |
-**0** | Ошибка запроса (тело — объект или массив объектов с полем errors) |  -  |
+**0** | Ошибка запроса (тело — объект с полем errors) |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -277,7 +277,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Успешный запрос. JSON представление показателей за неделю |  -  |
-**0** | Ошибка запроса (тело — объект или массив объектов с полем errors) |  -  |
+**0** | Ошибка запроса (тело — объект с полем errors) |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -377,7 +377,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Успешный запрос. JSON представление отчета показателей заказов |  * X-Lognex-Content-Timezone - Заголовок ответа. В нем указывается (как думает сервер) текущая дата на клиенте в RFC 3522. Пример: &#x60;Wed, 16 Aug 2017 23:07:01 +0700&#x60;.  <br>  |
-**0** | Ошибка запроса (тело — объект или массив объектов с полем errors) |  -  |
+**0** | Ошибка запроса (тело — объект с полем errors) |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -478,7 +478,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Успешный запрос. JSON представление отчета показателей продаж |  * X-Lognex-Content-Timezone - Заголовок ответа. В нем указывается (как думает сервер) текущая дата на клиенте в RFC 3522. Пример: &#x60;Wed, 16 Aug 2017 23:07:01 +0700&#x60;.  <br>  |
-**0** | Ошибка запроса (тело — объект или массив объектов с полем errors) |  -  |
+**0** | Ошибка запроса (тело — объект с полем errors) |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

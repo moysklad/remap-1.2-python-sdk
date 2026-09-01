@@ -46,7 +46,7 @@ Name | Type | Description | Notes
 **customer_order** | [**CustomerOrder**](CustomerOrder.md) | Заказ покупателя, с которым связан Счет покупателю | [optional] 
 **demands** | [**List[Demand]**](Demand.md) | Массив ссылок на связанные отгрузки | [optional] 
 **payments** | [**List[RetailShiftPaymentsInner]**](RetailShiftPaymentsInner.md) | Массив ссылок на связанные операции | [optional] 
-**errors** | [**List[ErrorErrorsInner]**](ErrorErrorsInner.md) |  | 
+**errors** | [**List[Error]**](Error.md) |  | 
 
 ## Example
 

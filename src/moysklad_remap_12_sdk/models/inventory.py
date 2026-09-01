@@ -174,9 +174,6 @@ class Inventory(EntityWithMeta):
         if self.owner is None and "owner" in self.model_fields_set:
             _dict['owner'] = None
 
-        if self.positions is None and "positions" in self.model_fields_set:
-            _dict['positions'] = None
-
         if self.state is None and "state" in self.model_fields_set:
             _dict['state'] = None
 

@@ -105,12 +105,12 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Успешный запрос |  -  |
-**0** | Ошибка запроса (тело — объект или массив объектов с полем errors) |  -  |
+**0** | Ошибка запроса (тело — объект с полем errors) |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **create_retail_store**
-> RetailStore create_retail_store(retail_store, accept=accept, accept_encoding=accept_encoding, expand=expand, content_type=content_type)
+> RetailStore create_retail_store(retail_store_upsert, accept=accept, accept_encoding=accept_encoding, expand=expand, content_type=content_type)
 
 Создать точку продаж
 
@@ -122,6 +122,7 @@ Name | Type | Description  | Notes
 ```python
 import moysklad_remap_12_sdk
 from moysklad_remap_12_sdk.models.retail_store import RetailStore
+from moysklad_remap_12_sdk.models.retail_store_upsert import RetailStoreUpsert
 from moysklad_remap_12_sdk.rest import ApiException
 from pprint import pprint
 
@@ -151,7 +152,7 @@ configuration = moysklad_remap_12_sdk.Configuration(
 with moysklad_remap_12_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = moysklad_remap_12_sdk.RetailStoresApi(api_client)
-    retail_store = moysklad_remap_12_sdk.RetailStore() # RetailStore | 
+    retail_store_upsert = moysklad_remap_12_sdk.RetailStoreUpsert() # RetailStoreUpsert | 
     accept = application/json;charset=utf-8 # str |  (optional) (default to application/json;charset=utf-8)
     accept_encoding = 'gzip, deflate, br' # str |  (optional) (default to 'gzip, deflate, br')
     expand = 'expand_example' # str | Замена ссылок объектами с помощью expand (optional)
@@ -159,7 +160,7 @@ with moysklad_remap_12_sdk.ApiClient(configuration) as api_client:
 
     try:
         # Создать точку продаж
-        api_response = api_instance.create_retail_store(retail_store, accept=accept, accept_encoding=accept_encoding, expand=expand, content_type=content_type)
+        api_response = api_instance.create_retail_store(retail_store_upsert, accept=accept, accept_encoding=accept_encoding, expand=expand, content_type=content_type)
         print("The response of RetailStoresApi->create_retail_store:\n")
         pprint(api_response)
     except Exception as e:
@@ -173,7 +174,7 @@ with moysklad_remap_12_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **retail_store** | [**RetailStore**](RetailStore.md)|  | 
+ **retail_store_upsert** | [**RetailStoreUpsert**](RetailStoreUpsert.md)|  | 
  **accept** | **str**|  | [optional] [default to application/json;charset&#x3D;utf-8]
  **accept_encoding** | **str**|  | [optional] [default to &#39;gzip, deflate, br&#39;]
  **expand** | **str**| Замена ссылок объектами с помощью expand | [optional] 
@@ -197,12 +198,12 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Успешный запрос |  -  |
-**0** | Ошибка запроса (тело — объект или массив объектов с полем errors) |  -  |
+**0** | Ошибка запроса (тело — объект с полем errors) |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **create_retail_stores_batch**
-> List[BatchResponseEntity] create_retail_stores_batch(retail_store, accept=accept, accept_encoding=accept_encoding, expand=expand, content_type=content_type)
+> List[BatchResponseEntity] create_retail_stores_batch(retail_store_upsert, accept=accept, accept_encoding=accept_encoding, expand=expand, content_type=content_type)
 
 Массовое создание и обновление точек продаж
 
@@ -214,7 +215,7 @@ Name | Type | Description  | Notes
 ```python
 import moysklad_remap_12_sdk
 from moysklad_remap_12_sdk.models.batch_response_entity import BatchResponseEntity
-from moysklad_remap_12_sdk.models.retail_store import RetailStore
+from moysklad_remap_12_sdk.models.retail_store_upsert import RetailStoreUpsert
 from moysklad_remap_12_sdk.rest import ApiException
 from pprint import pprint
 
@@ -244,7 +245,7 @@ configuration = moysklad_remap_12_sdk.Configuration(
 with moysklad_remap_12_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = moysklad_remap_12_sdk.RetailStoresApi(api_client)
-    retail_store = [moysklad_remap_12_sdk.RetailStore()] # List[RetailStore] | 
+    retail_store_upsert = [moysklad_remap_12_sdk.RetailStoreUpsert()] # List[RetailStoreUpsert] | 
     accept = application/json;charset=utf-8 # str |  (optional) (default to application/json;charset=utf-8)
     accept_encoding = 'gzip, deflate, br' # str |  (optional) (default to 'gzip, deflate, br')
     expand = 'expand_example' # str | Замена ссылок объектами с помощью expand (optional)
@@ -252,7 +253,7 @@ with moysklad_remap_12_sdk.ApiClient(configuration) as api_client:
 
     try:
         # Массовое создание и обновление точек продаж
-        api_response = api_instance.create_retail_stores_batch(retail_store, accept=accept, accept_encoding=accept_encoding, expand=expand, content_type=content_type)
+        api_response = api_instance.create_retail_stores_batch(retail_store_upsert, accept=accept, accept_encoding=accept_encoding, expand=expand, content_type=content_type)
         print("The response of RetailStoresApi->create_retail_stores_batch:\n")
         pprint(api_response)
     except Exception as e:
@@ -266,7 +267,7 @@ with moysklad_remap_12_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **retail_store** | [**List[RetailStore]**](RetailStore.md)|  | 
+ **retail_store_upsert** | [**List[RetailStoreUpsert]**](RetailStoreUpsert.md)|  | 
  **accept** | **str**|  | [optional] [default to application/json;charset&#x3D;utf-8]
  **accept_encoding** | **str**|  | [optional] [default to &#39;gzip, deflate, br&#39;]
  **expand** | **str**| Замена ссылок объектами с помощью expand | [optional] 
@@ -290,7 +291,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Успешный запрос |  -  |
-**0** | Ошибка запроса (тело — объект или массив объектов с полем errors) |  -  |
+**0** | Ошибка запроса (тело — объект с полем errors) |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -375,7 +376,7 @@ void (empty response body)
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Успешный запрос |  -  |
-**0** | Ошибка запроса (тело — объект или массив объектов с полем errors) |  -  |
+**0** | Ошибка запроса (тело — объект с полем errors) |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -466,7 +467,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Успешный запрос |  -  |
-**0** | Ошибка запроса (тело — объект или массив объектов с полем errors) |  -  |
+**0** | Ошибка запроса (тело — объект с полем errors) |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -566,7 +567,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Успешный запрос |  -  |
-**0** | Ошибка запроса (тело — объект или массив объектов с полем errors) |  -  |
+**0** | Ошибка запроса (тело — объект с полем errors) |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -656,7 +657,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Успешный запрос |  -  |
-**0** | Ошибка запроса (тело — объект или массив объектов с полем errors) |  -  |
+**0** | Ошибка запроса (тело — объект с полем errors) |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -754,12 +755,12 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Успешный запрос |  -  |
-**0** | Ошибка запроса (тело — объект или массив объектов с полем errors) |  -  |
+**0** | Ошибка запроса (тело — объект с полем errors) |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **update_retail_store**
-> RetailStore update_retail_store(id, retail_store, expand=expand, accept=accept, accept_encoding=accept_encoding, content_type=content_type)
+> RetailStore update_retail_store(id, retail_store_upsert, expand=expand, accept=accept, accept_encoding=accept_encoding, content_type=content_type)
 
 Изменить точку продаж
 
@@ -771,6 +772,7 @@ Name | Type | Description  | Notes
 ```python
 import moysklad_remap_12_sdk
 from moysklad_remap_12_sdk.models.retail_store import RetailStore
+from moysklad_remap_12_sdk.models.retail_store_upsert import RetailStoreUpsert
 from moysklad_remap_12_sdk.rest import ApiException
 from pprint import pprint
 
@@ -801,7 +803,7 @@ with moysklad_remap_12_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = moysklad_remap_12_sdk.RetailStoresApi(api_client)
     id = 'id_example' # str | ID сущности
-    retail_store = moysklad_remap_12_sdk.RetailStore() # RetailStore | 
+    retail_store_upsert = moysklad_remap_12_sdk.RetailStoreUpsert() # RetailStoreUpsert | 
     expand = 'expand_example' # str | Замена ссылок объектами с помощью expand (optional)
     accept = application/json;charset=utf-8 # str |  (optional) (default to application/json;charset=utf-8)
     accept_encoding = 'gzip, deflate, br' # str |  (optional) (default to 'gzip, deflate, br')
@@ -809,7 +811,7 @@ with moysklad_remap_12_sdk.ApiClient(configuration) as api_client:
 
     try:
         # Изменить точку продаж
-        api_response = api_instance.update_retail_store(id, retail_store, expand=expand, accept=accept, accept_encoding=accept_encoding, content_type=content_type)
+        api_response = api_instance.update_retail_store(id, retail_store_upsert, expand=expand, accept=accept, accept_encoding=accept_encoding, content_type=content_type)
         print("The response of RetailStoresApi->update_retail_store:\n")
         pprint(api_response)
     except Exception as e:
@@ -824,7 +826,7 @@ with moysklad_remap_12_sdk.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **str**| ID сущности | 
- **retail_store** | [**RetailStore**](RetailStore.md)|  | 
+ **retail_store_upsert** | [**RetailStoreUpsert**](RetailStoreUpsert.md)|  | 
  **expand** | **str**| Замена ссылок объектами с помощью expand | [optional] 
  **accept** | **str**|  | [optional] [default to application/json;charset&#x3D;utf-8]
  **accept_encoding** | **str**|  | [optional] [default to &#39;gzip, deflate, br&#39;]
@@ -848,7 +850,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Успешный запрос |  -  |
-**0** | Ошибка запроса (тело — объект или массив объектов с полем errors) |  -  |
+**0** | Ошибка запроса (тело — объект с полем errors) |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

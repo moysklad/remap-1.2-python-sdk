@@ -6,12 +6,16 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**activate_employee**](EmployeesApi.md#activate_employee) | **PUT** /entity/employee/{id}/access/activate | Активировать сотрудника
 [**create_employee**](EmployeesApi.md#create_employee) | **POST** /entity/employee | Создать сотрудника
+[**create_employee_metadata_attribute**](EmployeesApi.md#create_employee_metadata_attribute) | **POST** /entity/employee/metadata/attributes | Создать доп. поле сотрудника
 [**create_employees_batch**](EmployeesApi.md#create_employees_batch) | **POST** /entity/employee/batch | Создать или изменить сотрудников
 [**deactivate_employee**](EmployeesApi.md#deactivate_employee) | **PUT** /entity/employee/{id}/access/deactivate | Деактивировать сотрудника
 [**delete_employee**](EmployeesApi.md#delete_employee) | **DELETE** /entity/employee/{id} | Удалить сотрудника
+[**delete_employee_metadata_attribute**](EmployeesApi.md#delete_employee_metadata_attribute) | **DELETE** /entity/employee/metadata/attributes/{id} | Удалить доп. поле сотрудника
 [**delete_employees_batch**](EmployeesApi.md#delete_employees_batch) | **POST** /entity/employee/delete | Удалить сотрудников
 [**get_employee_by_id**](EmployeesApi.md#get_employee_by_id) | **GET** /entity/employee/{id} | Получить сотрудника по ID
-[**get_employee_metadata**](EmployeesApi.md#get_employee_metadata) | **GET** /entity/employee/metadata | Получить метаданные товаров
+[**get_employee_metadata**](EmployeesApi.md#get_employee_metadata) | **GET** /entity/employee/metadata | Получить метаданные сотрудников
+[**get_employee_metadata_attribute_by_id**](EmployeesApi.md#get_employee_metadata_attribute_by_id) | **GET** /entity/employee/metadata/attributes/{id} | Получить доп. поле сотрудника по ID
+[**get_employee_metadata_attributes**](EmployeesApi.md#get_employee_metadata_attributes) | **GET** /entity/employee/metadata/attributes | Получить доп. поля сотрудников
 [**get_employee_security**](EmployeesApi.md#get_employee_security) | **GET** /entity/employee/{id}/security | Получить права сотрудника
 [**get_employees**](EmployeesApi.md#get_employees) | **GET** /entity/employee | Получить список сотрудников
 [**get_role_admin**](EmployeesApi.md#get_role_admin) | **GET** /entity/role/admin | Получить роль администратора
@@ -21,6 +25,7 @@ Method | HTTP request | Description
 [**get_role_worker**](EmployeesApi.md#get_role_worker) | **GET** /entity/role/worker | Получить роль сотрудника производства
 [**reset_employee_password**](EmployeesApi.md#reset_employee_password) | **PUT** /entity/employee/{id}/access/resetpassword | Сбросить пароль сотрудника
 [**update_employee**](EmployeesApi.md#update_employee) | **PUT** /entity/employee/{id} | Обновить сотрудника
+[**update_employee_metadata_attribute**](EmployeesApi.md#update_employee_metadata_attribute) | **PUT** /entity/employee/metadata/attributes/{id} | Обновить доп. поле сотрудника
 [**update_employee_security**](EmployeesApi.md#update_employee_security) | **PUT** /entity/employee/{id}/security | Изменить права сотрудника
 
 
@@ -118,7 +123,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Сотрудник успешно активирован |  -  |
-**0** | Ошибка запроса (тело — объект или массив объектов с полем errors) |  -  |
+**0** | Ошибка запроса (тело — объект с полем errors) |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -212,7 +217,99 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Сотрудник успешно создан |  -  |
-**0** | Ошибка запроса (тело — объект или массив объектов с полем errors) |  -  |
+**0** | Ошибка запроса (тело — объект с полем errors) |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **create_employee_metadata_attribute**
+> AttributeMetaInfo create_employee_metadata_attribute(attribute_meta_info, accept=accept, accept_encoding=accept_encoding, content_type=content_type)
+
+Создать доп. поле сотрудника
+
+Создание нового доп. поля для сотрудников
+
+### Example
+
+* Basic Authentication (basicAuth):
+* Bearer Authentication (bearerAuth):
+
+```python
+import moysklad_remap_12_sdk
+from moysklad_remap_12_sdk.models.attribute_meta_info import AttributeMetaInfo
+from moysklad_remap_12_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.moysklad.ru/api/remap/1.2
+# See configuration.py for a list of all supported configuration parameters.
+configuration = moysklad_remap_12_sdk.Configuration(
+    host = "https://api.moysklad.ru/api/remap/1.2"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure HTTP basic authorization: basicAuth
+configuration = moysklad_remap_12_sdk.Configuration(
+    username = os.environ["USERNAME"],
+    password = os.environ["PASSWORD"]
+)
+
+# Configure Bearer authorization: bearerAuth
+configuration = moysklad_remap_12_sdk.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with moysklad_remap_12_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = moysklad_remap_12_sdk.EmployeesApi(api_client)
+    attribute_meta_info = moysklad_remap_12_sdk.AttributeMetaInfo() # AttributeMetaInfo | 
+    accept = application/json;charset=utf-8 # str |  (optional) (default to application/json;charset=utf-8)
+    accept_encoding = 'gzip, deflate, br' # str |  (optional) (default to 'gzip, deflate, br')
+    content_type = application/json # str |  (optional) (default to application/json)
+
+    try:
+        # Создать доп. поле сотрудника
+        api_response = api_instance.create_employee_metadata_attribute(attribute_meta_info, accept=accept, accept_encoding=accept_encoding, content_type=content_type)
+        print("The response of EmployeesApi->create_employee_metadata_attribute:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling EmployeesApi->create_employee_metadata_attribute: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **attribute_meta_info** | [**AttributeMetaInfo**](AttributeMetaInfo.md)|  | 
+ **accept** | **str**|  | [optional] [default to application/json;charset&#x3D;utf-8]
+ **accept_encoding** | **str**|  | [optional] [default to &#39;gzip, deflate, br&#39;]
+ **content_type** | **str**|  | [optional] [default to application/json]
+
+### Return type
+
+[**AttributeMetaInfo**](AttributeMetaInfo.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json, text/html;charset=UTF-8
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Доп. поле успешно создано |  -  |
+**0** | Ошибка запроса (тело — объект с полем errors) |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -307,7 +404,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Сотрудники созданы или изменены (элемент — сущность или объект ошибки) |  -  |
-**0** | Ошибка запроса (тело — объект или массив объектов с полем errors) |  -  |
+**0** | Ошибка запроса (тело — объект с полем errors) |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -394,7 +491,7 @@ void (empty response body)
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **204** | Сотрудник успешно деактивирован |  -  |
-**0** | Ошибка запроса (тело — объект или массив объектов с полем errors) |  -  |
+**0** | Ошибка запроса (тело — объект с полем errors) |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -481,7 +578,94 @@ void (empty response body)
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Сотрудник успешно удален |  -  |
-**0** | Ошибка запроса (тело — объект или массив объектов с полем errors) |  -  |
+**0** | Ошибка запроса (тело — объект с полем errors) |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **delete_employee_metadata_attribute**
+> delete_employee_metadata_attribute(id, accept=accept, accept_encoding=accept_encoding)
+
+Удалить доп. поле сотрудника
+
+Удаление доп. поля
+
+### Example
+
+* Basic Authentication (basicAuth):
+* Bearer Authentication (bearerAuth):
+
+```python
+import moysklad_remap_12_sdk
+from moysklad_remap_12_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.moysklad.ru/api/remap/1.2
+# See configuration.py for a list of all supported configuration parameters.
+configuration = moysklad_remap_12_sdk.Configuration(
+    host = "https://api.moysklad.ru/api/remap/1.2"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure HTTP basic authorization: basicAuth
+configuration = moysklad_remap_12_sdk.Configuration(
+    username = os.environ["USERNAME"],
+    password = os.environ["PASSWORD"]
+)
+
+# Configure Bearer authorization: bearerAuth
+configuration = moysklad_remap_12_sdk.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with moysklad_remap_12_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = moysklad_remap_12_sdk.EmployeesApi(api_client)
+    id = 'id_example' # str | ID сущности
+    accept = application/json;charset=utf-8 # str |  (optional) (default to application/json;charset=utf-8)
+    accept_encoding = 'gzip, deflate, br' # str |  (optional) (default to 'gzip, deflate, br')
+
+    try:
+        # Удалить доп. поле сотрудника
+        api_instance.delete_employee_metadata_attribute(id, accept=accept, accept_encoding=accept_encoding)
+    except Exception as e:
+        print("Exception when calling EmployeesApi->delete_employee_metadata_attribute: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **str**| ID сущности | 
+ **accept** | **str**|  | [optional] [default to application/json;charset&#x3D;utf-8]
+ **accept_encoding** | **str**|  | [optional] [default to &#39;gzip, deflate, br&#39;]
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json, text/html;charset=UTF-8
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Доп. поле успешно удалено |  -  |
+**0** | Ошибка запроса (тело — объект с полем errors) |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -574,7 +758,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Результат по каждому элементу (успех или объект ошибки) |  -  |
-**0** | Ошибка запроса (тело — объект или массив объектов с полем errors) |  -  |
+**0** | Ошибка запроса (тело — объект с полем errors) |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -666,16 +850,16 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Успешный запрос |  -  |
-**0** | Ошибка запроса (тело — объект или массив объектов с полем errors) |  -  |
+**0** | Ошибка запроса (тело — объект с полем errors) |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_employee_metadata**
-> Metadata get_employee_metadata(accept=accept, accept_encoding=accept_encoding)
+> Metadata get_employee_metadata(expand=expand, accept=accept, accept_encoding=accept_encoding)
 
-Получить метаданные товаров
+Получить метаданные сотрудников
 
-Запрос на получение метаданных товаров
+Запрос на получение метаданных сотрудников.
 
 ### Example
 
@@ -714,12 +898,13 @@ configuration = moysklad_remap_12_sdk.Configuration(
 with moysklad_remap_12_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = moysklad_remap_12_sdk.EmployeesApi(api_client)
+    expand = 'expand_example' # str | Замена ссылок объектами с помощью expand (optional)
     accept = application/json;charset=utf-8 # str |  (optional) (default to application/json;charset=utf-8)
     accept_encoding = 'gzip, deflate, br' # str |  (optional) (default to 'gzip, deflate, br')
 
     try:
-        # Получить метаданные товаров
-        api_response = api_instance.get_employee_metadata(accept=accept, accept_encoding=accept_encoding)
+        # Получить метаданные сотрудников
+        api_response = api_instance.get_employee_metadata(expand=expand, accept=accept, accept_encoding=accept_encoding)
         print("The response of EmployeesApi->get_employee_metadata:\n")
         pprint(api_response)
     except Exception as e:
@@ -733,6 +918,7 @@ with moysklad_remap_12_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **expand** | **str**| Замена ссылок объектами с помощью expand | [optional] 
  **accept** | **str**|  | [optional] [default to application/json;charset&#x3D;utf-8]
  **accept_encoding** | **str**|  | [optional] [default to &#39;gzip, deflate, br&#39;]
 
@@ -754,11 +940,185 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Успешный запрос |  -  |
-**400** | Ошибка в структуре JSON передаваемого запроса |  -  |
-**401** | Имя и/или пароль пользователя указаны неверно или заблокированы |  -  |
-**403** | У вас нет прав на просмотр данного объекта |  -  |
-**405** | Метод не поддерживается для данного ресурса |  * Allow - Список поддерживаемых HTTP методов (может отсутствовать в ответах от nginx) <br>  |
-**415** | Неподдерживаемый тип содержимого (Content-Type) |  -  |
+**0** | Ошибка запроса (тело — объект с полем errors) |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **get_employee_metadata_attribute_by_id**
+> AttributeMetaInfo get_employee_metadata_attribute_by_id(id, accept=accept, accept_encoding=accept_encoding)
+
+Получить доп. поле сотрудника по ID
+
+Запрос на получение отдельного доп. поля
+
+### Example
+
+* Basic Authentication (basicAuth):
+* Bearer Authentication (bearerAuth):
+
+```python
+import moysklad_remap_12_sdk
+from moysklad_remap_12_sdk.models.attribute_meta_info import AttributeMetaInfo
+from moysklad_remap_12_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.moysklad.ru/api/remap/1.2
+# See configuration.py for a list of all supported configuration parameters.
+configuration = moysklad_remap_12_sdk.Configuration(
+    host = "https://api.moysklad.ru/api/remap/1.2"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure HTTP basic authorization: basicAuth
+configuration = moysklad_remap_12_sdk.Configuration(
+    username = os.environ["USERNAME"],
+    password = os.environ["PASSWORD"]
+)
+
+# Configure Bearer authorization: bearerAuth
+configuration = moysklad_remap_12_sdk.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with moysklad_remap_12_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = moysklad_remap_12_sdk.EmployeesApi(api_client)
+    id = 'id_example' # str | ID сущности
+    accept = application/json;charset=utf-8 # str |  (optional) (default to application/json;charset=utf-8)
+    accept_encoding = 'gzip, deflate, br' # str |  (optional) (default to 'gzip, deflate, br')
+
+    try:
+        # Получить доп. поле сотрудника по ID
+        api_response = api_instance.get_employee_metadata_attribute_by_id(id, accept=accept, accept_encoding=accept_encoding)
+        print("The response of EmployeesApi->get_employee_metadata_attribute_by_id:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling EmployeesApi->get_employee_metadata_attribute_by_id: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **str**| ID сущности | 
+ **accept** | **str**|  | [optional] [default to application/json;charset&#x3D;utf-8]
+ **accept_encoding** | **str**|  | [optional] [default to &#39;gzip, deflate, br&#39;]
+
+### Return type
+
+[**AttributeMetaInfo**](AttributeMetaInfo.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json, text/html;charset=UTF-8
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Успешный запрос |  -  |
+**0** | Ошибка запроса (тело — объект с полем errors) |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **get_employee_metadata_attributes**
+> AttributeMetaInfoList get_employee_metadata_attributes(accept=accept, accept_encoding=accept_encoding)
+
+Получить доп. поля сотрудников
+
+Запрос на получение всех доп. полей для сотрудников
+
+### Example
+
+* Basic Authentication (basicAuth):
+* Bearer Authentication (bearerAuth):
+
+```python
+import moysklad_remap_12_sdk
+from moysklad_remap_12_sdk.models.attribute_meta_info_list import AttributeMetaInfoList
+from moysklad_remap_12_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.moysklad.ru/api/remap/1.2
+# See configuration.py for a list of all supported configuration parameters.
+configuration = moysklad_remap_12_sdk.Configuration(
+    host = "https://api.moysklad.ru/api/remap/1.2"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure HTTP basic authorization: basicAuth
+configuration = moysklad_remap_12_sdk.Configuration(
+    username = os.environ["USERNAME"],
+    password = os.environ["PASSWORD"]
+)
+
+# Configure Bearer authorization: bearerAuth
+configuration = moysklad_remap_12_sdk.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with moysklad_remap_12_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = moysklad_remap_12_sdk.EmployeesApi(api_client)
+    accept = application/json;charset=utf-8 # str |  (optional) (default to application/json;charset=utf-8)
+    accept_encoding = 'gzip, deflate, br' # str |  (optional) (default to 'gzip, deflate, br')
+
+    try:
+        # Получить доп. поля сотрудников
+        api_response = api_instance.get_employee_metadata_attributes(accept=accept, accept_encoding=accept_encoding)
+        print("The response of EmployeesApi->get_employee_metadata_attributes:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling EmployeesApi->get_employee_metadata_attributes: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **accept** | **str**|  | [optional] [default to application/json;charset&#x3D;utf-8]
+ **accept_encoding** | **str**|  | [optional] [default to &#39;gzip, deflate, br&#39;]
+
+### Return type
+
+[**AttributeMetaInfoList**](AttributeMetaInfoList.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json, text/html;charset=UTF-8
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Успешный запрос |  -  |
+**0** | Ошибка запроса (тело — объект с полем errors) |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -848,7 +1208,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Успешный запрос |  -  |
-**0** | Ошибка запроса (тело — объект или массив объектов с полем errors) |  -  |
+**0** | Ошибка запроса (тело — объект с полем errors) |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -948,7 +1308,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Успешный запрос |  -  |
-**0** | Ошибка запроса (тело — объект или массив объектов с полем errors) |  -  |
+**0** | Ошибка запроса (тело — объект с полем errors) |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -1036,7 +1396,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Успешный запрос |  -  |
-**0** | Ошибка запроса (тело — объект или массив объектов с полем errors) |  -  |
+**0** | Ошибка запроса (тело — объект с полем errors) |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -1124,7 +1484,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Успешный запрос |  -  |
-**0** | Ошибка запроса (тело — объект или массив объектов с полем errors) |  -  |
+**0** | Ошибка запроса (тело — объект с полем errors) |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -1212,7 +1572,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Успешный запрос |  -  |
-**0** | Ошибка запроса (тело — объект или массив объектов с полем errors) |  -  |
+**0** | Ошибка запроса (тело — объект с полем errors) |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -1300,7 +1660,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Успешный запрос |  -  |
-**0** | Ошибка запроса (тело — объект или массив объектов с полем errors) |  -  |
+**0** | Ошибка запроса (тело — объект с полем errors) |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -1388,7 +1748,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Успешный запрос |  -  |
-**0** | Ошибка запроса (тело — объект или массив объектов с полем errors) |  -  |
+**0** | Ошибка запроса (тело — объект с полем errors) |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -1475,7 +1835,7 @@ void (empty response body)
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **204** | Пароль успешно сброшен |  -  |
-**0** | Ошибка запроса (тело — объект или массив объектов с полем errors) |  -  |
+**0** | Ошибка запроса (тело — объект с полем errors) |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -1571,7 +1931,101 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Сотрудник успешно обновлен |  -  |
-**0** | Ошибка запроса (тело — объект или массив объектов с полем errors) |  -  |
+**0** | Ошибка запроса (тело — объект с полем errors) |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **update_employee_metadata_attribute**
+> AttributeMetaInfo update_employee_metadata_attribute(id, attribute_meta_info, accept=accept, accept_encoding=accept_encoding, content_type=content_type)
+
+Обновить доп. поле сотрудника
+
+Обновление доп. поля для сотрудников
+
+### Example
+
+* Basic Authentication (basicAuth):
+* Bearer Authentication (bearerAuth):
+
+```python
+import moysklad_remap_12_sdk
+from moysklad_remap_12_sdk.models.attribute_meta_info import AttributeMetaInfo
+from moysklad_remap_12_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.moysklad.ru/api/remap/1.2
+# See configuration.py for a list of all supported configuration parameters.
+configuration = moysklad_remap_12_sdk.Configuration(
+    host = "https://api.moysklad.ru/api/remap/1.2"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure HTTP basic authorization: basicAuth
+configuration = moysklad_remap_12_sdk.Configuration(
+    username = os.environ["USERNAME"],
+    password = os.environ["PASSWORD"]
+)
+
+# Configure Bearer authorization: bearerAuth
+configuration = moysklad_remap_12_sdk.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with moysklad_remap_12_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = moysklad_remap_12_sdk.EmployeesApi(api_client)
+    id = 'id_example' # str | ID сущности
+    attribute_meta_info = moysklad_remap_12_sdk.AttributeMetaInfo() # AttributeMetaInfo | 
+    accept = application/json;charset=utf-8 # str |  (optional) (default to application/json;charset=utf-8)
+    accept_encoding = 'gzip, deflate, br' # str |  (optional) (default to 'gzip, deflate, br')
+    content_type = application/json # str |  (optional) (default to application/json)
+
+    try:
+        # Обновить доп. поле сотрудника
+        api_response = api_instance.update_employee_metadata_attribute(id, attribute_meta_info, accept=accept, accept_encoding=accept_encoding, content_type=content_type)
+        print("The response of EmployeesApi->update_employee_metadata_attribute:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling EmployeesApi->update_employee_metadata_attribute: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **str**| ID сущности | 
+ **attribute_meta_info** | [**AttributeMetaInfo**](AttributeMetaInfo.md)|  | 
+ **accept** | **str**|  | [optional] [default to application/json;charset&#x3D;utf-8]
+ **accept_encoding** | **str**|  | [optional] [default to &#39;gzip, deflate, br&#39;]
+ **content_type** | **str**|  | [optional] [default to application/json]
+
+### Return type
+
+[**AttributeMetaInfo**](AttributeMetaInfo.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json, text/html;charset=UTF-8
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Доп. поле успешно обновлено |  -  |
+**0** | Ошибка запроса (тело — объект с полем errors) |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -1665,7 +2119,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Права успешно обновлены |  -  |
-**0** | Ошибка запроса (тело — объект или массив объектов с полем errors) |  -  |
+**0** | Ошибка запроса (тело — объект с полем errors) |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

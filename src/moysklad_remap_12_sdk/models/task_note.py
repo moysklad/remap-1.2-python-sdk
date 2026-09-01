@@ -22,8 +22,8 @@ from typing import Any, ClassVar, Dict, List, Optional
 from typing_extensions import Annotated
 from moysklad_remap_12_sdk.models.application import Application
 from moysklad_remap_12_sdk.models.employee import Employee
+from moysklad_remap_12_sdk.models.file_list import FileList
 from moysklad_remap_12_sdk.models.meta import Meta
-from moysklad_remap_12_sdk.models.task_note_file_list import TaskNoteFileList
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -40,7 +40,7 @@ class TaskNote(EntityWithMeta):
     author_application: Optional[Application] = Field(default=None, alias="authorApplication")
     moment: Optional[StrictStr] = Field(default=None, description="Момент создания комментария")
     text: Optional[Annotated[str, Field(strict=True, max_length=4096)]] = Field(default=None, description="Текст комментария")
-    files: Optional[TaskNoteFileList] = Field(default=None, description="Метаданные массива Файлов")
+    files: Optional[FileList] = Field(default=None, description="Метаданные массива Файлов")
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["meta", "id", "accountId", "author", "authorApplication", "moment", "text", "files"]
 
@@ -136,7 +136,7 @@ class TaskNote(EntityWithMeta):
             "authorApplication": Application.from_dict(obj["authorApplication"]) if obj.get("authorApplication") is not None else None,
             "moment": obj.get("moment"),
             "text": obj.get("text"),
-            "files": TaskNoteFileList.from_dict(obj["files"]) if obj.get("files") is not None else None
+            "files": FileList.from_dict(obj["files"]) if obj.get("files") is not None else None
         })
         _obj = cls.model_validate(_data)
         for _key in obj.keys():
@@ -167,7 +167,7 @@ from moysklad_remap_12_sdk.models.application import Application
 
 
 
-from moysklad_remap_12_sdk.models.task_note_file_list import TaskNoteFileList
+from moysklad_remap_12_sdk.models.file_list import FileList
 
 
 

@@ -21,7 +21,7 @@ Name | Type | Description | Notes
 **files** | [**FileList**](FileList.md) | Метаданные массива Файлов | [optional] 
 **implementer** | [**Employee**](Employee.md) |  | [optional] 
 **notes** | [**TaskNotes**](TaskNotes.md) |  | [optional] 
-**operation** | [**DocumentMetadata**](DocumentMetadata.md) |  | [optional] 
+**operation** | [**EntityWithMeta**](EntityWithMeta.md) |  | [optional] 
 **state** | [**State**](State.md) | Метаданные типа задачи | [optional] 
 **updated** | **str** | Момент последнего обновления Задачи | [optional] [readonly] 
 

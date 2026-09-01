@@ -5,7 +5,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**amount** | **int** | Сумма накоплений в копейках | [optional] 
+**amount** | **float** | Сумма накоплений в копейках | [optional] 
 **discount** | **float** | Процент скидки, соответствующий данной сумме | [optional] 
 
 ## Example

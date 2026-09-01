@@ -37,7 +37,7 @@ Name | Type | Description | Notes
 **published** | **bool** | Опубликован ли документ | [optional] [readonly] 
 **rate** | [**CurrencyRate**](CurrencyRate.md) |  | [optional] 
 **return_to_commissioner_positions** | [**CommissionReportInReturnedPositionList**](.md) |  | [optional] 
-**reward_percent** | **int** | Процент вознаграждения | [optional] 
+**reward_percent** | **float** | Процент вознаграждения | [optional] 
 **reward_type** | **str** | Тип Вознаграждения. Известные значения описаны в RewardType | [optional] 
 **sales_channel** | [**SalesChannel**](SalesChannel.md) | Метаданные канала продаж | [optional] 
 **shared** | **bool** | Общий доступ | [optional] 

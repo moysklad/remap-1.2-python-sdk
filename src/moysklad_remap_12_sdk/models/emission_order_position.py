@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional, Union
+from typing import Any, ClassVar, Dict, List, Optional
 from typing_extensions import Annotated
 from moysklad_remap_12_sdk.models.meta import Meta
 from moysklad_remap_12_sdk.models.product_marker import ProductMarker
@@ -35,7 +35,7 @@ class EmissionOrderPosition(EntityWithMeta):
     id: Optional[StrictStr] = Field(default=None, description="ID позиции")
     account_id: Optional[StrictStr] = Field(default=None, description="ID учетной записи", alias="accountId")
     assortment: Optional[ProductMarker] = Field(default=None, description="Метаданные товара/модификации/партии, которую представляет собой позиция")
-    quantity: Optional[Union[Annotated[float, Field(le=1000, strict=True, ge=0)], Annotated[int, Field(le=1000, strict=True, ge=0)]]] = Field(default=None, description="Количество товаров данного вида в позиции")
+    quantity: Optional[Annotated[int, Field(le=1000, strict=True, ge=0)]] = Field(default=None, description="Количество товаров данного вида в позиции")
     status: Optional[StrictStr] = Field(default=None, description="Статус кодов. Известные значения описаны в EmissionOrderPositionStatus")
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["meta", "id", "accountId", "assortment", "quantity", "status"]

@@ -23,6 +23,7 @@ from moysklad_remap_12_sdk.models.batch_response_entity import BatchResponseEnti
 from moysklad_remap_12_sdk.models.delete_row_result import DeleteRowResult
 from moysklad_remap_12_sdk.models.retail_store import RetailStore
 from moysklad_remap_12_sdk.models.retail_store_list import RetailStoreList
+from moysklad_remap_12_sdk.models.retail_store_upsert import RetailStoreUpsert
 
 from moysklad_remap_12_sdk.api_client import ApiClient, RequestSerialized
 from moysklad_remap_12_sdk.api_response import ApiResponse
@@ -395,7 +396,7 @@ class RetailStoresApi:
     @validate_call
     def create_retail_store(
         self,
-        retail_store: RetailStore,
+        retail_store_upsert: RetailStoreUpsert,
         accept: Optional[StrictStr] = None,
         accept_encoding: Optional[StrictStr] = None,
         expand: Annotated[Optional[StrictStr], Field(description="Замена ссылок объектами с помощью expand")] = None,
@@ -416,8 +417,8 @@ class RetailStoresApi:
         """Создать точку продаж
 
 
-        :param retail_store: (required)
-        :type retail_store: RetailStore
+        :param retail_store_upsert: (required)
+        :type retail_store_upsert: RetailStoreUpsert
         :param accept:
         :type accept: str
         :param accept_encoding:
@@ -449,7 +450,7 @@ class RetailStoresApi:
         """ # noqa: E501
 
         _param = self._create_retail_store_serialize(
-            retail_store=retail_store,
+            retail_store_upsert=retail_store_upsert,
             accept=accept,
             accept_encoding=accept_encoding,
             expand=expand,
@@ -477,7 +478,7 @@ class RetailStoresApi:
     @validate_call
     def create_retail_store_with_http_info(
         self,
-        retail_store: RetailStore,
+        retail_store_upsert: RetailStoreUpsert,
         accept: Optional[StrictStr] = None,
         accept_encoding: Optional[StrictStr] = None,
         expand: Annotated[Optional[StrictStr], Field(description="Замена ссылок объектами с помощью expand")] = None,
@@ -498,8 +499,8 @@ class RetailStoresApi:
         """Создать точку продаж
 
 
-        :param retail_store: (required)
-        :type retail_store: RetailStore
+        :param retail_store_upsert: (required)
+        :type retail_store_upsert: RetailStoreUpsert
         :param accept:
         :type accept: str
         :param accept_encoding:
@@ -531,7 +532,7 @@ class RetailStoresApi:
         """ # noqa: E501
 
         _param = self._create_retail_store_serialize(
-            retail_store=retail_store,
+            retail_store_upsert=retail_store_upsert,
             accept=accept,
             accept_encoding=accept_encoding,
             expand=expand,
@@ -559,7 +560,7 @@ class RetailStoresApi:
     @validate_call
     def create_retail_store_without_preload_content(
         self,
-        retail_store: RetailStore,
+        retail_store_upsert: RetailStoreUpsert,
         accept: Optional[StrictStr] = None,
         accept_encoding: Optional[StrictStr] = None,
         expand: Annotated[Optional[StrictStr], Field(description="Замена ссылок объектами с помощью expand")] = None,
@@ -580,8 +581,8 @@ class RetailStoresApi:
         """Создать точку продаж
 
 
-        :param retail_store: (required)
-        :type retail_store: RetailStore
+        :param retail_store_upsert: (required)
+        :type retail_store_upsert: RetailStoreUpsert
         :param accept:
         :type accept: str
         :param accept_encoding:
@@ -613,7 +614,7 @@ class RetailStoresApi:
         """ # noqa: E501
 
         _param = self._create_retail_store_serialize(
-            retail_store=retail_store,
+            retail_store_upsert=retail_store_upsert,
             accept=accept,
             accept_encoding=accept_encoding,
             expand=expand,
@@ -636,7 +637,7 @@ class RetailStoresApi:
 
     def _create_retail_store_serialize(
         self,
-        retail_store,
+        retail_store_upsert,
         accept,
         accept_encoding,
         expand,
@@ -676,8 +677,8 @@ class RetailStoresApi:
             _header_params['Content-Type'] = content_type
         # process the form parameters
         # process the body parameter
-        if retail_store is not None:
-            _body_params = retail_store
+        if retail_store_upsert is not None:
+            _body_params = retail_store_upsert
 
 
         # set the HTTP header `Accept`
@@ -730,7 +731,7 @@ class RetailStoresApi:
     @validate_call
     def create_retail_stores_batch(
         self,
-        retail_store: Annotated[List[RetailStore], Field(min_length=1, max_length=1000)],
+        retail_store_upsert: Annotated[List[RetailStoreUpsert], Field(min_length=1, max_length=1000)],
         accept: Optional[StrictStr] = None,
         accept_encoding: Optional[StrictStr] = None,
         expand: Annotated[Optional[StrictStr], Field(description="Замена ссылок объектами с помощью expand")] = None,
@@ -751,8 +752,8 @@ class RetailStoresApi:
         """Массовое создание и обновление точек продаж
 
 
-        :param retail_store: (required)
-        :type retail_store: List[RetailStore]
+        :param retail_store_upsert: (required)
+        :type retail_store_upsert: List[RetailStoreUpsert]
         :param accept:
         :type accept: str
         :param accept_encoding:
@@ -784,7 +785,7 @@ class RetailStoresApi:
         """ # noqa: E501
 
         _param = self._create_retail_stores_batch_serialize(
-            retail_store=retail_store,
+            retail_store_upsert=retail_store_upsert,
             accept=accept,
             accept_encoding=accept_encoding,
             expand=expand,
@@ -812,7 +813,7 @@ class RetailStoresApi:
     @validate_call
     def create_retail_stores_batch_with_http_info(
         self,
-        retail_store: Annotated[List[RetailStore], Field(min_length=1, max_length=1000)],
+        retail_store_upsert: Annotated[List[RetailStoreUpsert], Field(min_length=1, max_length=1000)],
         accept: Optional[StrictStr] = None,
         accept_encoding: Optional[StrictStr] = None,
         expand: Annotated[Optional[StrictStr], Field(description="Замена ссылок объектами с помощью expand")] = None,
@@ -833,8 +834,8 @@ class RetailStoresApi:
         """Массовое создание и обновление точек продаж
 
 
-        :param retail_store: (required)
-        :type retail_store: List[RetailStore]
+        :param retail_store_upsert: (required)
+        :type retail_store_upsert: List[RetailStoreUpsert]
         :param accept:
         :type accept: str
         :param accept_encoding:
@@ -866,7 +867,7 @@ class RetailStoresApi:
         """ # noqa: E501
 
         _param = self._create_retail_stores_batch_serialize(
-            retail_store=retail_store,
+            retail_store_upsert=retail_store_upsert,
             accept=accept,
             accept_encoding=accept_encoding,
             expand=expand,
@@ -894,7 +895,7 @@ class RetailStoresApi:
     @validate_call
     def create_retail_stores_batch_without_preload_content(
         self,
-        retail_store: Annotated[List[RetailStore], Field(min_length=1, max_length=1000)],
+        retail_store_upsert: Annotated[List[RetailStoreUpsert], Field(min_length=1, max_length=1000)],
         accept: Optional[StrictStr] = None,
         accept_encoding: Optional[StrictStr] = None,
         expand: Annotated[Optional[StrictStr], Field(description="Замена ссылок объектами с помощью expand")] = None,
@@ -915,8 +916,8 @@ class RetailStoresApi:
         """Массовое создание и обновление точек продаж
 
 
-        :param retail_store: (required)
-        :type retail_store: List[RetailStore]
+        :param retail_store_upsert: (required)
+        :type retail_store_upsert: List[RetailStoreUpsert]
         :param accept:
         :type accept: str
         :param accept_encoding:
@@ -948,7 +949,7 @@ class RetailStoresApi:
         """ # noqa: E501
 
         _param = self._create_retail_stores_batch_serialize(
-            retail_store=retail_store,
+            retail_store_upsert=retail_store_upsert,
             accept=accept,
             accept_encoding=accept_encoding,
             expand=expand,
@@ -971,7 +972,7 @@ class RetailStoresApi:
 
     def _create_retail_stores_batch_serialize(
         self,
-        retail_store,
+        retail_store_upsert,
         accept,
         accept_encoding,
         expand,
@@ -985,7 +986,7 @@ class RetailStoresApi:
         _host = None
 
         _collection_formats: Dict[str, str] = {
-            'RetailStore': '',
+            'RetailStoreUpsert': '',
         }
 
         _path_params: Dict[str, str] = {}
@@ -1012,8 +1013,8 @@ class RetailStoresApi:
             _header_params['Content-Type'] = content_type
         # process the form parameters
         # process the body parameter
-        if retail_store is not None:
-            _body_params = retail_store
+        if retail_store_upsert is not None:
+            _body_params = retail_store_upsert
 
 
         # set the HTTP header `Accept`
@@ -2752,7 +2753,7 @@ class RetailStoresApi:
     def update_retail_store(
         self,
         id: Annotated[StrictStr, Field(description="ID сущности")],
-        retail_store: RetailStore,
+        retail_store_upsert: RetailStoreUpsert,
         expand: Annotated[Optional[StrictStr], Field(description="Замена ссылок объектами с помощью expand")] = None,
         accept: Optional[StrictStr] = None,
         accept_encoding: Optional[StrictStr] = None,
@@ -2775,8 +2776,8 @@ class RetailStoresApi:
 
         :param id: ID сущности (required)
         :type id: str
-        :param retail_store: (required)
-        :type retail_store: RetailStore
+        :param retail_store_upsert: (required)
+        :type retail_store_upsert: RetailStoreUpsert
         :param expand: Замена ссылок объектами с помощью expand
         :type expand: str
         :param accept:
@@ -2809,7 +2810,7 @@ class RetailStoresApi:
 
         _param = self._update_retail_store_serialize(
             id=id,
-            retail_store=retail_store,
+            retail_store_upsert=retail_store_upsert,
             expand=expand,
             accept=accept,
             accept_encoding=accept_encoding,
@@ -2838,7 +2839,7 @@ class RetailStoresApi:
     def update_retail_store_with_http_info(
         self,
         id: Annotated[StrictStr, Field(description="ID сущности")],
-        retail_store: RetailStore,
+        retail_store_upsert: RetailStoreUpsert,
         expand: Annotated[Optional[StrictStr], Field(description="Замена ссылок объектами с помощью expand")] = None,
         accept: Optional[StrictStr] = None,
         accept_encoding: Optional[StrictStr] = None,
@@ -2861,8 +2862,8 @@ class RetailStoresApi:
 
         :param id: ID сущности (required)
         :type id: str
-        :param retail_store: (required)
-        :type retail_store: RetailStore
+        :param retail_store_upsert: (required)
+        :type retail_store_upsert: RetailStoreUpsert
         :param expand: Замена ссылок объектами с помощью expand
         :type expand: str
         :param accept:
@@ -2895,7 +2896,7 @@ class RetailStoresApi:
 
         _param = self._update_retail_store_serialize(
             id=id,
-            retail_store=retail_store,
+            retail_store_upsert=retail_store_upsert,
             expand=expand,
             accept=accept,
             accept_encoding=accept_encoding,
@@ -2924,7 +2925,7 @@ class RetailStoresApi:
     def update_retail_store_without_preload_content(
         self,
         id: Annotated[StrictStr, Field(description="ID сущности")],
-        retail_store: RetailStore,
+        retail_store_upsert: RetailStoreUpsert,
         expand: Annotated[Optional[StrictStr], Field(description="Замена ссылок объектами с помощью expand")] = None,
         accept: Optional[StrictStr] = None,
         accept_encoding: Optional[StrictStr] = None,
@@ -2947,8 +2948,8 @@ class RetailStoresApi:
 
         :param id: ID сущности (required)
         :type id: str
-        :param retail_store: (required)
-        :type retail_store: RetailStore
+        :param retail_store_upsert: (required)
+        :type retail_store_upsert: RetailStoreUpsert
         :param expand: Замена ссылок объектами с помощью expand
         :type expand: str
         :param accept:
@@ -2981,7 +2982,7 @@ class RetailStoresApi:
 
         _param = self._update_retail_store_serialize(
             id=id,
-            retail_store=retail_store,
+            retail_store_upsert=retail_store_upsert,
             expand=expand,
             accept=accept,
             accept_encoding=accept_encoding,
@@ -3005,7 +3006,7 @@ class RetailStoresApi:
     def _update_retail_store_serialize(
         self,
         id,
-        retail_store,
+        retail_store_upsert,
         expand,
         accept,
         accept_encoding,
@@ -3047,8 +3048,8 @@ class RetailStoresApi:
             _header_params['Content-Type'] = content_type
         # process the form parameters
         # process the body parameter
-        if retail_store is not None:
-            _body_params = retail_store
+        if retail_store_upsert is not None:
+            _body_params = retail_store_upsert
 
 
         # set the HTTP header `Accept`

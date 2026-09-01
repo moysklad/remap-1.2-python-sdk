@@ -17,21 +17,28 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
-from moysklad_remap_12_sdk.models.meta_list import MetaList
-from moysklad_remap_12_sdk.models.task_note_file import TaskNoteFile
+from typing_extensions import Annotated
+from moysklad_remap_12_sdk.models.meta import Meta
 from typing import Optional, Set
 from typing_extensions import Self
 
-class TaskNoteFileList(BaseModel):
+from moysklad_remap_12_sdk.models.notification_abstract import NotificationAbstract
+
+class NotificationBonusMoney(NotificationAbstract):
     """
-    Файлы комментария к Задаче
+    Уведомление о зачислении бонусных денег
     """ # noqa: E501
-    meta: Optional[MetaList] = None
-    rows: Optional[List[TaskNoteFile]] = None
+    meta: Optional[Meta] = None
+    id: Optional[StrictStr] = Field(default=None, description="ID уведомления")
+    account_id: Optional[StrictStr] = Field(default=None, description="ID учетной записи", alias="accountId")
+    created: Optional[StrictStr] = Field(default=None, description="Дата и время формирования уведомления")
+    read: Optional[StrictBool] = Field(default=None, description="Признак того, было ли уведомление прочитано")
+    title: Optional[Annotated[str, Field(strict=True, max_length=255)]] = Field(default=None, description="Краткий текст уведомления")
+    description: Optional[Annotated[str, Field(strict=True, max_length=4096)]] = Field(default=None, description="Описание уведомления")
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["meta", "rows"]
+    __properties: ClassVar[List[str]] = ["meta", "id", "accountId", "created", "read", "title", "description"]
 
     model_config = ConfigDict(
         extra="allow",
@@ -52,7 +59,7 @@ class TaskNoteFileList(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of TaskNoteFileList from a JSON string"""
+        """Create an instance of NotificationBonusMoney from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -72,24 +79,15 @@ class TaskNoteFileList(BaseModel):
         )
         if self.meta:
             _dict['meta'] = self.meta.to_dict()
-        _items = []
-        if self.rows:
-            for _item_rows in self.rows:
-                if _item_rows:
-                    _items.append(_item_rows.to_dict())
-            _dict['rows'] = _items
         if self.additional_properties is not None:
             for _key, _value in self.additional_properties.items():
                 _dict[_key] = _value
-
-        if self.rows is None and "rows" in self.model_fields_set:
-            _dict['rows'] = None
 
         return _dict
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of TaskNoteFileList from a dict"""
+        """Create an instance of NotificationBonusMoney from a dict"""
         if obj is None:
             return None
 
@@ -98,8 +96,13 @@ class TaskNoteFileList(BaseModel):
 
         _data = dict(obj)
         _data.update({
-            "meta": MetaList.from_dict(obj["meta"]) if obj.get("meta") is not None else None,
-            "rows": [TaskNoteFile.from_dict(_item) for _item in obj["rows"]] if obj.get("rows") is not None else None
+            "meta": Meta.from_dict(obj["meta"]) if obj.get("meta") is not None else None,
+            "id": obj.get("id"),
+            "accountId": obj.get("accountId"),
+            "created": obj.get("created"),
+            "read": obj.get("read"),
+            "title": obj.get("title"),
+            "description": obj.get("description")
         })
         _obj = cls.model_validate(_data)
         for _key in obj.keys():
@@ -110,11 +113,19 @@ class TaskNoteFileList(BaseModel):
 
 
 
-from moysklad_remap_12_sdk.models.meta_list import MetaList
+from moysklad_remap_12_sdk.models.meta import Meta
 
 
 
 
-from moysklad_remap_12_sdk.models.task_note_file import TaskNoteFile
+
+
+
+
+
+
+
+
+
 
 

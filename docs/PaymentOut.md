@@ -34,7 +34,7 @@ Name | Type | Description | Notes
 **payment_purpose** | **str** | Назначение платежа | [optional] 
 **project** | [**Project**](Project.md) | Метаданные проекта | [optional] 
 **sales_channel** | [**SalesChannel**](SalesChannel.md) | Метаданные канала продаж | [optional] 
-**shared** | **bool** | Общий доступ | [optional] [readonly] 
+**shared** | **bool** | Общий доступ | [optional] 
 **state** | [**State**](State.md) | Метаданные статуса Исходящего платежа | [optional] 
 **sum** | **float** | Сумма Исходящего платежа в установленной валюте | [optional] 
 **vat_sum** | **float** | Сумма НДС | [optional] 

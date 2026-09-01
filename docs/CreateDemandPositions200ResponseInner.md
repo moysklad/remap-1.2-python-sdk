@@ -6,7 +6,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **meta** | [**Meta**](Meta.md) |  | [optional] 
-**id** | **str** | ID позиции | [optional] [readonly] 
+**id** | **str** | ID позиции | [optional] 
 **account_id** | **str** | ID учетной записи | [optional] [readonly] 
 **assortment** | [**ProductMarker**](ProductMarker.md) | Метаданные товара/услуги/партии/модификации/комплекта, которую представляет собой позиция | [optional] 
 **cost** | **int** | Себестоимость (только для услуг) | [optional] 
@@ -22,7 +22,7 @@ Name | Type | Description | Notes
 **overhead** | **int** | Накладные расходы по позиции. Если позиции Отгрузки не заданы, накладные расходы на уровне документа задать нельзя.  | [optional] [readonly] 
 **vat** | **int** | НДС, которым облагается текущая позиция | [optional] 
 **vat_enabled** | **bool** | Включён ли НДС для позиции. Пара &#x60;(vat &#x3D; 0, vatEnabled &#x3D; false)&#x60; соответствует НДС «без НДС»; &#x60;(vat &#x3D; 0, vatEnabled &#x3D; true)&#x60; — НДС 0%.  | [optional] 
-**errors** | [**List[ErrorErrorsInner]**](ErrorErrorsInner.md) |  | 
+**errors** | [**List[Error]**](Error.md) |  | 
 
 ## Example
 

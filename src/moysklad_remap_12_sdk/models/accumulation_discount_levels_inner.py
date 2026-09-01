@@ -26,7 +26,7 @@ class AccumulationDiscountLevelsInner(BaseModel):
     """
     AccumulationDiscountLevelsInner
     """ # noqa: E501
-    amount: Optional[StrictInt] = Field(default=None, description="Сумма накоплений в копейках")
+    amount: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Сумма накоплений в копейках")
     discount: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Процент скидки, соответствующий данной сумме")
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["amount", "discount"]

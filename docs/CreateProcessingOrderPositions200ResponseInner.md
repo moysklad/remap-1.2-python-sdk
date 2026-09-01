@@ -6,13 +6,13 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **meta** | [**Meta**](Meta.md) |  | [optional] 
-**id** | **str** | ID позиции | [optional] [readonly] 
+**id** | **str** | ID позиции | [optional] 
 **account_id** | **str** | ID учетной записи | [optional] [readonly] 
 **quantity** | **float** | Количество товаров данного вида в позиции | [optional] 
 **reserve** | **float** | Резерв данной позиции | [optional] 
 **assortment** | [**ProductMarker**](ProductMarker.md) | Метаданные товара/услуги/партии/модификации позиции | [optional] 
 **pack** | [**Pack**](Pack.md) | Упаковка Товара | [optional] 
-**errors** | [**List[ErrorErrorsInner]**](ErrorErrorsInner.md) |  | 
+**errors** | [**List[Error]**](Error.md) |  | 
 
 ## Example
 

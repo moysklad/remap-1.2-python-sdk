@@ -17,13 +17,13 @@ import json
 import pprint
 from pydantic import BaseModel, ConfigDict, Field, StrictStr, ValidationError, field_validator
 from typing import Any, List, Optional
-from moysklad_remap_12_sdk.models.error import Error
+from moysklad_remap_12_sdk.models.errors import Errors
 from moysklad_remap_12_sdk.models.invoice_in import InvoiceIn
 from pydantic import StrictStr, Field
 from typing import Union, List, Set, Optional, Dict
 from typing_extensions import Literal, Self
 
-CREATEINVOICEINBATCH200RESPONSEINNER_ONE_OF_SCHEMAS = ["Error", "InvoiceIn"]
+CREATEINVOICEINBATCH200RESPONSEINNER_ONE_OF_SCHEMAS = ["Errors", "InvoiceIn"]
 
 class CreateInvoiceInBatch200ResponseInner(BaseModel):
     """
@@ -31,10 +31,10 @@ class CreateInvoiceInBatch200ResponseInner(BaseModel):
     """
     # data type: InvoiceIn
     oneof_schema_1_validator: Optional[InvoiceIn] = None
-    # data type: Error
-    oneof_schema_2_validator: Optional[Error] = None
-    actual_instance: Optional[Union[Error, InvoiceIn]] = None
-    one_of_schemas: Set[str] = { "Error", "InvoiceIn" }
+    # data type: Errors
+    oneof_schema_2_validator: Optional[Errors] = None
+    actual_instance: Optional[Union[Errors, InvoiceIn]] = None
+    one_of_schemas: Set[str] = { "Errors", "InvoiceIn" }
 
     model_config = ConfigDict(
         validate_assignment=True,
@@ -62,17 +62,17 @@ class CreateInvoiceInBatch200ResponseInner(BaseModel):
             error_messages.append(f"Error! Input type `{type(v)}` is not `InvoiceIn`")
         else:
             match += 1
-        # validate data type: Error
-        if not isinstance(v, Error):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `Error`")
+        # validate data type: Errors
+        if not isinstance(v, Errors):
+            error_messages.append(f"Error! Input type `{type(v)}` is not `Errors`")
         else:
             match += 1
         if match > 1:
             # more than 1 match
-            raise ValueError("Multiple matches found when setting `actual_instance` in CreateInvoiceInBatch200ResponseInner with oneOf schemas: Error, InvoiceIn. Details: " + ", ".join(error_messages))
+            raise ValueError("Multiple matches found when setting `actual_instance` in CreateInvoiceInBatch200ResponseInner with oneOf schemas: Errors, InvoiceIn. Details: " + ", ".join(error_messages))
         elif match == 0:
             # no match
-            raise ValueError("No match found when setting `actual_instance` in CreateInvoiceInBatch200ResponseInner with oneOf schemas: Error, InvoiceIn. Details: " + ", ".join(error_messages))
+            raise ValueError("No match found when setting `actual_instance` in CreateInvoiceInBatch200ResponseInner with oneOf schemas: Errors, InvoiceIn. Details: " + ", ".join(error_messages))
         else:
             return v
 
@@ -93,19 +93,19 @@ class CreateInvoiceInBatch200ResponseInner(BaseModel):
             match += 1
         except (ValidationError, ValueError) as e:
             error_messages.append(str(e))
-        # deserialize data into Error
+        # deserialize data into Errors
         try:
-            instance.actual_instance = Error.from_json(json_str)
+            instance.actual_instance = Errors.from_json(json_str)
             match += 1
         except (ValidationError, ValueError) as e:
             error_messages.append(str(e))
 
         if match > 1:
             # more than 1 match
-            raise ValueError("Multiple matches found when deserializing the JSON string into CreateInvoiceInBatch200ResponseInner with oneOf schemas: Error, InvoiceIn. Details: " + ", ".join(error_messages))
+            raise ValueError("Multiple matches found when deserializing the JSON string into CreateInvoiceInBatch200ResponseInner with oneOf schemas: Errors, InvoiceIn. Details: " + ", ".join(error_messages))
         elif match == 0:
             # no match
-            raise ValueError("No match found when deserializing the JSON string into CreateInvoiceInBatch200ResponseInner with oneOf schemas: Error, InvoiceIn. Details: " + ", ".join(error_messages))
+            raise ValueError("No match found when deserializing the JSON string into CreateInvoiceInBatch200ResponseInner with oneOf schemas: Errors, InvoiceIn. Details: " + ", ".join(error_messages))
         else:
             return instance
 
@@ -119,7 +119,7 @@ class CreateInvoiceInBatch200ResponseInner(BaseModel):
         else:
             return json.dumps(self.actual_instance)
 
-    def to_dict(self) -> Optional[Union[Dict[str, Any], Error, InvoiceIn]]:
+    def to_dict(self) -> Optional[Union[Dict[str, Any], Errors, InvoiceIn]]:
         """Returns the dict representation of the actual instance"""
         if self.actual_instance is None:
             return None

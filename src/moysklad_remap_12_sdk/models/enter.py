@@ -174,9 +174,6 @@ class Enter(EntityWithMeta):
         if self.owner is None and "owner" in self.model_fields_set:
             _dict['owner'] = None
 
-        if self.positions is None and "positions" in self.model_fields_set:
-            _dict['positions'] = None
-
         if self.project is None and "project" in self.model_fields_set:
             _dict['project'] = None
 

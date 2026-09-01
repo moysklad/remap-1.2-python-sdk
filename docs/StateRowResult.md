@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 **color** | **int** | Цвет Статуса | [optional] 
 **entity_type** | **str** | Тип сущности, к которой относится Статус (ключевое слово в рамках JSON API) | [optional] [readonly] 
 **state_type** | **str** | Тип Статуса. Известные значения описаны в StateType | [optional] 
-**errors** | [**List[ErrorErrorsInner]**](ErrorErrorsInner.md) |  | 
+**errors** | [**List[Error]**](Error.md) |  | 
 
 ## Example
 

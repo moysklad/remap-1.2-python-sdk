@@ -36,7 +36,7 @@ Name | Type | Description | Notes
 **sales_channel** | [**SalesChannel**](SalesChannel.md) | Метаданные канала продаж | [optional] 
 **shared** | **bool** | Общий доступ | [optional] [readonly] 
 **state** | [**State**](State.md) | Метаданные статуса Входящего платежа | [optional] 
-**sum** | **float** | Сумма Входящего платежа в установленной валюте | [optional] [readonly] 
+**sum** | **float** | Сумма Входящего платежа в установленной валюте | [optional] 
 **vat_sum** | **float** | Сумма НДС | [optional] 
 **incoming_number** | **str** | Входящий номер | [optional] 
 **incoming_date** | **str** | Входящая дата | [optional] 

@@ -19,25 +19,23 @@ import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
-from moysklad_remap_12_sdk.models.meta import Meta
+from typing_extensions import Annotated
+from moysklad_remap_12_sdk.models.notification_invoice import NotificationInvoice
 from typing import Optional, Set
 from typing_extensions import Self
 
-class ErrorErrorsInner(BaseModel):
+from moysklad_remap_12_sdk.models.notification_abstract import NotificationAbstract
+
+class NotificationInvoiceOutOverdue(NotificationAbstract):
     """
-    ErrorErrorsInner
+    Уведомление о просроченном счете покупателя
     """ # noqa: E501
-    error: StrictStr = Field(description="Заголовок ошибки")
-    parameter: Optional[StrictStr] = Field(default=None, description="Параметр, на котором произошла ошибка")
-    code: Optional[StrictInt] = Field(default=None, description="Код ошибки")
-    error_message: Optional[StrictStr] = Field(default=None, description="Сообщение, прилагаемое к ошибке")
-    more_info: Optional[StrictStr] = Field(default=None, description="Ссылка на документацию с описанием ошибки", alias="moreInfo")
-    line: Optional[StrictInt] = Field(default=None, description="Строка JSON, на которой произошла ошибка")
-    column: Optional[StrictInt] = Field(default=None, description="Координата элемента в строке, на котором произошла ошибка")
-    dependencies: Optional[List[Meta]] = Field(default=None, description="Список метаданных зависимых сущностей")
-    meta: Optional[Meta] = None
+    agent_name: Optional[Annotated[str, Field(strict=True, max_length=255)]] = Field(default=None, description="Имя контрагента", alias="agentName")
+    invoice: Optional[NotificationInvoice] = None
+    payment_planned_moment: Optional[StrictStr] = Field(default=None, description="Запланированная дата оплаты", alias="paymentPlannedMoment")
+    sum: Optional[StrictInt] = Field(default=None, description="Сумма счета")
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["error", "parameter", "code", "error_message", "moreInfo", "line", "column", "dependencies", "meta"]
+    __properties: ClassVar[List[str]] = ["agentName", "invoice", "paymentPlannedMoment", "sum"]
 
     model_config = ConfigDict(
         extra="allow",
@@ -58,7 +56,7 @@ class ErrorErrorsInner(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of ErrorErrorsInner from a JSON string"""
+        """Create an instance of NotificationInvoiceOutOverdue from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -76,14 +74,8 @@ class ErrorErrorsInner(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        _items = []
-        if self.dependencies:
-            for _item_dependencies in self.dependencies:
-                if _item_dependencies:
-                    _items.append(_item_dependencies.to_dict())
-            _dict['dependencies'] = _items
-        if self.meta:
-            _dict['meta'] = self.meta.to_dict()
+        if self.invoice:
+            _dict['invoice'] = self.invoice.to_dict()
         if self.additional_properties is not None:
             for _key, _value in self.additional_properties.items():
                 _dict[_key] = _value
@@ -92,7 +84,7 @@ class ErrorErrorsInner(BaseModel):
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of ErrorErrorsInner from a dict"""
+        """Create an instance of NotificationInvoiceOutOverdue from a dict"""
         if obj is None:
             return None
 
@@ -101,15 +93,10 @@ class ErrorErrorsInner(BaseModel):
 
         _data = dict(obj)
         _data.update({
-            "error": obj.get("error"),
-            "parameter": obj.get("parameter"),
-            "code": obj.get("code"),
-            "error_message": obj.get("error_message"),
-            "moreInfo": obj.get("moreInfo"),
-            "line": obj.get("line"),
-            "column": obj.get("column"),
-            "dependencies": [Meta.from_dict(_item) for _item in obj["dependencies"]] if obj.get("dependencies") is not None else None,
-            "meta": Meta.from_dict(obj["meta"]) if obj.get("meta") is not None else None
+            "agentName": obj.get("agentName"),
+            "invoice": NotificationInvoice.from_dict(obj["invoice"]) if obj.get("invoice") is not None else None,
+            "paymentPlannedMoment": obj.get("paymentPlannedMoment"),
+            "sum": obj.get("sum")
         })
         _obj = cls.model_validate(_data)
         for _key in obj.keys():
@@ -122,23 +109,11 @@ class ErrorErrorsInner(BaseModel):
 
 
 
+from moysklad_remap_12_sdk.models.notification_invoice import NotificationInvoice
 
 
 
 
-
-
-
-
-
-
-
-
-
-from moysklad_remap_12_sdk.models.meta import Meta
-
-
-from moysklad_remap_12_sdk.models.meta import Meta
 
 
 

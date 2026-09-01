@@ -35,7 +35,7 @@ Name | Type | Description | Notes
 **payments** | [**List[PaymentOut]**](PaymentOut.md) | Массив ссылок на связанные исходящие платежи | [optional] 
 **incoming_number** | **str** | Входящий номер | [optional] 
 **incoming_date** | **str** | Входящая дата | [optional] 
-**errors** | [**List[ErrorErrorsInner]**](ErrorErrorsInner.md) |  | 
+**errors** | [**List[Error]**](Error.md) |  | 
 
 ## Example
 

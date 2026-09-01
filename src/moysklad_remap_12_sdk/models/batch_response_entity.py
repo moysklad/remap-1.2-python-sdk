@@ -175,8 +175,8 @@ class BatchResponseEntity(BaseModel):
                     for error in errors
                 )
             ):
-                from moysklad_remap_12_sdk.models.error import Error
-                return Error.from_dict(obj)
+                from moysklad_remap_12_sdk.models.errors import Errors
+                return Errors.from_dict(obj)
 
         if obj is None:
             return None

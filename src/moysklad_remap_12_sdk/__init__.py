@@ -14,7 +14,7 @@
 """  # noqa: E501
 
 
-__version__ = "0.24.0"
+__version__ = "0.25.0"
 
 # Define package exports
 __all__ = [
@@ -51,6 +51,7 @@ __all__ = [
     "InvoiceOutsApi",
     "LabelsApi",
     "LossesApi",
+    "MetadataApi",
     "MovesApi",
     "NotificationsApi",
     "OrganizationsApi",
@@ -117,6 +118,8 @@ __all__ = [
     "Address",
     "Agent",
     "AgentDiscount",
+    "AppAsyncButton",
+    "AppChangePermissions",
     "Application",
     "Assortment",
     "AssortmentList",
@@ -285,13 +288,13 @@ __all__ = [
     "EnterPositionList",
     "EntityWithMeta",
     "Error",
-    "ErrorErrorsInner",
-    "ErrorOrArray",
+    "Errors",
     "EventNote",
     "EventNoteList",
     "ExpenseItem",
     "ExpenseItemList",
     "ExportRequest",
+    "FacebookTokenExpirationNotification",
     "FactureIn",
     "FactureInList",
     "FactureOut",
@@ -362,10 +365,51 @@ __all__ = [
     "MoveList",
     "MovePosition",
     "MovePositionList",
+    "NewEventInEventFeed",
+    "NewMentionInEvent",
+    "NewMentionInTaskNote",
     "Note",
+    "NotificationAbstract",
+    "NotificationBonusMoney",
     "NotificationChannelSettings",
+    "NotificationDeletedTask",
+    "NotificationDiffValue",
+    "NotificationEventType",
+    "NotificationExportCompleted",
+    "NotificationExportType",
+    "NotificationGoodCountTooLow",
     "NotificationGroupSettings",
+    "NotificationImportCompleted",
+    "NotificationImportType",
+    "NotificationInvoice",
+    "NotificationInvoiceOutOverdue",
+    "NotificationList",
+    "NotificationNamedEntity",
+    "NotificationOrder",
+    "NotificationOrderNew",
+    "NotificationOrderOverdue",
+    "NotificationRetailShift",
+    "NotificationRetailShiftClosed",
+    "NotificationRetailShiftOpened",
+    "NotificationSalesManagerChatMessage",
+    "NotificationScript",
     "NotificationSettings",
+    "NotificationSubscribeExpired",
+    "NotificationSubscribeTermsExpired",
+    "NotificationTask",
+    "NotificationTaskAssigned",
+    "NotificationTaskChanged",
+    "NotificationTaskCommentChanged",
+    "NotificationTaskCommentDeleted",
+    "NotificationTaskCommentDiff",
+    "NotificationTaskCompleted",
+    "NotificationTaskDeleted",
+    "NotificationTaskDiff",
+    "NotificationTaskNewComment",
+    "NotificationTaskOverdue",
+    "NotificationTaskReopened",
+    "NotificationTaskState",
+    "NotificationTaskUnassigned",
     "OperationLinkedSum",
     "Organization",
     "OrganizationAccounts",
@@ -495,6 +539,8 @@ __all__ = [
     "RetailStoreStateFiscalMemoryError",
     "RetailStoreStatePaymentTerminal",
     "RetailStoreStateSync",
+    "RetailStoreUpsert",
+    "RetireOrderByDemandNotificationCompleted",
     "RewardType",
     "SalePlatform",
     "SalePlatformGroup",
@@ -503,6 +549,7 @@ __all__ = [
     "SalesChannel",
     "SalesChannelList",
     "SalesChannelType",
+    "SalesManagerChatMessage",
     "SalesReturn",
     "SalesReturnList",
     "SalesReturnPaymentsInner",
@@ -547,8 +594,6 @@ __all__ = [
     "Task",
     "TaskList",
     "TaskNote",
-    "TaskNoteFile",
-    "TaskNoteFileList",
     "TaskNoteList",
     "TaskNotes",
     "TaxRate",
@@ -621,6 +666,7 @@ from moysklad_remap_12_sdk.api.invoice_ins_api import InvoiceInsApi as InvoiceIn
 from moysklad_remap_12_sdk.api.invoice_outs_api import InvoiceOutsApi as InvoiceOutsApi
 from moysklad_remap_12_sdk.api.labels_api import LabelsApi as LabelsApi
 from moysklad_remap_12_sdk.api.losses_api import LossesApi as LossesApi
+from moysklad_remap_12_sdk.api.metadata_api import MetadataApi as MetadataApi
 from moysklad_remap_12_sdk.api.moves_api import MovesApi as MovesApi
 from moysklad_remap_12_sdk.api.notifications_api import NotificationsApi as NotificationsApi
 from moysklad_remap_12_sdk.api.organizations_api import OrganizationsApi as OrganizationsApi
@@ -691,6 +737,8 @@ from moysklad_remap_12_sdk.models.add_product_images_request import AddProductIm
 from moysklad_remap_12_sdk.models.address import Address as Address
 from moysklad_remap_12_sdk.models.agent import Agent as Agent
 from moysklad_remap_12_sdk.models.agent_discount import AgentDiscount as AgentDiscount
+from moysklad_remap_12_sdk.models.app_async_button import AppAsyncButton as AppAsyncButton
+from moysklad_remap_12_sdk.models.app_change_permissions import AppChangePermissions as AppChangePermissions
 from moysklad_remap_12_sdk.models.application import Application as Application
 from moysklad_remap_12_sdk.models.assortment import Assortment as Assortment
 from moysklad_remap_12_sdk.models.assortment_list import AssortmentList as AssortmentList
@@ -859,13 +907,13 @@ from moysklad_remap_12_sdk.models.enter_position import EnterPosition as EnterPo
 from moysklad_remap_12_sdk.models.enter_position_list import EnterPositionList as EnterPositionList
 from moysklad_remap_12_sdk.models.entity_with_meta import EntityWithMeta as EntityWithMeta
 from moysklad_remap_12_sdk.models.error import Error as Error
-from moysklad_remap_12_sdk.models.error_errors_inner import ErrorErrorsInner as ErrorErrorsInner
-from moysklad_remap_12_sdk.models.error_or_array import ErrorOrArray as ErrorOrArray
+from moysklad_remap_12_sdk.models.errors import Errors as Errors
 from moysklad_remap_12_sdk.models.event_note import EventNote as EventNote
 from moysklad_remap_12_sdk.models.event_note_list import EventNoteList as EventNoteList
 from moysklad_remap_12_sdk.models.expense_item import ExpenseItem as ExpenseItem
 from moysklad_remap_12_sdk.models.expense_item_list import ExpenseItemList as ExpenseItemList
 from moysklad_remap_12_sdk.models.export_request import ExportRequest as ExportRequest
+from moysklad_remap_12_sdk.models.facebook_token_expiration_notification import FacebookTokenExpirationNotification as FacebookTokenExpirationNotification
 from moysklad_remap_12_sdk.models.facture_in import FactureIn as FactureIn
 from moysklad_remap_12_sdk.models.facture_in_list import FactureInList as FactureInList
 from moysklad_remap_12_sdk.models.facture_out import FactureOut as FactureOut
@@ -936,10 +984,51 @@ from moysklad_remap_12_sdk.models.move import Move as Move
 from moysklad_remap_12_sdk.models.move_list import MoveList as MoveList
 from moysklad_remap_12_sdk.models.move_position import MovePosition as MovePosition
 from moysklad_remap_12_sdk.models.move_position_list import MovePositionList as MovePositionList
+from moysklad_remap_12_sdk.models.new_event_in_event_feed import NewEventInEventFeed as NewEventInEventFeed
+from moysklad_remap_12_sdk.models.new_mention_in_event import NewMentionInEvent as NewMentionInEvent
+from moysklad_remap_12_sdk.models.new_mention_in_task_note import NewMentionInTaskNote as NewMentionInTaskNote
 from moysklad_remap_12_sdk.models.note import Note as Note
+from moysklad_remap_12_sdk.models.notification_abstract import NotificationAbstract as NotificationAbstract
+from moysklad_remap_12_sdk.models.notification_bonus_money import NotificationBonusMoney as NotificationBonusMoney
 from moysklad_remap_12_sdk.models.notification_channel_settings import NotificationChannelSettings as NotificationChannelSettings
+from moysklad_remap_12_sdk.models.notification_deleted_task import NotificationDeletedTask as NotificationDeletedTask
+from moysklad_remap_12_sdk.models.notification_diff_value import NotificationDiffValue as NotificationDiffValue
+from moysklad_remap_12_sdk.models.notification_event_type import NotificationEventType as NotificationEventType
+from moysklad_remap_12_sdk.models.notification_export_completed import NotificationExportCompleted as NotificationExportCompleted
+from moysklad_remap_12_sdk.models.notification_export_type import NotificationExportType as NotificationExportType
+from moysklad_remap_12_sdk.models.notification_good_count_too_low import NotificationGoodCountTooLow as NotificationGoodCountTooLow
 from moysklad_remap_12_sdk.models.notification_group_settings import NotificationGroupSettings as NotificationGroupSettings
+from moysklad_remap_12_sdk.models.notification_import_completed import NotificationImportCompleted as NotificationImportCompleted
+from moysklad_remap_12_sdk.models.notification_import_type import NotificationImportType as NotificationImportType
+from moysklad_remap_12_sdk.models.notification_invoice import NotificationInvoice as NotificationInvoice
+from moysklad_remap_12_sdk.models.notification_invoice_out_overdue import NotificationInvoiceOutOverdue as NotificationInvoiceOutOverdue
+from moysklad_remap_12_sdk.models.notification_list import NotificationList as NotificationList
+from moysklad_remap_12_sdk.models.notification_named_entity import NotificationNamedEntity as NotificationNamedEntity
+from moysklad_remap_12_sdk.models.notification_order import NotificationOrder as NotificationOrder
+from moysklad_remap_12_sdk.models.notification_order_new import NotificationOrderNew as NotificationOrderNew
+from moysklad_remap_12_sdk.models.notification_order_overdue import NotificationOrderOverdue as NotificationOrderOverdue
+from moysklad_remap_12_sdk.models.notification_retail_shift import NotificationRetailShift as NotificationRetailShift
+from moysklad_remap_12_sdk.models.notification_retail_shift_closed import NotificationRetailShiftClosed as NotificationRetailShiftClosed
+from moysklad_remap_12_sdk.models.notification_retail_shift_opened import NotificationRetailShiftOpened as NotificationRetailShiftOpened
+from moysklad_remap_12_sdk.models.notification_sales_manager_chat_message import NotificationSalesManagerChatMessage as NotificationSalesManagerChatMessage
+from moysklad_remap_12_sdk.models.notification_script import NotificationScript as NotificationScript
 from moysklad_remap_12_sdk.models.notification_settings import NotificationSettings as NotificationSettings
+from moysklad_remap_12_sdk.models.notification_subscribe_expired import NotificationSubscribeExpired as NotificationSubscribeExpired
+from moysklad_remap_12_sdk.models.notification_subscribe_terms_expired import NotificationSubscribeTermsExpired as NotificationSubscribeTermsExpired
+from moysklad_remap_12_sdk.models.notification_task import NotificationTask as NotificationTask
+from moysklad_remap_12_sdk.models.notification_task_assigned import NotificationTaskAssigned as NotificationTaskAssigned
+from moysklad_remap_12_sdk.models.notification_task_changed import NotificationTaskChanged as NotificationTaskChanged
+from moysklad_remap_12_sdk.models.notification_task_comment_changed import NotificationTaskCommentChanged as NotificationTaskCommentChanged
+from moysklad_remap_12_sdk.models.notification_task_comment_deleted import NotificationTaskCommentDeleted as NotificationTaskCommentDeleted
+from moysklad_remap_12_sdk.models.notification_task_comment_diff import NotificationTaskCommentDiff as NotificationTaskCommentDiff
+from moysklad_remap_12_sdk.models.notification_task_completed import NotificationTaskCompleted as NotificationTaskCompleted
+from moysklad_remap_12_sdk.models.notification_task_deleted import NotificationTaskDeleted as NotificationTaskDeleted
+from moysklad_remap_12_sdk.models.notification_task_diff import NotificationTaskDiff as NotificationTaskDiff
+from moysklad_remap_12_sdk.models.notification_task_new_comment import NotificationTaskNewComment as NotificationTaskNewComment
+from moysklad_remap_12_sdk.models.notification_task_overdue import NotificationTaskOverdue as NotificationTaskOverdue
+from moysklad_remap_12_sdk.models.notification_task_reopened import NotificationTaskReopened as NotificationTaskReopened
+from moysklad_remap_12_sdk.models.notification_task_state import NotificationTaskState as NotificationTaskState
+from moysklad_remap_12_sdk.models.notification_task_unassigned import NotificationTaskUnassigned as NotificationTaskUnassigned
 from moysklad_remap_12_sdk.models.operation_linked_sum import OperationLinkedSum as OperationLinkedSum
 from moysklad_remap_12_sdk.models.organization import Organization as Organization
 from moysklad_remap_12_sdk.models.organization_accounts import OrganizationAccounts as OrganizationAccounts
@@ -1069,6 +1158,8 @@ from moysklad_remap_12_sdk.models.retail_store_state_fiscal_memory import Retail
 from moysklad_remap_12_sdk.models.retail_store_state_fiscal_memory_error import RetailStoreStateFiscalMemoryError as RetailStoreStateFiscalMemoryError
 from moysklad_remap_12_sdk.models.retail_store_state_payment_terminal import RetailStoreStatePaymentTerminal as RetailStoreStatePaymentTerminal
 from moysklad_remap_12_sdk.models.retail_store_state_sync import RetailStoreStateSync as RetailStoreStateSync
+from moysklad_remap_12_sdk.models.retail_store_upsert import RetailStoreUpsert as RetailStoreUpsert
+from moysklad_remap_12_sdk.models.retire_order_by_demand_notification_completed import RetireOrderByDemandNotificationCompleted as RetireOrderByDemandNotificationCompleted
 from moysklad_remap_12_sdk.models.reward_type import RewardType as RewardType
 from moysklad_remap_12_sdk.models.sale_platform import SalePlatform as SalePlatform
 from moysklad_remap_12_sdk.models.sale_platform_group import SalePlatformGroup as SalePlatformGroup
@@ -1077,6 +1168,7 @@ from moysklad_remap_12_sdk.models.sale_price import SalePrice as SalePrice
 from moysklad_remap_12_sdk.models.sales_channel import SalesChannel as SalesChannel
 from moysklad_remap_12_sdk.models.sales_channel_list import SalesChannelList as SalesChannelList
 from moysklad_remap_12_sdk.models.sales_channel_type import SalesChannelType as SalesChannelType
+from moysklad_remap_12_sdk.models.sales_manager_chat_message import SalesManagerChatMessage as SalesManagerChatMessage
 from moysklad_remap_12_sdk.models.sales_return import SalesReturn as SalesReturn
 from moysklad_remap_12_sdk.models.sales_return_list import SalesReturnList as SalesReturnList
 from moysklad_remap_12_sdk.models.sales_return_payments_inner import SalesReturnPaymentsInner as SalesReturnPaymentsInner
@@ -1121,8 +1213,6 @@ from moysklad_remap_12_sdk.models.supply_returns_inner import SupplyReturnsInner
 from moysklad_remap_12_sdk.models.task import Task as Task
 from moysklad_remap_12_sdk.models.task_list import TaskList as TaskList
 from moysklad_remap_12_sdk.models.task_note import TaskNote as TaskNote
-from moysklad_remap_12_sdk.models.task_note_file import TaskNoteFile as TaskNoteFile
-from moysklad_remap_12_sdk.models.task_note_file_list import TaskNoteFileList as TaskNoteFileList
 from moysklad_remap_12_sdk.models.task_note_list import TaskNoteList as TaskNoteList
 from moysklad_remap_12_sdk.models.task_notes import TaskNotes as TaskNotes
 from moysklad_remap_12_sdk.models.tax_rate import TaxRate as TaxRate

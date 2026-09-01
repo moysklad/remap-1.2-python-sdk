@@ -44,7 +44,7 @@ Name | Type | Description | Notes
 **vat_enabled** | **bool** | Учитывается ли НДС | [optional] 
 **vat_included** | **bool** | Включен ли НДС в цену | [optional] 
 **vat_sum** | **float** | Сумма НДС | [optional] [readonly] 
-**errors** | [**List[ErrorErrorsInner]**](ErrorErrorsInner.md) |  | 
+**errors** | [**List[Error]**](Error.md) |  | 
 
 ## Example
 

@@ -46,7 +46,7 @@ Name | Type | Description | Notes
 **updated** | **str** | Момент последнего обновления Розничной смены | [optional] [readonly] 
 **vat_enabled** | **bool** | Учитывается ли НДС | [optional] [readonly] 
 **vat_included** | **bool** | Включен ли НДС в цену | [optional] 
-**errors** | [**List[ErrorErrorsInner]**](ErrorErrorsInner.md) |  | 
+**errors** | [**List[Error]**](Error.md) |  | 
 
 ## Example
 

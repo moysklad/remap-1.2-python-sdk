@@ -14,7 +14,7 @@ Name | Type | Description | Notes
 **vat** | **int** | НДС для позиции | [optional] 
 **vat_enabled** | **bool** | Включен ли НДС для позиции | [optional] 
 **assortment** | [**ProductMarker**](ProductMarker.md) | Метаданные товара/партии/модификации/комплекта, которую представляет позиция | [optional] 
-**errors** | [**List[ErrorErrorsInner]**](ErrorErrorsInner.md) |  | 
+**errors** | [**List[Error]**](Error.md) |  | 
 
 ## Example
 

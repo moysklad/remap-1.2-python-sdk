@@ -17,13 +17,13 @@ import json
 import pprint
 from pydantic import BaseModel, ConfigDict, Field, StrictStr, ValidationError, field_validator
 from typing import Any, List, Optional
-from moysklad_remap_12_sdk.models.error import Error
+from moysklad_remap_12_sdk.models.errors import Errors
 from moysklad_remap_12_sdk.models.sales_return_position import SalesReturnPosition
 from pydantic import StrictStr, Field
 from typing import Union, List, Set, Optional, Dict
 from typing_extensions import Literal, Self
 
-CREATESALESRETURNPOSITIONS200RESPONSEINNER_ONE_OF_SCHEMAS = ["Error", "SalesReturnPosition"]
+CREATESALESRETURNPOSITIONS200RESPONSEINNER_ONE_OF_SCHEMAS = ["Errors", "SalesReturnPosition"]
 
 class CreateSalesReturnPositions200ResponseInner(BaseModel):
     """
@@ -31,10 +31,10 @@ class CreateSalesReturnPositions200ResponseInner(BaseModel):
     """
     # data type: SalesReturnPosition
     oneof_schema_1_validator: Optional[SalesReturnPosition] = None
-    # data type: Error
-    oneof_schema_2_validator: Optional[Error] = None
-    actual_instance: Optional[Union[Error, SalesReturnPosition]] = None
-    one_of_schemas: Set[str] = { "Error", "SalesReturnPosition" }
+    # data type: Errors
+    oneof_schema_2_validator: Optional[Errors] = None
+    actual_instance: Optional[Union[Errors, SalesReturnPosition]] = None
+    one_of_schemas: Set[str] = { "Errors", "SalesReturnPosition" }
 
     model_config = ConfigDict(
         validate_assignment=True,
@@ -62,17 +62,17 @@ class CreateSalesReturnPositions200ResponseInner(BaseModel):
             error_messages.append(f"Error! Input type `{type(v)}` is not `SalesReturnPosition`")
         else:
             match += 1
-        # validate data type: Error
-        if not isinstance(v, Error):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `Error`")
+        # validate data type: Errors
+        if not isinstance(v, Errors):
+            error_messages.append(f"Error! Input type `{type(v)}` is not `Errors`")
         else:
             match += 1
         if match > 1:
             # more than 1 match
-            raise ValueError("Multiple matches found when setting `actual_instance` in CreateSalesReturnPositions200ResponseInner with oneOf schemas: Error, SalesReturnPosition. Details: " + ", ".join(error_messages))
+            raise ValueError("Multiple matches found when setting `actual_instance` in CreateSalesReturnPositions200ResponseInner with oneOf schemas: Errors, SalesReturnPosition. Details: " + ", ".join(error_messages))
         elif match == 0:
             # no match
-            raise ValueError("No match found when setting `actual_instance` in CreateSalesReturnPositions200ResponseInner with oneOf schemas: Error, SalesReturnPosition. Details: " + ", ".join(error_messages))
+            raise ValueError("No match found when setting `actual_instance` in CreateSalesReturnPositions200ResponseInner with oneOf schemas: Errors, SalesReturnPosition. Details: " + ", ".join(error_messages))
         else:
             return v
 
@@ -93,19 +93,19 @@ class CreateSalesReturnPositions200ResponseInner(BaseModel):
             match += 1
         except (ValidationError, ValueError) as e:
             error_messages.append(str(e))
-        # deserialize data into Error
+        # deserialize data into Errors
         try:
-            instance.actual_instance = Error.from_json(json_str)
+            instance.actual_instance = Errors.from_json(json_str)
             match += 1
         except (ValidationError, ValueError) as e:
             error_messages.append(str(e))
 
         if match > 1:
             # more than 1 match
-            raise ValueError("Multiple matches found when deserializing the JSON string into CreateSalesReturnPositions200ResponseInner with oneOf schemas: Error, SalesReturnPosition. Details: " + ", ".join(error_messages))
+            raise ValueError("Multiple matches found when deserializing the JSON string into CreateSalesReturnPositions200ResponseInner with oneOf schemas: Errors, SalesReturnPosition. Details: " + ", ".join(error_messages))
         elif match == 0:
             # no match
-            raise ValueError("No match found when deserializing the JSON string into CreateSalesReturnPositions200ResponseInner with oneOf schemas: Error, SalesReturnPosition. Details: " + ", ".join(error_messages))
+            raise ValueError("No match found when deserializing the JSON string into CreateSalesReturnPositions200ResponseInner with oneOf schemas: Errors, SalesReturnPosition. Details: " + ", ".join(error_messages))
         else:
             return instance
 
@@ -119,7 +119,7 @@ class CreateSalesReturnPositions200ResponseInner(BaseModel):
         else:
             return json.dumps(self.actual_instance)
 
-    def to_dict(self) -> Optional[Union[Dict[str, Any], Error, SalesReturnPosition]]:
+    def to_dict(self) -> Optional[Union[Dict[str, Any], Errors, SalesReturnPosition]]:
         """Returns the dict representation of the actual instance"""
         if self.actual_instance is None:
             return None

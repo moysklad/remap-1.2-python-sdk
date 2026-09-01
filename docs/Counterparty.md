@@ -7,7 +7,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **meta** | [**Meta**](Meta.md) |  | [optional] 
-**id** | **str** | ID контрагента | [optional] [readonly] 
+**id** | **str** | ID контрагента | [optional] 
 **sync_id** | **str** | ID синхронизации | [optional] 
 **account_id** | **str** | ID учетной записи | [optional] [readonly] 
 **name** | **str** | Наименование контрагента | [optional] 

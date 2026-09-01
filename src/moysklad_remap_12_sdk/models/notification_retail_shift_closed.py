@@ -17,30 +17,26 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr
+from pydantic import BaseModel, ConfigDict, Field, StrictInt
 from typing import Any, ClassVar, Dict, List, Optional
-from typing_extensions import Annotated
-from moysklad_remap_12_sdk.models.employee import Employee
-from moysklad_remap_12_sdk.models.meta import Meta
+from moysklad_remap_12_sdk.models.notification_named_entity import NotificationNamedEntity
+from moysklad_remap_12_sdk.models.notification_retail_shift import NotificationRetailShift
 from typing import Optional, Set
 from typing_extensions import Self
 
-class TaskNoteFile(BaseModel):
+from moysklad_remap_12_sdk.models.notification_abstract import NotificationAbstract
+
+class NotificationRetailShiftClosed(NotificationAbstract):
     """
-    Файл комментария к Задаче
+    Уведомление о закрытии розничной смены
     """ # noqa: E501
-    meta: Optional[Meta] = None
-    id: Optional[StrictStr] = Field(default=None, description="ID файла")
-    title: Optional[Annotated[str, Field(strict=True, max_length=255)]] = Field(default=None, description="Название файла")
-    filename: Optional[Annotated[str, Field(strict=True, max_length=255)]] = Field(default=None, description="Имя файла")
-    content: Optional[StrictStr] = Field(default=None, description="Файл, закодированный в Base64")
-    size: Optional[StrictInt] = Field(default=None, description="Размер файла в байтах")
-    created: Optional[StrictStr] = Field(default=None, description="Время создания объекта")
-    created_by: Optional[Employee] = Field(default=None, alias="createdBy")
-    tiny: Optional[Meta] = None
-    miniature: Optional[Meta] = None
+    user: Optional[NotificationNamedEntity] = None
+    retail_store: Optional[NotificationNamedEntity] = Field(default=None, alias="retailStore")
+    retail_shift: Optional[NotificationRetailShift] = Field(default=None, alias="retailShift")
+    returns: Optional[StrictInt] = Field(default=None, description="Количество возвратов")
+    sales: Optional[StrictInt] = Field(default=None, description="Количество продаж")
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["meta", "id", "title", "filename", "content", "size", "created", "createdBy", "tiny", "miniature"]
+    __properties: ClassVar[List[str]] = ["user", "retailStore", "retailShift", "returns", "sales"]
 
     model_config = ConfigDict(
         extra="allow",
@@ -49,27 +45,6 @@ class TaskNoteFile(BaseModel):
         validate_assignment=True,
         protected_namespaces=(),
     )
-
-    @classmethod
-    def create_with_meta(
-        cls,
-        parentId: str,
-        noteId: str,
-        id: str,
-    ) -> Self:
-        """Create a reference with ``meta`` populated for this entity."""
-        from moysklad_remap_12_sdk.configuration import Configuration
-        from moysklad_remap_12_sdk.models.meta import Meta
-
-        href = Configuration.get_default().host + "/entity" + "/task" + "/" + parentId + "/notes" + "/" + noteId + "/files" + "/" + id
-        return cls(
-            id=id,
-            meta=Meta(
-                href=href,
-                type="files",
-                media_type="application/json",
-            ),
-        )
 
 
     def to_str(self) -> str:
@@ -82,7 +57,7 @@ class TaskNoteFile(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of TaskNoteFile from a JSON string"""
+        """Create an instance of NotificationRetailShiftClosed from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -100,14 +75,12 @@ class TaskNoteFile(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        if self.meta:
-            _dict['meta'] = self.meta.to_dict()
-        if self.created_by:
-            _dict['createdBy'] = self.created_by.to_dict()
-        if self.tiny:
-            _dict['tiny'] = self.tiny.to_dict()
-        if self.miniature:
-            _dict['miniature'] = self.miniature.to_dict()
+        if self.user:
+            _dict['user'] = self.user.to_dict()
+        if self.retail_store:
+            _dict['retailStore'] = self.retail_store.to_dict()
+        if self.retail_shift:
+            _dict['retailShift'] = self.retail_shift.to_dict()
         if self.additional_properties is not None:
             for _key, _value in self.additional_properties.items():
                 _dict[_key] = _value
@@ -116,7 +89,7 @@ class TaskNoteFile(BaseModel):
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of TaskNoteFile from a dict"""
+        """Create an instance of NotificationRetailShiftClosed from a dict"""
         if obj is None:
             return None
 
@@ -125,16 +98,11 @@ class TaskNoteFile(BaseModel):
 
         _data = dict(obj)
         _data.update({
-            "meta": Meta.from_dict(obj["meta"]) if obj.get("meta") is not None else None,
-            "id": obj.get("id"),
-            "title": obj.get("title"),
-            "filename": obj.get("filename"),
-            "content": obj.get("content"),
-            "size": obj.get("size"),
-            "created": obj.get("created"),
-            "createdBy": Employee.from_dict(obj["createdBy"]) if obj.get("createdBy") is not None else None,
-            "tiny": Meta.from_dict(obj["tiny"]) if obj.get("tiny") is not None else None,
-            "miniature": Meta.from_dict(obj["miniature"]) if obj.get("miniature") is not None else None
+            "user": NotificationNamedEntity.from_dict(obj["user"]) if obj.get("user") is not None else None,
+            "retailStore": NotificationNamedEntity.from_dict(obj["retailStore"]) if obj.get("retailStore") is not None else None,
+            "retailShift": NotificationRetailShift.from_dict(obj["retailShift"]) if obj.get("retailShift") is not None else None,
+            "returns": obj.get("returns"),
+            "sales": obj.get("sales")
         })
         _obj = cls.model_validate(_data)
         for _key in obj.keys():
@@ -145,31 +113,19 @@ class TaskNoteFile(BaseModel):
 
 
 
-from moysklad_remap_12_sdk.models.meta import Meta
+from moysklad_remap_12_sdk.models.notification_named_entity import NotificationNamedEntity
+
+
+
+from moysklad_remap_12_sdk.models.notification_named_entity import NotificationNamedEntity
+
+
+
+from moysklad_remap_12_sdk.models.notification_retail_shift import NotificationRetailShift
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-from moysklad_remap_12_sdk.models.employee import Employee
-
-
-
-from moysklad_remap_12_sdk.models.meta import Meta
-
-
-
-from moysklad_remap_12_sdk.models.meta import Meta
 
 
 

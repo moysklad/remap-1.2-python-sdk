@@ -18,7 +18,7 @@ Name | Type | Description | Notes
 **sum** | **int** | Сумма Договора | [optional] 
 **contract_type** | **str** | Тип Договора. Известные значения описаны в ContractType | [optional] 
 **reward_type** | **str** | Тип Вознаграждения. Известные значения описаны в RewardType | [optional] 
-**reward_percent** | **int** | Вознаграждение в процентах (от 0 до 100) | [optional] 
+**reward_percent** | **float** | Вознаграждение в процентах (от 0 до 100) | [optional] 
 **shared** | **bool** | Общий доступ | [optional] 
 **printed** | **bool** | Напечатан ли документ | [optional] [readonly] 
 **published** | **bool** | Опубликован ли документ | [optional] [readonly] 

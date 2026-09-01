@@ -6,7 +6,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **meta** | [**Meta**](Meta.md) |  | [optional] 
-**id** | **str** | ID позиции | [optional] [readonly] 
+**id** | **str** | ID позиции | [optional] 
 **account_id** | **str** | ID учетной записи | [optional] [readonly] 
 **assortment** | [**ProductMarker**](ProductMarker.md) |  | [optional] 
 **cost** | **int** | Себестоимость (выводится, если документ был создан без основания) | [optional] 
@@ -17,7 +17,7 @@ Name | Type | Description | Notes
 **things** | **List[str]** | Серийные номера. Игнорируется, если товар позиции не находится на серийном учете; иначе количество единиц в позиции совпадает с числом переданных серийных номеров. | [optional] 
 **vat** | **int** | НДС, которым облагается текущая позиция | [optional] 
 **vat_enabled** | **bool** | Включен ли НДС для позиции. Пара &#x60;(vat &#x3D; 0, vatEnabled &#x3D; false)&#x60; соответствует НДС \&quot;без НДС\&quot;; &#x60;(vat &#x3D; 0, vatEnabled &#x3D; true)&#x60; - НДС 0%. | [optional] 
-**errors** | [**List[ErrorErrorsInner]**](ErrorErrorsInner.md) |  | 
+**errors** | [**List[Error]**](Error.md) |  | 
 
 ## Example
 

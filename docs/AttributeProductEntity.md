@@ -6,7 +6,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **type** | **str** |  | [optional] 
-**value** | [**ProductMarker**](ProductMarker.md) |  | [optional] 
+**value** | [**EntityWithMeta**](EntityWithMeta.md) |  | [optional] 
 
 ## Example
 

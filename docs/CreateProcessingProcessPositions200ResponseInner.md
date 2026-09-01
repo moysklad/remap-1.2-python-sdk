@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **account_id** | **str** | ID учетной записи | [optional] [readonly] 
 **processingstage** | [**ProcessingStage**](ProcessingStage.md) |  | [optional] 
 **next_positions** | [**List[ProcessingProcessPositionNextPositionsInner]**](ProcessingProcessPositionNextPositionsInner.md) | Метаданные следующих позиций позиции Техпроцесса | [optional] 
-**errors** | [**List[ErrorErrorsInner]**](ErrorErrorsInner.md) |  | 
+**errors** | [**List[Error]**](Error.md) |  | 
 
 ## Example
 

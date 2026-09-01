@@ -18,12 +18,12 @@ import pprint
 from pydantic import BaseModel, ConfigDict, Field, StrictStr, ValidationError, field_validator
 from typing import Any, List, Optional
 from moysklad_remap_12_sdk.models.commission_report_in_position import CommissionReportInPosition
-from moysklad_remap_12_sdk.models.error import Error
+from moysklad_remap_12_sdk.models.errors import Errors
 from pydantic import StrictStr, Field
 from typing import Union, List, Set, Optional, Dict
 from typing_extensions import Literal, Self
 
-CREATECOMMISSIONREPORTINPOSITIONS200RESPONSEINNER_ONE_OF_SCHEMAS = ["CommissionReportInPosition", "Error"]
+CREATECOMMISSIONREPORTINPOSITIONS200RESPONSEINNER_ONE_OF_SCHEMAS = ["CommissionReportInPosition", "Errors"]
 
 class CreateCommissionReportInPositions200ResponseInner(BaseModel):
     """
@@ -31,10 +31,10 @@ class CreateCommissionReportInPositions200ResponseInner(BaseModel):
     """
     # data type: CommissionReportInPosition
     oneof_schema_1_validator: Optional[CommissionReportInPosition] = None
-    # data type: Error
-    oneof_schema_2_validator: Optional[Error] = None
-    actual_instance: Optional[Union[CommissionReportInPosition, Error]] = None
-    one_of_schemas: Set[str] = { "CommissionReportInPosition", "Error" }
+    # data type: Errors
+    oneof_schema_2_validator: Optional[Errors] = None
+    actual_instance: Optional[Union[CommissionReportInPosition, Errors]] = None
+    one_of_schemas: Set[str] = { "CommissionReportInPosition", "Errors" }
 
     model_config = ConfigDict(
         validate_assignment=True,
@@ -62,17 +62,17 @@ class CreateCommissionReportInPositions200ResponseInner(BaseModel):
             error_messages.append(f"Error! Input type `{type(v)}` is not `CommissionReportInPosition`")
         else:
             match += 1
-        # validate data type: Error
-        if not isinstance(v, Error):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `Error`")
+        # validate data type: Errors
+        if not isinstance(v, Errors):
+            error_messages.append(f"Error! Input type `{type(v)}` is not `Errors`")
         else:
             match += 1
         if match > 1:
             # more than 1 match
-            raise ValueError("Multiple matches found when setting `actual_instance` in CreateCommissionReportInPositions200ResponseInner with oneOf schemas: CommissionReportInPosition, Error. Details: " + ", ".join(error_messages))
+            raise ValueError("Multiple matches found when setting `actual_instance` in CreateCommissionReportInPositions200ResponseInner with oneOf schemas: CommissionReportInPosition, Errors. Details: " + ", ".join(error_messages))
         elif match == 0:
             # no match
-            raise ValueError("No match found when setting `actual_instance` in CreateCommissionReportInPositions200ResponseInner with oneOf schemas: CommissionReportInPosition, Error. Details: " + ", ".join(error_messages))
+            raise ValueError("No match found when setting `actual_instance` in CreateCommissionReportInPositions200ResponseInner with oneOf schemas: CommissionReportInPosition, Errors. Details: " + ", ".join(error_messages))
         else:
             return v
 
@@ -93,19 +93,19 @@ class CreateCommissionReportInPositions200ResponseInner(BaseModel):
             match += 1
         except (ValidationError, ValueError) as e:
             error_messages.append(str(e))
-        # deserialize data into Error
+        # deserialize data into Errors
         try:
-            instance.actual_instance = Error.from_json(json_str)
+            instance.actual_instance = Errors.from_json(json_str)
             match += 1
         except (ValidationError, ValueError) as e:
             error_messages.append(str(e))
 
         if match > 1:
             # more than 1 match
-            raise ValueError("Multiple matches found when deserializing the JSON string into CreateCommissionReportInPositions200ResponseInner with oneOf schemas: CommissionReportInPosition, Error. Details: " + ", ".join(error_messages))
+            raise ValueError("Multiple matches found when deserializing the JSON string into CreateCommissionReportInPositions200ResponseInner with oneOf schemas: CommissionReportInPosition, Errors. Details: " + ", ".join(error_messages))
         elif match == 0:
             # no match
-            raise ValueError("No match found when deserializing the JSON string into CreateCommissionReportInPositions200ResponseInner with oneOf schemas: CommissionReportInPosition, Error. Details: " + ", ".join(error_messages))
+            raise ValueError("No match found when deserializing the JSON string into CreateCommissionReportInPositions200ResponseInner with oneOf schemas: CommissionReportInPosition, Errors. Details: " + ", ".join(error_messages))
         else:
             return instance
 
@@ -119,7 +119,7 @@ class CreateCommissionReportInPositions200ResponseInner(BaseModel):
         else:
             return json.dumps(self.actual_instance)
 
-    def to_dict(self) -> Optional[Union[Dict[str, Any], CommissionReportInPosition, Error]]:
+    def to_dict(self) -> Optional[Union[Dict[str, Any], CommissionReportInPosition, Errors]]:
         """Returns the dict representation of the actual instance"""
         if self.actual_instance is None:
             return None
