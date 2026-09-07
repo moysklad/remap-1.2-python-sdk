@@ -26,7 +26,7 @@ class ReportDashboardMoney(BaseModel):
     """
     Информация о деньгах за период
     """ # noqa: E501
-    income: Optional[StrictInt] = Field(default=None, description="Доходы за период")
+    income: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Доходы за период")
     outcome: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Расходы за период")
     balance: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Текущий баланс")
     today_movement: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Дельта за сегодня", alias="todayMovement")

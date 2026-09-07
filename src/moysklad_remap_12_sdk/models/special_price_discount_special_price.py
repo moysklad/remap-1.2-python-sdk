@@ -17,8 +17,8 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictInt
-from typing import Any, ClassVar, Dict, List, Optional
+from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt
+from typing import Any, ClassVar, Dict, List, Optional, Union
 from moysklad_remap_12_sdk.models.meta import Meta
 from moysklad_remap_12_sdk.models.price_type import PriceType
 from typing import Optional, Set
@@ -28,7 +28,7 @@ class SpecialPriceDiscountSpecialPrice(BaseModel):
     """
     Спец. цена (используется при usePriceType=true)
     """ # noqa: E501
-    value: Optional[StrictInt] = Field(default=None, description="Значение цены")
+    value: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Значение цены")
     meta: Optional[Meta] = None
     price_type: Optional[PriceType] = Field(default=None, alias="priceType")
     additional_properties: Dict[str, Any] = {}

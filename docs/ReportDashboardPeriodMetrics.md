@@ -7,8 +7,8 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **count** | **int** | Количество продаж | [optional] 
-**amount** | **int** | Прибыль | [optional] 
-**movement_amount** | **int** | Дельта по сравнению с прошлым аналогичным периодом | [optional] 
+**amount** | **float** | Прибыль | [optional] 
+**movement_amount** | **float** | Дельта по сравнению с прошлым аналогичным периодом | [optional] 
 
 ## Example
 

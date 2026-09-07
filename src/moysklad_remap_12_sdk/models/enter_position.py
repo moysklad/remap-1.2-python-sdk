@@ -41,7 +41,7 @@ class EnterPosition(EntityWithMeta):
     assortment: Optional[ProductMarker] = Field(default=None, description="Метаданные товара/услуги/партии/модификации, которую представляет собой позиция")
     country: Optional[Country] = Field(default=None, description="Метаданные страны")
     gtd: Optional[Gtd] = None
-    overhead: Optional[StrictInt] = Field(default=None, description="Накладные расходы")
+    overhead: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Накладные расходы")
     pack: Optional[Pack] = Field(default=None, description="Упаковка Товара")
     price: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Цена товара/услуги в копейках")
     quantity: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Количество товаров данного вида в позиции")

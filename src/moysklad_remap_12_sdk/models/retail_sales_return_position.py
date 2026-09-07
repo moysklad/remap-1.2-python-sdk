@@ -36,7 +36,7 @@ class RetailSalesReturnPosition(EntityWithMeta):
     id: Optional[StrictStr] = Field(default=None, description="ID позиции")
     account_id: Optional[StrictStr] = Field(default=None, description="ID учетной записи", alias="accountId")
     assortment: Optional[ProductMarker] = None
-    cost: Optional[Annotated[int, Field(strict=True, ge=0)]] = Field(default=None, description="Себестоимость (выводится, если документ был создан без основания)")
+    cost: Optional[Union[Annotated[float, Field(strict=True, ge=0)], Annotated[int, Field(strict=True, ge=0)]]] = Field(default=None, description="Себестоимость (выводится, если документ был создан без основания)")
     discount: Optional[Union[Annotated[float, Field(le=100, strict=True)], Annotated[int, Field(le=100, strict=True)]]] = Field(default=None, description="Процент скидки или наценки. Наценка указывается отрицательным числом, например `-10` задает наценку 10%.")
     pack: Optional[Pack] = Field(default=None, description="Упаковка Товара")
     price: Optional[Union[Annotated[float, Field(strict=True, ge=0)], Annotated[int, Field(strict=True, ge=0)]]] = Field(default=None, description="Цена товара/услуги в копейках")

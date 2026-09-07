@@ -6,7 +6,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**value** | **int** | Значение цены | [optional] 
+**value** | **float** | Значение цены | [optional] 
 **meta** | [**Meta**](Meta.md) |  | [optional] 
 **price_type** | [**PriceType**](PriceType.md) |  | [optional] 
 

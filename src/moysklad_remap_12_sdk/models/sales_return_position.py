@@ -39,7 +39,7 @@ class SalesReturnPosition(EntityWithMeta):
     id: Optional[StrictStr] = Field(default=None, description="ID позиции")
     account_id: Optional[StrictStr] = Field(default=None, description="ID учетной записи", alias="accountId")
     assortment: Optional[ProductMarker] = Field(default=None, description="Метаданные товара/услуги/партии/модификации/комплекта, которую представляет собой позиция")
-    cost: Optional[StrictInt] = Field(default=None, description="Себестоимость")
+    cost: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Себестоимость")
     country: Optional[Country] = Field(default=None, description="Метаданные Страны")
     discount: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Процент скидки или наценки")
     gtd: Optional[Gtd] = None

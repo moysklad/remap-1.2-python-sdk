@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **id** | **str** | ID позиции | [optional] 
 **account_id** | **str** | ID учетной записи | [optional] [readonly] 
 **assortment** | [**ProductMarker**](ProductMarker.md) |  | [optional] 
-**cost** | **int** | Себестоимость (только для услуг) | [optional] 
+**cost** | **float** | Себестоимость (только для услуг) | [optional] 
 **declaration** | [**List[DeclarationInner]**](DeclarationInner.md) | Информация о прослеживаемости импортных товаров. Не входит в ответ по умолчанию; может быть возвращена только при явном запросе &#x60;fields&#x3D;declaration&#x60;. Только для чтения.  | [optional] [readonly] 
 **discount** | **float** | Процент скидки или наценки. Наценка указывается отрицательным числом (например, &#x60;-10&#x60; задаёт наценку 10%). | [optional] 
 **pack** | [**Pack**](Pack.md) | Упаковка товара | [optional] 

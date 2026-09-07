@@ -6,7 +6,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**income** | **int** | Доходы за период | [optional] 
+**income** | **float** | Доходы за период | [optional] 
 **outcome** | **float** | Расходы за период | [optional] 
 **balance** | **float** | Текущий баланс | [optional] 
 **today_movement** | **float** | Дельта за сегодня | [optional] 

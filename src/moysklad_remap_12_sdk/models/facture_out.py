@@ -63,7 +63,7 @@ class FactureOut(BaseModel):
     sum: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Сумма Счета-фактуры выданного в копейках")
     sync_id: Optional[StrictStr] = Field(default=None, description="ID синхронизации", alias="syncId")
     updated: Optional[StrictStr] = Field(default=None, description="Момент последнего обновления Счета-фактуры выданного")
-    advance_payment_vat: Optional[StrictInt] = Field(default=None, description="Ставка НДС для авансового платежа (в процентах). Доступно только для счетов-фактур с основаниями-платежами. ", alias="advancePaymentVat")
+    advance_payment_vat: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Ставка НДС для авансового платежа (в процентах). Доступно только для счетов-фактур с основаниями-платежами. ", alias="advancePaymentVat")
     payment_purpose: Optional[Annotated[str, Field(strict=True, max_length=255)]] = Field(default=None, description="Назначение платежа. Доступно только для счетов-фактур с основаниями-платежами. ", alias="paymentPurpose")
     vat_sum: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Сумма включая НДС. Доступно только для счетов-фактур с основаниями-платежами. ", alias="vatSum")
     demands: Optional[List[Demand]] = Field(default=None, description="Связанные отгрузки (метаданные)")

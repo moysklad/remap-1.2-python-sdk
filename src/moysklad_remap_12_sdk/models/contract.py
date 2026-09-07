@@ -17,7 +17,7 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt, StrictStr
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional, Union
 from typing_extensions import Annotated
 from moysklad_remap_12_sdk.models.account import Account
@@ -47,7 +47,7 @@ class Contract(EntityWithMeta):
     external_code: Optional[Annotated[str, Field(strict=True, max_length=255)]] = Field(default=None, description="Внешний код Договора", alias="externalCode")
     archived: Optional[StrictBool] = Field(default=None, description="Добавлен ли Договор в архив")
     moment: Optional[StrictStr] = Field(default=None, description="Дата Договора")
-    sum: Optional[StrictInt] = Field(default=None, description="Сумма Договора")
+    sum: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Сумма Договора")
     contract_type: Optional[StrictStr] = Field(default=None, description="Тип Договора. Известные значения описаны в ContractType", alias="contractType")
     reward_type: Optional[StrictStr] = Field(default=None, description="Тип Вознаграждения. Известные значения описаны в RewardType", alias="rewardType")
     reward_percent: Optional[Union[Annotated[float, Field(le=100, strict=True, ge=0)], Annotated[int, Field(le=100, strict=True, ge=0)]]] = Field(default=None, description="Вознаграждение в процентах (от 0 до 100)", alias="rewardPercent")

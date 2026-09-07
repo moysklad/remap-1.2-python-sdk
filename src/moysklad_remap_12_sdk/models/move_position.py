@@ -37,7 +37,7 @@ class MovePosition(EntityWithMeta):
     id: Optional[StrictStr] = Field(default=None, description="ID позиции")
     account_id: Optional[StrictStr] = Field(default=None, description="ID учетной записи", alias="accountId")
     assortment: Optional[ProductMarker] = Field(default=None, description="Метаданные товара/услуги/партии/модификации, которую представляет собой позиция")
-    overhead: Optional[StrictInt] = Field(default=None, description="Накладные расходы по позиции. Если позиции Перемещения не заданы, накладные расходы на уровне документа задать нельзя. ")
+    overhead: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Накладные расходы по позиции. Если позиции Перемещения не заданы, накладные расходы на уровне документа задать нельзя. ")
     pack: Optional[Pack] = Field(default=None, description="Упаковка Товара")
     price: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Цена товара/услуги в копейках")
     quantity: Optional[Union[Annotated[float, Field(strict=True, gt=0)], Annotated[int, Field(strict=True, gt=0)]]] = Field(default=None, description="Количество товаров/услуг данного вида в позиции. Если позиция — товар с учётом по серийным номерам, значение всегда равно количеству серийных номеров для этой позиции в документе. ")

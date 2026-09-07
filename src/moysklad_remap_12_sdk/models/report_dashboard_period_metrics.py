@@ -17,8 +17,8 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictInt
-from typing import Any, ClassVar, Dict, List, Optional
+from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt
+from typing import Any, ClassVar, Dict, List, Optional, Union
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -27,8 +27,8 @@ class ReportDashboardPeriodMetrics(BaseModel):
     Показатели продаж или заказов за период
     """ # noqa: E501
     count: Optional[StrictInt] = Field(default=None, description="Количество продаж")
-    amount: Optional[StrictInt] = Field(default=None, description="Прибыль")
-    movement_amount: Optional[StrictInt] = Field(default=None, description="Дельта по сравнению с прошлым аналогичным периодом", alias="movementAmount")
+    amount: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Прибыль")
+    movement_amount: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Дельта по сравнению с прошлым аналогичным периодом", alias="movementAmount")
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["count", "amount", "movementAmount"]
 

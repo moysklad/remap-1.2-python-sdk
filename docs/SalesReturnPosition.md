@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **id** | **str** | ID позиции | [optional] 
 **account_id** | **str** | ID учетной записи | [optional] [readonly] 
 **assortment** | [**ProductMarker**](ProductMarker.md) | Метаданные товара/услуги/партии/модификации/комплекта, которую представляет собой позиция | [optional] 
-**cost** | **int** | Себестоимость | [optional] 
+**cost** | **float** | Себестоимость | [optional] 
 **country** | [**Country**](Country.md) | Метаданные Страны | [optional] 
 **discount** | **float** | Процент скидки или наценки | [optional] 
 **gtd** | [**Gtd**](Gtd.md) |  | [optional] 

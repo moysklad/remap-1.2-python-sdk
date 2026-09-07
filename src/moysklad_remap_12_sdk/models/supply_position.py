@@ -49,7 +49,7 @@ class SupplyPosition(EntityWithMeta):
     slot: Optional[StoreSlot] = Field(default=None, description="Ячейка на складе")
     things: Optional[List[StrictStr]] = Field(default=None, description="Серийные номера. Игнорируется, если товар позиции не на серийном учёте; иначе количество единиц в позиции совпадает с числом переданных серийных номеров. ")
     tracking_codes: Optional[List[PositionTrackingCode]] = Field(default=None, description="Коды маркировки товаров и транспортных упаковок (иерархическая структура). Количество кодов маркировки не влияет на поле quantity позиции. ", alias="trackingCodes")
-    overhead: Optional[StrictInt] = Field(default=None, description="Накладные расходы по позиции. Если позиции Приемки не заданы, накладные расходы на уровне документа задать нельзя. ")
+    overhead: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Накладные расходы по позиции. Если позиции Приемки не заданы, накладные расходы на уровне документа задать нельзя. ")
     vat: Optional[StrictInt] = Field(default=None, description="НДС, которым облагается текущая позиция")
     vat_enabled: Optional[StrictBool] = Field(default=None, description="Включён ли НДС для позиции. Пара `(vat = 0, vatEnabled = false)` соответствует НДС «без НДС»; `(vat = 0, vatEnabled = true)` — НДС 0%. ", alias="vatEnabled")
     additional_properties: Dict[str, Any] = {}

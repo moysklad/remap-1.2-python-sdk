@@ -40,7 +40,7 @@ class DemandPosition(EntityWithMeta):
     id: Optional[StrictStr] = Field(default=None, description="ID позиции")
     account_id: Optional[StrictStr] = Field(default=None, description="ID учетной записи", alias="accountId")
     assortment: Optional[ProductMarker] = Field(default=None, description="Метаданные товара/услуги/партии/модификации/комплекта, которую представляет собой позиция")
-    cost: Optional[StrictInt] = Field(default=None, description="Себестоимость (только для услуг)")
+    cost: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Себестоимость (только для услуг)")
     declaration: Optional[List[DeclarationInner]] = Field(default=None, description="Информация о прослеживаемости импортных товаров. Не входит в ответ по умолчанию; может быть возвращена только при явном запросе `fields=declaration`. Только для чтения. ")
     discount: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Процент скидки или наценки. Наценка указывается отрицательным числом (например, `-10` задаёт наценку 10%).")
     pack: Optional[Pack] = Field(default=None, description="Упаковка Товара")
@@ -50,7 +50,7 @@ class DemandPosition(EntityWithMeta):
     things: Optional[List[StrictStr]] = Field(default=None, description="Серийные номера. Игнорируется, если товар позиции не на серийном учёте; иначе количество единиц в позиции совпадает с числом переданных серийных номеров. ")
     tracking_codes: Optional[List[PositionTrackingCode]] = Field(default=None, description="Коды маркировки товаров и транспортных упаковок (иерархическая структура). Количество кодов маркировки не влияет на поле quantity позиции. ", alias="trackingCodes")
     tracking_codes_1162: Optional[List[DemandPositionTrackingCode1162]] = Field(default=None, description="Коды маркировки в формате тега 1162 (иерархическая структура). Только для чтения в ответе.", alias="trackingCodes_1162")
-    overhead: Optional[StrictInt] = Field(default=None, description="Накладные расходы по позиции. Если позиции Отгрузки не заданы, накладные расходы на уровне документа задать нельзя. ")
+    overhead: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Накладные расходы по позиции. Если позиции Отгрузки не заданы, накладные расходы на уровне документа задать нельзя. ")
     vat: Optional[Annotated[int, Field(le=100, strict=True, ge=0)]] = Field(default=None, description="НДС, которым облагается текущая позиция")
     vat_enabled: Optional[StrictBool] = Field(default=None, description="Включён ли НДС для позиции. Пара `(vat = 0, vatEnabled = false)` соответствует НДС «без НДС»; `(vat = 0, vatEnabled = true)` — НДС 0%. ", alias="vatEnabled")
     additional_properties: Dict[str, Any] = {}
