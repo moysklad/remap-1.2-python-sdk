@@ -1,6 +1,6 @@
 [project]
 name = "moysklad-remap-12-sdk"
-version = "0.27.0"
+version = "0.28.0"
 description = "Python SDK for MoySklad JSON API 1.2"
 authors = [
   {name = "Lognex dev team"},
