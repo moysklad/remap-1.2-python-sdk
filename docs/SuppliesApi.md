@@ -11,6 +11,7 @@ Method | HTTP request | Description
 [**create_supply_metadata_state**](SuppliesApi.md#create_supply_metadata_state) | **POST** /entity/supply/metadata/states | Создать статус Приемки
 [**create_supply_metadata_states_batch**](SuppliesApi.md#create_supply_metadata_states_batch) | **POST** /entity/supply/metadata/states/batch | Массовое создание и обновление статусов Приемки
 [**create_supply_note**](SuppliesApi.md#create_supply_note) | **POST** /entity/supply/{id}/notes | Добавить Событие Приемки
+[**create_supply_notes_batch**](SuppliesApi.md#create_supply_notes_batch) | **POST** /entity/supply/{id}/notes/batch | Массовое создание и обновление Событий Приемки
 [**create_supply_position**](SuppliesApi.md#create_supply_position) | **POST** /entity/supply/{id}/positions | Создать и обновить позицию Приемки
 [**create_supply_positions**](SuppliesApi.md#create_supply_positions) | **POST** /entity/supply/{id}/positions/batch | Массовое создание и обновление позиций Приемки
 [**delete_supply**](SuppliesApi.md#delete_supply) | **DELETE** /entity/supply/{id} | Удалить Приемку
@@ -19,6 +20,7 @@ Method | HTTP request | Description
 [**delete_supply_metadata_attribute_by_id**](SuppliesApi.md#delete_supply_metadata_attribute_by_id) | **DELETE** /entity/supply/metadata/attributes/{id} | Удалить отдельное доп. поле Приемки
 [**delete_supply_metadata_state_by_id**](SuppliesApi.md#delete_supply_metadata_state_by_id) | **DELETE** /entity/supply/metadata/states/{id} | Удалить отдельный статус Приемки
 [**delete_supply_note**](SuppliesApi.md#delete_supply_note) | **DELETE** /entity/supply/{id}/notes/{noteId} | Удалить Событие Приемки
+[**delete_supply_notes_batch**](SuppliesApi.md#delete_supply_notes_batch) | **POST** /entity/supply/{id}/notes/delete | Массовое удаление Событий Приемки
 [**delete_supply_position**](SuppliesApi.md#delete_supply_position) | **DELETE** /entity/supply/{id}/positions/{positionId} | Удалить позицию Приемки
 [**delete_supply_positions**](SuppliesApi.md#delete_supply_positions) | **POST** /entity/supply/{id}/positions/delete | Массовое удаление позиций Приемки
 [**get_supply_by_id**](SuppliesApi.md#get_supply_by_id) | **GET** /entity/supply/{id} | Получить Приемку
@@ -683,7 +685,101 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Событие успешно создано |  -  |
+**201** | Массив с созданным Событием |  -  |
+**0** | Ошибка запроса (тело — объект с полем errors) |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **create_supply_notes_batch**
+> List[EventNote] create_supply_notes_batch(id, event_note, accept=accept, accept_encoding=accept_encoding, content_type=content_type)
+
+Массовое создание и обновление Событий Приемки
+
+В теле запроса передается массив Событий. Для создания События требуется description, для обновления — метаданные (meta). Для каждого документа можно создать не более 5000 Событий. Редактировать События может администратор или автор События с правом на просмотр документа.
+
+### Example
+
+* Basic Authentication (basicAuth):
+* Bearer Authentication (bearerAuth):
+
+```python
+import moysklad_remap_12_sdk
+from moysklad_remap_12_sdk.models.event_note import EventNote
+from moysklad_remap_12_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.moysklad.ru/api/remap/1.2
+# See configuration.py for a list of all supported configuration parameters.
+configuration = moysklad_remap_12_sdk.Configuration(
+    host = "https://api.moysklad.ru/api/remap/1.2"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure HTTP basic authorization: basicAuth
+configuration = moysklad_remap_12_sdk.Configuration(
+    username = os.environ["USERNAME"],
+    password = os.environ["PASSWORD"]
+)
+
+# Configure Bearer authorization: bearerAuth
+configuration = moysklad_remap_12_sdk.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with moysklad_remap_12_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = moysklad_remap_12_sdk.SuppliesApi(api_client)
+    id = 'id_example' # str | ID сущности
+    event_note = [moysklad_remap_12_sdk.EventNote()] # List[EventNote] | 
+    accept = application/json;charset=utf-8 # str |  (optional) (default to application/json;charset=utf-8)
+    accept_encoding = 'gzip, deflate, br' # str |  (optional) (default to 'gzip, deflate, br')
+    content_type = application/json # str |  (optional) (default to application/json)
+
+    try:
+        # Массовое создание и обновление Событий Приемки
+        api_response = api_instance.create_supply_notes_batch(id, event_note, accept=accept, accept_encoding=accept_encoding, content_type=content_type)
+        print("The response of SuppliesApi->create_supply_notes_batch:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling SuppliesApi->create_supply_notes_batch: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **str**| ID сущности | 
+ **event_note** | [**List[EventNote]**](EventNote.md)|  | 
+ **accept** | **str**|  | [optional] [default to application/json;charset&#x3D;utf-8]
+ **accept_encoding** | **str**|  | [optional] [default to &#39;gzip, deflate, br&#39;]
+ **content_type** | **str**|  | [optional] [default to application/json]
+
+### Return type
+
+[**List[EventNote]**](EventNote.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json, text/html;charset=UTF-8
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**201** | Массив созданных и обновленных Событий |  -  |
 **0** | Ошибка запроса (тело — объект с полем errors) |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -1398,6 +1494,98 @@ void (empty response body)
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **204** | Событие успешно удалено |  -  |
+**0** | Ошибка запроса (тело — объект с полем errors) |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **delete_supply_notes_batch**
+> delete_supply_notes_batch(id, event_note, accept=accept, accept_encoding=accept_encoding, content_type=content_type)
+
+Массовое удаление Событий Приемки
+
+В теле запроса передается массив Событий с их метаданными (meta). Удалять События может администратор или автор События с правом на просмотр документа.
+
+### Example
+
+* Basic Authentication (basicAuth):
+* Bearer Authentication (bearerAuth):
+
+```python
+import moysklad_remap_12_sdk
+from moysklad_remap_12_sdk.models.event_note import EventNote
+from moysklad_remap_12_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.moysklad.ru/api/remap/1.2
+# See configuration.py for a list of all supported configuration parameters.
+configuration = moysklad_remap_12_sdk.Configuration(
+    host = "https://api.moysklad.ru/api/remap/1.2"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure HTTP basic authorization: basicAuth
+configuration = moysklad_remap_12_sdk.Configuration(
+    username = os.environ["USERNAME"],
+    password = os.environ["PASSWORD"]
+)
+
+# Configure Bearer authorization: bearerAuth
+configuration = moysklad_remap_12_sdk.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with moysklad_remap_12_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = moysklad_remap_12_sdk.SuppliesApi(api_client)
+    id = 'id_example' # str | ID сущности
+    event_note = [moysklad_remap_12_sdk.EventNote()] # List[EventNote] | 
+    accept = application/json;charset=utf-8 # str |  (optional) (default to application/json;charset=utf-8)
+    accept_encoding = 'gzip, deflate, br' # str |  (optional) (default to 'gzip, deflate, br')
+    content_type = application/json # str |  (optional) (default to application/json)
+
+    try:
+        # Массовое удаление Событий Приемки
+        api_instance.delete_supply_notes_batch(id, event_note, accept=accept, accept_encoding=accept_encoding, content_type=content_type)
+    except Exception as e:
+        print("Exception when calling SuppliesApi->delete_supply_notes_batch: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **str**| ID сущности | 
+ **event_note** | [**List[EventNote]**](EventNote.md)|  | 
+ **accept** | **str**|  | [optional] [default to application/json;charset&#x3D;utf-8]
+ **accept_encoding** | **str**|  | [optional] [default to &#39;gzip, deflate, br&#39;]
+ **content_type** | **str**|  | [optional] [default to application/json]
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json, text/html;charset=UTF-8
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | События успешно удалены. Тело ответа отсутствует. |  -  |
 **0** | Ошибка запроса (тело — объект с полем errors) |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

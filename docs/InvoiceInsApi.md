@@ -11,6 +11,7 @@ Method | HTTP request | Description
 [**create_invoice_in_metadata_state**](InvoiceInsApi.md#create_invoice_in_metadata_state) | **POST** /entity/invoicein/metadata/states | Создать статус InvoiceIn
 [**create_invoice_in_metadata_states_batch**](InvoiceInsApi.md#create_invoice_in_metadata_states_batch) | **POST** /entity/invoicein/metadata/states/batch | Массовое создание и обновление статусов InvoiceIn
 [**create_invoice_in_note**](InvoiceInsApi.md#create_invoice_in_note) | **POST** /entity/invoicein/{id}/notes | Добавить Событие Счета поставщику
+[**create_invoice_in_notes_batch**](InvoiceInsApi.md#create_invoice_in_notes_batch) | **POST** /entity/invoicein/{id}/notes/batch | Массовое создание и обновление Событий Счета поставщику
 [**create_invoice_in_positions**](InvoiceInsApi.md#create_invoice_in_positions) | **POST** /entity/invoicein/{id}/positions | Создать позицию Счета поставщику
 [**create_invoice_in_positions_batch**](InvoiceInsApi.md#create_invoice_in_positions_batch) | **POST** /entity/invoicein/{id}/positions/batch | Создать позиции Счета поставщику
 [**delete_invoice_in**](InvoiceInsApi.md#delete_invoice_in) | **DELETE** /entity/invoicein/{id} | Удалить Счет поставщику
@@ -19,6 +20,7 @@ Method | HTTP request | Description
 [**delete_invoice_in_metadata_attribute_by_id**](InvoiceInsApi.md#delete_invoice_in_metadata_attribute_by_id) | **DELETE** /entity/invoicein/metadata/attributes/{id} | Удалить отдельное доп. поле InvoiceIn
 [**delete_invoice_in_metadata_state_by_id**](InvoiceInsApi.md#delete_invoice_in_metadata_state_by_id) | **DELETE** /entity/invoicein/metadata/states/{id} | Удалить отдельный статус InvoiceIn
 [**delete_invoice_in_note**](InvoiceInsApi.md#delete_invoice_in_note) | **DELETE** /entity/invoicein/{id}/notes/{noteId} | Удалить Событие Счета поставщику
+[**delete_invoice_in_notes_batch**](InvoiceInsApi.md#delete_invoice_in_notes_batch) | **POST** /entity/invoicein/{id}/notes/delete | Массовое удаление Событий Счета поставщику
 [**delete_invoice_in_position**](InvoiceInsApi.md#delete_invoice_in_position) | **DELETE** /entity/invoicein/{id}/positions/{positionId} | Удалить позицию Счета поставщику
 [**delete_invoice_in_positions_batch**](InvoiceInsApi.md#delete_invoice_in_positions_batch) | **POST** /entity/invoicein/{id}/positions/delete | Массовое удаление позиций Счета поставщику
 [**get_invoice_in_by_id**](InvoiceInsApi.md#get_invoice_in_by_id) | **GET** /entity/invoicein/{id} | Получить Счет поставщику
@@ -34,6 +36,7 @@ Method | HTTP request | Description
 [**get_invoice_in_position_by_id**](InvoiceInsApi.md#get_invoice_in_position_by_id) | **GET** /entity/invoicein/{id}/positions/{positionId} | Получить позицию Счета поставщику
 [**get_invoice_in_positions**](InvoiceInsApi.md#get_invoice_in_positions) | **GET** /entity/invoicein/{id}/positions | Получить позиции Счета поставщику
 [**get_invoice_in_template**](InvoiceInsApi.md#get_invoice_in_template) | **PUT** /entity/invoicein/new | Шаблон Счета поставщику
+[**move_invoice_in_to_trash**](InvoiceInsApi.md#move_invoice_in_to_trash) | **POST** /entity/invoicein/{id}/trash | Удалить Счет поставщику в корзину
 [**update_invoice_in**](InvoiceInsApi.md#update_invoice_in) | **PUT** /entity/invoicein/{id} | Изменить Счет поставщику
 [**update_invoice_in_metadata_attribute_by_id**](InvoiceInsApi.md#update_invoice_in_metadata_attribute_by_id) | **PUT** /entity/invoicein/metadata/attributes/{id} | Обновить отдельное доп. поле InvoiceIn
 [**update_invoice_in_metadata_state_by_id**](InvoiceInsApi.md#update_invoice_in_metadata_state_by_id) | **PUT** /entity/invoicein/metadata/states/{id} | Обновить отдельный статус InvoiceIn
@@ -683,7 +686,101 @@ Name | Type | Description  | Notes
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Событие успешно создано |  -  |
+**201** | Массив с созданным Событием |  -  |
+**0** | Ошибка запроса (тело — объект с полем errors) |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **create_invoice_in_notes_batch**
+> List[EventNote] create_invoice_in_notes_batch(id, event_note, accept=accept, accept_encoding=accept_encoding, content_type=content_type)
+
+Массовое создание и обновление Событий Счета поставщику
+
+В теле запроса передается массив Событий. Для создания События требуется description, для обновления — метаданные (meta). Для каждого документа можно создать не более 5000 Событий. Редактировать События может администратор или автор События с правом на просмотр документа.
+
+### Example
+
+* Basic Authentication (basicAuth):
+* Bearer Authentication (bearerAuth):
+
+```python
+import moysklad_remap_12_sdk
+from moysklad_remap_12_sdk.models.event_note import EventNote
+from moysklad_remap_12_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.moysklad.ru/api/remap/1.2
+# See configuration.py for a list of all supported configuration parameters.
+configuration = moysklad_remap_12_sdk.Configuration(
+    host = "https://api.moysklad.ru/api/remap/1.2"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure HTTP basic authorization: basicAuth
+configuration = moysklad_remap_12_sdk.Configuration(
+    username = os.environ["USERNAME"],
+    password = os.environ["PASSWORD"]
+)
+
+# Configure Bearer authorization: bearerAuth
+configuration = moysklad_remap_12_sdk.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with moysklad_remap_12_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = moysklad_remap_12_sdk.InvoiceInsApi(api_client)
+    id = 'id_example' # str | ID сущности
+    event_note = [moysklad_remap_12_sdk.EventNote()] # List[EventNote] | 
+    accept = application/json;charset=utf-8 # str |  (optional) (default to application/json;charset=utf-8)
+    accept_encoding = 'gzip, deflate, br' # str |  (optional) (default to 'gzip, deflate, br')
+    content_type = application/json # str |  (optional) (default to application/json)
+
+    try:
+        # Массовое создание и обновление Событий Счета поставщику
+        api_response = api_instance.create_invoice_in_notes_batch(id, event_note, accept=accept, accept_encoding=accept_encoding, content_type=content_type)
+        print("The response of InvoiceInsApi->create_invoice_in_notes_batch:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling InvoiceInsApi->create_invoice_in_notes_batch: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **str**| ID сущности | 
+ **event_note** | [**List[EventNote]**](EventNote.md)|  | 
+ **accept** | **str**|  | [optional] [default to application/json;charset&#x3D;utf-8]
+ **accept_encoding** | **str**|  | [optional] [default to &#39;gzip, deflate, br&#39;]
+ **content_type** | **str**|  | [optional] [default to application/json]
+
+### Return type
+
+[**List[EventNote]**](EventNote.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json, text/html;charset=UTF-8
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**201** | Массив созданных и обновленных Событий |  -  |
 **0** | Ошибка запроса (тело — объект с полем errors) |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -1404,6 +1501,98 @@ void (empty response body)
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **204** | Событие успешно удалено |  -  |
+**0** | Ошибка запроса (тело — объект с полем errors) |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **delete_invoice_in_notes_batch**
+> delete_invoice_in_notes_batch(id, event_note, accept=accept, accept_encoding=accept_encoding, content_type=content_type)
+
+Массовое удаление Событий Счета поставщику
+
+В теле запроса передается массив Событий с их метаданными (meta). Удалять События может администратор или автор События с правом на просмотр документа.
+
+### Example
+
+* Basic Authentication (basicAuth):
+* Bearer Authentication (bearerAuth):
+
+```python
+import moysklad_remap_12_sdk
+from moysklad_remap_12_sdk.models.event_note import EventNote
+from moysklad_remap_12_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.moysklad.ru/api/remap/1.2
+# See configuration.py for a list of all supported configuration parameters.
+configuration = moysklad_remap_12_sdk.Configuration(
+    host = "https://api.moysklad.ru/api/remap/1.2"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure HTTP basic authorization: basicAuth
+configuration = moysklad_remap_12_sdk.Configuration(
+    username = os.environ["USERNAME"],
+    password = os.environ["PASSWORD"]
+)
+
+# Configure Bearer authorization: bearerAuth
+configuration = moysklad_remap_12_sdk.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with moysklad_remap_12_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = moysklad_remap_12_sdk.InvoiceInsApi(api_client)
+    id = 'id_example' # str | ID сущности
+    event_note = [moysklad_remap_12_sdk.EventNote()] # List[EventNote] | 
+    accept = application/json;charset=utf-8 # str |  (optional) (default to application/json;charset=utf-8)
+    accept_encoding = 'gzip, deflate, br' # str |  (optional) (default to 'gzip, deflate, br')
+    content_type = application/json # str |  (optional) (default to application/json)
+
+    try:
+        # Массовое удаление Событий Счета поставщику
+        api_instance.delete_invoice_in_notes_batch(id, event_note, accept=accept, accept_encoding=accept_encoding, content_type=content_type)
+    except Exception as e:
+        print("Exception when calling InvoiceInsApi->delete_invoice_in_notes_batch: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **str**| ID сущности | 
+ **event_note** | [**List[EventNote]**](EventNote.md)|  | 
+ **accept** | **str**|  | [optional] [default to application/json;charset&#x3D;utf-8]
+ **accept_encoding** | **str**|  | [optional] [default to &#39;gzip, deflate, br&#39;]
+ **content_type** | **str**|  | [optional] [default to application/json]
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json, text/html;charset=UTF-8
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | События успешно удалены. Тело ответа отсутствует. |  -  |
 **0** | Ошибка запроса (тело — объект с полем errors) |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -2791,6 +2980,91 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: application/json
+ - **Accept**: application/json, text/html;charset=UTF-8
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Успешный запрос |  -  |
+**0** | Ошибка запроса (тело — объект с полем errors) |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **move_invoice_in_to_trash**
+> move_invoice_in_to_trash(id, accept=accept, accept_encoding=accept_encoding)
+
+Удалить Счет поставщику в корзину
+
+### Example
+
+* Basic Authentication (basicAuth):
+* Bearer Authentication (bearerAuth):
+
+```python
+import moysklad_remap_12_sdk
+from moysklad_remap_12_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.moysklad.ru/api/remap/1.2
+# See configuration.py for a list of all supported configuration parameters.
+configuration = moysklad_remap_12_sdk.Configuration(
+    host = "https://api.moysklad.ru/api/remap/1.2"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure HTTP basic authorization: basicAuth
+configuration = moysklad_remap_12_sdk.Configuration(
+    username = os.environ["USERNAME"],
+    password = os.environ["PASSWORD"]
+)
+
+# Configure Bearer authorization: bearerAuth
+configuration = moysklad_remap_12_sdk.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with moysklad_remap_12_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = moysklad_remap_12_sdk.InvoiceInsApi(api_client)
+    id = 'id_example' # str | ID сущности
+    accept = application/json;charset=utf-8 # str |  (optional) (default to application/json;charset=utf-8)
+    accept_encoding = 'gzip, deflate, br' # str |  (optional) (default to 'gzip, deflate, br')
+
+    try:
+        # Удалить Счет поставщику в корзину
+        api_instance.move_invoice_in_to_trash(id, accept=accept, accept_encoding=accept_encoding)
+    except Exception as e:
+        print("Exception when calling InvoiceInsApi->move_invoice_in_to_trash: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **str**| ID сущности | 
+ **accept** | **str**|  | [optional] [default to application/json;charset&#x3D;utf-8]
+ **accept_encoding** | **str**|  | [optional] [default to &#39;gzip, deflate, br&#39;]
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
  - **Accept**: application/json, text/html;charset=UTF-8
 
 ### HTTP response details

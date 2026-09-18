@@ -2,6 +2,7 @@
 
 # import apis into api package
 from moysklad_remap_12_sdk.api.assortment_api import AssortmentApi
+from moysklad_remap_12_sdk.api.audit_api import AuditApi
 from moysklad_remap_12_sdk.api.bonus_programs_api import BonusProgramsApi
 from moysklad_remap_12_sdk.api.bonus_transactions_api import BonusTransactionsApi
 from moysklad_remap_12_sdk.api.bundles_api import BundlesApi
@@ -14,6 +15,7 @@ from moysklad_remap_12_sdk.api.company_settings_api import CompanySettingsApi
 from moysklad_remap_12_sdk.api.consignments_api import ConsignmentsApi
 from moysklad_remap_12_sdk.api.contracts_api import ContractsApi
 from moysklad_remap_12_sdk.api.counterparties_api import CounterpartiesApi
+from moysklad_remap_12_sdk.api.counterparty_adjustments_api import CounterpartyAdjustmentsApi
 from moysklad_remap_12_sdk.api.countries_api import CountriesApi
 from moysklad_remap_12_sdk.api.currencies_api import CurrenciesApi
 from moysklad_remap_12_sdk.api.custom_entities_api import CustomEntitiesApi
@@ -40,8 +42,10 @@ from moysklad_remap_12_sdk.api.notifications_api import NotificationsApi
 from moysklad_remap_12_sdk.api.organizations_api import OrganizationsApi
 from moysklad_remap_12_sdk.api.payment_ins_api import PaymentInsApi
 from moysklad_remap_12_sdk.api.payment_outs_api import PaymentOutsApi
+from moysklad_remap_12_sdk.api.payrolls_api import PayrollsApi
 from moysklad_remap_12_sdk.api.prepayment_returns_api import PrepaymentReturnsApi
 from moysklad_remap_12_sdk.api.prepayments_api import PrepaymentsApi
+from moysklad_remap_12_sdk.api.price_lists_api import PriceListsApi
 from moysklad_remap_12_sdk.api.price_types_api import PriceTypesApi
 from moysklad_remap_12_sdk.api.processing_orders_api import ProcessingOrdersApi
 from moysklad_remap_12_sdk.api.processing_plan_folders_api import ProcessingPlanFoldersApi
@@ -61,6 +65,7 @@ from moysklad_remap_12_sdk.api.reports_by_operations_api import ReportsByOperati
 from moysklad_remap_12_sdk.api.reports_stock_all_api import ReportsStockAllApi
 from moysklad_remap_12_sdk.api.reports_stock_by_operation_api import ReportsStockByOperationApi
 from moysklad_remap_12_sdk.api.reports_stock_by_store_api import ReportsStockByStoreApi
+from moysklad_remap_12_sdk.api.reports_stock_current_api import ReportsStockCurrentApi
 from moysklad_remap_12_sdk.api.retail_demands_api import RetailDemandsApi
 from moysklad_remap_12_sdk.api.retail_drawer_cash_ins_api import RetailDrawerCashInsApi
 from moysklad_remap_12_sdk.api.retail_drawer_cash_outs_api import RetailDrawerCashOutsApi

@@ -23,6 +23,7 @@ Method | HTTP request | Description
 [**get_retail_sales_return_positions**](RetailSalesReturnsApi.md#get_retail_sales_return_positions) | **GET** /entity/retailsalesreturn/{id}/positions | Получить позиции Розничного возврата
 [**get_retail_sales_return_template**](RetailSalesReturnsApi.md#get_retail_sales_return_template) | **PUT** /entity/retailsalesreturn/new | Шаблон Розничного возврата
 [**get_retail_sales_returns**](RetailSalesReturnsApi.md#get_retail_sales_returns) | **GET** /entity/retailsalesreturn | Получить список Розничных возвратов
+[**move_retail_sales_return_to_trash**](RetailSalesReturnsApi.md#move_retail_sales_return_to_trash) | **POST** /entity/retailsalesreturn/{id}/trash | Удалить Розничный возврат в корзину
 [**update_retail_sales_return**](RetailSalesReturnsApi.md#update_retail_sales_return) | **PUT** /entity/retailsalesreturn/{id} | Изменить Розничный возврат
 [**update_retail_sales_return_metadata_attribute_by_id**](RetailSalesReturnsApi.md#update_retail_sales_return_metadata_attribute_by_id) | **PUT** /entity/retailsalesreturn/metadata/attributes/{id} | Обновить отдельное доп. поле Розничного возврата
 [**update_retail_sales_return_metadata_state_by_id**](RetailSalesReturnsApi.md#update_retail_sales_return_metadata_state_by_id) | **PUT** /entity/retailsalesreturn/metadata/states/{id} | Обновить отдельный статус Розничного возврата
@@ -1740,6 +1741,91 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**RetailSalesReturnList**](RetailSalesReturnList.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json, text/html;charset=UTF-8
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Успешный запрос |  -  |
+**0** | Ошибка запроса (тело — объект с полем errors) |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **move_retail_sales_return_to_trash**
+> move_retail_sales_return_to_trash(id, accept=accept, accept_encoding=accept_encoding)
+
+Удалить Розничный возврат в корзину
+
+### Example
+
+* Basic Authentication (basicAuth):
+* Bearer Authentication (bearerAuth):
+
+```python
+import moysklad_remap_12_sdk
+from moysklad_remap_12_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.moysklad.ru/api/remap/1.2
+# See configuration.py for a list of all supported configuration parameters.
+configuration = moysklad_remap_12_sdk.Configuration(
+    host = "https://api.moysklad.ru/api/remap/1.2"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure HTTP basic authorization: basicAuth
+configuration = moysklad_remap_12_sdk.Configuration(
+    username = os.environ["USERNAME"],
+    password = os.environ["PASSWORD"]
+)
+
+# Configure Bearer authorization: bearerAuth
+configuration = moysklad_remap_12_sdk.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with moysklad_remap_12_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = moysklad_remap_12_sdk.RetailSalesReturnsApi(api_client)
+    id = 'id_example' # str | ID сущности
+    accept = application/json;charset=utf-8 # str |  (optional) (default to application/json;charset=utf-8)
+    accept_encoding = 'gzip, deflate, br' # str |  (optional) (default to 'gzip, deflate, br')
+
+    try:
+        # Удалить Розничный возврат в корзину
+        api_instance.move_retail_sales_return_to_trash(id, accept=accept, accept_encoding=accept_encoding)
+    except Exception as e:
+        print("Exception when calling RetailSalesReturnsApi->move_retail_sales_return_to_trash: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **str**| ID сущности | 
+ **accept** | **str**|  | [optional] [default to application/json;charset&#x3D;utf-8]
+ **accept_encoding** | **str**|  | [optional] [default to &#39;gzip, deflate, br&#39;]
+
+### Return type
+
+void (empty response body)
 
 ### Authorization
 

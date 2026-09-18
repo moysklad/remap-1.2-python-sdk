@@ -1,6 +1,6 @@
 # CustomRole
 
-Пользовательская роль
+Пользовательская роль — именованный набор прав сотрудника. Код сущности в URL — role, значение meta.type — customrole. Получать и изменять роли можно от лица сотрудника с правами системного администратора или от лица Решения. Использование пользовательских ролей доступно на тарифах «Профессиональный» и «Корпоративный». 
 
 ## Properties
 
@@ -8,8 +8,8 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **meta** | [**Meta**](Meta.md) |  | [optional] 
 **id** | **str** | ID пользовательской роли | [optional] [readonly] 
-**name** | **str** | Наименование пользовательской роли | [optional] 
-**permissions** | [**EmployeeRolePermissions**](EmployeeRolePermissions.md) |  | [optional] 
+**name** | **str** | Наименование пользовательской роли. Необходимо при создании. | [optional] 
+**permissions** | [**RolePermissions**](RolePermissions.md) |  | [optional] 
 
 ## Example
 

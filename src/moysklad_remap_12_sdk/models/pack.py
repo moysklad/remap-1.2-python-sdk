@@ -28,13 +28,13 @@ from typing_extensions import Self
 
 class Pack(BaseModel):
     """
-    Упаковка
+    Упаковка товара
     """ # noqa: E501
     meta: Optional[Meta] = None
-    id: Optional[StrictStr] = Field(default=None, description="ID упаковки")
+    id: Optional[StrictStr] = Field(default=None, description="ID упаковки товара. Обязательное при ответе")
     uom: Optional[Uom] = None
-    quantity: Optional[Union[Annotated[float, Field(strict=True, ge=0)], Annotated[int, Field(strict=True, ge=0)]]] = Field(default=None, description="Количество товаров в упаковке")
-    barcodes: Optional[List[Barcode]] = Field(default=None, description="Штрихкоды упаковки")
+    quantity: Optional[Union[Annotated[float, Field(strict=True, ge=0)], Annotated[int, Field(strict=True, ge=0)]]] = Field(default=None, description="Количество товаров в упаковке. Обязательное при ответе")
+    barcodes: Optional[Annotated[List[Barcode], Field(max_length=1)]] = Field(default=None, description="Штрихкоды упаковки (не более одного). Без штрихкода поле не выводится. При обновлении переданный массив полностью заменяет штрихкоды упаковки. ")
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["meta", "id", "uom", "quantity", "barcodes"]
 

@@ -14,11 +14,12 @@
 """  # noqa: E501
 
 
-__version__ = "0.27.0"
+__version__ = "0.28.0"
 
 # Define package exports
 __all__ = [
     "AssortmentApi",
+    "AuditApi",
     "BonusProgramsApi",
     "BonusTransactionsApi",
     "BundlesApi",
@@ -31,6 +32,7 @@ __all__ = [
     "ConsignmentsApi",
     "ContractsApi",
     "CounterpartiesApi",
+    "CounterpartyAdjustmentsApi",
     "CountriesApi",
     "CurrenciesApi",
     "CustomEntitiesApi",
@@ -57,8 +59,10 @@ __all__ = [
     "OrganizationsApi",
     "PaymentInsApi",
     "PaymentOutsApi",
+    "PayrollsApi",
     "PrepaymentReturnsApi",
     "PrepaymentsApi",
+    "PriceListsApi",
     "PriceTypesApi",
     "ProcessingOrdersApi",
     "ProcessingPlanFoldersApi",
@@ -78,6 +82,7 @@ __all__ = [
     "ReportsStockAllApi",
     "ReportsStockByOperationApi",
     "ReportsStockByStoreApi",
+    "ReportsStockCurrentApi",
     "RetailDemandsApi",
     "RetailDrawerCashInsApi",
     "RetailDrawerCashOutsApi",
@@ -147,6 +152,16 @@ __all__ = [
     "AttributeString",
     "AttributeText",
     "AttributeType",
+    "Audit",
+    "AuditEvent",
+    "AuditEventAudit",
+    "AuditEventEntity",
+    "AuditEventList",
+    "AuditEventType",
+    "AuditEvents",
+    "AuditFilters",
+    "AuditList",
+    "AuditSourceType",
     "Barcode",
     "BatchResponseEntity",
     "BonusProgram",
@@ -199,6 +214,8 @@ __all__ = [
     "CostDistributionType",
     "Counterparty",
     "CounterpartyAccounts",
+    "CounterpartyAdjustment",
+    "CounterpartyAdjustmentList",
     "CounterpartyContactpersons",
     "CounterpartyList",
     "CounterpartyMetadata",
@@ -221,6 +238,7 @@ __all__ = [
     "CreateInvoiceOutBatch200ResponseInner",
     "CreateInvoiceOutPositionsBatch200ResponseInner",
     "CreateLossPositions200ResponseInner",
+    "CreatePriceListPositionsBatch200ResponseInner",
     "CreateProcessingOrderPositions200ResponseInner",
     "CreateProcessingProcessPositions200ResponseInner",
     "CreatePurchaseOrderPositions200ResponseInner",
@@ -278,7 +296,6 @@ __all__ = [
     "Employee",
     "EmployeeList",
     "EmployeeRole",
-    "EmployeeRolePermissions",
     "EmployeeSalary",
     "EmployeeSecurity",
     "EmployeeSecurityGroup",
@@ -422,6 +439,10 @@ __all__ = [
     "PaymentItemType",
     "PaymentOut",
     "PaymentOutList",
+    "Payroll",
+    "PayrollList",
+    "PayrollPosition",
+    "PayrollPositionList",
     "PermissionValue",
     "Permissions",
     "PersonalDiscount",
@@ -435,6 +456,12 @@ __all__ = [
     "PrepaymentReturnPosition",
     "PrepaymentReturnPositionList",
     "Price",
+    "PriceList",
+    "PriceListCell",
+    "PriceListColumn",
+    "PriceListList",
+    "PriceListPosition",
+    "PriceListPositionList",
     "PriceType",
     "PrintFormat",
     "PriorityOfdSend",
@@ -489,12 +516,42 @@ __all__ = [
     "RateUpdateType",
     "Region",
     "RegionList",
+    "ReportCounterparty",
+    "ReportCounterpartyList",
+    "ReportCounterpartyQuery",
+    "ReportCounterpartyQueryCounterpartiesInner",
     "ReportDashboard",
     "ReportDashboardMoney",
     "ReportDashboardPeriodMetrics",
+    "ReportMoneyAccount",
+    "ReportMoneyByAccount",
+    "ReportMoneyByAccountList",
+    "ReportMoneyPlotSeries",
+    "ReportMoneyPlotSeriesItem",
     "ReportOrdersPlotSeriesList",
     "ReportPlotSeries",
+    "ReportProfitAssortment",
+    "ReportProfitByCounterparty",
+    "ReportProfitByCounterpartyList",
+    "ReportProfitByEmployee",
+    "ReportProfitByEmployeeList",
+    "ReportProfitByProduct",
+    "ReportProfitByProductList",
+    "ReportProfitBySalesChannel",
+    "ReportProfitBySalesChannelList",
+    "ReportProfitByVariant",
+    "ReportProfitByVariantList",
     "ReportSalesPlotSeriesList",
+    "ReportTurnover",
+    "ReportTurnoverAssortment",
+    "ReportTurnoverByOperation",
+    "ReportTurnoverByOperationList",
+    "ReportTurnoverByStore",
+    "ReportTurnoverByStoreItem",
+    "ReportTurnoverByStoreList",
+    "ReportTurnoverIndicators",
+    "ReportTurnoverList",
+    "ReportTurnoverOperation",
     "RetailDemand",
     "RetailDemandCheque",
     "RetailDemandGiftCard",
@@ -542,6 +599,7 @@ __all__ = [
     "RetailStoreUpsert",
     "RetireOrderByDemandNotificationCompleted",
     "RewardType",
+    "RolePermissions",
     "SalePlatform",
     "SalePlatformGroup",
     "SalePlatformList",
@@ -574,6 +632,9 @@ __all__ = [
     "StockByStore",
     "StockByStoreItem",
     "StockByStoreList",
+    "StockCurrentAll",
+    "StockCurrentBySlot",
+    "StockCurrentByStore",
     "Store",
     "StoreBalance",
     "StoreBalanceList",
@@ -634,6 +695,7 @@ __all__ = [
 
 # import apis into sdk package
 from moysklad_remap_12_sdk.api.assortment_api import AssortmentApi as AssortmentApi
+from moysklad_remap_12_sdk.api.audit_api import AuditApi as AuditApi
 from moysklad_remap_12_sdk.api.bonus_programs_api import BonusProgramsApi as BonusProgramsApi
 from moysklad_remap_12_sdk.api.bonus_transactions_api import BonusTransactionsApi as BonusTransactionsApi
 from moysklad_remap_12_sdk.api.bundles_api import BundlesApi as BundlesApi
@@ -646,6 +708,7 @@ from moysklad_remap_12_sdk.api.company_settings_api import CompanySettingsApi as
 from moysklad_remap_12_sdk.api.consignments_api import ConsignmentsApi as ConsignmentsApi
 from moysklad_remap_12_sdk.api.contracts_api import ContractsApi as ContractsApi
 from moysklad_remap_12_sdk.api.counterparties_api import CounterpartiesApi as CounterpartiesApi
+from moysklad_remap_12_sdk.api.counterparty_adjustments_api import CounterpartyAdjustmentsApi as CounterpartyAdjustmentsApi
 from moysklad_remap_12_sdk.api.countries_api import CountriesApi as CountriesApi
 from moysklad_remap_12_sdk.api.currencies_api import CurrenciesApi as CurrenciesApi
 from moysklad_remap_12_sdk.api.custom_entities_api import CustomEntitiesApi as CustomEntitiesApi
@@ -672,8 +735,10 @@ from moysklad_remap_12_sdk.api.notifications_api import NotificationsApi as Noti
 from moysklad_remap_12_sdk.api.organizations_api import OrganizationsApi as OrganizationsApi
 from moysklad_remap_12_sdk.api.payment_ins_api import PaymentInsApi as PaymentInsApi
 from moysklad_remap_12_sdk.api.payment_outs_api import PaymentOutsApi as PaymentOutsApi
+from moysklad_remap_12_sdk.api.payrolls_api import PayrollsApi as PayrollsApi
 from moysklad_remap_12_sdk.api.prepayment_returns_api import PrepaymentReturnsApi as PrepaymentReturnsApi
 from moysklad_remap_12_sdk.api.prepayments_api import PrepaymentsApi as PrepaymentsApi
+from moysklad_remap_12_sdk.api.price_lists_api import PriceListsApi as PriceListsApi
 from moysklad_remap_12_sdk.api.price_types_api import PriceTypesApi as PriceTypesApi
 from moysklad_remap_12_sdk.api.processing_orders_api import ProcessingOrdersApi as ProcessingOrdersApi
 from moysklad_remap_12_sdk.api.processing_plan_folders_api import ProcessingPlanFoldersApi as ProcessingPlanFoldersApi
@@ -693,6 +758,7 @@ from moysklad_remap_12_sdk.api.reports_by_operations_api import ReportsByOperati
 from moysklad_remap_12_sdk.api.reports_stock_all_api import ReportsStockAllApi as ReportsStockAllApi
 from moysklad_remap_12_sdk.api.reports_stock_by_operation_api import ReportsStockByOperationApi as ReportsStockByOperationApi
 from moysklad_remap_12_sdk.api.reports_stock_by_store_api import ReportsStockByStoreApi as ReportsStockByStoreApi
+from moysklad_remap_12_sdk.api.reports_stock_current_api import ReportsStockCurrentApi as ReportsStockCurrentApi
 from moysklad_remap_12_sdk.api.retail_demands_api import RetailDemandsApi as RetailDemandsApi
 from moysklad_remap_12_sdk.api.retail_drawer_cash_ins_api import RetailDrawerCashInsApi as RetailDrawerCashInsApi
 from moysklad_remap_12_sdk.api.retail_drawer_cash_outs_api import RetailDrawerCashOutsApi as RetailDrawerCashOutsApi
@@ -766,6 +832,16 @@ from moysklad_remap_12_sdk.models.attribute_store_entity import AttributeStoreEn
 from moysklad_remap_12_sdk.models.attribute_string import AttributeString as AttributeString
 from moysklad_remap_12_sdk.models.attribute_text import AttributeText as AttributeText
 from moysklad_remap_12_sdk.models.attribute_type import AttributeType as AttributeType
+from moysklad_remap_12_sdk.models.audit import Audit as Audit
+from moysklad_remap_12_sdk.models.audit_event import AuditEvent as AuditEvent
+from moysklad_remap_12_sdk.models.audit_event_audit import AuditEventAudit as AuditEventAudit
+from moysklad_remap_12_sdk.models.audit_event_entity import AuditEventEntity as AuditEventEntity
+from moysklad_remap_12_sdk.models.audit_event_list import AuditEventList as AuditEventList
+from moysklad_remap_12_sdk.models.audit_event_type import AuditEventType as AuditEventType
+from moysklad_remap_12_sdk.models.audit_events import AuditEvents as AuditEvents
+from moysklad_remap_12_sdk.models.audit_filters import AuditFilters as AuditFilters
+from moysklad_remap_12_sdk.models.audit_list import AuditList as AuditList
+from moysklad_remap_12_sdk.models.audit_source_type import AuditSourceType as AuditSourceType
 from moysklad_remap_12_sdk.models.barcode import Barcode as Barcode
 from moysklad_remap_12_sdk.models.batch_response_entity import BatchResponseEntity as BatchResponseEntity
 from moysklad_remap_12_sdk.models.bonus_program import BonusProgram as BonusProgram
@@ -818,6 +894,8 @@ from moysklad_remap_12_sdk.models.contract_type import ContractType as ContractT
 from moysklad_remap_12_sdk.models.cost_distribution_type import CostDistributionType as CostDistributionType
 from moysklad_remap_12_sdk.models.counterparty import Counterparty as Counterparty
 from moysklad_remap_12_sdk.models.counterparty_accounts import CounterpartyAccounts as CounterpartyAccounts
+from moysklad_remap_12_sdk.models.counterparty_adjustment import CounterpartyAdjustment as CounterpartyAdjustment
+from moysklad_remap_12_sdk.models.counterparty_adjustment_list import CounterpartyAdjustmentList as CounterpartyAdjustmentList
 from moysklad_remap_12_sdk.models.counterparty_contactpersons import CounterpartyContactpersons as CounterpartyContactpersons
 from moysklad_remap_12_sdk.models.counterparty_list import CounterpartyList as CounterpartyList
 from moysklad_remap_12_sdk.models.counterparty_metadata import CounterpartyMetadata as CounterpartyMetadata
@@ -840,6 +918,7 @@ from moysklad_remap_12_sdk.models.create_invoice_in_positions_batch200_response_
 from moysklad_remap_12_sdk.models.create_invoice_out_batch200_response_inner import CreateInvoiceOutBatch200ResponseInner as CreateInvoiceOutBatch200ResponseInner
 from moysklad_remap_12_sdk.models.create_invoice_out_positions_batch200_response_inner import CreateInvoiceOutPositionsBatch200ResponseInner as CreateInvoiceOutPositionsBatch200ResponseInner
 from moysklad_remap_12_sdk.models.create_loss_positions200_response_inner import CreateLossPositions200ResponseInner as CreateLossPositions200ResponseInner
+from moysklad_remap_12_sdk.models.create_price_list_positions_batch200_response_inner import CreatePriceListPositionsBatch200ResponseInner as CreatePriceListPositionsBatch200ResponseInner
 from moysklad_remap_12_sdk.models.create_processing_order_positions200_response_inner import CreateProcessingOrderPositions200ResponseInner as CreateProcessingOrderPositions200ResponseInner
 from moysklad_remap_12_sdk.models.create_processing_process_positions200_response_inner import CreateProcessingProcessPositions200ResponseInner as CreateProcessingProcessPositions200ResponseInner
 from moysklad_remap_12_sdk.models.create_purchase_order_positions200_response_inner import CreatePurchaseOrderPositions200ResponseInner as CreatePurchaseOrderPositions200ResponseInner
@@ -897,7 +976,6 @@ from moysklad_remap_12_sdk.models.emission_order_position_status import Emission
 from moysklad_remap_12_sdk.models.employee import Employee as Employee
 from moysklad_remap_12_sdk.models.employee_list import EmployeeList as EmployeeList
 from moysklad_remap_12_sdk.models.employee_role import EmployeeRole as EmployeeRole
-from moysklad_remap_12_sdk.models.employee_role_permissions import EmployeeRolePermissions as EmployeeRolePermissions
 from moysklad_remap_12_sdk.models.employee_salary import EmployeeSalary as EmployeeSalary
 from moysklad_remap_12_sdk.models.employee_security import EmployeeSecurity as EmployeeSecurity
 from moysklad_remap_12_sdk.models.employee_security_group import EmployeeSecurityGroup as EmployeeSecurityGroup
@@ -1041,6 +1119,10 @@ from moysklad_remap_12_sdk.models.payment_in_list import PaymentInList as Paymen
 from moysklad_remap_12_sdk.models.payment_item_type import PaymentItemType as PaymentItemType
 from moysklad_remap_12_sdk.models.payment_out import PaymentOut as PaymentOut
 from moysklad_remap_12_sdk.models.payment_out_list import PaymentOutList as PaymentOutList
+from moysklad_remap_12_sdk.models.payroll import Payroll as Payroll
+from moysklad_remap_12_sdk.models.payroll_list import PayrollList as PayrollList
+from moysklad_remap_12_sdk.models.payroll_position import PayrollPosition as PayrollPosition
+from moysklad_remap_12_sdk.models.payroll_position_list import PayrollPositionList as PayrollPositionList
 from moysklad_remap_12_sdk.models.permission_value import PermissionValue as PermissionValue
 from moysklad_remap_12_sdk.models.permissions import Permissions as Permissions
 from moysklad_remap_12_sdk.models.personal_discount import PersonalDiscount as PersonalDiscount
@@ -1054,6 +1136,12 @@ from moysklad_remap_12_sdk.models.prepayment_return_list import PrepaymentReturn
 from moysklad_remap_12_sdk.models.prepayment_return_position import PrepaymentReturnPosition as PrepaymentReturnPosition
 from moysklad_remap_12_sdk.models.prepayment_return_position_list import PrepaymentReturnPositionList as PrepaymentReturnPositionList
 from moysklad_remap_12_sdk.models.price import Price as Price
+from moysklad_remap_12_sdk.models.price_list import PriceList as PriceList
+from moysklad_remap_12_sdk.models.price_list_cell import PriceListCell as PriceListCell
+from moysklad_remap_12_sdk.models.price_list_column import PriceListColumn as PriceListColumn
+from moysklad_remap_12_sdk.models.price_list_list import PriceListList as PriceListList
+from moysklad_remap_12_sdk.models.price_list_position import PriceListPosition as PriceListPosition
+from moysklad_remap_12_sdk.models.price_list_position_list import PriceListPositionList as PriceListPositionList
 from moysklad_remap_12_sdk.models.price_type import PriceType as PriceType
 from moysklad_remap_12_sdk.models.print_format import PrintFormat as PrintFormat
 from moysklad_remap_12_sdk.models.priority_ofd_send import PriorityOfdSend as PriorityOfdSend
@@ -1108,12 +1196,42 @@ from moysklad_remap_12_sdk.models.purchase_return_position_list import PurchaseR
 from moysklad_remap_12_sdk.models.rate_update_type import RateUpdateType as RateUpdateType
 from moysklad_remap_12_sdk.models.region import Region as Region
 from moysklad_remap_12_sdk.models.region_list import RegionList as RegionList
+from moysklad_remap_12_sdk.models.report_counterparty import ReportCounterparty as ReportCounterparty
+from moysklad_remap_12_sdk.models.report_counterparty_list import ReportCounterpartyList as ReportCounterpartyList
+from moysklad_remap_12_sdk.models.report_counterparty_query import ReportCounterpartyQuery as ReportCounterpartyQuery
+from moysklad_remap_12_sdk.models.report_counterparty_query_counterparties_inner import ReportCounterpartyQueryCounterpartiesInner as ReportCounterpartyQueryCounterpartiesInner
 from moysklad_remap_12_sdk.models.report_dashboard import ReportDashboard as ReportDashboard
 from moysklad_remap_12_sdk.models.report_dashboard_money import ReportDashboardMoney as ReportDashboardMoney
 from moysklad_remap_12_sdk.models.report_dashboard_period_metrics import ReportDashboardPeriodMetrics as ReportDashboardPeriodMetrics
+from moysklad_remap_12_sdk.models.report_money_account import ReportMoneyAccount as ReportMoneyAccount
+from moysklad_remap_12_sdk.models.report_money_by_account import ReportMoneyByAccount as ReportMoneyByAccount
+from moysklad_remap_12_sdk.models.report_money_by_account_list import ReportMoneyByAccountList as ReportMoneyByAccountList
+from moysklad_remap_12_sdk.models.report_money_plot_series import ReportMoneyPlotSeries as ReportMoneyPlotSeries
+from moysklad_remap_12_sdk.models.report_money_plot_series_item import ReportMoneyPlotSeriesItem as ReportMoneyPlotSeriesItem
 from moysklad_remap_12_sdk.models.report_orders_plot_series_list import ReportOrdersPlotSeriesList as ReportOrdersPlotSeriesList
 from moysklad_remap_12_sdk.models.report_plot_series import ReportPlotSeries as ReportPlotSeries
+from moysklad_remap_12_sdk.models.report_profit_assortment import ReportProfitAssortment as ReportProfitAssortment
+from moysklad_remap_12_sdk.models.report_profit_by_counterparty import ReportProfitByCounterparty as ReportProfitByCounterparty
+from moysklad_remap_12_sdk.models.report_profit_by_counterparty_list import ReportProfitByCounterpartyList as ReportProfitByCounterpartyList
+from moysklad_remap_12_sdk.models.report_profit_by_employee import ReportProfitByEmployee as ReportProfitByEmployee
+from moysklad_remap_12_sdk.models.report_profit_by_employee_list import ReportProfitByEmployeeList as ReportProfitByEmployeeList
+from moysklad_remap_12_sdk.models.report_profit_by_product import ReportProfitByProduct as ReportProfitByProduct
+from moysklad_remap_12_sdk.models.report_profit_by_product_list import ReportProfitByProductList as ReportProfitByProductList
+from moysklad_remap_12_sdk.models.report_profit_by_sales_channel import ReportProfitBySalesChannel as ReportProfitBySalesChannel
+from moysklad_remap_12_sdk.models.report_profit_by_sales_channel_list import ReportProfitBySalesChannelList as ReportProfitBySalesChannelList
+from moysklad_remap_12_sdk.models.report_profit_by_variant import ReportProfitByVariant as ReportProfitByVariant
+from moysklad_remap_12_sdk.models.report_profit_by_variant_list import ReportProfitByVariantList as ReportProfitByVariantList
 from moysklad_remap_12_sdk.models.report_sales_plot_series_list import ReportSalesPlotSeriesList as ReportSalesPlotSeriesList
+from moysklad_remap_12_sdk.models.report_turnover import ReportTurnover as ReportTurnover
+from moysklad_remap_12_sdk.models.report_turnover_assortment import ReportTurnoverAssortment as ReportTurnoverAssortment
+from moysklad_remap_12_sdk.models.report_turnover_by_operation import ReportTurnoverByOperation as ReportTurnoverByOperation
+from moysklad_remap_12_sdk.models.report_turnover_by_operation_list import ReportTurnoverByOperationList as ReportTurnoverByOperationList
+from moysklad_remap_12_sdk.models.report_turnover_by_store import ReportTurnoverByStore as ReportTurnoverByStore
+from moysklad_remap_12_sdk.models.report_turnover_by_store_item import ReportTurnoverByStoreItem as ReportTurnoverByStoreItem
+from moysklad_remap_12_sdk.models.report_turnover_by_store_list import ReportTurnoverByStoreList as ReportTurnoverByStoreList
+from moysklad_remap_12_sdk.models.report_turnover_indicators import ReportTurnoverIndicators as ReportTurnoverIndicators
+from moysklad_remap_12_sdk.models.report_turnover_list import ReportTurnoverList as ReportTurnoverList
+from moysklad_remap_12_sdk.models.report_turnover_operation import ReportTurnoverOperation as ReportTurnoverOperation
 from moysklad_remap_12_sdk.models.retail_demand import RetailDemand as RetailDemand
 from moysklad_remap_12_sdk.models.retail_demand_cheque import RetailDemandCheque as RetailDemandCheque
 from moysklad_remap_12_sdk.models.retail_demand_gift_card import RetailDemandGiftCard as RetailDemandGiftCard
@@ -1161,6 +1279,7 @@ from moysklad_remap_12_sdk.models.retail_store_state_sync import RetailStoreStat
 from moysklad_remap_12_sdk.models.retail_store_upsert import RetailStoreUpsert as RetailStoreUpsert
 from moysklad_remap_12_sdk.models.retire_order_by_demand_notification_completed import RetireOrderByDemandNotificationCompleted as RetireOrderByDemandNotificationCompleted
 from moysklad_remap_12_sdk.models.reward_type import RewardType as RewardType
+from moysklad_remap_12_sdk.models.role_permissions import RolePermissions as RolePermissions
 from moysklad_remap_12_sdk.models.sale_platform import SalePlatform as SalePlatform
 from moysklad_remap_12_sdk.models.sale_platform_group import SalePlatformGroup as SalePlatformGroup
 from moysklad_remap_12_sdk.models.sale_platform_list import SalePlatformList as SalePlatformList
@@ -1193,6 +1312,9 @@ from moysklad_remap_12_sdk.models.stock_by_operation_position import StockByOper
 from moysklad_remap_12_sdk.models.stock_by_store import StockByStore as StockByStore
 from moysklad_remap_12_sdk.models.stock_by_store_item import StockByStoreItem as StockByStoreItem
 from moysklad_remap_12_sdk.models.stock_by_store_list import StockByStoreList as StockByStoreList
+from moysklad_remap_12_sdk.models.stock_current_all import StockCurrentAll as StockCurrentAll
+from moysklad_remap_12_sdk.models.stock_current_by_slot import StockCurrentBySlot as StockCurrentBySlot
+from moysklad_remap_12_sdk.models.stock_current_by_store import StockCurrentByStore as StockCurrentByStore
 from moysklad_remap_12_sdk.models.store import Store as Store
 from moysklad_remap_12_sdk.models.store_balance import StoreBalance as StoreBalance
 from moysklad_remap_12_sdk.models.store_balance_list import StoreBalanceList as StoreBalanceList

@@ -19,9 +19,22 @@ from typing_extensions import Annotated
 from pydantic import Field, StrictStr, field_validator
 from typing import Optional
 from typing_extensions import Annotated
+from moysklad_remap_12_sdk.models.report_counterparty import ReportCounterparty
+from moysklad_remap_12_sdk.models.report_counterparty_list import ReportCounterpartyList
+from moysklad_remap_12_sdk.models.report_counterparty_query import ReportCounterpartyQuery
 from moysklad_remap_12_sdk.models.report_dashboard import ReportDashboard
+from moysklad_remap_12_sdk.models.report_money_by_account_list import ReportMoneyByAccountList
+from moysklad_remap_12_sdk.models.report_money_plot_series import ReportMoneyPlotSeries
 from moysklad_remap_12_sdk.models.report_orders_plot_series_list import ReportOrdersPlotSeriesList
+from moysklad_remap_12_sdk.models.report_profit_by_counterparty_list import ReportProfitByCounterpartyList
+from moysklad_remap_12_sdk.models.report_profit_by_employee_list import ReportProfitByEmployeeList
+from moysklad_remap_12_sdk.models.report_profit_by_product_list import ReportProfitByProductList
+from moysklad_remap_12_sdk.models.report_profit_by_sales_channel_list import ReportProfitBySalesChannelList
+from moysklad_remap_12_sdk.models.report_profit_by_variant_list import ReportProfitByVariantList
 from moysklad_remap_12_sdk.models.report_sales_plot_series_list import ReportSalesPlotSeriesList
+from moysklad_remap_12_sdk.models.report_turnover_by_operation_list import ReportTurnoverByOperationList
+from moysklad_remap_12_sdk.models.report_turnover_by_store_list import ReportTurnoverByStoreList
+from moysklad_remap_12_sdk.models.report_turnover_list import ReportTurnoverList
 
 from moysklad_remap_12_sdk.api_client import ApiClient, RequestSerialized
 from moysklad_remap_12_sdk.api_response import ApiResponse
@@ -39,6 +52,628 @@ class ReportsApi:
         if api_client is None:
             api_client = ApiClient.get_default()
         self.api_client = api_client
+
+
+    @validate_call
+    def get_report_counterparty(
+        self,
+        limit: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=1)]], Field(description="Максимальное количество элементов в выданном списке (максимум 1000)")] = None,
+        offset: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="Отступ в выданном списке")] = None,
+        filter: Annotated[Optional[StrictStr], Field(description="Фильтрация выборки")] = None,
+        accept: Optional[StrictStr] = None,
+        accept_encoding: Optional[StrictStr] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ReportCounterpartyList:
+        """Получить показатели контрагентов
+
+        Запрос отчета «Показатели контрагентов» по всем контрагентам.
+
+        :param limit: Максимальное количество элементов в выданном списке (максимум 1000)
+        :type limit: int
+        :param offset: Отступ в выданном списке
+        :type offset: int
+        :param filter: Фильтрация выборки
+        :type filter: str
+        :param accept:
+        :type accept: str
+        :param accept_encoding:
+        :type accept_encoding: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_report_counterparty_serialize(
+            limit=limit,
+            offset=offset,
+            filter=filter,
+            accept=accept,
+            accept_encoding=accept_encoding,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "ReportCounterpartyList",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def get_report_counterparty_with_http_info(
+        self,
+        limit: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=1)]], Field(description="Максимальное количество элементов в выданном списке (максимум 1000)")] = None,
+        offset: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="Отступ в выданном списке")] = None,
+        filter: Annotated[Optional[StrictStr], Field(description="Фильтрация выборки")] = None,
+        accept: Optional[StrictStr] = None,
+        accept_encoding: Optional[StrictStr] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[ReportCounterpartyList]:
+        """Получить показатели контрагентов
+
+        Запрос отчета «Показатели контрагентов» по всем контрагентам.
+
+        :param limit: Максимальное количество элементов в выданном списке (максимум 1000)
+        :type limit: int
+        :param offset: Отступ в выданном списке
+        :type offset: int
+        :param filter: Фильтрация выборки
+        :type filter: str
+        :param accept:
+        :type accept: str
+        :param accept_encoding:
+        :type accept_encoding: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_report_counterparty_serialize(
+            limit=limit,
+            offset=offset,
+            filter=filter,
+            accept=accept,
+            accept_encoding=accept_encoding,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "ReportCounterpartyList",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    def get_report_counterparty_without_preload_content(
+        self,
+        limit: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=1)]], Field(description="Максимальное количество элементов в выданном списке (максимум 1000)")] = None,
+        offset: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="Отступ в выданном списке")] = None,
+        filter: Annotated[Optional[StrictStr], Field(description="Фильтрация выборки")] = None,
+        accept: Optional[StrictStr] = None,
+        accept_encoding: Optional[StrictStr] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """Получить показатели контрагентов
+
+        Запрос отчета «Показатели контрагентов» по всем контрагентам.
+
+        :param limit: Максимальное количество элементов в выданном списке (максимум 1000)
+        :type limit: int
+        :param offset: Отступ в выданном списке
+        :type offset: int
+        :param filter: Фильтрация выборки
+        :type filter: str
+        :param accept:
+        :type accept: str
+        :param accept_encoding:
+        :type accept_encoding: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_report_counterparty_serialize(
+            limit=limit,
+            offset=offset,
+            filter=filter,
+            accept=accept,
+            accept_encoding=accept_encoding,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "ReportCounterpartyList",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _get_report_counterparty_serialize(
+        self,
+        limit,
+        offset,
+        filter,
+        accept,
+        accept_encoding,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        # process the query parameters
+        if limit is not None:
+            
+            _query_params.append(('limit', limit))
+            
+        if offset is not None:
+            
+            _query_params.append(('offset', offset))
+            
+        if filter is not None:
+            
+            _query_params.append(('filter', filter))
+            
+        # process the header parameters
+        if accept is not None:
+            _header_params['accept'] = accept
+        if accept_encoding is not None:
+            _header_params['Accept-Encoding'] = accept_encoding
+        # process the form parameters
+        # process the body parameter
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json', 
+                    'text/html;charset=UTF-8'
+                ]
+            )
+
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'basicAuth', 
+            'bearerAuth'
+        ]
+
+        return self.api_client.param_serialize(
+            method='GET',
+            resource_path='/report/counterparty',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
+    def get_report_counterparty_by_id(
+        self,
+        id: Annotated[StrictStr, Field(description="ID сущности")],
+        accept: Optional[StrictStr] = None,
+        accept_encoding: Optional[StrictStr] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ReportCounterparty:
+        """Получить показатели контрагента
+
+        Запрос отчета «Показатели контрагентов» по контрагенту с указанным id.
+
+        :param id: ID сущности (required)
+        :type id: str
+        :param accept:
+        :type accept: str
+        :param accept_encoding:
+        :type accept_encoding: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_report_counterparty_by_id_serialize(
+            id=id,
+            accept=accept,
+            accept_encoding=accept_encoding,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "ReportCounterparty",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def get_report_counterparty_by_id_with_http_info(
+        self,
+        id: Annotated[StrictStr, Field(description="ID сущности")],
+        accept: Optional[StrictStr] = None,
+        accept_encoding: Optional[StrictStr] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[ReportCounterparty]:
+        """Получить показатели контрагента
+
+        Запрос отчета «Показатели контрагентов» по контрагенту с указанным id.
+
+        :param id: ID сущности (required)
+        :type id: str
+        :param accept:
+        :type accept: str
+        :param accept_encoding:
+        :type accept_encoding: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_report_counterparty_by_id_serialize(
+            id=id,
+            accept=accept,
+            accept_encoding=accept_encoding,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "ReportCounterparty",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    def get_report_counterparty_by_id_without_preload_content(
+        self,
+        id: Annotated[StrictStr, Field(description="ID сущности")],
+        accept: Optional[StrictStr] = None,
+        accept_encoding: Optional[StrictStr] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """Получить показатели контрагента
+
+        Запрос отчета «Показатели контрагентов» по контрагенту с указанным id.
+
+        :param id: ID сущности (required)
+        :type id: str
+        :param accept:
+        :type accept: str
+        :param accept_encoding:
+        :type accept_encoding: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_report_counterparty_by_id_serialize(
+            id=id,
+            accept=accept,
+            accept_encoding=accept_encoding,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "ReportCounterparty",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _get_report_counterparty_by_id_serialize(
+        self,
+        id,
+        accept,
+        accept_encoding,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        if id is not None:
+            _path_params['id'] = id
+        # process the query parameters
+        # process the header parameters
+        if accept is not None:
+            _header_params['accept'] = accept
+        if accept_encoding is not None:
+            _header_params['Accept-Encoding'] = accept_encoding
+        # process the form parameters
+        # process the body parameter
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json', 
+                    'text/html;charset=UTF-8'
+                ]
+            )
+
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'basicAuth', 
+            'bearerAuth'
+        ]
+
+        return self.api_client.param_serialize(
+            method='GET',
+            resource_path='/report/counterparty/{id}',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
 
 
     @validate_call
@@ -876,6 +1511,645 @@ class ReportsApi:
 
 
     @validate_call
+    def get_report_money_by_account(
+        self,
+        accept: Optional[StrictStr] = None,
+        accept_encoding: Optional[StrictStr] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ReportMoneyByAccountList:
+        """Получить остатки денежных средств по кассам и счетам
+
+        Запрос текущих остатков денежных средств по кассам и счетам организаций. Для доступа к отчету требуется право на просмотр показателей `viewDashboard` и право «Видеть остатки денег» `viewMoneyDashboard`. 
+
+        :param accept:
+        :type accept: str
+        :param accept_encoding:
+        :type accept_encoding: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_report_money_by_account_serialize(
+            accept=accept,
+            accept_encoding=accept_encoding,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "ReportMoneyByAccountList",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def get_report_money_by_account_with_http_info(
+        self,
+        accept: Optional[StrictStr] = None,
+        accept_encoding: Optional[StrictStr] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[ReportMoneyByAccountList]:
+        """Получить остатки денежных средств по кассам и счетам
+
+        Запрос текущих остатков денежных средств по кассам и счетам организаций. Для доступа к отчету требуется право на просмотр показателей `viewDashboard` и право «Видеть остатки денег» `viewMoneyDashboard`. 
+
+        :param accept:
+        :type accept: str
+        :param accept_encoding:
+        :type accept_encoding: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_report_money_by_account_serialize(
+            accept=accept,
+            accept_encoding=accept_encoding,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "ReportMoneyByAccountList",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    def get_report_money_by_account_without_preload_content(
+        self,
+        accept: Optional[StrictStr] = None,
+        accept_encoding: Optional[StrictStr] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """Получить остатки денежных средств по кассам и счетам
+
+        Запрос текущих остатков денежных средств по кассам и счетам организаций. Для доступа к отчету требуется право на просмотр показателей `viewDashboard` и право «Видеть остатки денег» `viewMoneyDashboard`. 
+
+        :param accept:
+        :type accept: str
+        :param accept_encoding:
+        :type accept_encoding: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_report_money_by_account_serialize(
+            accept=accept,
+            accept_encoding=accept_encoding,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "ReportMoneyByAccountList",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _get_report_money_by_account_serialize(
+        self,
+        accept,
+        accept_encoding,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        # process the query parameters
+        # process the header parameters
+        if accept is not None:
+            _header_params['accept'] = accept
+        if accept_encoding is not None:
+            _header_params['Accept-Encoding'] = accept_encoding
+        # process the form parameters
+        # process the body parameter
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json', 
+                    'text/html;charset=UTF-8'
+                ]
+            )
+
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'basicAuth', 
+            'bearerAuth'
+        ]
+
+        return self.api_client.param_serialize(
+            method='GET',
+            resource_path='/report/money/byaccount',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
+    def get_report_money_plot_series(
+        self,
+        moment_from: Annotated[StrictStr, Field(description="Начало периода отчета в формате YYYY-MM-DD HH:MM:SS")],
+        moment_to: Annotated[StrictStr, Field(description="Конец периода отчета в формате YYYY-MM-DD HH:MM:SS")],
+        interval: Annotated[StrictStr, Field(description="Интервал построения отчета")],
+        filter: Annotated[Optional[StrictStr], Field(description="Фильтрация выборки")] = None,
+        accept: Optional[StrictStr] = None,
+        accept_encoding: Optional[StrictStr] = None,
+        x_lognex_accept_timezone: Annotated[Optional[StrictStr], Field(description="Опциональный заголовок, в котором указана текущая дата на клиенте в RFC 3522. Таймзону обязательно указывать в формате знак и 4 символа. Пример: `Wed, 16 Aug 2017 23:07:01 +0700`. При подсчете показателей даты операций смещаются в таймзону клиента. ")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ReportMoneyPlotSeries:
+        """Получить график движения денежных средств
+
+        Запрос отчета о движении денежных средств за период с разбивкой по часам, дням или месяцам. Для доступа к отчету требуется право на просмотр показателей `viewDashboard` и право «Видеть остатки денег» `viewMoneyDashboard`. 
+
+        :param moment_from: Начало периода отчета в формате YYYY-MM-DD HH:MM:SS (required)
+        :type moment_from: str
+        :param moment_to: Конец периода отчета в формате YYYY-MM-DD HH:MM:SS (required)
+        :type moment_to: str
+        :param interval: Интервал построения отчета (required)
+        :type interval: str
+        :param filter: Фильтрация выборки
+        :type filter: str
+        :param accept:
+        :type accept: str
+        :param accept_encoding:
+        :type accept_encoding: str
+        :param x_lognex_accept_timezone: Опциональный заголовок, в котором указана текущая дата на клиенте в RFC 3522. Таймзону обязательно указывать в формате знак и 4 символа. Пример: `Wed, 16 Aug 2017 23:07:01 +0700`. При подсчете показателей даты операций смещаются в таймзону клиента. 
+        :type x_lognex_accept_timezone: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_report_money_plot_series_serialize(
+            moment_from=moment_from,
+            moment_to=moment_to,
+            interval=interval,
+            filter=filter,
+            accept=accept,
+            accept_encoding=accept_encoding,
+            x_lognex_accept_timezone=x_lognex_accept_timezone,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "ReportMoneyPlotSeries",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def get_report_money_plot_series_with_http_info(
+        self,
+        moment_from: Annotated[StrictStr, Field(description="Начало периода отчета в формате YYYY-MM-DD HH:MM:SS")],
+        moment_to: Annotated[StrictStr, Field(description="Конец периода отчета в формате YYYY-MM-DD HH:MM:SS")],
+        interval: Annotated[StrictStr, Field(description="Интервал построения отчета")],
+        filter: Annotated[Optional[StrictStr], Field(description="Фильтрация выборки")] = None,
+        accept: Optional[StrictStr] = None,
+        accept_encoding: Optional[StrictStr] = None,
+        x_lognex_accept_timezone: Annotated[Optional[StrictStr], Field(description="Опциональный заголовок, в котором указана текущая дата на клиенте в RFC 3522. Таймзону обязательно указывать в формате знак и 4 символа. Пример: `Wed, 16 Aug 2017 23:07:01 +0700`. При подсчете показателей даты операций смещаются в таймзону клиента. ")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[ReportMoneyPlotSeries]:
+        """Получить график движения денежных средств
+
+        Запрос отчета о движении денежных средств за период с разбивкой по часам, дням или месяцам. Для доступа к отчету требуется право на просмотр показателей `viewDashboard` и право «Видеть остатки денег» `viewMoneyDashboard`. 
+
+        :param moment_from: Начало периода отчета в формате YYYY-MM-DD HH:MM:SS (required)
+        :type moment_from: str
+        :param moment_to: Конец периода отчета в формате YYYY-MM-DD HH:MM:SS (required)
+        :type moment_to: str
+        :param interval: Интервал построения отчета (required)
+        :type interval: str
+        :param filter: Фильтрация выборки
+        :type filter: str
+        :param accept:
+        :type accept: str
+        :param accept_encoding:
+        :type accept_encoding: str
+        :param x_lognex_accept_timezone: Опциональный заголовок, в котором указана текущая дата на клиенте в RFC 3522. Таймзону обязательно указывать в формате знак и 4 символа. Пример: `Wed, 16 Aug 2017 23:07:01 +0700`. При подсчете показателей даты операций смещаются в таймзону клиента. 
+        :type x_lognex_accept_timezone: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_report_money_plot_series_serialize(
+            moment_from=moment_from,
+            moment_to=moment_to,
+            interval=interval,
+            filter=filter,
+            accept=accept,
+            accept_encoding=accept_encoding,
+            x_lognex_accept_timezone=x_lognex_accept_timezone,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "ReportMoneyPlotSeries",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    def get_report_money_plot_series_without_preload_content(
+        self,
+        moment_from: Annotated[StrictStr, Field(description="Начало периода отчета в формате YYYY-MM-DD HH:MM:SS")],
+        moment_to: Annotated[StrictStr, Field(description="Конец периода отчета в формате YYYY-MM-DD HH:MM:SS")],
+        interval: Annotated[StrictStr, Field(description="Интервал построения отчета")],
+        filter: Annotated[Optional[StrictStr], Field(description="Фильтрация выборки")] = None,
+        accept: Optional[StrictStr] = None,
+        accept_encoding: Optional[StrictStr] = None,
+        x_lognex_accept_timezone: Annotated[Optional[StrictStr], Field(description="Опциональный заголовок, в котором указана текущая дата на клиенте в RFC 3522. Таймзону обязательно указывать в формате знак и 4 символа. Пример: `Wed, 16 Aug 2017 23:07:01 +0700`. При подсчете показателей даты операций смещаются в таймзону клиента. ")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """Получить график движения денежных средств
+
+        Запрос отчета о движении денежных средств за период с разбивкой по часам, дням или месяцам. Для доступа к отчету требуется право на просмотр показателей `viewDashboard` и право «Видеть остатки денег» `viewMoneyDashboard`. 
+
+        :param moment_from: Начало периода отчета в формате YYYY-MM-DD HH:MM:SS (required)
+        :type moment_from: str
+        :param moment_to: Конец периода отчета в формате YYYY-MM-DD HH:MM:SS (required)
+        :type moment_to: str
+        :param interval: Интервал построения отчета (required)
+        :type interval: str
+        :param filter: Фильтрация выборки
+        :type filter: str
+        :param accept:
+        :type accept: str
+        :param accept_encoding:
+        :type accept_encoding: str
+        :param x_lognex_accept_timezone: Опциональный заголовок, в котором указана текущая дата на клиенте в RFC 3522. Таймзону обязательно указывать в формате знак и 4 символа. Пример: `Wed, 16 Aug 2017 23:07:01 +0700`. При подсчете показателей даты операций смещаются в таймзону клиента. 
+        :type x_lognex_accept_timezone: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_report_money_plot_series_serialize(
+            moment_from=moment_from,
+            moment_to=moment_to,
+            interval=interval,
+            filter=filter,
+            accept=accept,
+            accept_encoding=accept_encoding,
+            x_lognex_accept_timezone=x_lognex_accept_timezone,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "ReportMoneyPlotSeries",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _get_report_money_plot_series_serialize(
+        self,
+        moment_from,
+        moment_to,
+        interval,
+        filter,
+        accept,
+        accept_encoding,
+        x_lognex_accept_timezone,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        # process the query parameters
+        if moment_from is not None:
+            
+            _query_params.append(('momentFrom', moment_from))
+            
+        if moment_to is not None:
+            
+            _query_params.append(('momentTo', moment_to))
+            
+        if interval is not None:
+            
+            _query_params.append(('interval', interval))
+            
+        if filter is not None:
+            
+            _query_params.append(('filter', filter))
+            
+        # process the header parameters
+        if accept is not None:
+            _header_params['accept'] = accept
+        if accept_encoding is not None:
+            _header_params['Accept-Encoding'] = accept_encoding
+        if x_lognex_accept_timezone is not None:
+            _header_params['X-Lognex-Accept-Timezone'] = x_lognex_accept_timezone
+        # process the form parameters
+        # process the body parameter
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json', 
+                    'text/html;charset=UTF-8'
+                ]
+            )
+
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'basicAuth', 
+            'bearerAuth'
+        ]
+
+        return self.api_client.param_serialize(
+            method='GET',
+            resource_path='/report/money/plotseries',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
     def get_report_orders_plot_series(
         self,
         moment_from: Annotated[StrictStr, Field(description="Начало периода отчета в формате YYYY-MM-DD HH:MM:SS")],
@@ -1237,6 +2511,1896 @@ class ReportsApi:
 
 
     @validate_call
+    def get_report_profit_by_counterparty(
+        self,
+        limit: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=1)]], Field(description="Максимальное количество элементов в выданном списке (максимум 1000)")] = None,
+        offset: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="Отступ в выданном списке")] = None,
+        filter: Annotated[Optional[StrictStr], Field(description="Фильтрация выборки")] = None,
+        moment_from: Annotated[Optional[StrictStr], Field(description="Начало периода отчета в формате YYYY-MM-DD HH:MM:SS")] = None,
+        moment_to: Annotated[Optional[StrictStr], Field(description="Конец периода отчета в формате YYYY-MM-DD HH:MM:SS")] = None,
+        accept: Optional[StrictStr] = None,
+        accept_encoding: Optional[StrictStr] = None,
+        x_lognex_accept_timezone: Annotated[Optional[StrictStr], Field(description="Опциональный заголовок, в котором указана текущая дата на клиенте в RFC 3522. Таймзону обязательно указывать в формате знак и 4 символа. Пример: `Wed, 16 Aug 2017 23:07:01 +0700`. При подсчете показателей даты операций смещаются в таймзону клиента. ")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ReportProfitByCounterpartyList:
+        """Получить прибыльность по покупателям
+
+        Запрос отчета «Прибыльность по покупателям». Для доступа к отчету требуется право на просмотр отчета «Прибыльность». 
+
+        :param limit: Максимальное количество элементов в выданном списке (максимум 1000)
+        :type limit: int
+        :param offset: Отступ в выданном списке
+        :type offset: int
+        :param filter: Фильтрация выборки
+        :type filter: str
+        :param moment_from: Начало периода отчета в формате YYYY-MM-DD HH:MM:SS
+        :type moment_from: str
+        :param moment_to: Конец периода отчета в формате YYYY-MM-DD HH:MM:SS
+        :type moment_to: str
+        :param accept:
+        :type accept: str
+        :param accept_encoding:
+        :type accept_encoding: str
+        :param x_lognex_accept_timezone: Опциональный заголовок, в котором указана текущая дата на клиенте в RFC 3522. Таймзону обязательно указывать в формате знак и 4 символа. Пример: `Wed, 16 Aug 2017 23:07:01 +0700`. При подсчете показателей даты операций смещаются в таймзону клиента. 
+        :type x_lognex_accept_timezone: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_report_profit_by_counterparty_serialize(
+            limit=limit,
+            offset=offset,
+            filter=filter,
+            moment_from=moment_from,
+            moment_to=moment_to,
+            accept=accept,
+            accept_encoding=accept_encoding,
+            x_lognex_accept_timezone=x_lognex_accept_timezone,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "ReportProfitByCounterpartyList",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def get_report_profit_by_counterparty_with_http_info(
+        self,
+        limit: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=1)]], Field(description="Максимальное количество элементов в выданном списке (максимум 1000)")] = None,
+        offset: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="Отступ в выданном списке")] = None,
+        filter: Annotated[Optional[StrictStr], Field(description="Фильтрация выборки")] = None,
+        moment_from: Annotated[Optional[StrictStr], Field(description="Начало периода отчета в формате YYYY-MM-DD HH:MM:SS")] = None,
+        moment_to: Annotated[Optional[StrictStr], Field(description="Конец периода отчета в формате YYYY-MM-DD HH:MM:SS")] = None,
+        accept: Optional[StrictStr] = None,
+        accept_encoding: Optional[StrictStr] = None,
+        x_lognex_accept_timezone: Annotated[Optional[StrictStr], Field(description="Опциональный заголовок, в котором указана текущая дата на клиенте в RFC 3522. Таймзону обязательно указывать в формате знак и 4 символа. Пример: `Wed, 16 Aug 2017 23:07:01 +0700`. При подсчете показателей даты операций смещаются в таймзону клиента. ")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[ReportProfitByCounterpartyList]:
+        """Получить прибыльность по покупателям
+
+        Запрос отчета «Прибыльность по покупателям». Для доступа к отчету требуется право на просмотр отчета «Прибыльность». 
+
+        :param limit: Максимальное количество элементов в выданном списке (максимум 1000)
+        :type limit: int
+        :param offset: Отступ в выданном списке
+        :type offset: int
+        :param filter: Фильтрация выборки
+        :type filter: str
+        :param moment_from: Начало периода отчета в формате YYYY-MM-DD HH:MM:SS
+        :type moment_from: str
+        :param moment_to: Конец периода отчета в формате YYYY-MM-DD HH:MM:SS
+        :type moment_to: str
+        :param accept:
+        :type accept: str
+        :param accept_encoding:
+        :type accept_encoding: str
+        :param x_lognex_accept_timezone: Опциональный заголовок, в котором указана текущая дата на клиенте в RFC 3522. Таймзону обязательно указывать в формате знак и 4 символа. Пример: `Wed, 16 Aug 2017 23:07:01 +0700`. При подсчете показателей даты операций смещаются в таймзону клиента. 
+        :type x_lognex_accept_timezone: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_report_profit_by_counterparty_serialize(
+            limit=limit,
+            offset=offset,
+            filter=filter,
+            moment_from=moment_from,
+            moment_to=moment_to,
+            accept=accept,
+            accept_encoding=accept_encoding,
+            x_lognex_accept_timezone=x_lognex_accept_timezone,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "ReportProfitByCounterpartyList",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    def get_report_profit_by_counterparty_without_preload_content(
+        self,
+        limit: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=1)]], Field(description="Максимальное количество элементов в выданном списке (максимум 1000)")] = None,
+        offset: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="Отступ в выданном списке")] = None,
+        filter: Annotated[Optional[StrictStr], Field(description="Фильтрация выборки")] = None,
+        moment_from: Annotated[Optional[StrictStr], Field(description="Начало периода отчета в формате YYYY-MM-DD HH:MM:SS")] = None,
+        moment_to: Annotated[Optional[StrictStr], Field(description="Конец периода отчета в формате YYYY-MM-DD HH:MM:SS")] = None,
+        accept: Optional[StrictStr] = None,
+        accept_encoding: Optional[StrictStr] = None,
+        x_lognex_accept_timezone: Annotated[Optional[StrictStr], Field(description="Опциональный заголовок, в котором указана текущая дата на клиенте в RFC 3522. Таймзону обязательно указывать в формате знак и 4 символа. Пример: `Wed, 16 Aug 2017 23:07:01 +0700`. При подсчете показателей даты операций смещаются в таймзону клиента. ")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """Получить прибыльность по покупателям
+
+        Запрос отчета «Прибыльность по покупателям». Для доступа к отчету требуется право на просмотр отчета «Прибыльность». 
+
+        :param limit: Максимальное количество элементов в выданном списке (максимум 1000)
+        :type limit: int
+        :param offset: Отступ в выданном списке
+        :type offset: int
+        :param filter: Фильтрация выборки
+        :type filter: str
+        :param moment_from: Начало периода отчета в формате YYYY-MM-DD HH:MM:SS
+        :type moment_from: str
+        :param moment_to: Конец периода отчета в формате YYYY-MM-DD HH:MM:SS
+        :type moment_to: str
+        :param accept:
+        :type accept: str
+        :param accept_encoding:
+        :type accept_encoding: str
+        :param x_lognex_accept_timezone: Опциональный заголовок, в котором указана текущая дата на клиенте в RFC 3522. Таймзону обязательно указывать в формате знак и 4 символа. Пример: `Wed, 16 Aug 2017 23:07:01 +0700`. При подсчете показателей даты операций смещаются в таймзону клиента. 
+        :type x_lognex_accept_timezone: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_report_profit_by_counterparty_serialize(
+            limit=limit,
+            offset=offset,
+            filter=filter,
+            moment_from=moment_from,
+            moment_to=moment_to,
+            accept=accept,
+            accept_encoding=accept_encoding,
+            x_lognex_accept_timezone=x_lognex_accept_timezone,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "ReportProfitByCounterpartyList",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _get_report_profit_by_counterparty_serialize(
+        self,
+        limit,
+        offset,
+        filter,
+        moment_from,
+        moment_to,
+        accept,
+        accept_encoding,
+        x_lognex_accept_timezone,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        # process the query parameters
+        if limit is not None:
+            
+            _query_params.append(('limit', limit))
+            
+        if offset is not None:
+            
+            _query_params.append(('offset', offset))
+            
+        if filter is not None:
+            
+            _query_params.append(('filter', filter))
+            
+        if moment_from is not None:
+            
+            _query_params.append(('momentFrom', moment_from))
+            
+        if moment_to is not None:
+            
+            _query_params.append(('momentTo', moment_to))
+            
+        # process the header parameters
+        if accept is not None:
+            _header_params['accept'] = accept
+        if accept_encoding is not None:
+            _header_params['Accept-Encoding'] = accept_encoding
+        if x_lognex_accept_timezone is not None:
+            _header_params['X-Lognex-Accept-Timezone'] = x_lognex_accept_timezone
+        # process the form parameters
+        # process the body parameter
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json', 
+                    'text/html;charset=UTF-8'
+                ]
+            )
+
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'basicAuth', 
+            'bearerAuth'
+        ]
+
+        return self.api_client.param_serialize(
+            method='GET',
+            resource_path='/report/profit/bycounterparty',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
+    def get_report_profit_by_employee(
+        self,
+        limit: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=1)]], Field(description="Максимальное количество элементов в выданном списке (максимум 1000)")] = None,
+        offset: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="Отступ в выданном списке")] = None,
+        filter: Annotated[Optional[StrictStr], Field(description="Фильтрация выборки")] = None,
+        moment_from: Annotated[Optional[StrictStr], Field(description="Начало периода отчета в формате YYYY-MM-DD HH:MM:SS")] = None,
+        moment_to: Annotated[Optional[StrictStr], Field(description="Конец периода отчета в формате YYYY-MM-DD HH:MM:SS")] = None,
+        accept: Optional[StrictStr] = None,
+        accept_encoding: Optional[StrictStr] = None,
+        x_lognex_accept_timezone: Annotated[Optional[StrictStr], Field(description="Опциональный заголовок, в котором указана текущая дата на клиенте в RFC 3522. Таймзону обязательно указывать в формате знак и 4 символа. Пример: `Wed, 16 Aug 2017 23:07:01 +0700`. При подсчете показателей даты операций смещаются в таймзону клиента. ")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ReportProfitByEmployeeList:
+        """Получить прибыльность по сотрудникам
+
+        Запрос отчета «Прибыльность по сотрудникам». Для доступа к отчету требуется право на просмотр отчета «Прибыльность». 
+
+        :param limit: Максимальное количество элементов в выданном списке (максимум 1000)
+        :type limit: int
+        :param offset: Отступ в выданном списке
+        :type offset: int
+        :param filter: Фильтрация выборки
+        :type filter: str
+        :param moment_from: Начало периода отчета в формате YYYY-MM-DD HH:MM:SS
+        :type moment_from: str
+        :param moment_to: Конец периода отчета в формате YYYY-MM-DD HH:MM:SS
+        :type moment_to: str
+        :param accept:
+        :type accept: str
+        :param accept_encoding:
+        :type accept_encoding: str
+        :param x_lognex_accept_timezone: Опциональный заголовок, в котором указана текущая дата на клиенте в RFC 3522. Таймзону обязательно указывать в формате знак и 4 символа. Пример: `Wed, 16 Aug 2017 23:07:01 +0700`. При подсчете показателей даты операций смещаются в таймзону клиента. 
+        :type x_lognex_accept_timezone: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_report_profit_by_employee_serialize(
+            limit=limit,
+            offset=offset,
+            filter=filter,
+            moment_from=moment_from,
+            moment_to=moment_to,
+            accept=accept,
+            accept_encoding=accept_encoding,
+            x_lognex_accept_timezone=x_lognex_accept_timezone,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "ReportProfitByEmployeeList",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def get_report_profit_by_employee_with_http_info(
+        self,
+        limit: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=1)]], Field(description="Максимальное количество элементов в выданном списке (максимум 1000)")] = None,
+        offset: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="Отступ в выданном списке")] = None,
+        filter: Annotated[Optional[StrictStr], Field(description="Фильтрация выборки")] = None,
+        moment_from: Annotated[Optional[StrictStr], Field(description="Начало периода отчета в формате YYYY-MM-DD HH:MM:SS")] = None,
+        moment_to: Annotated[Optional[StrictStr], Field(description="Конец периода отчета в формате YYYY-MM-DD HH:MM:SS")] = None,
+        accept: Optional[StrictStr] = None,
+        accept_encoding: Optional[StrictStr] = None,
+        x_lognex_accept_timezone: Annotated[Optional[StrictStr], Field(description="Опциональный заголовок, в котором указана текущая дата на клиенте в RFC 3522. Таймзону обязательно указывать в формате знак и 4 символа. Пример: `Wed, 16 Aug 2017 23:07:01 +0700`. При подсчете показателей даты операций смещаются в таймзону клиента. ")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[ReportProfitByEmployeeList]:
+        """Получить прибыльность по сотрудникам
+
+        Запрос отчета «Прибыльность по сотрудникам». Для доступа к отчету требуется право на просмотр отчета «Прибыльность». 
+
+        :param limit: Максимальное количество элементов в выданном списке (максимум 1000)
+        :type limit: int
+        :param offset: Отступ в выданном списке
+        :type offset: int
+        :param filter: Фильтрация выборки
+        :type filter: str
+        :param moment_from: Начало периода отчета в формате YYYY-MM-DD HH:MM:SS
+        :type moment_from: str
+        :param moment_to: Конец периода отчета в формате YYYY-MM-DD HH:MM:SS
+        :type moment_to: str
+        :param accept:
+        :type accept: str
+        :param accept_encoding:
+        :type accept_encoding: str
+        :param x_lognex_accept_timezone: Опциональный заголовок, в котором указана текущая дата на клиенте в RFC 3522. Таймзону обязательно указывать в формате знак и 4 символа. Пример: `Wed, 16 Aug 2017 23:07:01 +0700`. При подсчете показателей даты операций смещаются в таймзону клиента. 
+        :type x_lognex_accept_timezone: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_report_profit_by_employee_serialize(
+            limit=limit,
+            offset=offset,
+            filter=filter,
+            moment_from=moment_from,
+            moment_to=moment_to,
+            accept=accept,
+            accept_encoding=accept_encoding,
+            x_lognex_accept_timezone=x_lognex_accept_timezone,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "ReportProfitByEmployeeList",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    def get_report_profit_by_employee_without_preload_content(
+        self,
+        limit: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=1)]], Field(description="Максимальное количество элементов в выданном списке (максимум 1000)")] = None,
+        offset: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="Отступ в выданном списке")] = None,
+        filter: Annotated[Optional[StrictStr], Field(description="Фильтрация выборки")] = None,
+        moment_from: Annotated[Optional[StrictStr], Field(description="Начало периода отчета в формате YYYY-MM-DD HH:MM:SS")] = None,
+        moment_to: Annotated[Optional[StrictStr], Field(description="Конец периода отчета в формате YYYY-MM-DD HH:MM:SS")] = None,
+        accept: Optional[StrictStr] = None,
+        accept_encoding: Optional[StrictStr] = None,
+        x_lognex_accept_timezone: Annotated[Optional[StrictStr], Field(description="Опциональный заголовок, в котором указана текущая дата на клиенте в RFC 3522. Таймзону обязательно указывать в формате знак и 4 символа. Пример: `Wed, 16 Aug 2017 23:07:01 +0700`. При подсчете показателей даты операций смещаются в таймзону клиента. ")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """Получить прибыльность по сотрудникам
+
+        Запрос отчета «Прибыльность по сотрудникам». Для доступа к отчету требуется право на просмотр отчета «Прибыльность». 
+
+        :param limit: Максимальное количество элементов в выданном списке (максимум 1000)
+        :type limit: int
+        :param offset: Отступ в выданном списке
+        :type offset: int
+        :param filter: Фильтрация выборки
+        :type filter: str
+        :param moment_from: Начало периода отчета в формате YYYY-MM-DD HH:MM:SS
+        :type moment_from: str
+        :param moment_to: Конец периода отчета в формате YYYY-MM-DD HH:MM:SS
+        :type moment_to: str
+        :param accept:
+        :type accept: str
+        :param accept_encoding:
+        :type accept_encoding: str
+        :param x_lognex_accept_timezone: Опциональный заголовок, в котором указана текущая дата на клиенте в RFC 3522. Таймзону обязательно указывать в формате знак и 4 символа. Пример: `Wed, 16 Aug 2017 23:07:01 +0700`. При подсчете показателей даты операций смещаются в таймзону клиента. 
+        :type x_lognex_accept_timezone: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_report_profit_by_employee_serialize(
+            limit=limit,
+            offset=offset,
+            filter=filter,
+            moment_from=moment_from,
+            moment_to=moment_to,
+            accept=accept,
+            accept_encoding=accept_encoding,
+            x_lognex_accept_timezone=x_lognex_accept_timezone,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "ReportProfitByEmployeeList",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _get_report_profit_by_employee_serialize(
+        self,
+        limit,
+        offset,
+        filter,
+        moment_from,
+        moment_to,
+        accept,
+        accept_encoding,
+        x_lognex_accept_timezone,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        # process the query parameters
+        if limit is not None:
+            
+            _query_params.append(('limit', limit))
+            
+        if offset is not None:
+            
+            _query_params.append(('offset', offset))
+            
+        if filter is not None:
+            
+            _query_params.append(('filter', filter))
+            
+        if moment_from is not None:
+            
+            _query_params.append(('momentFrom', moment_from))
+            
+        if moment_to is not None:
+            
+            _query_params.append(('momentTo', moment_to))
+            
+        # process the header parameters
+        if accept is not None:
+            _header_params['accept'] = accept
+        if accept_encoding is not None:
+            _header_params['Accept-Encoding'] = accept_encoding
+        if x_lognex_accept_timezone is not None:
+            _header_params['X-Lognex-Accept-Timezone'] = x_lognex_accept_timezone
+        # process the form parameters
+        # process the body parameter
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json', 
+                    'text/html;charset=UTF-8'
+                ]
+            )
+
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'basicAuth', 
+            'bearerAuth'
+        ]
+
+        return self.api_client.param_serialize(
+            method='GET',
+            resource_path='/report/profit/byemployee',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
+    def get_report_profit_by_product(
+        self,
+        limit: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=1)]], Field(description="Максимальное количество элементов в выданном списке (максимум 1000)")] = None,
+        offset: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="Отступ в выданном списке")] = None,
+        filter: Annotated[Optional[StrictStr], Field(description="Фильтрация выборки")] = None,
+        moment_from: Annotated[Optional[StrictStr], Field(description="Начало периода отчета в формате YYYY-MM-DD HH:MM:SS")] = None,
+        moment_to: Annotated[Optional[StrictStr], Field(description="Конец периода отчета в формате YYYY-MM-DD HH:MM:SS")] = None,
+        accept: Optional[StrictStr] = None,
+        accept_encoding: Optional[StrictStr] = None,
+        x_lognex_accept_timezone: Annotated[Optional[StrictStr], Field(description="Опциональный заголовок, в котором указана текущая дата на клиенте в RFC 3522. Таймзону обязательно указывать в формате знак и 4 символа. Пример: `Wed, 16 Aug 2017 23:07:01 +0700`. При подсчете показателей даты операций смещаются в таймзону клиента. ")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ReportProfitByProductList:
+        """Получить прибыльность по товарам
+
+        Запрос отчета «Прибыльность по товарам». В отчете учитываются товары, услуги и комплекты. Для доступа к отчету требуется право на просмотр отчета «Прибыльность». 
+
+        :param limit: Максимальное количество элементов в выданном списке (максимум 1000)
+        :type limit: int
+        :param offset: Отступ в выданном списке
+        :type offset: int
+        :param filter: Фильтрация выборки
+        :type filter: str
+        :param moment_from: Начало периода отчета в формате YYYY-MM-DD HH:MM:SS
+        :type moment_from: str
+        :param moment_to: Конец периода отчета в формате YYYY-MM-DD HH:MM:SS
+        :type moment_to: str
+        :param accept:
+        :type accept: str
+        :param accept_encoding:
+        :type accept_encoding: str
+        :param x_lognex_accept_timezone: Опциональный заголовок, в котором указана текущая дата на клиенте в RFC 3522. Таймзону обязательно указывать в формате знак и 4 символа. Пример: `Wed, 16 Aug 2017 23:07:01 +0700`. При подсчете показателей даты операций смещаются в таймзону клиента. 
+        :type x_lognex_accept_timezone: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_report_profit_by_product_serialize(
+            limit=limit,
+            offset=offset,
+            filter=filter,
+            moment_from=moment_from,
+            moment_to=moment_to,
+            accept=accept,
+            accept_encoding=accept_encoding,
+            x_lognex_accept_timezone=x_lognex_accept_timezone,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "ReportProfitByProductList",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def get_report_profit_by_product_with_http_info(
+        self,
+        limit: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=1)]], Field(description="Максимальное количество элементов в выданном списке (максимум 1000)")] = None,
+        offset: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="Отступ в выданном списке")] = None,
+        filter: Annotated[Optional[StrictStr], Field(description="Фильтрация выборки")] = None,
+        moment_from: Annotated[Optional[StrictStr], Field(description="Начало периода отчета в формате YYYY-MM-DD HH:MM:SS")] = None,
+        moment_to: Annotated[Optional[StrictStr], Field(description="Конец периода отчета в формате YYYY-MM-DD HH:MM:SS")] = None,
+        accept: Optional[StrictStr] = None,
+        accept_encoding: Optional[StrictStr] = None,
+        x_lognex_accept_timezone: Annotated[Optional[StrictStr], Field(description="Опциональный заголовок, в котором указана текущая дата на клиенте в RFC 3522. Таймзону обязательно указывать в формате знак и 4 символа. Пример: `Wed, 16 Aug 2017 23:07:01 +0700`. При подсчете показателей даты операций смещаются в таймзону клиента. ")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[ReportProfitByProductList]:
+        """Получить прибыльность по товарам
+
+        Запрос отчета «Прибыльность по товарам». В отчете учитываются товары, услуги и комплекты. Для доступа к отчету требуется право на просмотр отчета «Прибыльность». 
+
+        :param limit: Максимальное количество элементов в выданном списке (максимум 1000)
+        :type limit: int
+        :param offset: Отступ в выданном списке
+        :type offset: int
+        :param filter: Фильтрация выборки
+        :type filter: str
+        :param moment_from: Начало периода отчета в формате YYYY-MM-DD HH:MM:SS
+        :type moment_from: str
+        :param moment_to: Конец периода отчета в формате YYYY-MM-DD HH:MM:SS
+        :type moment_to: str
+        :param accept:
+        :type accept: str
+        :param accept_encoding:
+        :type accept_encoding: str
+        :param x_lognex_accept_timezone: Опциональный заголовок, в котором указана текущая дата на клиенте в RFC 3522. Таймзону обязательно указывать в формате знак и 4 символа. Пример: `Wed, 16 Aug 2017 23:07:01 +0700`. При подсчете показателей даты операций смещаются в таймзону клиента. 
+        :type x_lognex_accept_timezone: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_report_profit_by_product_serialize(
+            limit=limit,
+            offset=offset,
+            filter=filter,
+            moment_from=moment_from,
+            moment_to=moment_to,
+            accept=accept,
+            accept_encoding=accept_encoding,
+            x_lognex_accept_timezone=x_lognex_accept_timezone,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "ReportProfitByProductList",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    def get_report_profit_by_product_without_preload_content(
+        self,
+        limit: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=1)]], Field(description="Максимальное количество элементов в выданном списке (максимум 1000)")] = None,
+        offset: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="Отступ в выданном списке")] = None,
+        filter: Annotated[Optional[StrictStr], Field(description="Фильтрация выборки")] = None,
+        moment_from: Annotated[Optional[StrictStr], Field(description="Начало периода отчета в формате YYYY-MM-DD HH:MM:SS")] = None,
+        moment_to: Annotated[Optional[StrictStr], Field(description="Конец периода отчета в формате YYYY-MM-DD HH:MM:SS")] = None,
+        accept: Optional[StrictStr] = None,
+        accept_encoding: Optional[StrictStr] = None,
+        x_lognex_accept_timezone: Annotated[Optional[StrictStr], Field(description="Опциональный заголовок, в котором указана текущая дата на клиенте в RFC 3522. Таймзону обязательно указывать в формате знак и 4 символа. Пример: `Wed, 16 Aug 2017 23:07:01 +0700`. При подсчете показателей даты операций смещаются в таймзону клиента. ")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """Получить прибыльность по товарам
+
+        Запрос отчета «Прибыльность по товарам». В отчете учитываются товары, услуги и комплекты. Для доступа к отчету требуется право на просмотр отчета «Прибыльность». 
+
+        :param limit: Максимальное количество элементов в выданном списке (максимум 1000)
+        :type limit: int
+        :param offset: Отступ в выданном списке
+        :type offset: int
+        :param filter: Фильтрация выборки
+        :type filter: str
+        :param moment_from: Начало периода отчета в формате YYYY-MM-DD HH:MM:SS
+        :type moment_from: str
+        :param moment_to: Конец периода отчета в формате YYYY-MM-DD HH:MM:SS
+        :type moment_to: str
+        :param accept:
+        :type accept: str
+        :param accept_encoding:
+        :type accept_encoding: str
+        :param x_lognex_accept_timezone: Опциональный заголовок, в котором указана текущая дата на клиенте в RFC 3522. Таймзону обязательно указывать в формате знак и 4 символа. Пример: `Wed, 16 Aug 2017 23:07:01 +0700`. При подсчете показателей даты операций смещаются в таймзону клиента. 
+        :type x_lognex_accept_timezone: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_report_profit_by_product_serialize(
+            limit=limit,
+            offset=offset,
+            filter=filter,
+            moment_from=moment_from,
+            moment_to=moment_to,
+            accept=accept,
+            accept_encoding=accept_encoding,
+            x_lognex_accept_timezone=x_lognex_accept_timezone,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "ReportProfitByProductList",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _get_report_profit_by_product_serialize(
+        self,
+        limit,
+        offset,
+        filter,
+        moment_from,
+        moment_to,
+        accept,
+        accept_encoding,
+        x_lognex_accept_timezone,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        # process the query parameters
+        if limit is not None:
+            
+            _query_params.append(('limit', limit))
+            
+        if offset is not None:
+            
+            _query_params.append(('offset', offset))
+            
+        if filter is not None:
+            
+            _query_params.append(('filter', filter))
+            
+        if moment_from is not None:
+            
+            _query_params.append(('momentFrom', moment_from))
+            
+        if moment_to is not None:
+            
+            _query_params.append(('momentTo', moment_to))
+            
+        # process the header parameters
+        if accept is not None:
+            _header_params['accept'] = accept
+        if accept_encoding is not None:
+            _header_params['Accept-Encoding'] = accept_encoding
+        if x_lognex_accept_timezone is not None:
+            _header_params['X-Lognex-Accept-Timezone'] = x_lognex_accept_timezone
+        # process the form parameters
+        # process the body parameter
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json', 
+                    'text/html;charset=UTF-8'
+                ]
+            )
+
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'basicAuth', 
+            'bearerAuth'
+        ]
+
+        return self.api_client.param_serialize(
+            method='GET',
+            resource_path='/report/profit/byproduct',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
+    def get_report_profit_by_sales_channel(
+        self,
+        limit: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=1)]], Field(description="Максимальное количество элементов в выданном списке (максимум 1000)")] = None,
+        offset: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="Отступ в выданном списке")] = None,
+        filter: Annotated[Optional[StrictStr], Field(description="Фильтрация выборки")] = None,
+        moment_from: Annotated[Optional[StrictStr], Field(description="Начало периода отчета в формате YYYY-MM-DD HH:MM:SS")] = None,
+        moment_to: Annotated[Optional[StrictStr], Field(description="Конец периода отчета в формате YYYY-MM-DD HH:MM:SS")] = None,
+        accept: Optional[StrictStr] = None,
+        accept_encoding: Optional[StrictStr] = None,
+        x_lognex_accept_timezone: Annotated[Optional[StrictStr], Field(description="Опциональный заголовок, в котором указана текущая дата на клиенте в RFC 3522. Таймзону обязательно указывать в формате знак и 4 символа. Пример: `Wed, 16 Aug 2017 23:07:01 +0700`. При подсчете показателей даты операций смещаются в таймзону клиента. ")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ReportProfitBySalesChannelList:
+        """Получить прибыльность по каналам продаж
+
+        Запрос отчета «Прибыльность по каналам продаж». Для доступа к отчету требуется право на просмотр отчета «Прибыльность». 
+
+        :param limit: Максимальное количество элементов в выданном списке (максимум 1000)
+        :type limit: int
+        :param offset: Отступ в выданном списке
+        :type offset: int
+        :param filter: Фильтрация выборки
+        :type filter: str
+        :param moment_from: Начало периода отчета в формате YYYY-MM-DD HH:MM:SS
+        :type moment_from: str
+        :param moment_to: Конец периода отчета в формате YYYY-MM-DD HH:MM:SS
+        :type moment_to: str
+        :param accept:
+        :type accept: str
+        :param accept_encoding:
+        :type accept_encoding: str
+        :param x_lognex_accept_timezone: Опциональный заголовок, в котором указана текущая дата на клиенте в RFC 3522. Таймзону обязательно указывать в формате знак и 4 символа. Пример: `Wed, 16 Aug 2017 23:07:01 +0700`. При подсчете показателей даты операций смещаются в таймзону клиента. 
+        :type x_lognex_accept_timezone: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_report_profit_by_sales_channel_serialize(
+            limit=limit,
+            offset=offset,
+            filter=filter,
+            moment_from=moment_from,
+            moment_to=moment_to,
+            accept=accept,
+            accept_encoding=accept_encoding,
+            x_lognex_accept_timezone=x_lognex_accept_timezone,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "ReportProfitBySalesChannelList",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def get_report_profit_by_sales_channel_with_http_info(
+        self,
+        limit: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=1)]], Field(description="Максимальное количество элементов в выданном списке (максимум 1000)")] = None,
+        offset: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="Отступ в выданном списке")] = None,
+        filter: Annotated[Optional[StrictStr], Field(description="Фильтрация выборки")] = None,
+        moment_from: Annotated[Optional[StrictStr], Field(description="Начало периода отчета в формате YYYY-MM-DD HH:MM:SS")] = None,
+        moment_to: Annotated[Optional[StrictStr], Field(description="Конец периода отчета в формате YYYY-MM-DD HH:MM:SS")] = None,
+        accept: Optional[StrictStr] = None,
+        accept_encoding: Optional[StrictStr] = None,
+        x_lognex_accept_timezone: Annotated[Optional[StrictStr], Field(description="Опциональный заголовок, в котором указана текущая дата на клиенте в RFC 3522. Таймзону обязательно указывать в формате знак и 4 символа. Пример: `Wed, 16 Aug 2017 23:07:01 +0700`. При подсчете показателей даты операций смещаются в таймзону клиента. ")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[ReportProfitBySalesChannelList]:
+        """Получить прибыльность по каналам продаж
+
+        Запрос отчета «Прибыльность по каналам продаж». Для доступа к отчету требуется право на просмотр отчета «Прибыльность». 
+
+        :param limit: Максимальное количество элементов в выданном списке (максимум 1000)
+        :type limit: int
+        :param offset: Отступ в выданном списке
+        :type offset: int
+        :param filter: Фильтрация выборки
+        :type filter: str
+        :param moment_from: Начало периода отчета в формате YYYY-MM-DD HH:MM:SS
+        :type moment_from: str
+        :param moment_to: Конец периода отчета в формате YYYY-MM-DD HH:MM:SS
+        :type moment_to: str
+        :param accept:
+        :type accept: str
+        :param accept_encoding:
+        :type accept_encoding: str
+        :param x_lognex_accept_timezone: Опциональный заголовок, в котором указана текущая дата на клиенте в RFC 3522. Таймзону обязательно указывать в формате знак и 4 символа. Пример: `Wed, 16 Aug 2017 23:07:01 +0700`. При подсчете показателей даты операций смещаются в таймзону клиента. 
+        :type x_lognex_accept_timezone: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_report_profit_by_sales_channel_serialize(
+            limit=limit,
+            offset=offset,
+            filter=filter,
+            moment_from=moment_from,
+            moment_to=moment_to,
+            accept=accept,
+            accept_encoding=accept_encoding,
+            x_lognex_accept_timezone=x_lognex_accept_timezone,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "ReportProfitBySalesChannelList",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    def get_report_profit_by_sales_channel_without_preload_content(
+        self,
+        limit: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=1)]], Field(description="Максимальное количество элементов в выданном списке (максимум 1000)")] = None,
+        offset: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="Отступ в выданном списке")] = None,
+        filter: Annotated[Optional[StrictStr], Field(description="Фильтрация выборки")] = None,
+        moment_from: Annotated[Optional[StrictStr], Field(description="Начало периода отчета в формате YYYY-MM-DD HH:MM:SS")] = None,
+        moment_to: Annotated[Optional[StrictStr], Field(description="Конец периода отчета в формате YYYY-MM-DD HH:MM:SS")] = None,
+        accept: Optional[StrictStr] = None,
+        accept_encoding: Optional[StrictStr] = None,
+        x_lognex_accept_timezone: Annotated[Optional[StrictStr], Field(description="Опциональный заголовок, в котором указана текущая дата на клиенте в RFC 3522. Таймзону обязательно указывать в формате знак и 4 символа. Пример: `Wed, 16 Aug 2017 23:07:01 +0700`. При подсчете показателей даты операций смещаются в таймзону клиента. ")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """Получить прибыльность по каналам продаж
+
+        Запрос отчета «Прибыльность по каналам продаж». Для доступа к отчету требуется право на просмотр отчета «Прибыльность». 
+
+        :param limit: Максимальное количество элементов в выданном списке (максимум 1000)
+        :type limit: int
+        :param offset: Отступ в выданном списке
+        :type offset: int
+        :param filter: Фильтрация выборки
+        :type filter: str
+        :param moment_from: Начало периода отчета в формате YYYY-MM-DD HH:MM:SS
+        :type moment_from: str
+        :param moment_to: Конец периода отчета в формате YYYY-MM-DD HH:MM:SS
+        :type moment_to: str
+        :param accept:
+        :type accept: str
+        :param accept_encoding:
+        :type accept_encoding: str
+        :param x_lognex_accept_timezone: Опциональный заголовок, в котором указана текущая дата на клиенте в RFC 3522. Таймзону обязательно указывать в формате знак и 4 символа. Пример: `Wed, 16 Aug 2017 23:07:01 +0700`. При подсчете показателей даты операций смещаются в таймзону клиента. 
+        :type x_lognex_accept_timezone: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_report_profit_by_sales_channel_serialize(
+            limit=limit,
+            offset=offset,
+            filter=filter,
+            moment_from=moment_from,
+            moment_to=moment_to,
+            accept=accept,
+            accept_encoding=accept_encoding,
+            x_lognex_accept_timezone=x_lognex_accept_timezone,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "ReportProfitBySalesChannelList",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _get_report_profit_by_sales_channel_serialize(
+        self,
+        limit,
+        offset,
+        filter,
+        moment_from,
+        moment_to,
+        accept,
+        accept_encoding,
+        x_lognex_accept_timezone,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        # process the query parameters
+        if limit is not None:
+            
+            _query_params.append(('limit', limit))
+            
+        if offset is not None:
+            
+            _query_params.append(('offset', offset))
+            
+        if filter is not None:
+            
+            _query_params.append(('filter', filter))
+            
+        if moment_from is not None:
+            
+            _query_params.append(('momentFrom', moment_from))
+            
+        if moment_to is not None:
+            
+            _query_params.append(('momentTo', moment_to))
+            
+        # process the header parameters
+        if accept is not None:
+            _header_params['accept'] = accept
+        if accept_encoding is not None:
+            _header_params['Accept-Encoding'] = accept_encoding
+        if x_lognex_accept_timezone is not None:
+            _header_params['X-Lognex-Accept-Timezone'] = x_lognex_accept_timezone
+        # process the form parameters
+        # process the body parameter
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json', 
+                    'text/html;charset=UTF-8'
+                ]
+            )
+
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'basicAuth', 
+            'bearerAuth'
+        ]
+
+        return self.api_client.param_serialize(
+            method='GET',
+            resource_path='/report/profit/bysaleschannel',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
+    def get_report_profit_by_variant(
+        self,
+        limit: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=1)]], Field(description="Максимальное количество элементов в выданном списке (максимум 1000)")] = None,
+        offset: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="Отступ в выданном списке")] = None,
+        filter: Annotated[Optional[StrictStr], Field(description="Фильтрация выборки")] = None,
+        moment_from: Annotated[Optional[StrictStr], Field(description="Начало периода отчета в формате YYYY-MM-DD HH:MM:SS")] = None,
+        moment_to: Annotated[Optional[StrictStr], Field(description="Конец периода отчета в формате YYYY-MM-DD HH:MM:SS")] = None,
+        accept: Optional[StrictStr] = None,
+        accept_encoding: Optional[StrictStr] = None,
+        x_lognex_accept_timezone: Annotated[Optional[StrictStr], Field(description="Опциональный заголовок, в котором указана текущая дата на клиенте в RFC 3522. Таймзону обязательно указывать в формате знак и 4 символа. Пример: `Wed, 16 Aug 2017 23:07:01 +0700`. При подсчете показателей даты операций смещаются в таймзону клиента. ")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ReportProfitByVariantList:
+        """Получить прибыльность по модификациям
+
+        Запрос отчета «Прибыльность по модификациям». В отчете учитываются модификации, товары, услуги и комплекты. Для доступа к отчету требуется право на просмотр отчета «Прибыльность». 
+
+        :param limit: Максимальное количество элементов в выданном списке (максимум 1000)
+        :type limit: int
+        :param offset: Отступ в выданном списке
+        :type offset: int
+        :param filter: Фильтрация выборки
+        :type filter: str
+        :param moment_from: Начало периода отчета в формате YYYY-MM-DD HH:MM:SS
+        :type moment_from: str
+        :param moment_to: Конец периода отчета в формате YYYY-MM-DD HH:MM:SS
+        :type moment_to: str
+        :param accept:
+        :type accept: str
+        :param accept_encoding:
+        :type accept_encoding: str
+        :param x_lognex_accept_timezone: Опциональный заголовок, в котором указана текущая дата на клиенте в RFC 3522. Таймзону обязательно указывать в формате знак и 4 символа. Пример: `Wed, 16 Aug 2017 23:07:01 +0700`. При подсчете показателей даты операций смещаются в таймзону клиента. 
+        :type x_lognex_accept_timezone: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_report_profit_by_variant_serialize(
+            limit=limit,
+            offset=offset,
+            filter=filter,
+            moment_from=moment_from,
+            moment_to=moment_to,
+            accept=accept,
+            accept_encoding=accept_encoding,
+            x_lognex_accept_timezone=x_lognex_accept_timezone,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "ReportProfitByVariantList",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def get_report_profit_by_variant_with_http_info(
+        self,
+        limit: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=1)]], Field(description="Максимальное количество элементов в выданном списке (максимум 1000)")] = None,
+        offset: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="Отступ в выданном списке")] = None,
+        filter: Annotated[Optional[StrictStr], Field(description="Фильтрация выборки")] = None,
+        moment_from: Annotated[Optional[StrictStr], Field(description="Начало периода отчета в формате YYYY-MM-DD HH:MM:SS")] = None,
+        moment_to: Annotated[Optional[StrictStr], Field(description="Конец периода отчета в формате YYYY-MM-DD HH:MM:SS")] = None,
+        accept: Optional[StrictStr] = None,
+        accept_encoding: Optional[StrictStr] = None,
+        x_lognex_accept_timezone: Annotated[Optional[StrictStr], Field(description="Опциональный заголовок, в котором указана текущая дата на клиенте в RFC 3522. Таймзону обязательно указывать в формате знак и 4 символа. Пример: `Wed, 16 Aug 2017 23:07:01 +0700`. При подсчете показателей даты операций смещаются в таймзону клиента. ")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[ReportProfitByVariantList]:
+        """Получить прибыльность по модификациям
+
+        Запрос отчета «Прибыльность по модификациям». В отчете учитываются модификации, товары, услуги и комплекты. Для доступа к отчету требуется право на просмотр отчета «Прибыльность». 
+
+        :param limit: Максимальное количество элементов в выданном списке (максимум 1000)
+        :type limit: int
+        :param offset: Отступ в выданном списке
+        :type offset: int
+        :param filter: Фильтрация выборки
+        :type filter: str
+        :param moment_from: Начало периода отчета в формате YYYY-MM-DD HH:MM:SS
+        :type moment_from: str
+        :param moment_to: Конец периода отчета в формате YYYY-MM-DD HH:MM:SS
+        :type moment_to: str
+        :param accept:
+        :type accept: str
+        :param accept_encoding:
+        :type accept_encoding: str
+        :param x_lognex_accept_timezone: Опциональный заголовок, в котором указана текущая дата на клиенте в RFC 3522. Таймзону обязательно указывать в формате знак и 4 символа. Пример: `Wed, 16 Aug 2017 23:07:01 +0700`. При подсчете показателей даты операций смещаются в таймзону клиента. 
+        :type x_lognex_accept_timezone: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_report_profit_by_variant_serialize(
+            limit=limit,
+            offset=offset,
+            filter=filter,
+            moment_from=moment_from,
+            moment_to=moment_to,
+            accept=accept,
+            accept_encoding=accept_encoding,
+            x_lognex_accept_timezone=x_lognex_accept_timezone,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "ReportProfitByVariantList",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    def get_report_profit_by_variant_without_preload_content(
+        self,
+        limit: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=1)]], Field(description="Максимальное количество элементов в выданном списке (максимум 1000)")] = None,
+        offset: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="Отступ в выданном списке")] = None,
+        filter: Annotated[Optional[StrictStr], Field(description="Фильтрация выборки")] = None,
+        moment_from: Annotated[Optional[StrictStr], Field(description="Начало периода отчета в формате YYYY-MM-DD HH:MM:SS")] = None,
+        moment_to: Annotated[Optional[StrictStr], Field(description="Конец периода отчета в формате YYYY-MM-DD HH:MM:SS")] = None,
+        accept: Optional[StrictStr] = None,
+        accept_encoding: Optional[StrictStr] = None,
+        x_lognex_accept_timezone: Annotated[Optional[StrictStr], Field(description="Опциональный заголовок, в котором указана текущая дата на клиенте в RFC 3522. Таймзону обязательно указывать в формате знак и 4 символа. Пример: `Wed, 16 Aug 2017 23:07:01 +0700`. При подсчете показателей даты операций смещаются в таймзону клиента. ")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """Получить прибыльность по модификациям
+
+        Запрос отчета «Прибыльность по модификациям». В отчете учитываются модификации, товары, услуги и комплекты. Для доступа к отчету требуется право на просмотр отчета «Прибыльность». 
+
+        :param limit: Максимальное количество элементов в выданном списке (максимум 1000)
+        :type limit: int
+        :param offset: Отступ в выданном списке
+        :type offset: int
+        :param filter: Фильтрация выборки
+        :type filter: str
+        :param moment_from: Начало периода отчета в формате YYYY-MM-DD HH:MM:SS
+        :type moment_from: str
+        :param moment_to: Конец периода отчета в формате YYYY-MM-DD HH:MM:SS
+        :type moment_to: str
+        :param accept:
+        :type accept: str
+        :param accept_encoding:
+        :type accept_encoding: str
+        :param x_lognex_accept_timezone: Опциональный заголовок, в котором указана текущая дата на клиенте в RFC 3522. Таймзону обязательно указывать в формате знак и 4 символа. Пример: `Wed, 16 Aug 2017 23:07:01 +0700`. При подсчете показателей даты операций смещаются в таймзону клиента. 
+        :type x_lognex_accept_timezone: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_report_profit_by_variant_serialize(
+            limit=limit,
+            offset=offset,
+            filter=filter,
+            moment_from=moment_from,
+            moment_to=moment_to,
+            accept=accept,
+            accept_encoding=accept_encoding,
+            x_lognex_accept_timezone=x_lognex_accept_timezone,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "ReportProfitByVariantList",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _get_report_profit_by_variant_serialize(
+        self,
+        limit,
+        offset,
+        filter,
+        moment_from,
+        moment_to,
+        accept,
+        accept_encoding,
+        x_lognex_accept_timezone,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        # process the query parameters
+        if limit is not None:
+            
+            _query_params.append(('limit', limit))
+            
+        if offset is not None:
+            
+            _query_params.append(('offset', offset))
+            
+        if filter is not None:
+            
+            _query_params.append(('filter', filter))
+            
+        if moment_from is not None:
+            
+            _query_params.append(('momentFrom', moment_from))
+            
+        if moment_to is not None:
+            
+            _query_params.append(('momentTo', moment_to))
+            
+        # process the header parameters
+        if accept is not None:
+            _header_params['accept'] = accept
+        if accept_encoding is not None:
+            _header_params['Accept-Encoding'] = accept_encoding
+        if x_lognex_accept_timezone is not None:
+            _header_params['X-Lognex-Accept-Timezone'] = x_lognex_accept_timezone
+        # process the form parameters
+        # process the body parameter
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json', 
+                    'text/html;charset=UTF-8'
+                ]
+            )
+
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'basicAuth', 
+            'bearerAuth'
+        ]
+
+        return self.api_client.param_serialize(
+            method='GET',
+            resource_path='/report/profit/byvariant',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
     def get_report_sales_plot_series(
         self,
         moment_from: Annotated[StrictStr, Field(description="Начало периода отчета в формате YYYY-MM-DD HH:MM:SS")],
@@ -1582,6 +4746,1410 @@ class ReportsApi:
         return self.api_client.param_serialize(
             method='GET',
             resource_path='/report/sales/plotseries',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
+    def get_report_turnover_all(
+        self,
+        limit: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=1)]], Field(description="Максимальное количество элементов в выданном списке (максимум 1000)")] = None,
+        offset: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="Отступ в выданном списке")] = None,
+        filter: Annotated[Optional[StrictStr], Field(description="Фильтрация выборки")] = None,
+        moment_from: Annotated[Optional[StrictStr], Field(description="Начало периода отчета в формате YYYY-MM-DD HH:MM:SS")] = None,
+        moment_to: Annotated[Optional[StrictStr], Field(description="Конец периода отчета в формате YYYY-MM-DD HH:MM:SS")] = None,
+        group_by: Annotated[Optional[StrictStr], Field(description="Тип, по которому нужно сгруппировать выдачу. Значение по умолчанию `product`.")] = None,
+        accept: Optional[StrictStr] = None,
+        accept_encoding: Optional[StrictStr] = None,
+        x_lognex_accept_timezone: Annotated[Optional[StrictStr], Field(description="Опциональный заголовок, в котором указана текущая дата на клиенте в RFC 3522. Таймзону обязательно указывать в формате знак и 4 символа. Пример: `Wed, 16 Aug 2017 23:07:01 +0700`. При подсчете показателей даты операций смещаются в таймзону клиента. ")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ReportTurnoverList:
+        """Получить Обороты по товарам
+
+        Запрос отчета «Обороты по товарам» — общий отчет по оборотам товаров и модификаций.
+
+        :param limit: Максимальное количество элементов в выданном списке (максимум 1000)
+        :type limit: int
+        :param offset: Отступ в выданном списке
+        :type offset: int
+        :param filter: Фильтрация выборки
+        :type filter: str
+        :param moment_from: Начало периода отчета в формате YYYY-MM-DD HH:MM:SS
+        :type moment_from: str
+        :param moment_to: Конец периода отчета в формате YYYY-MM-DD HH:MM:SS
+        :type moment_to: str
+        :param group_by: Тип, по которому нужно сгруппировать выдачу. Значение по умолчанию `product`.
+        :type group_by: str
+        :param accept:
+        :type accept: str
+        :param accept_encoding:
+        :type accept_encoding: str
+        :param x_lognex_accept_timezone: Опциональный заголовок, в котором указана текущая дата на клиенте в RFC 3522. Таймзону обязательно указывать в формате знак и 4 символа. Пример: `Wed, 16 Aug 2017 23:07:01 +0700`. При подсчете показателей даты операций смещаются в таймзону клиента. 
+        :type x_lognex_accept_timezone: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_report_turnover_all_serialize(
+            limit=limit,
+            offset=offset,
+            filter=filter,
+            moment_from=moment_from,
+            moment_to=moment_to,
+            group_by=group_by,
+            accept=accept,
+            accept_encoding=accept_encoding,
+            x_lognex_accept_timezone=x_lognex_accept_timezone,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "ReportTurnoverList",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def get_report_turnover_all_with_http_info(
+        self,
+        limit: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=1)]], Field(description="Максимальное количество элементов в выданном списке (максимум 1000)")] = None,
+        offset: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="Отступ в выданном списке")] = None,
+        filter: Annotated[Optional[StrictStr], Field(description="Фильтрация выборки")] = None,
+        moment_from: Annotated[Optional[StrictStr], Field(description="Начало периода отчета в формате YYYY-MM-DD HH:MM:SS")] = None,
+        moment_to: Annotated[Optional[StrictStr], Field(description="Конец периода отчета в формате YYYY-MM-DD HH:MM:SS")] = None,
+        group_by: Annotated[Optional[StrictStr], Field(description="Тип, по которому нужно сгруппировать выдачу. Значение по умолчанию `product`.")] = None,
+        accept: Optional[StrictStr] = None,
+        accept_encoding: Optional[StrictStr] = None,
+        x_lognex_accept_timezone: Annotated[Optional[StrictStr], Field(description="Опциональный заголовок, в котором указана текущая дата на клиенте в RFC 3522. Таймзону обязательно указывать в формате знак и 4 символа. Пример: `Wed, 16 Aug 2017 23:07:01 +0700`. При подсчете показателей даты операций смещаются в таймзону клиента. ")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[ReportTurnoverList]:
+        """Получить Обороты по товарам
+
+        Запрос отчета «Обороты по товарам» — общий отчет по оборотам товаров и модификаций.
+
+        :param limit: Максимальное количество элементов в выданном списке (максимум 1000)
+        :type limit: int
+        :param offset: Отступ в выданном списке
+        :type offset: int
+        :param filter: Фильтрация выборки
+        :type filter: str
+        :param moment_from: Начало периода отчета в формате YYYY-MM-DD HH:MM:SS
+        :type moment_from: str
+        :param moment_to: Конец периода отчета в формате YYYY-MM-DD HH:MM:SS
+        :type moment_to: str
+        :param group_by: Тип, по которому нужно сгруппировать выдачу. Значение по умолчанию `product`.
+        :type group_by: str
+        :param accept:
+        :type accept: str
+        :param accept_encoding:
+        :type accept_encoding: str
+        :param x_lognex_accept_timezone: Опциональный заголовок, в котором указана текущая дата на клиенте в RFC 3522. Таймзону обязательно указывать в формате знак и 4 символа. Пример: `Wed, 16 Aug 2017 23:07:01 +0700`. При подсчете показателей даты операций смещаются в таймзону клиента. 
+        :type x_lognex_accept_timezone: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_report_turnover_all_serialize(
+            limit=limit,
+            offset=offset,
+            filter=filter,
+            moment_from=moment_from,
+            moment_to=moment_to,
+            group_by=group_by,
+            accept=accept,
+            accept_encoding=accept_encoding,
+            x_lognex_accept_timezone=x_lognex_accept_timezone,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "ReportTurnoverList",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    def get_report_turnover_all_without_preload_content(
+        self,
+        limit: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=1)]], Field(description="Максимальное количество элементов в выданном списке (максимум 1000)")] = None,
+        offset: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="Отступ в выданном списке")] = None,
+        filter: Annotated[Optional[StrictStr], Field(description="Фильтрация выборки")] = None,
+        moment_from: Annotated[Optional[StrictStr], Field(description="Начало периода отчета в формате YYYY-MM-DD HH:MM:SS")] = None,
+        moment_to: Annotated[Optional[StrictStr], Field(description="Конец периода отчета в формате YYYY-MM-DD HH:MM:SS")] = None,
+        group_by: Annotated[Optional[StrictStr], Field(description="Тип, по которому нужно сгруппировать выдачу. Значение по умолчанию `product`.")] = None,
+        accept: Optional[StrictStr] = None,
+        accept_encoding: Optional[StrictStr] = None,
+        x_lognex_accept_timezone: Annotated[Optional[StrictStr], Field(description="Опциональный заголовок, в котором указана текущая дата на клиенте в RFC 3522. Таймзону обязательно указывать в формате знак и 4 символа. Пример: `Wed, 16 Aug 2017 23:07:01 +0700`. При подсчете показателей даты операций смещаются в таймзону клиента. ")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """Получить Обороты по товарам
+
+        Запрос отчета «Обороты по товарам» — общий отчет по оборотам товаров и модификаций.
+
+        :param limit: Максимальное количество элементов в выданном списке (максимум 1000)
+        :type limit: int
+        :param offset: Отступ в выданном списке
+        :type offset: int
+        :param filter: Фильтрация выборки
+        :type filter: str
+        :param moment_from: Начало периода отчета в формате YYYY-MM-DD HH:MM:SS
+        :type moment_from: str
+        :param moment_to: Конец периода отчета в формате YYYY-MM-DD HH:MM:SS
+        :type moment_to: str
+        :param group_by: Тип, по которому нужно сгруппировать выдачу. Значение по умолчанию `product`.
+        :type group_by: str
+        :param accept:
+        :type accept: str
+        :param accept_encoding:
+        :type accept_encoding: str
+        :param x_lognex_accept_timezone: Опциональный заголовок, в котором указана текущая дата на клиенте в RFC 3522. Таймзону обязательно указывать в формате знак и 4 символа. Пример: `Wed, 16 Aug 2017 23:07:01 +0700`. При подсчете показателей даты операций смещаются в таймзону клиента. 
+        :type x_lognex_accept_timezone: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_report_turnover_all_serialize(
+            limit=limit,
+            offset=offset,
+            filter=filter,
+            moment_from=moment_from,
+            moment_to=moment_to,
+            group_by=group_by,
+            accept=accept,
+            accept_encoding=accept_encoding,
+            x_lognex_accept_timezone=x_lognex_accept_timezone,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "ReportTurnoverList",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _get_report_turnover_all_serialize(
+        self,
+        limit,
+        offset,
+        filter,
+        moment_from,
+        moment_to,
+        group_by,
+        accept,
+        accept_encoding,
+        x_lognex_accept_timezone,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        # process the query parameters
+        if limit is not None:
+            
+            _query_params.append(('limit', limit))
+            
+        if offset is not None:
+            
+            _query_params.append(('offset', offset))
+            
+        if filter is not None:
+            
+            _query_params.append(('filter', filter))
+            
+        if moment_from is not None:
+            
+            _query_params.append(('momentFrom', moment_from))
+            
+        if moment_to is not None:
+            
+            _query_params.append(('momentTo', moment_to))
+            
+        if group_by is not None:
+            
+            _query_params.append(('groupBy', group_by))
+            
+        # process the header parameters
+        if accept is not None:
+            _header_params['accept'] = accept
+        if accept_encoding is not None:
+            _header_params['Accept-Encoding'] = accept_encoding
+        if x_lognex_accept_timezone is not None:
+            _header_params['X-Lognex-Accept-Timezone'] = x_lognex_accept_timezone
+        # process the form parameters
+        # process the body parameter
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json', 
+                    'text/html;charset=UTF-8'
+                ]
+            )
+
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'basicAuth', 
+            'bearerAuth'
+        ]
+
+        return self.api_client.param_serialize(
+            method='GET',
+            resource_path='/report/turnover/all',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
+    def get_report_turnover_by_operations(
+        self,
+        filter: Annotated[Optional[StrictStr], Field(description="Фильтрация выборки")] = None,
+        moment_from: Annotated[Optional[StrictStr], Field(description="Начало периода отчета в формате YYYY-MM-DD HH:MM:SS")] = None,
+        moment_to: Annotated[Optional[StrictStr], Field(description="Конец периода отчета в формате YYYY-MM-DD HH:MM:SS")] = None,
+        accept: Optional[StrictStr] = None,
+        accept_encoding: Optional[StrictStr] = None,
+        x_lognex_accept_timezone: Annotated[Optional[StrictStr], Field(description="Опциональный заголовок, в котором указана текущая дата на клиенте в RFC 3522. Таймзону обязательно указывать в формате знак и 4 символа. Пример: `Wed, 16 Aug 2017 23:07:01 +0700`. При подсчете показателей даты операций смещаются в таймзону клиента. ")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ReportTurnoverByOperationList:
+        """Получить Обороты по товару с детализацией по документам
+
+        Запрос отчета «Обороты по товару с детализацией по документам».
+
+        :param filter: Фильтрация выборки
+        :type filter: str
+        :param moment_from: Начало периода отчета в формате YYYY-MM-DD HH:MM:SS
+        :type moment_from: str
+        :param moment_to: Конец периода отчета в формате YYYY-MM-DD HH:MM:SS
+        :type moment_to: str
+        :param accept:
+        :type accept: str
+        :param accept_encoding:
+        :type accept_encoding: str
+        :param x_lognex_accept_timezone: Опциональный заголовок, в котором указана текущая дата на клиенте в RFC 3522. Таймзону обязательно указывать в формате знак и 4 символа. Пример: `Wed, 16 Aug 2017 23:07:01 +0700`. При подсчете показателей даты операций смещаются в таймзону клиента. 
+        :type x_lognex_accept_timezone: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_report_turnover_by_operations_serialize(
+            filter=filter,
+            moment_from=moment_from,
+            moment_to=moment_to,
+            accept=accept,
+            accept_encoding=accept_encoding,
+            x_lognex_accept_timezone=x_lognex_accept_timezone,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "ReportTurnoverByOperationList",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def get_report_turnover_by_operations_with_http_info(
+        self,
+        filter: Annotated[Optional[StrictStr], Field(description="Фильтрация выборки")] = None,
+        moment_from: Annotated[Optional[StrictStr], Field(description="Начало периода отчета в формате YYYY-MM-DD HH:MM:SS")] = None,
+        moment_to: Annotated[Optional[StrictStr], Field(description="Конец периода отчета в формате YYYY-MM-DD HH:MM:SS")] = None,
+        accept: Optional[StrictStr] = None,
+        accept_encoding: Optional[StrictStr] = None,
+        x_lognex_accept_timezone: Annotated[Optional[StrictStr], Field(description="Опциональный заголовок, в котором указана текущая дата на клиенте в RFC 3522. Таймзону обязательно указывать в формате знак и 4 символа. Пример: `Wed, 16 Aug 2017 23:07:01 +0700`. При подсчете показателей даты операций смещаются в таймзону клиента. ")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[ReportTurnoverByOperationList]:
+        """Получить Обороты по товару с детализацией по документам
+
+        Запрос отчета «Обороты по товару с детализацией по документам».
+
+        :param filter: Фильтрация выборки
+        :type filter: str
+        :param moment_from: Начало периода отчета в формате YYYY-MM-DD HH:MM:SS
+        :type moment_from: str
+        :param moment_to: Конец периода отчета в формате YYYY-MM-DD HH:MM:SS
+        :type moment_to: str
+        :param accept:
+        :type accept: str
+        :param accept_encoding:
+        :type accept_encoding: str
+        :param x_lognex_accept_timezone: Опциональный заголовок, в котором указана текущая дата на клиенте в RFC 3522. Таймзону обязательно указывать в формате знак и 4 символа. Пример: `Wed, 16 Aug 2017 23:07:01 +0700`. При подсчете показателей даты операций смещаются в таймзону клиента. 
+        :type x_lognex_accept_timezone: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_report_turnover_by_operations_serialize(
+            filter=filter,
+            moment_from=moment_from,
+            moment_to=moment_to,
+            accept=accept,
+            accept_encoding=accept_encoding,
+            x_lognex_accept_timezone=x_lognex_accept_timezone,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "ReportTurnoverByOperationList",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    def get_report_turnover_by_operations_without_preload_content(
+        self,
+        filter: Annotated[Optional[StrictStr], Field(description="Фильтрация выборки")] = None,
+        moment_from: Annotated[Optional[StrictStr], Field(description="Начало периода отчета в формате YYYY-MM-DD HH:MM:SS")] = None,
+        moment_to: Annotated[Optional[StrictStr], Field(description="Конец периода отчета в формате YYYY-MM-DD HH:MM:SS")] = None,
+        accept: Optional[StrictStr] = None,
+        accept_encoding: Optional[StrictStr] = None,
+        x_lognex_accept_timezone: Annotated[Optional[StrictStr], Field(description="Опциональный заголовок, в котором указана текущая дата на клиенте в RFC 3522. Таймзону обязательно указывать в формате знак и 4 символа. Пример: `Wed, 16 Aug 2017 23:07:01 +0700`. При подсчете показателей даты операций смещаются в таймзону клиента. ")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """Получить Обороты по товару с детализацией по документам
+
+        Запрос отчета «Обороты по товару с детализацией по документам».
+
+        :param filter: Фильтрация выборки
+        :type filter: str
+        :param moment_from: Начало периода отчета в формате YYYY-MM-DD HH:MM:SS
+        :type moment_from: str
+        :param moment_to: Конец периода отчета в формате YYYY-MM-DD HH:MM:SS
+        :type moment_to: str
+        :param accept:
+        :type accept: str
+        :param accept_encoding:
+        :type accept_encoding: str
+        :param x_lognex_accept_timezone: Опциональный заголовок, в котором указана текущая дата на клиенте в RFC 3522. Таймзону обязательно указывать в формате знак и 4 символа. Пример: `Wed, 16 Aug 2017 23:07:01 +0700`. При подсчете показателей даты операций смещаются в таймзону клиента. 
+        :type x_lognex_accept_timezone: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_report_turnover_by_operations_serialize(
+            filter=filter,
+            moment_from=moment_from,
+            moment_to=moment_to,
+            accept=accept,
+            accept_encoding=accept_encoding,
+            x_lognex_accept_timezone=x_lognex_accept_timezone,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "ReportTurnoverByOperationList",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _get_report_turnover_by_operations_serialize(
+        self,
+        filter,
+        moment_from,
+        moment_to,
+        accept,
+        accept_encoding,
+        x_lognex_accept_timezone,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        # process the query parameters
+        if filter is not None:
+            
+            _query_params.append(('filter', filter))
+            
+        if moment_from is not None:
+            
+            _query_params.append(('momentFrom', moment_from))
+            
+        if moment_to is not None:
+            
+            _query_params.append(('momentTo', moment_to))
+            
+        # process the header parameters
+        if accept is not None:
+            _header_params['accept'] = accept
+        if accept_encoding is not None:
+            _header_params['Accept-Encoding'] = accept_encoding
+        if x_lognex_accept_timezone is not None:
+            _header_params['X-Lognex-Accept-Timezone'] = x_lognex_accept_timezone
+        # process the form parameters
+        # process the body parameter
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json', 
+                    'text/html;charset=UTF-8'
+                ]
+            )
+
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'basicAuth', 
+            'bearerAuth'
+        ]
+
+        return self.api_client.param_serialize(
+            method='GET',
+            resource_path='/report/turnover/byoperations',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
+    def get_report_turnover_by_store(
+        self,
+        filter: Annotated[Optional[StrictStr], Field(description="Фильтрация выборки")] = None,
+        moment_from: Annotated[Optional[StrictStr], Field(description="Начало периода отчета в формате YYYY-MM-DD HH:MM:SS")] = None,
+        moment_to: Annotated[Optional[StrictStr], Field(description="Конец периода отчета в формате YYYY-MM-DD HH:MM:SS")] = None,
+        accept: Optional[StrictStr] = None,
+        accept_encoding: Optional[StrictStr] = None,
+        x_lognex_accept_timezone: Annotated[Optional[StrictStr], Field(description="Опциональный заголовок, в котором указана текущая дата на клиенте в RFC 3522. Таймзону обязательно указывать в формате знак и 4 символа. Пример: `Wed, 16 Aug 2017 23:07:01 +0700`. При подсчете показателей даты операций смещаются в таймзону клиента. ")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ReportTurnoverByStoreList:
+        """Получить Обороты по товару с детализацией по складам
+
+        Запрос отчета «Обороты по товару с детализацией по складам».
+
+        :param filter: Фильтрация выборки
+        :type filter: str
+        :param moment_from: Начало периода отчета в формате YYYY-MM-DD HH:MM:SS
+        :type moment_from: str
+        :param moment_to: Конец периода отчета в формате YYYY-MM-DD HH:MM:SS
+        :type moment_to: str
+        :param accept:
+        :type accept: str
+        :param accept_encoding:
+        :type accept_encoding: str
+        :param x_lognex_accept_timezone: Опциональный заголовок, в котором указана текущая дата на клиенте в RFC 3522. Таймзону обязательно указывать в формате знак и 4 символа. Пример: `Wed, 16 Aug 2017 23:07:01 +0700`. При подсчете показателей даты операций смещаются в таймзону клиента. 
+        :type x_lognex_accept_timezone: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_report_turnover_by_store_serialize(
+            filter=filter,
+            moment_from=moment_from,
+            moment_to=moment_to,
+            accept=accept,
+            accept_encoding=accept_encoding,
+            x_lognex_accept_timezone=x_lognex_accept_timezone,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "ReportTurnoverByStoreList",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def get_report_turnover_by_store_with_http_info(
+        self,
+        filter: Annotated[Optional[StrictStr], Field(description="Фильтрация выборки")] = None,
+        moment_from: Annotated[Optional[StrictStr], Field(description="Начало периода отчета в формате YYYY-MM-DD HH:MM:SS")] = None,
+        moment_to: Annotated[Optional[StrictStr], Field(description="Конец периода отчета в формате YYYY-MM-DD HH:MM:SS")] = None,
+        accept: Optional[StrictStr] = None,
+        accept_encoding: Optional[StrictStr] = None,
+        x_lognex_accept_timezone: Annotated[Optional[StrictStr], Field(description="Опциональный заголовок, в котором указана текущая дата на клиенте в RFC 3522. Таймзону обязательно указывать в формате знак и 4 символа. Пример: `Wed, 16 Aug 2017 23:07:01 +0700`. При подсчете показателей даты операций смещаются в таймзону клиента. ")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[ReportTurnoverByStoreList]:
+        """Получить Обороты по товару с детализацией по складам
+
+        Запрос отчета «Обороты по товару с детализацией по складам».
+
+        :param filter: Фильтрация выборки
+        :type filter: str
+        :param moment_from: Начало периода отчета в формате YYYY-MM-DD HH:MM:SS
+        :type moment_from: str
+        :param moment_to: Конец периода отчета в формате YYYY-MM-DD HH:MM:SS
+        :type moment_to: str
+        :param accept:
+        :type accept: str
+        :param accept_encoding:
+        :type accept_encoding: str
+        :param x_lognex_accept_timezone: Опциональный заголовок, в котором указана текущая дата на клиенте в RFC 3522. Таймзону обязательно указывать в формате знак и 4 символа. Пример: `Wed, 16 Aug 2017 23:07:01 +0700`. При подсчете показателей даты операций смещаются в таймзону клиента. 
+        :type x_lognex_accept_timezone: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_report_turnover_by_store_serialize(
+            filter=filter,
+            moment_from=moment_from,
+            moment_to=moment_to,
+            accept=accept,
+            accept_encoding=accept_encoding,
+            x_lognex_accept_timezone=x_lognex_accept_timezone,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "ReportTurnoverByStoreList",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    def get_report_turnover_by_store_without_preload_content(
+        self,
+        filter: Annotated[Optional[StrictStr], Field(description="Фильтрация выборки")] = None,
+        moment_from: Annotated[Optional[StrictStr], Field(description="Начало периода отчета в формате YYYY-MM-DD HH:MM:SS")] = None,
+        moment_to: Annotated[Optional[StrictStr], Field(description="Конец периода отчета в формате YYYY-MM-DD HH:MM:SS")] = None,
+        accept: Optional[StrictStr] = None,
+        accept_encoding: Optional[StrictStr] = None,
+        x_lognex_accept_timezone: Annotated[Optional[StrictStr], Field(description="Опциональный заголовок, в котором указана текущая дата на клиенте в RFC 3522. Таймзону обязательно указывать в формате знак и 4 символа. Пример: `Wed, 16 Aug 2017 23:07:01 +0700`. При подсчете показателей даты операций смещаются в таймзону клиента. ")] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """Получить Обороты по товару с детализацией по складам
+
+        Запрос отчета «Обороты по товару с детализацией по складам».
+
+        :param filter: Фильтрация выборки
+        :type filter: str
+        :param moment_from: Начало периода отчета в формате YYYY-MM-DD HH:MM:SS
+        :type moment_from: str
+        :param moment_to: Конец периода отчета в формате YYYY-MM-DD HH:MM:SS
+        :type moment_to: str
+        :param accept:
+        :type accept: str
+        :param accept_encoding:
+        :type accept_encoding: str
+        :param x_lognex_accept_timezone: Опциональный заголовок, в котором указана текущая дата на клиенте в RFC 3522. Таймзону обязательно указывать в формате знак и 4 символа. Пример: `Wed, 16 Aug 2017 23:07:01 +0700`. При подсчете показателей даты операций смещаются в таймзону клиента. 
+        :type x_lognex_accept_timezone: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_report_turnover_by_store_serialize(
+            filter=filter,
+            moment_from=moment_from,
+            moment_to=moment_to,
+            accept=accept,
+            accept_encoding=accept_encoding,
+            x_lognex_accept_timezone=x_lognex_accept_timezone,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "ReportTurnoverByStoreList",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _get_report_turnover_by_store_serialize(
+        self,
+        filter,
+        moment_from,
+        moment_to,
+        accept,
+        accept_encoding,
+        x_lognex_accept_timezone,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        # process the query parameters
+        if filter is not None:
+            
+            _query_params.append(('filter', filter))
+            
+        if moment_from is not None:
+            
+            _query_params.append(('momentFrom', moment_from))
+            
+        if moment_to is not None:
+            
+            _query_params.append(('momentTo', moment_to))
+            
+        # process the header parameters
+        if accept is not None:
+            _header_params['accept'] = accept
+        if accept_encoding is not None:
+            _header_params['Accept-Encoding'] = accept_encoding
+        if x_lognex_accept_timezone is not None:
+            _header_params['X-Lognex-Accept-Timezone'] = x_lognex_accept_timezone
+        # process the form parameters
+        # process the body parameter
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json', 
+                    'text/html;charset=UTF-8'
+                ]
+            )
+
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'basicAuth', 
+            'bearerAuth'
+        ]
+
+        return self.api_client.param_serialize(
+            method='GET',
+            resource_path='/report/turnover/bystore',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
+    def query_report_counterparty(
+        self,
+        report_counterparty_query: ReportCounterpartyQuery,
+        accept: Optional[StrictStr] = None,
+        accept_encoding: Optional[StrictStr] = None,
+        content_type: Optional[StrictStr] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ReportCounterpartyList:
+        """Получить выборочные показатели контрагентов
+
+        Запрос отчета «Показатели контрагентов» по указанным контрагентам.
+
+        :param report_counterparty_query: (required)
+        :type report_counterparty_query: ReportCounterpartyQuery
+        :param accept:
+        :type accept: str
+        :param accept_encoding:
+        :type accept_encoding: str
+        :param content_type:
+        :type content_type: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._query_report_counterparty_serialize(
+            report_counterparty_query=report_counterparty_query,
+            accept=accept,
+            accept_encoding=accept_encoding,
+            content_type=content_type,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "ReportCounterpartyList",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def query_report_counterparty_with_http_info(
+        self,
+        report_counterparty_query: ReportCounterpartyQuery,
+        accept: Optional[StrictStr] = None,
+        accept_encoding: Optional[StrictStr] = None,
+        content_type: Optional[StrictStr] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[ReportCounterpartyList]:
+        """Получить выборочные показатели контрагентов
+
+        Запрос отчета «Показатели контрагентов» по указанным контрагентам.
+
+        :param report_counterparty_query: (required)
+        :type report_counterparty_query: ReportCounterpartyQuery
+        :param accept:
+        :type accept: str
+        :param accept_encoding:
+        :type accept_encoding: str
+        :param content_type:
+        :type content_type: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._query_report_counterparty_serialize(
+            report_counterparty_query=report_counterparty_query,
+            accept=accept,
+            accept_encoding=accept_encoding,
+            content_type=content_type,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "ReportCounterpartyList",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    def query_report_counterparty_without_preload_content(
+        self,
+        report_counterparty_query: ReportCounterpartyQuery,
+        accept: Optional[StrictStr] = None,
+        accept_encoding: Optional[StrictStr] = None,
+        content_type: Optional[StrictStr] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """Получить выборочные показатели контрагентов
+
+        Запрос отчета «Показатели контрагентов» по указанным контрагентам.
+
+        :param report_counterparty_query: (required)
+        :type report_counterparty_query: ReportCounterpartyQuery
+        :param accept:
+        :type accept: str
+        :param accept_encoding:
+        :type accept_encoding: str
+        :param content_type:
+        :type content_type: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._query_report_counterparty_serialize(
+            report_counterparty_query=report_counterparty_query,
+            accept=accept,
+            accept_encoding=accept_encoding,
+            content_type=content_type,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "ReportCounterpartyList",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _query_report_counterparty_serialize(
+        self,
+        report_counterparty_query,
+        accept,
+        accept_encoding,
+        content_type,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        # process the query parameters
+        # process the header parameters
+        if accept is not None:
+            _header_params['accept'] = accept
+        if accept_encoding is not None:
+            _header_params['Accept-Encoding'] = accept_encoding
+        if content_type is not None:
+            _header_params['Content-Type'] = content_type
+        # process the form parameters
+        # process the body parameter
+        if report_counterparty_query is not None:
+            _body_params = report_counterparty_query
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json', 
+                    'text/html;charset=UTF-8'
+                ]
+            )
+
+        # set the HTTP header `Content-Type`
+        if _content_type:
+            _header_params['Content-Type'] = _content_type
+        else:
+            _default_content_type = (
+                self.api_client.select_header_content_type(
+                    [
+                        'application/json'
+                    ]
+                )
+            )
+            if _default_content_type is not None:
+                _header_params['Content-Type'] = _default_content_type
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'basicAuth', 
+            'bearerAuth'
+        ]
+
+        return self.api_client.param_serialize(
+            method='POST',
+            resource_path='/report/counterparty',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,

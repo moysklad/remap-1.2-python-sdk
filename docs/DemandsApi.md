@@ -26,6 +26,7 @@ Method | HTTP request | Description
 [**get_demand_position_by_id**](DemandsApi.md#get_demand_position_by_id) | **GET** /entity/demand/{id}/positions/{positionId} | Получить позицию Отгрузки
 [**get_demand_positions**](DemandsApi.md#get_demand_positions) | **GET** /entity/demand/{id}/positions | Получить позиции Отгрузки
 [**get_demand_template**](DemandsApi.md#get_demand_template) | **PUT** /entity/demand/new | Шаблон Отгрузки
+[**move_demand_to_trash**](DemandsApi.md#move_demand_to_trash) | **POST** /entity/demand/{id}/trash | Удалить Отгрузку в корзину
 [**update_demand**](DemandsApi.md#update_demand) | **PUT** /entity/demand/{id} | Изменить Отгрузку
 [**update_demand_metadata_attribute_by_id**](DemandsApi.md#update_demand_metadata_attribute_by_id) | **PUT** /entity/demand/metadata/attributes/{id} | Обновить отдельное доп. поле Отгрузки
 [**update_demand_metadata_state_by_id**](DemandsApi.md#update_demand_metadata_state_by_id) | **PUT** /entity/demand/metadata/states/{id} | Обновить отдельный статус Отгрузки
@@ -2041,6 +2042,91 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: application/json
+ - **Accept**: application/json, text/html;charset=UTF-8
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Успешный запрос |  -  |
+**0** | Ошибка запроса (тело — объект с полем errors) |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **move_demand_to_trash**
+> move_demand_to_trash(id, accept=accept, accept_encoding=accept_encoding)
+
+Удалить Отгрузку в корзину
+
+### Example
+
+* Basic Authentication (basicAuth):
+* Bearer Authentication (bearerAuth):
+
+```python
+import moysklad_remap_12_sdk
+from moysklad_remap_12_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.moysklad.ru/api/remap/1.2
+# See configuration.py for a list of all supported configuration parameters.
+configuration = moysklad_remap_12_sdk.Configuration(
+    host = "https://api.moysklad.ru/api/remap/1.2"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure HTTP basic authorization: basicAuth
+configuration = moysklad_remap_12_sdk.Configuration(
+    username = os.environ["USERNAME"],
+    password = os.environ["PASSWORD"]
+)
+
+# Configure Bearer authorization: bearerAuth
+configuration = moysklad_remap_12_sdk.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with moysklad_remap_12_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = moysklad_remap_12_sdk.DemandsApi(api_client)
+    id = 'id_example' # str | ID сущности
+    accept = application/json;charset=utf-8 # str |  (optional) (default to application/json;charset=utf-8)
+    accept_encoding = 'gzip, deflate, br' # str |  (optional) (default to 'gzip, deflate, br')
+
+    try:
+        # Удалить Отгрузку в корзину
+        api_instance.move_demand_to_trash(id, accept=accept, accept_encoding=accept_encoding)
+    except Exception as e:
+        print("Exception when calling DemandsApi->move_demand_to_trash: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **str**| ID сущности | 
+ **accept** | **str**|  | [optional] [default to application/json;charset&#x3D;utf-8]
+ **accept_encoding** | **str**|  | [optional] [default to &#39;gzip, deflate, br&#39;]
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
  - **Accept**: application/json, text/html;charset=UTF-8
 
 ### HTTP response details

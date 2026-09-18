@@ -25,9 +25,9 @@ from moysklad_remap_12_sdk.models.script_template_permissions import ScriptTempl
 from typing import Optional, Set
 from typing_extensions import Self
 
-class EmployeeRolePermissions(BaseModel):
+class RolePermissions(BaseModel):
     """
-    Список пермиссий (только для индивидуальной роли)
+    Права роли. В JSON передаются объектом, где ключи — названия пермиссий, значения — Boolean или объекты прав сущностей. Для currency, country, taxrate и uom право view неизменяемо и равно ALL; попытка изменить его приводит к ошибке. 
     """ # noqa: E501
     api_request: Optional[StrictBool] = Field(default=None, description="Доступ по АПИ", alias="apiRequest")
     account_delete: Optional[StrictBool] = Field(default=None, description="Удалять аккаунт", alias="accountDelete")
@@ -42,7 +42,7 @@ class EmployeeRolePermissions(BaseModel):
     owner_assign: Optional[StrictBool] = Field(default=None, description="Передавать владение аккаунтом", alias="ownerAssign")
     owner_data_update: Optional[StrictBool] = Field(default=None, description="Редактировать данные владельца", alias="ownerDataUpdate")
     purchase_control: Optional[StrictBool] = Field(default=None, description="Управление закупками", alias="purchaseControl")
-    restorefrom_recycle_bin: Optional[StrictBool] = Field(default=None, description="Восстанавливать документы", alias="resto$refromRecycleBin")
+    restore_from_recycle_bin: Optional[StrictBool] = Field(default=None, description="Восстанавливать документы из корзины", alias="restoreFromRecycleBin")
     send_email: Optional[StrictBool] = Field(default=None, description="Отправлять почту", alias="sendEmail")
     subscription_control: Optional[StrictBool] = Field(default=None, description="Управление подпиской", alias="subscriptionControl")
     view_audit: Optional[StrictBool] = Field(default=None, description="Просматривать аудит", alias="viewAudit")
@@ -86,7 +86,9 @@ class EmployeeRolePermissions(BaseModel):
     retire_order_osu: Optional[Permissions] = Field(default=None, alias="retireOrderOSU")
     employee: Optional[Permissions] = None
     enroll_order: Optional[Permissions] = Field(default=None, alias="enrollOrder")
+    enroll_return: Optional[Permissions] = Field(default=None, alias="enrollReturn")
     enter: Optional[Permissions] = None
+    expenseitem: Optional[Permissions] = None
     facture_in: Optional[Permissions] = Field(default=None, alias="factureIn")
     facture_out: Optional[Permissions] = Field(default=None, alias="factureOut")
     good: Optional[Permissions] = None
@@ -131,7 +133,7 @@ class EmployeeRolePermissions(BaseModel):
     uom: Optional[Permissions] = None
     warehouse: Optional[Permissions] = None
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["apiRequest", "accountDelete", "deleteFromRecycleBin", "editCurrencyRateOfDocument", "editDocumentTemplates", "editDocumentsOfRestrictedPeriod", "exportData", "importData", "listenCalls", "onlineShops", "ownerAssign", "ownerDataUpdate", "purchaseControl", "resto$refromRecycleBin", "sendEmail", "subscriptionControl", "viewAudit", "viewCashFlow", "viewCommissionGoods", "viewCompanyCRM", "viewCustomerBalanceList", "viewDashboard", "viewMoneyDashboard", "viewProductCostAndProfit", "viewProfitAndLoss", "viewPurchaseFunnel", "viewRecycleBin", "viewSaleProfit", "viewSerialNumbers", "viewStockReport", "viewTurnover", "GTINList", "accountAdjustment", "bonusTransaction", "cashIn", "cashOut", "cashboxAdjustment", "commissionReportIn", "commissionReportOut", "company", "contract", "counterpartyAdjustment", "country", "crptCancellation", "crptPackageCreation", "crptPackageDisaggregation", "crptPackageItemRemoval", "currency", "customEntity", "customerOrder", "demand", "emissionOrder", "utilizationReport", "atkAggregation", "retireOrderOSU", "employee", "enrollOrder", "enter", "factureIn", "factureOut", "good", "internalOrder", "inventory", "invoiceIn", "invoiceOut", "loss", "move", "myCompany", "paymentIn", "paymentOut", "prepayment", "prepaymentReturn", "priceList", "processing", "processingOrder", "processingPlan", "processingStage", "processingProcess", "productionTask", "productionStageCompletion", "project", "purchaseOrder", "purchaseReturn", "remainsOrder", "remarkingOrder", "retailDemand", "retailDrawerCashIn", "retailDrawerCashOut", "retailSalesReturn", "retailShift", "retailStore", "retireOrder", "salesReturn", "salesChannel", "script", "scriptTemplate", "supply", "taxrate", "trackingCodeList", "uom", "warehouse"]
+    __properties: ClassVar[List[str]] = ["apiRequest", "accountDelete", "deleteFromRecycleBin", "editCurrencyRateOfDocument", "editDocumentTemplates", "editDocumentsOfRestrictedPeriod", "exportData", "importData", "listenCalls", "onlineShops", "ownerAssign", "ownerDataUpdate", "purchaseControl", "restoreFromRecycleBin", "sendEmail", "subscriptionControl", "viewAudit", "viewCashFlow", "viewCommissionGoods", "viewCompanyCRM", "viewCustomerBalanceList", "viewDashboard", "viewMoneyDashboard", "viewProductCostAndProfit", "viewProfitAndLoss", "viewPurchaseFunnel", "viewRecycleBin", "viewSaleProfit", "viewSerialNumbers", "viewStockReport", "viewTurnover", "GTINList", "accountAdjustment", "bonusTransaction", "cashIn", "cashOut", "cashboxAdjustment", "commissionReportIn", "commissionReportOut", "company", "contract", "counterpartyAdjustment", "country", "crptCancellation", "crptPackageCreation", "crptPackageDisaggregation", "crptPackageItemRemoval", "currency", "customEntity", "customerOrder", "demand", "emissionOrder", "utilizationReport", "atkAggregation", "retireOrderOSU", "employee", "enrollOrder", "enrollReturn", "enter", "expenseitem", "factureIn", "factureOut", "good", "internalOrder", "inventory", "invoiceIn", "invoiceOut", "loss", "move", "myCompany", "paymentIn", "paymentOut", "prepayment", "prepaymentReturn", "priceList", "processing", "processingOrder", "processingPlan", "processingStage", "processingProcess", "productionTask", "productionStageCompletion", "project", "purchaseOrder", "purchaseReturn", "remainsOrder", "remarkingOrder", "retailDemand", "retailDrawerCashIn", "retailDrawerCashOut", "retailSalesReturn", "retailShift", "retailStore", "retireOrder", "salesReturn", "salesChannel", "script", "scriptTemplate", "supply", "taxrate", "trackingCodeList", "uom", "warehouse"]
 
     model_config = ConfigDict(
         extra="allow",
@@ -152,7 +154,7 @@ class EmployeeRolePermissions(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of EmployeeRolePermissions from a JSON string"""
+        """Create an instance of RolePermissions from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -222,8 +224,12 @@ class EmployeeRolePermissions(BaseModel):
             _dict['employee'] = self.employee.to_dict()
         if self.enroll_order:
             _dict['enrollOrder'] = self.enroll_order.to_dict()
+        if self.enroll_return:
+            _dict['enrollReturn'] = self.enroll_return.to_dict()
         if self.enter:
             _dict['enter'] = self.enter.to_dict()
+        if self.expenseitem:
+            _dict['expenseitem'] = self.expenseitem.to_dict()
         if self.facture_in:
             _dict['factureIn'] = self.facture_in.to_dict()
         if self.facture_out:
@@ -318,7 +324,7 @@ class EmployeeRolePermissions(BaseModel):
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of EmployeeRolePermissions from a dict"""
+        """Create an instance of RolePermissions from a dict"""
         if obj is None:
             return None
 
@@ -340,7 +346,7 @@ class EmployeeRolePermissions(BaseModel):
             "ownerAssign": obj.get("ownerAssign"),
             "ownerDataUpdate": obj.get("ownerDataUpdate"),
             "purchaseControl": obj.get("purchaseControl"),
-            "resto$refromRecycleBin": obj.get("resto$refromRecycleBin"),
+            "restoreFromRecycleBin": obj.get("restoreFromRecycleBin"),
             "sendEmail": obj.get("sendEmail"),
             "subscriptionControl": obj.get("subscriptionControl"),
             "viewAudit": obj.get("viewAudit"),
@@ -384,7 +390,9 @@ class EmployeeRolePermissions(BaseModel):
             "retireOrderOSU": Permissions.from_dict(obj["retireOrderOSU"]) if obj.get("retireOrderOSU") is not None else None,
             "employee": Permissions.from_dict(obj["employee"]) if obj.get("employee") is not None else None,
             "enrollOrder": Permissions.from_dict(obj["enrollOrder"]) if obj.get("enrollOrder") is not None else None,
+            "enrollReturn": Permissions.from_dict(obj["enrollReturn"]) if obj.get("enrollReturn") is not None else None,
             "enter": Permissions.from_dict(obj["enter"]) if obj.get("enter") is not None else None,
+            "expenseitem": Permissions.from_dict(obj["expenseitem"]) if obj.get("expenseitem") is not None else None,
             "factureIn": Permissions.from_dict(obj["factureIn"]) if obj.get("factureIn") is not None else None,
             "factureOut": Permissions.from_dict(obj["factureOut"]) if obj.get("factureOut") is not None else None,
             "good": Permissions.from_dict(obj["good"]) if obj.get("good") is not None else None,
@@ -497,6 +505,14 @@ class EmployeeRolePermissions(BaseModel):
 
 
 
+
+
+
+from moysklad_remap_12_sdk.models.permissions import Permissions
+
+
+
+from moysklad_remap_12_sdk.models.permissions import Permissions
 
 
 

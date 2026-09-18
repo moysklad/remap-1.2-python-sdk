@@ -19,17 +19,17 @@ import json
 
 from pydantic import BaseModel, ConfigDict
 from typing import Any, ClassVar, Dict, List, Optional
-from moysklad_remap_12_sdk.models.employee_role_permissions import EmployeeRolePermissions
 from moysklad_remap_12_sdk.models.meta import Meta
+from moysklad_remap_12_sdk.models.role_permissions import RolePermissions
 from typing import Optional, Set
 from typing_extensions import Self
 
 class EmployeeRole(BaseModel):
     """
-    Роль сотрудника
+    Роль сотрудника: владелец аккаунта, системный администратор, кассир, сотрудник производства, пользовательская или индивидуальная роль. Системные роли имеют meta.type = systemrole, индивидуальная — individualrole, пользовательская — customrole. Пользовательская роль описана в CustomRole. Роль сотрудника производства доступна при подключенной опции «Управление производством». Пользовательские роли и индивидуальные права, отличающиеся от значений по умолчанию, доступны на тарифах «Профессиональный» и «Корпоративный». 
     """ # noqa: E501
     meta: Optional[Meta] = None
-    permissions: Optional[EmployeeRolePermissions] = None
+    permissions: Optional[RolePermissions] = None
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["meta", "permissions"]
 
@@ -95,7 +95,7 @@ class EmployeeRole(BaseModel):
         _data = dict(obj)
         _data.update({
             "meta": Meta.from_dict(obj["meta"]) if obj.get("meta") is not None else None,
-            "permissions": EmployeeRolePermissions.from_dict(obj["permissions"]) if obj.get("permissions") is not None else None
+            "permissions": RolePermissions.from_dict(obj["permissions"]) if obj.get("permissions") is not None else None
         })
         _obj = cls.model_validate(_data)
         for _key in obj.keys():
@@ -110,7 +110,7 @@ from moysklad_remap_12_sdk.models.meta import Meta
 
 
 
-from moysklad_remap_12_sdk.models.employee_role_permissions import EmployeeRolePermissions
+from moysklad_remap_12_sdk.models.role_permissions import RolePermissions
 
 
 

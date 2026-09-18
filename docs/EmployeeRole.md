@@ -1,13 +1,13 @@
 # EmployeeRole
 
-Роль сотрудника
+Роль сотрудника: владелец аккаунта, системный администратор, кассир, сотрудник производства, пользовательская или индивидуальная роль. Системные роли имеют meta.type = systemrole, индивидуальная — individualrole, пользовательская — customrole. Пользовательская роль описана в CustomRole. Роль сотрудника производства доступна при подключенной опции «Управление производством». Пользовательские роли и индивидуальные права, отличающиеся от значений по умолчанию, доступны на тарифах «Профессиональный» и «Корпоративный». 
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **meta** | [**Meta**](Meta.md) |  | [optional] 
-**permissions** | [**EmployeeRolePermissions**](EmployeeRolePermissions.md) |  | [optional] 
+**permissions** | [**RolePermissions**](RolePermissions.md) |  | [optional] 
 
 ## Example
 

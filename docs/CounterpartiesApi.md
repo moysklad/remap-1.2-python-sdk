@@ -1787,7 +1787,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_counterparty_audit_events**
-> Dict[str, object] get_counterparty_audit_events(id, limit=limit, offset=offset, accept=accept, accept_encoding=accept_encoding)
+> AuditEventList get_counterparty_audit_events(id, limit=limit, offset=offset, accept=accept, accept_encoding=accept_encoding)
 
 Получить события аудита контрагента
 
@@ -1801,6 +1801,7 @@ Name | Type | Description  | Notes
 
 ```python
 import moysklad_remap_12_sdk
+from moysklad_remap_12_sdk.models.audit_event_list import AuditEventList
 from moysklad_remap_12_sdk.rest import ApiException
 from pprint import pprint
 
@@ -1860,7 +1861,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**Dict[str, object]**
+[**AuditEventList**](AuditEventList.md)
 
 ### Authorization
 

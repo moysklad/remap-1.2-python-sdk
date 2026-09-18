@@ -17,11 +17,12 @@ from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
 from pydantic import Field, StrictStr, field_validator
-from typing import Any, Dict, List, Optional
+from typing import List, Optional
 from typing_extensions import Annotated
 from moysklad_remap_12_sdk.models.account import Account
 from moysklad_remap_12_sdk.models.attribute_meta_info import AttributeMetaInfo
 from moysklad_remap_12_sdk.models.attribute_meta_info_list import AttributeMetaInfoList
+from moysklad_remap_12_sdk.models.audit_event_list import AuditEventList
 from moysklad_remap_12_sdk.models.batch_response_entity import BatchResponseEntity
 from moysklad_remap_12_sdk.models.contact_person import ContactPerson
 from moysklad_remap_12_sdk.models.counterparty import Counterparty
@@ -6181,7 +6182,7 @@ class CounterpartiesApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> Dict[str, object]:
+    ) -> AuditEventList:
         """Получить события аудита контрагента
 
         Возвращает список событий аудита для Контрагента по его ID. 
@@ -6231,7 +6232,7 @@ class CounterpartiesApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "Dict[str, object]",
+            '200': "AuditEventList",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -6264,7 +6265,7 @@ class CounterpartiesApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[Dict[str, object]]:
+    ) -> ApiResponse[AuditEventList]:
         """Получить события аудита контрагента
 
         Возвращает список событий аудита для Контрагента по его ID. 
@@ -6314,7 +6315,7 @@ class CounterpartiesApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "Dict[str, object]",
+            '200': "AuditEventList",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -6397,7 +6398,7 @@ class CounterpartiesApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "Dict[str, object]",
+            '200': "AuditEventList",
         }
         response_data = self.api_client.call_api(
             *_param,

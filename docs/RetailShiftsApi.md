@@ -15,6 +15,7 @@ Method | HTTP request | Description
 [**get_retail_shift_metadata_attribute**](RetailShiftsApi.md#get_retail_shift_metadata_attribute) | **GET** /entity/retailshift/metadata/attributes | Доп. поля Розничной смены
 [**get_retail_shift_metadata_attribute_by_id**](RetailShiftsApi.md#get_retail_shift_metadata_attribute_by_id) | **GET** /entity/retailshift/metadata/attributes/{id} | Отдельное доп. поле Розничной смены
 [**get_retail_shifts**](RetailShiftsApi.md#get_retail_shifts) | **GET** /entity/retailshift | Получить список Розничных смен
+[**move_retail_shift_to_trash**](RetailShiftsApi.md#move_retail_shift_to_trash) | **POST** /entity/retailshift/{id}/trash | Удалить Розничную смену в корзину
 [**update_retail_shift**](RetailShiftsApi.md#update_retail_shift) | **PUT** /entity/retailshift/{id} | Изменить Розничную смену
 [**update_retail_shift_metadata_attribute_by_id**](RetailShiftsApi.md#update_retail_shift_metadata_attribute_by_id) | **PUT** /entity/retailshift/metadata/attributes/{id} | Обновить отдельное доп. поле Розничной смены
 
@@ -982,6 +983,91 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**RetailShiftList**](RetailShiftList.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json, text/html;charset=UTF-8
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Успешный запрос |  -  |
+**0** | Ошибка запроса (тело — объект с полем errors) |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **move_retail_shift_to_trash**
+> move_retail_shift_to_trash(id, accept=accept, accept_encoding=accept_encoding)
+
+Удалить Розничную смену в корзину
+
+### Example
+
+* Basic Authentication (basicAuth):
+* Bearer Authentication (bearerAuth):
+
+```python
+import moysklad_remap_12_sdk
+from moysklad_remap_12_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.moysklad.ru/api/remap/1.2
+# See configuration.py for a list of all supported configuration parameters.
+configuration = moysklad_remap_12_sdk.Configuration(
+    host = "https://api.moysklad.ru/api/remap/1.2"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure HTTP basic authorization: basicAuth
+configuration = moysklad_remap_12_sdk.Configuration(
+    username = os.environ["USERNAME"],
+    password = os.environ["PASSWORD"]
+)
+
+# Configure Bearer authorization: bearerAuth
+configuration = moysklad_remap_12_sdk.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with moysklad_remap_12_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = moysklad_remap_12_sdk.RetailShiftsApi(api_client)
+    id = 'id_example' # str | ID сущности
+    accept = application/json;charset=utf-8 # str |  (optional) (default to application/json;charset=utf-8)
+    accept_encoding = 'gzip, deflate, br' # str |  (optional) (default to 'gzip, deflate, br')
+
+    try:
+        # Удалить Розничную смену в корзину
+        api_instance.move_retail_shift_to_trash(id, accept=accept, accept_encoding=accept_encoding)
+    except Exception as e:
+        print("Exception when calling RetailShiftsApi->move_retail_shift_to_trash: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **str**| ID сущности | 
+ **accept** | **str**|  | [optional] [default to application/json;charset&#x3D;utf-8]
+ **accept_encoding** | **str**|  | [optional] [default to &#39;gzip, deflate, br&#39;]
+
+### Return type
+
+void (empty response body)
 
 ### Authorization
 

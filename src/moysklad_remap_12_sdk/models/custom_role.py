@@ -20,19 +20,19 @@ import json
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
 from typing_extensions import Annotated
-from moysklad_remap_12_sdk.models.employee_role_permissions import EmployeeRolePermissions
 from moysklad_remap_12_sdk.models.meta import Meta
+from moysklad_remap_12_sdk.models.role_permissions import RolePermissions
 from typing import Optional, Set
 from typing_extensions import Self
 
 class CustomRole(BaseModel):
     """
-    Пользовательская роль
+    Пользовательская роль — именованный набор прав сотрудника. Код сущности в URL — role, значение meta.type — customrole. Получать и изменять роли можно от лица сотрудника с правами системного администратора или от лица Решения. Использование пользовательских ролей доступно на тарифах «Профессиональный» и «Корпоративный». 
     """ # noqa: E501
     meta: Optional[Meta] = None
     id: Optional[StrictStr] = Field(default=None, description="ID пользовательской роли")
-    name: Optional[Annotated[str, Field(strict=True, max_length=255)]] = Field(default=None, description="Наименование пользовательской роли")
-    permissions: Optional[EmployeeRolePermissions] = None
+    name: Optional[Annotated[str, Field(strict=True, max_length=255)]] = Field(default=None, description="Наименование пользовательской роли. Необходимо при создании.")
+    permissions: Optional[RolePermissions] = None
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["meta", "id", "name", "permissions"]
 
@@ -119,7 +119,7 @@ class CustomRole(BaseModel):
             "meta": Meta.from_dict(obj["meta"]) if obj.get("meta") is not None else None,
             "id": obj.get("id"),
             "name": obj.get("name"),
-            "permissions": EmployeeRolePermissions.from_dict(obj["permissions"]) if obj.get("permissions") is not None else None
+            "permissions": RolePermissions.from_dict(obj["permissions"]) if obj.get("permissions") is not None else None
         })
         _obj = cls.model_validate(_data)
         for _key in obj.keys():
@@ -138,7 +138,7 @@ from moysklad_remap_12_sdk.models.meta import Meta
 
 
 
-from moysklad_remap_12_sdk.models.employee_role_permissions import EmployeeRolePermissions
+from moysklad_remap_12_sdk.models.role_permissions import RolePermissions
 
 
 

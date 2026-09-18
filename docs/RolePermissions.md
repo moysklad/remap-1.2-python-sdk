@@ -1,6 +1,6 @@
-# EmployeeRolePermissions
+# RolePermissions
 
-Список пермиссий (только для индивидуальной роли)
+Права роли. В JSON передаются объектом, где ключи — названия пермиссий, значения — Boolean или объекты прав сущностей. Для currency, country, taxrate и uom право view неизменяемо и равно ALL; попытка изменить его приводит к ошибке. 
 
 ## Properties
 
@@ -19,7 +19,7 @@ Name | Type | Description | Notes
 **owner_assign** | **bool** | Передавать владение аккаунтом | [optional] 
 **owner_data_update** | **bool** | Редактировать данные владельца | [optional] 
 **purchase_control** | **bool** | Управление закупками | [optional] 
-**restorefrom_recycle_bin** | **bool** | Восстанавливать документы | [optional] 
+**restore_from_recycle_bin** | **bool** | Восстанавливать документы из корзины | [optional] 
 **send_email** | **bool** | Отправлять почту | [optional] 
 **subscription_control** | **bool** | Управление подпиской | [optional] 
 **view_audit** | **bool** | Просматривать аудит | [optional] 
@@ -63,7 +63,9 @@ Name | Type | Description | Notes
 **retire_order_osu** | [**Permissions**](Permissions.md) |  | [optional] 
 **employee** | [**Permissions**](Permissions.md) |  | [optional] 
 **enroll_order** | [**Permissions**](Permissions.md) |  | [optional] 
+**enroll_return** | [**Permissions**](Permissions.md) |  | [optional] 
 **enter** | [**Permissions**](Permissions.md) |  | [optional] 
+**expenseitem** | [**Permissions**](Permissions.md) |  | [optional] 
 **facture_in** | [**Permissions**](Permissions.md) |  | [optional] 
 **facture_out** | [**Permissions**](Permissions.md) |  | [optional] 
 **good** | [**Permissions**](Permissions.md) |  | [optional] 
@@ -111,19 +113,19 @@ Name | Type | Description | Notes
 ## Example
 
 ```python
-from moysklad_remap_12_sdk.models.employee_role_permissions import EmployeeRolePermissions
+from moysklad_remap_12_sdk.models.role_permissions import RolePermissions
 
 # TODO update the JSON string below
 json = "{}"
-# create an instance of EmployeeRolePermissions from a JSON string
-employee_role_permissions_instance = EmployeeRolePermissions.from_json(json)
+# create an instance of RolePermissions from a JSON string
+role_permissions_instance = RolePermissions.from_json(json)
 # print the JSON string representation of the object
-print(EmployeeRolePermissions.to_json())
+print(RolePermissions.to_json())
 
 # convert the object into a dict
-employee_role_permissions_dict = employee_role_permissions_instance.to_dict()
-# create an instance of EmployeeRolePermissions from a dict
-employee_role_permissions_from_dict = EmployeeRolePermissions.from_dict(employee_role_permissions_dict)
+role_permissions_dict = role_permissions_instance.to_dict()
+# create an instance of RolePermissions from a dict
+role_permissions_from_dict = RolePermissions.from_dict(role_permissions_dict)
 ```
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

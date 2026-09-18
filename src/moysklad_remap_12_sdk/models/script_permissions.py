@@ -24,13 +24,13 @@ from typing_extensions import Self
 
 class ScriptPermissions(BaseModel):
     """
-    ScriptPermissions
+    Права на задачи. NO для view и done допустимо, только если остальные права равны NO. Если view отличается от NO, поле done обязательно и должно совпадать с view. Известные значения описаны в ScriptPermissionValue. 
     """ # noqa: E501
-    view: Optional[StrictStr] = Field(default=None, description="Смотреть. Известные значения описаны в ScriptPermissionValue.")
-    create: Optional[StrictStr] = Field(default=None, description="Создавать. Известные значения описаны в ScriptPermissionValue.")
-    update: Optional[StrictStr] = Field(default=None, description="Редактировать. Известные значения описаны в ScriptPermissionValue.")
-    delete: Optional[StrictStr] = Field(default=None, description="Удалять. Известные значения описаны в ScriptPermissionValue.")
-    done: Optional[StrictStr] = Field(default=None, description="Выполнять. Известные значения описаны в ScriptPermissionValue.")
+    view: Optional[StrictStr] = Field(default=None, description="Смотреть. Допустимые значения — NO, AUTHOR_OR_ASSIGNEE, ALL. Известные значения описаны в ScriptPermissionValue.")
+    create: Optional[StrictStr] = Field(default=None, description="Создавать. Допустимые значения — NO, ALL. Область действия не шире view; поле может отсутствовать. Известные значения описаны в ScriptPermissionValue.")
+    update: Optional[StrictStr] = Field(default=None, description="Редактировать. Допустимые значения — NO, AUTHOR, AUTHOR_OR_ASSIGNEE, ALL. Область действия не шире view; поле может отсутствовать. Известные значения описаны в ScriptPermissionValue.")
+    delete: Optional[StrictStr] = Field(default=None, description="Удалять. Допустимые значения — NO, AUTHOR, AUTHOR_OR_ASSIGNEE, ALL. Область действия не шире update; поле может отсутствовать. Известные значения описаны в ScriptPermissionValue.")
+    done: Optional[StrictStr] = Field(default=None, description="Выполнять. Допустимые значения — NO, ASSIGNEE, AUTHOR_OR_ASSIGNEE, ALL. Область действия не шире view; при view, отличном от NO, обязательно и совпадает с view. Известные значения описаны в ScriptPermissionValue.")
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["view", "create", "update", "delete", "done"]
 
