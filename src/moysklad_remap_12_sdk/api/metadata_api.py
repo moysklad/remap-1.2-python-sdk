@@ -44,7 +44,7 @@ class MetadataApi:
     @validate_call
     def get_embedded_template_by_type_and_id(
         self,
-        type: StrictStr,
+        type: Annotated[StrictStr, Field(description="Тип сущности в URL, например `product` или `customerorder`")],
         id: Annotated[StrictStr, Field(description="ID сущности")],
         accept: Optional[StrictStr] = None,
         accept_encoding: Optional[StrictStr] = None,
@@ -64,7 +64,7 @@ class MetadataApi:
         """Получить Стандартный шаблон печатной формы
 
 
-        :param type: (required)
+        :param type: Тип сущности в URL, например `product` или `customerorder` (required)
         :type type: str
         :param id: ID сущности (required)
         :type id: str
@@ -122,7 +122,7 @@ class MetadataApi:
     @validate_call
     def get_embedded_template_by_type_and_id_with_http_info(
         self,
-        type: StrictStr,
+        type: Annotated[StrictStr, Field(description="Тип сущности в URL, например `product` или `customerorder`")],
         id: Annotated[StrictStr, Field(description="ID сущности")],
         accept: Optional[StrictStr] = None,
         accept_encoding: Optional[StrictStr] = None,
@@ -142,7 +142,7 @@ class MetadataApi:
         """Получить Стандартный шаблон печатной формы
 
 
-        :param type: (required)
+        :param type: Тип сущности в URL, например `product` или `customerorder` (required)
         :type type: str
         :param id: ID сущности (required)
         :type id: str
@@ -200,7 +200,7 @@ class MetadataApi:
     @validate_call
     def get_embedded_template_by_type_and_id_without_preload_content(
         self,
-        type: StrictStr,
+        type: Annotated[StrictStr, Field(description="Тип сущности в URL, например `product` или `customerorder`")],
         id: Annotated[StrictStr, Field(description="ID сущности")],
         accept: Optional[StrictStr] = None,
         accept_encoding: Optional[StrictStr] = None,
@@ -220,7 +220,7 @@ class MetadataApi:
         """Получить Стандартный шаблон печатной формы
 
 
-        :param type: (required)
+        :param type: Тип сущности в URL, например `product` или `customerorder` (required)
         :type type: str
         :param id: ID сущности (required)
         :type id: str
@@ -349,7 +349,7 @@ class MetadataApi:
     @validate_call
     def get_embedded_templates_for_type(
         self,
-        type: StrictStr,
+        type: Annotated[StrictStr, Field(description="Тип сущности в URL, например `product` или `customerorder`")],
         limit: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=1)]], Field(description="Максимальное количество элементов в выданном списке (максимум 1000)")] = None,
         offset: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="Отступ в выданном списке")] = None,
         accept: Optional[StrictStr] = None,
@@ -370,7 +370,7 @@ class MetadataApi:
         """Получить Стандартные шаблоны печатных форм
 
 
-        :param type: (required)
+        :param type: Тип сущности в URL, например `product` или `customerorder` (required)
         :type type: str
         :param limit: Максимальное количество элементов в выданном списке (максимум 1000)
         :type limit: int
@@ -431,7 +431,7 @@ class MetadataApi:
     @validate_call
     def get_embedded_templates_for_type_with_http_info(
         self,
-        type: StrictStr,
+        type: Annotated[StrictStr, Field(description="Тип сущности в URL, например `product` или `customerorder`")],
         limit: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=1)]], Field(description="Максимальное количество элементов в выданном списке (максимум 1000)")] = None,
         offset: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="Отступ в выданном списке")] = None,
         accept: Optional[StrictStr] = None,
@@ -452,7 +452,7 @@ class MetadataApi:
         """Получить Стандартные шаблоны печатных форм
 
 
-        :param type: (required)
+        :param type: Тип сущности в URL, например `product` или `customerorder` (required)
         :type type: str
         :param limit: Максимальное количество элементов в выданном списке (максимум 1000)
         :type limit: int
@@ -513,7 +513,7 @@ class MetadataApi:
     @validate_call
     def get_embedded_templates_for_type_without_preload_content(
         self,
-        type: StrictStr,
+        type: Annotated[StrictStr, Field(description="Тип сущности в URL, например `product` или `customerorder`")],
         limit: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=1)]], Field(description="Максимальное количество элементов в выданном списке (максимум 1000)")] = None,
         offset: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="Отступ в выданном списке")] = None,
         accept: Optional[StrictStr] = None,
@@ -534,7 +534,7 @@ class MetadataApi:
         """Получить Стандартные шаблоны печатных форм
 
 
-        :param type: (required)
+        :param type: Тип сущности в URL, например `product` или `customerorder` (required)
         :type type: str
         :param limit: Максимальное количество элементов в выданном списке (максимум 1000)
         :type limit: int
@@ -673,7 +673,7 @@ class MetadataApi:
     @validate_call
     def get_metadata_for_type(
         self,
-        type: StrictStr,
+        type: Annotated[StrictStr, Field(description="Тип сущности в URL, например `product` или `customerorder`")],
         expand: Annotated[Optional[StrictStr], Field(description="Замена ссылок объектами с помощью expand")] = None,
         accept: Optional[StrictStr] = None,
         accept_encoding: Optional[StrictStr] = None,
@@ -693,7 +693,7 @@ class MetadataApi:
         """Получить метаданные сущности
 
 
-        :param type: (required)
+        :param type: Тип сущности в URL, например `product` или `customerorder` (required)
         :type type: str
         :param expand: Замена ссылок объектами с помощью expand
         :type expand: str
@@ -751,7 +751,7 @@ class MetadataApi:
     @validate_call
     def get_metadata_for_type_with_http_info(
         self,
-        type: StrictStr,
+        type: Annotated[StrictStr, Field(description="Тип сущности в URL, например `product` или `customerorder`")],
         expand: Annotated[Optional[StrictStr], Field(description="Замена ссылок объектами с помощью expand")] = None,
         accept: Optional[StrictStr] = None,
         accept_encoding: Optional[StrictStr] = None,
@@ -771,7 +771,7 @@ class MetadataApi:
         """Получить метаданные сущности
 
 
-        :param type: (required)
+        :param type: Тип сущности в URL, например `product` или `customerorder` (required)
         :type type: str
         :param expand: Замена ссылок объектами с помощью expand
         :type expand: str
@@ -829,7 +829,7 @@ class MetadataApi:
     @validate_call
     def get_metadata_for_type_without_preload_content(
         self,
-        type: StrictStr,
+        type: Annotated[StrictStr, Field(description="Тип сущности в URL, например `product` или `customerorder`")],
         expand: Annotated[Optional[StrictStr], Field(description="Замена ссылок объектами с помощью expand")] = None,
         accept: Optional[StrictStr] = None,
         accept_encoding: Optional[StrictStr] = None,
@@ -849,7 +849,7 @@ class MetadataApi:
         """Получить метаданные сущности
 
 
-        :param type: (required)
+        :param type: Тип сущности в URL, например `product` или `customerorder` (required)
         :type type: str
         :param expand: Замена ссылок объектами с помощью expand
         :type expand: str
