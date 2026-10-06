@@ -11,7 +11,8 @@ Method | HTTP request | Description
 [**create_commission_report_in_metadata_states_batch**](CommissionReportInsApi.md#create_commission_report_in_metadata_states_batch) | **POST** /entity/commissionreportin/metadata/states/batch | Массовое создание и обновление статусов CommissionReportIn
 [**create_commission_report_in_position**](CommissionReportInsApi.md#create_commission_report_in_position) | **POST** /entity/commissionreportin/{id}/positions | Создать и обновить позицию Полученного отчета комиссионера
 [**create_commission_report_in_positions**](CommissionReportInsApi.md#create_commission_report_in_positions) | **POST** /entity/commissionreportin/{id}/positions/batch | Массовое создание и обновление позиций Полученного отчета комиссионера
-[**create_commission_report_in_returned_positions**](CommissionReportInsApi.md#create_commission_report_in_returned_positions) | **POST** /entity/commissionreportin/{id}/returntocommissionerpositions | Создать позиции возврата на склад комиссионера
+[**create_commission_report_in_returned_position**](CommissionReportInsApi.md#create_commission_report_in_returned_position) | **POST** /entity/commissionreportin/{id}/returntocommissionerpositions | Создать позицию возврата на склад комиссионера
+[**create_commission_report_in_returned_positions**](CommissionReportInsApi.md#create_commission_report_in_returned_positions) | **POST** /entity/commissionreportin/{id}/returntocommissionerpositions/batch | Массовое создание и обновление позиций возврата на склад комиссионера
 [**delete_commission_report_in**](CommissionReportInsApi.md#delete_commission_report_in) | **DELETE** /entity/commissionreportin/{id} | Удалить CommissionReportIn
 [**delete_commission_report_in_batch**](CommissionReportInsApi.md#delete_commission_report_in_batch) | **POST** /entity/commissionreportin/delete | Массовое удаление CommissionReportIn
 [**delete_commission_report_in_metadata_attribute_by_id**](CommissionReportInsApi.md#delete_commission_report_in_metadata_attribute_by_id) | **DELETE** /entity/commissionreportin/metadata/attributes/{id} | Удалить отдельное доп. поле CommissionReportIn
@@ -683,10 +684,10 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **create_commission_report_in_returned_positions**
-> List[CreateCommissionReportInReturnedPositions200ResponseInner] create_commission_report_in_returned_positions(id, create_commission_report_in_returned_positions_request, expand=expand, accept=accept, accept_encoding=accept_encoding, content_type=content_type)
+# **create_commission_report_in_returned_position**
+> List[CommissionReportInReturnedPosition] create_commission_report_in_returned_position(id, commission_report_in_returned_position, expand=expand, accept=accept, accept_encoding=accept_encoding, content_type=content_type)
 
-Создать позиции возврата на склад комиссионера
+Создать позицию возврата на склад комиссионера
 
 ### Example
 
@@ -695,8 +696,7 @@ Name | Type | Description  | Notes
 
 ```python
 import moysklad_remap_12_sdk
-from moysklad_remap_12_sdk.models.create_commission_report_in_returned_positions200_response_inner import CreateCommissionReportInReturnedPositions200ResponseInner
-from moysklad_remap_12_sdk.models.create_commission_report_in_returned_positions_request import CreateCommissionReportInReturnedPositionsRequest
+from moysklad_remap_12_sdk.models.commission_report_in_returned_position import CommissionReportInReturnedPosition
 from moysklad_remap_12_sdk.rest import ApiException
 from pprint import pprint
 
@@ -727,15 +727,110 @@ with moysklad_remap_12_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = moysklad_remap_12_sdk.CommissionReportInsApi(api_client)
     id = 'id_example' # str | ID сущности
-    create_commission_report_in_returned_positions_request = moysklad_remap_12_sdk.CreateCommissionReportInReturnedPositionsRequest() # CreateCommissionReportInReturnedPositionsRequest | 
+    commission_report_in_returned_position = moysklad_remap_12_sdk.CommissionReportInReturnedPosition() # CommissionReportInReturnedPosition | 
     expand = 'expand_example' # str | Замена ссылок объектами с помощью expand (optional)
     accept = application/json;charset=utf-8 # str |  (optional) (default to application/json;charset=utf-8)
     accept_encoding = 'gzip, deflate, br' # str |  (optional) (default to 'gzip, deflate, br')
     content_type = application/json # str |  (optional) (default to application/json)
 
     try:
-        # Создать позиции возврата на склад комиссионера
-        api_response = api_instance.create_commission_report_in_returned_positions(id, create_commission_report_in_returned_positions_request, expand=expand, accept=accept, accept_encoding=accept_encoding, content_type=content_type)
+        # Создать позицию возврата на склад комиссионера
+        api_response = api_instance.create_commission_report_in_returned_position(id, commission_report_in_returned_position, expand=expand, accept=accept, accept_encoding=accept_encoding, content_type=content_type)
+        print("The response of CommissionReportInsApi->create_commission_report_in_returned_position:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling CommissionReportInsApi->create_commission_report_in_returned_position: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **str**| ID сущности | 
+ **commission_report_in_returned_position** | [**CommissionReportInReturnedPosition**](CommissionReportInReturnedPosition.md)|  | 
+ **expand** | **str**| Замена ссылок объектами с помощью expand | [optional] 
+ **accept** | **str**|  | [optional] [default to application/json;charset&#x3D;utf-8]
+ **accept_encoding** | **str**|  | [optional] [default to &#39;gzip, deflate, br&#39;]
+ **content_type** | **str**|  | [optional] [default to application/json]
+
+### Return type
+
+[**List[CommissionReportInReturnedPosition]**](CommissionReportInReturnedPosition.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json, text/html;charset=UTF-8
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Успешный запрос |  -  |
+**0** | Ошибка запроса (тело — объект с полем errors) |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **create_commission_report_in_returned_positions**
+> List[BatchResponseEntity] create_commission_report_in_returned_positions(id, commission_report_in_returned_position, expand=expand, accept=accept, accept_encoding=accept_encoding, content_type=content_type)
+
+Массовое создание и обновление позиций возврата на склад комиссионера
+
+### Example
+
+* Basic Authentication (basicAuth):
+* Bearer Authentication (bearerAuth):
+
+```python
+import moysklad_remap_12_sdk
+from moysklad_remap_12_sdk.models.batch_response_entity import BatchResponseEntity
+from moysklad_remap_12_sdk.models.commission_report_in_returned_position import CommissionReportInReturnedPosition
+from moysklad_remap_12_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.moysklad.ru/api/remap/1.2
+# See configuration.py for a list of all supported configuration parameters.
+configuration = moysklad_remap_12_sdk.Configuration(
+    host = "https://api.moysklad.ru/api/remap/1.2"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure HTTP basic authorization: basicAuth
+configuration = moysklad_remap_12_sdk.Configuration(
+    username = os.environ["USERNAME"],
+    password = os.environ["PASSWORD"]
+)
+
+# Configure Bearer authorization: bearerAuth
+configuration = moysklad_remap_12_sdk.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with moysklad_remap_12_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = moysklad_remap_12_sdk.CommissionReportInsApi(api_client)
+    id = 'id_example' # str | ID сущности
+    commission_report_in_returned_position = [moysklad_remap_12_sdk.CommissionReportInReturnedPosition()] # List[CommissionReportInReturnedPosition] | 
+    expand = 'expand_example' # str | Замена ссылок объектами с помощью expand (optional)
+    accept = application/json;charset=utf-8 # str |  (optional) (default to application/json;charset=utf-8)
+    accept_encoding = 'gzip, deflate, br' # str |  (optional) (default to 'gzip, deflate, br')
+    content_type = application/json # str |  (optional) (default to application/json)
+
+    try:
+        # Массовое создание и обновление позиций возврата на склад комиссионера
+        api_response = api_instance.create_commission_report_in_returned_positions(id, commission_report_in_returned_position, expand=expand, accept=accept, accept_encoding=accept_encoding, content_type=content_type)
         print("The response of CommissionReportInsApi->create_commission_report_in_returned_positions:\n")
         pprint(api_response)
     except Exception as e:
@@ -750,7 +845,7 @@ with moysklad_remap_12_sdk.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **str**| ID сущности | 
- **create_commission_report_in_returned_positions_request** | [**CreateCommissionReportInReturnedPositionsRequest**](CreateCommissionReportInReturnedPositionsRequest.md)|  | 
+ **commission_report_in_returned_position** | [**List[CommissionReportInReturnedPosition]**](CommissionReportInReturnedPosition.md)|  | 
  **expand** | **str**| Замена ссылок объектами с помощью expand | [optional] 
  **accept** | **str**|  | [optional] [default to application/json;charset&#x3D;utf-8]
  **accept_encoding** | **str**|  | [optional] [default to &#39;gzip, deflate, br&#39;]
@@ -758,7 +853,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**List[CreateCommissionReportInReturnedPositions200ResponseInner]**](CreateCommissionReportInReturnedPositions200ResponseInner.md)
+[**List[BatchResponseEntity]**](BatchResponseEntity.md)
 
 ### Authorization
 

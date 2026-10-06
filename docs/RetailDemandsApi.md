@@ -8,6 +8,7 @@ Method | HTTP request | Description
 [**create_retail_demand_batch**](RetailDemandsApi.md#create_retail_demand_batch) | **POST** /entity/retaildemand/batch | Массовое создание и обновление Розничных продаж
 [**create_retail_demand_metadata_attribute**](RetailDemandsApi.md#create_retail_demand_metadata_attribute) | **POST** /entity/retaildemand/metadata/attributes | Создать доп. поле Розничной продажи
 [**create_retail_demand_metadata_state**](RetailDemandsApi.md#create_retail_demand_metadata_state) | **POST** /entity/retaildemand/metadata/states | Создать статус Розничной продажи
+[**create_retail_demand_metadata_states_batch**](RetailDemandsApi.md#create_retail_demand_metadata_states_batch) | **POST** /entity/retaildemand/metadata/states/batch | Массовое создание и обновление статусов Розничной продажи
 [**create_retail_demand_position**](RetailDemandsApi.md#create_retail_demand_position) | **POST** /entity/retaildemand/{id}/positions | Создать и обновить позицию Розничной продажи
 [**create_retail_demand_positions**](RetailDemandsApi.md#create_retail_demand_positions) | **POST** /entity/retaildemand/{id}/positions/batch | Массовое создание и обновление позиций Розничной продажи
 [**delete_retail_demand**](RetailDemandsApi.md#delete_retail_demand) | **DELETE** /entity/retaildemand/{id} | Удалить Розничную продажу
@@ -308,7 +309,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **create_retail_demand_metadata_state**
-> CreateRetailDemandMetadataStateRequest create_retail_demand_metadata_state(create_retail_demand_metadata_state_request, accept=accept, accept_encoding=accept_encoding, content_type=content_type)
+> State create_retail_demand_metadata_state(state, accept=accept, accept_encoding=accept_encoding, content_type=content_type)
 
 Создать статус Розничной продажи
 
@@ -319,7 +320,7 @@ Name | Type | Description  | Notes
 
 ```python
 import moysklad_remap_12_sdk
-from moysklad_remap_12_sdk.models.create_retail_demand_metadata_state_request import CreateRetailDemandMetadataStateRequest
+from moysklad_remap_12_sdk.models.state import State
 from moysklad_remap_12_sdk.rest import ApiException
 from pprint import pprint
 
@@ -349,14 +350,14 @@ configuration = moysklad_remap_12_sdk.Configuration(
 with moysklad_remap_12_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = moysklad_remap_12_sdk.RetailDemandsApi(api_client)
-    create_retail_demand_metadata_state_request = moysklad_remap_12_sdk.CreateRetailDemandMetadataStateRequest() # CreateRetailDemandMetadataStateRequest | 
+    state = moysklad_remap_12_sdk.State() # State | 
     accept = application/json;charset=utf-8 # str |  (optional) (default to application/json;charset=utf-8)
     accept_encoding = 'gzip, deflate, br' # str |  (optional) (default to 'gzip, deflate, br')
     content_type = application/json # str |  (optional) (default to application/json)
 
     try:
         # Создать статус Розничной продажи
-        api_response = api_instance.create_retail_demand_metadata_state(create_retail_demand_metadata_state_request, accept=accept, accept_encoding=accept_encoding, content_type=content_type)
+        api_response = api_instance.create_retail_demand_metadata_state(state, accept=accept, accept_encoding=accept_encoding, content_type=content_type)
         print("The response of RetailDemandsApi->create_retail_demand_metadata_state:\n")
         pprint(api_response)
     except Exception as e:
@@ -370,14 +371,105 @@ with moysklad_remap_12_sdk.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **create_retail_demand_metadata_state_request** | [**CreateRetailDemandMetadataStateRequest**](CreateRetailDemandMetadataStateRequest.md)|  | 
+ **state** | [**State**](State.md)|  | 
  **accept** | **str**|  | [optional] [default to application/json;charset&#x3D;utf-8]
  **accept_encoding** | **str**|  | [optional] [default to &#39;gzip, deflate, br&#39;]
  **content_type** | **str**|  | [optional] [default to application/json]
 
 ### Return type
 
-[**CreateRetailDemandMetadataStateRequest**](CreateRetailDemandMetadataStateRequest.md)
+[**State**](State.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json, text/html;charset=UTF-8
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Успешный запрос |  -  |
+**0** | Ошибка запроса (тело — объект с полем errors) |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **create_retail_demand_metadata_states_batch**
+> List[StateRowResult] create_retail_demand_metadata_states_batch(state, accept=accept, accept_encoding=accept_encoding, content_type=content_type)
+
+Массовое создание и обновление статусов Розничной продажи
+
+### Example
+
+* Basic Authentication (basicAuth):
+* Bearer Authentication (bearerAuth):
+
+```python
+import moysklad_remap_12_sdk
+from moysklad_remap_12_sdk.models.state import State
+from moysklad_remap_12_sdk.models.state_row_result import StateRowResult
+from moysklad_remap_12_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.moysklad.ru/api/remap/1.2
+# See configuration.py for a list of all supported configuration parameters.
+configuration = moysklad_remap_12_sdk.Configuration(
+    host = "https://api.moysklad.ru/api/remap/1.2"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure HTTP basic authorization: basicAuth
+configuration = moysklad_remap_12_sdk.Configuration(
+    username = os.environ["USERNAME"],
+    password = os.environ["PASSWORD"]
+)
+
+# Configure Bearer authorization: bearerAuth
+configuration = moysklad_remap_12_sdk.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with moysklad_remap_12_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = moysklad_remap_12_sdk.RetailDemandsApi(api_client)
+    state = [moysklad_remap_12_sdk.State()] # List[State] | 
+    accept = application/json;charset=utf-8 # str |  (optional) (default to application/json;charset=utf-8)
+    accept_encoding = 'gzip, deflate, br' # str |  (optional) (default to 'gzip, deflate, br')
+    content_type = application/json # str |  (optional) (default to application/json)
+
+    try:
+        # Массовое создание и обновление статусов Розничной продажи
+        api_response = api_instance.create_retail_demand_metadata_states_batch(state, accept=accept, accept_encoding=accept_encoding, content_type=content_type)
+        print("The response of RetailDemandsApi->create_retail_demand_metadata_states_batch:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling RetailDemandsApi->create_retail_demand_metadata_states_batch: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **state** | [**List[State]**](State.md)|  | 
+ **accept** | **str**|  | [optional] [default to application/json;charset&#x3D;utf-8]
+ **accept_encoding** | **str**|  | [optional] [default to &#39;gzip, deflate, br&#39;]
+ **content_type** | **str**|  | [optional] [default to application/json]
+
+### Return type
+
+[**List[StateRowResult]**](StateRowResult.md)
 
 ### Authorization
 

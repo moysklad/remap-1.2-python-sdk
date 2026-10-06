@@ -119,7 +119,8 @@ class RESTClientObject:
         headers=None,
         body=None,
         post_params=None,
-        _request_timeout=None
+        _request_timeout=None,
+        redirect=True
     ):
         """Perform requests.
 
@@ -134,6 +135,8 @@ class RESTClientObject:
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
                                  (connection, read) timeouts.
+        :param redirect: follow redirects; with False a 3xx response
+                         is returned as is.
         """
         method = method.upper()
         assert method in [
@@ -186,7 +189,8 @@ class RESTClientObject:
                         body=request_body,
                         timeout=timeout,
                         headers=headers,
-                        preload_content=False
+                        preload_content=False,
+                        redirect=redirect
                     )
                 elif content_type == 'application/x-www-form-urlencoded':
                     r = self.pool_manager.request(
@@ -196,7 +200,8 @@ class RESTClientObject:
                         encode_multipart=False,
                         timeout=timeout,
                         headers=headers,
-                        preload_content=False
+                        preload_content=False,
+                        redirect=redirect
                     )
                 elif content_type == 'multipart/form-data':
                     # must del headers['Content-Type'], or the correct
@@ -212,7 +217,8 @@ class RESTClientObject:
                         encode_multipart=True,
                         timeout=timeout,
                         headers=headers,
-                        preload_content=False
+                        preload_content=False,
+                        redirect=redirect
                     )
                 # Pass a `string` parameter directly in the body to support
                 # other content types than JSON when `body` argument is
@@ -224,7 +230,8 @@ class RESTClientObject:
                         body=body,
                         timeout=timeout,
                         headers=headers,
-                        preload_content=False
+                        preload_content=False,
+                        redirect=redirect
                     )
                 elif headers['Content-Type'].startswith('text/') and isinstance(body, bool):
                     request_body = "true" if body else "false"
@@ -234,7 +241,8 @@ class RESTClientObject:
                         body=request_body,
                         preload_content=False,
                         timeout=timeout,
-                        headers=headers)
+                        headers=headers,
+                        redirect=redirect)
                 else:
                     # Cannot generate the request from given parameters
                     msg = """Cannot prepare a request message for provided
@@ -249,7 +257,8 @@ class RESTClientObject:
                     fields={},
                     timeout=timeout,
                     headers=headers,
-                    preload_content=False
+                    preload_content=False,
+                    redirect=redirect
                 )
         except urllib3.exceptions.SSLError as e:
             msg = "\n".join([type(e).__name__, str(e)])

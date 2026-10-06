@@ -14,7 +14,7 @@
 """  # noqa: E501
 
 
-__version__ = "0.29.0"
+__version__ = "0.30.0"
 
 # Define package exports
 __all__ = [
@@ -119,7 +119,6 @@ __all__ = [
     "AccumulationDiscountLevelsInner",
     "ActivateEmployee200Response",
     "ActivateEmployeeRequest",
-    "AddProductImagesRequest",
     "Address",
     "Agent",
     "AgentDiscount",
@@ -222,10 +221,7 @@ __all__ = [
     "CounterpartyNotes",
     "Country",
     "CountryList",
-    "CreateBundleComponentsRequest",
     "CreateCommissionReportInPositions200ResponseInner",
-    "CreateCommissionReportInReturnedPositions200ResponseInner",
-    "CreateCommissionReportInReturnedPositionsRequest",
     "CreateCustomerOrderPositions200ResponseInner",
     "CreateDemandPositions200ResponseInner",
     "CreateEnterPositions200ResponseInner",
@@ -243,14 +239,11 @@ __all__ = [
     "CreateProcessingProcessPositions200ResponseInner",
     "CreatePurchaseOrderPositions200ResponseInner",
     "CreatePurchaseReturnPositions200ResponseInner",
-    "CreateRetailDemandMetadataStateRequest",
     "CreateRetailDemandPositions200ResponseInner",
     "CreateRetailSalesReturnPositions200ResponseInner",
     "CreateRetailSalesReturnsBatch200ResponseInner",
     "CreateRetailShiftBatch200ResponseInner",
     "CreateSalesReturnPositions200ResponseInner",
-    "CreateStoreSlotsRequest",
-    "CreateStoreZonesRequest",
     "Currency",
     "CurrencyList",
     "CurrencyMajorUnit",
@@ -799,7 +792,6 @@ from moysklad_remap_12_sdk.models.accumulation_discount import AccumulationDisco
 from moysklad_remap_12_sdk.models.accumulation_discount_levels_inner import AccumulationDiscountLevelsInner as AccumulationDiscountLevelsInner
 from moysklad_remap_12_sdk.models.activate_employee200_response import ActivateEmployee200Response as ActivateEmployee200Response
 from moysklad_remap_12_sdk.models.activate_employee_request import ActivateEmployeeRequest as ActivateEmployeeRequest
-from moysklad_remap_12_sdk.models.add_product_images_request import AddProductImagesRequest as AddProductImagesRequest
 from moysklad_remap_12_sdk.models.address import Address as Address
 from moysklad_remap_12_sdk.models.agent import Agent as Agent
 from moysklad_remap_12_sdk.models.agent_discount import AgentDiscount as AgentDiscount
@@ -902,10 +894,7 @@ from moysklad_remap_12_sdk.models.counterparty_metadata import CounterpartyMetad
 from moysklad_remap_12_sdk.models.counterparty_notes import CounterpartyNotes as CounterpartyNotes
 from moysklad_remap_12_sdk.models.country import Country as Country
 from moysklad_remap_12_sdk.models.country_list import CountryList as CountryList
-from moysklad_remap_12_sdk.models.create_bundle_components_request import CreateBundleComponentsRequest as CreateBundleComponentsRequest
 from moysklad_remap_12_sdk.models.create_commission_report_in_positions200_response_inner import CreateCommissionReportInPositions200ResponseInner as CreateCommissionReportInPositions200ResponseInner
-from moysklad_remap_12_sdk.models.create_commission_report_in_returned_positions200_response_inner import CreateCommissionReportInReturnedPositions200ResponseInner as CreateCommissionReportInReturnedPositions200ResponseInner
-from moysklad_remap_12_sdk.models.create_commission_report_in_returned_positions_request import CreateCommissionReportInReturnedPositionsRequest as CreateCommissionReportInReturnedPositionsRequest
 from moysklad_remap_12_sdk.models.create_customer_order_positions200_response_inner import CreateCustomerOrderPositions200ResponseInner as CreateCustomerOrderPositions200ResponseInner
 from moysklad_remap_12_sdk.models.create_demand_positions200_response_inner import CreateDemandPositions200ResponseInner as CreateDemandPositions200ResponseInner
 from moysklad_remap_12_sdk.models.create_enter_positions200_response_inner import CreateEnterPositions200ResponseInner as CreateEnterPositions200ResponseInner
@@ -923,14 +912,11 @@ from moysklad_remap_12_sdk.models.create_processing_order_positions200_response_
 from moysklad_remap_12_sdk.models.create_processing_process_positions200_response_inner import CreateProcessingProcessPositions200ResponseInner as CreateProcessingProcessPositions200ResponseInner
 from moysklad_remap_12_sdk.models.create_purchase_order_positions200_response_inner import CreatePurchaseOrderPositions200ResponseInner as CreatePurchaseOrderPositions200ResponseInner
 from moysklad_remap_12_sdk.models.create_purchase_return_positions200_response_inner import CreatePurchaseReturnPositions200ResponseInner as CreatePurchaseReturnPositions200ResponseInner
-from moysklad_remap_12_sdk.models.create_retail_demand_metadata_state_request import CreateRetailDemandMetadataStateRequest as CreateRetailDemandMetadataStateRequest
 from moysklad_remap_12_sdk.models.create_retail_demand_positions200_response_inner import CreateRetailDemandPositions200ResponseInner as CreateRetailDemandPositions200ResponseInner
 from moysklad_remap_12_sdk.models.create_retail_sales_return_positions200_response_inner import CreateRetailSalesReturnPositions200ResponseInner as CreateRetailSalesReturnPositions200ResponseInner
 from moysklad_remap_12_sdk.models.create_retail_sales_returns_batch200_response_inner import CreateRetailSalesReturnsBatch200ResponseInner as CreateRetailSalesReturnsBatch200ResponseInner
 from moysklad_remap_12_sdk.models.create_retail_shift_batch200_response_inner import CreateRetailShiftBatch200ResponseInner as CreateRetailShiftBatch200ResponseInner
 from moysklad_remap_12_sdk.models.create_sales_return_positions200_response_inner import CreateSalesReturnPositions200ResponseInner as CreateSalesReturnPositions200ResponseInner
-from moysklad_remap_12_sdk.models.create_store_slots_request import CreateStoreSlotsRequest as CreateStoreSlotsRequest
-from moysklad_remap_12_sdk.models.create_store_zones_request import CreateStoreZonesRequest as CreateStoreZonesRequest
 from moysklad_remap_12_sdk.models.currency import Currency as Currency
 from moysklad_remap_12_sdk.models.currency_list import CurrencyList as CurrencyList
 from moysklad_remap_12_sdk.models.currency_major_unit import CurrencyMajorUnit as CurrencyMajorUnit

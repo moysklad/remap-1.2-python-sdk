@@ -89,6 +89,7 @@ class BatchResponseEntity(BaseModel):
 
             model_info = {
                 "bundle": ("bundle", "Bundle"),
+"bundlecomponent": ("bundle_component", "BundleComponent"),
 "cashin": ("cash_in", "CashIn"),
 "cashout": ("cash_out", "CashOut"),
 "commissionreportin": ("commission_report_in", "CommissionReportIn"),
@@ -151,7 +152,9 @@ class BatchResponseEntity(BaseModel):
 "saleschannel": ("sales_channel", "SalesChannel"),
 "salesreturn": ("sales_return", "SalesReturn"),
 "service": ("service", "Service"),
+"slot": ("store_slot", "StoreSlot"),
 "store": ("store", "Store"),
+"storezone": ("store_zone", "StoreZone"),
 "supply": ("supply", "Supply"),
 "supplyposition": ("supply_position", "SupplyPosition"),
 "task": ("task", "Task"),

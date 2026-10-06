@@ -5,7 +5,8 @@ All URIs are relative to *https://api.moysklad.ru/api/remap/1.2*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**add_product_files**](ProductsApi.md#add_product_files) | **POST** /entity/product/{id}/files | Добавить файлы к товару
-[**add_product_images**](ProductsApi.md#add_product_images) | **POST** /entity/product/{id}/images | Добавить изображения к товару
+[**add_product_image**](ProductsApi.md#add_product_image) | **POST** /entity/product/{id}/images | Добавить изображение к товару
+[**add_product_images**](ProductsApi.md#add_product_images) | **POST** /entity/product/{id}/images/batch | Изменить список изображений товара
 [**create_product**](ProductsApi.md#create_product) | **POST** /entity/product | Создать товар
 [**create_product_metadata_attribute**](ProductsApi.md#create_product_metadata_attribute) | **POST** /entity/product/metadata/attributes | Создать доп. поле товара
 [**create_product_store_balance**](ProductsApi.md#create_product_store_balance) | **POST** /entity/product/{id}/storebalances | Создать НСО товара для склада
@@ -129,12 +130,12 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **add_product_images**
-> List[Image] add_product_images(id, add_product_images_request, accept=accept, accept_encoding=accept_encoding, content_type=content_type)
+# **add_product_image**
+> List[Image] add_product_image(id, file_upload, accept=accept, accept_encoding=accept_encoding, content_type=content_type)
 
-Добавить изображения к товару
+Добавить изображение к товару
 
-Добавить новые Изображения к Товару или изменить список Изображений.
+Добавить новое Изображение к Товару.
 В поле `content` нужно указать изображение, закодированное в Base64, в поле `filename` — имя файла с расширением.
 У Товара может быть не более 10 Изображений.
 
@@ -146,7 +147,7 @@ Name | Type | Description  | Notes
 
 ```python
 import moysklad_remap_12_sdk
-from moysklad_remap_12_sdk.models.add_product_images_request import AddProductImagesRequest
+from moysklad_remap_12_sdk.models.file_upload import FileUpload
 from moysklad_remap_12_sdk.models.image import Image
 from moysklad_remap_12_sdk.rest import ApiException
 from pprint import pprint
@@ -178,18 +179,18 @@ with moysklad_remap_12_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = moysklad_remap_12_sdk.ProductsApi(api_client)
     id = 'id_example' # str | ID сущности
-    add_product_images_request = {filename=birdimage.png, content=iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAA3NCSVQICAjb4U/gAAAAEHRFWHRTb2Z0d2FyZQBTaHV0dGVyY4LQCQAAAAxJREFUCNdj+PePAQAE+gH90KA5ZAAAAABJRU5ErkJggg==} # AddProductImagesRequest | 
+    file_upload = {filename=birdimage.png, content=iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAA3NCSVQICAjb4U/gAAAAEHRFWHRTb2Z0d2FyZQBTaHV0dGVyY4LQCQAAAAxJREFUCNdj+PePAQAE+gH90KA5ZAAAAABJRU5ErkJggg==} # FileUpload | 
     accept = application/json;charset=utf-8 # str |  (optional) (default to application/json;charset=utf-8)
     accept_encoding = 'gzip, deflate, br' # str |  (optional) (default to 'gzip, deflate, br')
     content_type = application/json # str |  (optional) (default to application/json)
 
     try:
-        # Добавить изображения к товару
-        api_response = api_instance.add_product_images(id, add_product_images_request, accept=accept, accept_encoding=accept_encoding, content_type=content_type)
-        print("The response of ProductsApi->add_product_images:\n")
+        # Добавить изображение к товару
+        api_response = api_instance.add_product_image(id, file_upload, accept=accept, accept_encoding=accept_encoding, content_type=content_type)
+        print("The response of ProductsApi->add_product_image:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling ProductsApi->add_product_images: %s\n" % e)
+        print("Exception when calling ProductsApi->add_product_image: %s\n" % e)
 ```
 
 
@@ -200,7 +201,7 @@ with moysklad_remap_12_sdk.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **str**| ID сущности | 
- **add_product_images_request** | [**AddProductImagesRequest**](AddProductImagesRequest.md)|  | 
+ **file_upload** | [**FileUpload**](FileUpload.md)|  | 
  **accept** | **str**|  | [optional] [default to application/json;charset&#x3D;utf-8]
  **accept_encoding** | **str**|  | [optional] [default to &#39;gzip, deflate, br&#39;]
  **content_type** | **str**|  | [optional] [default to application/json]
@@ -223,6 +224,105 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Изображения успешно добавлены. Результат — массив всех Изображений Товара. |  -  |
+**0** | Ошибка запроса (тело — объект с полем errors) |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **add_product_images**
+> List[Image] add_product_images(id, file_upload, accept=accept, accept_encoding=accept_encoding, content_type=content_type)
+
+Изменить список изображений товара
+
+Установить список Изображений Товара.
+В теле запроса нужно передать массив Изображений, которые должны быть у Товара. Чтобы оставить существующие Изображения, передайте их метаданные.
+Для новых Изображений в поле `content` нужно указать изображение, закодированное в Base64, в поле `filename` — имя файла с расширением.
+У Товара может быть не более 10 Изображений.
+
+
+### Example
+
+* Basic Authentication (basicAuth):
+* Bearer Authentication (bearerAuth):
+
+```python
+import moysklad_remap_12_sdk
+from moysklad_remap_12_sdk.models.file_upload import FileUpload
+from moysklad_remap_12_sdk.models.image import Image
+from moysklad_remap_12_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.moysklad.ru/api/remap/1.2
+# See configuration.py for a list of all supported configuration parameters.
+configuration = moysklad_remap_12_sdk.Configuration(
+    host = "https://api.moysklad.ru/api/remap/1.2"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure HTTP basic authorization: basicAuth
+configuration = moysklad_remap_12_sdk.Configuration(
+    username = os.environ["USERNAME"],
+    password = os.environ["PASSWORD"]
+)
+
+# Configure Bearer authorization: bearerAuth
+configuration = moysklad_remap_12_sdk.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with moysklad_remap_12_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = moysklad_remap_12_sdk.ProductsApi(api_client)
+    id = 'id_example' # str | ID сущности
+    file_upload = [moysklad_remap_12_sdk.FileUpload()] # List[FileUpload] | 
+    accept = application/json;charset=utf-8 # str |  (optional) (default to application/json;charset=utf-8)
+    accept_encoding = 'gzip, deflate, br' # str |  (optional) (default to 'gzip, deflate, br')
+    content_type = application/json # str |  (optional) (default to application/json)
+
+    try:
+        # Изменить список изображений товара
+        api_response = api_instance.add_product_images(id, file_upload, accept=accept, accept_encoding=accept_encoding, content_type=content_type)
+        print("The response of ProductsApi->add_product_images:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling ProductsApi->add_product_images: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **str**| ID сущности | 
+ **file_upload** | [**List[FileUpload]**](FileUpload.md)|  | 
+ **accept** | **str**|  | [optional] [default to application/json;charset&#x3D;utf-8]
+ **accept_encoding** | **str**|  | [optional] [default to &#39;gzip, deflate, br&#39;]
+ **content_type** | **str**|  | [optional] [default to application/json]
+
+### Return type
+
+[**List[Image]**](Image.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json, text/html;charset=UTF-8
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Список Изображений успешно изменен. Результат — массив всех Изображений Товара. |  -  |
 **0** | Ошибка запроса (тело — объект с полем errors) |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

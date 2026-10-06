@@ -22,8 +22,6 @@ from typing_extensions import Annotated
 from moysklad_remap_12_sdk.models.attribute_meta_info import AttributeMetaInfo
 from moysklad_remap_12_sdk.models.attribute_meta_info_list import AttributeMetaInfoList
 from moysklad_remap_12_sdk.models.batch_response_entity import BatchResponseEntity
-from moysklad_remap_12_sdk.models.create_store_slots_request import CreateStoreSlotsRequest
-from moysklad_remap_12_sdk.models.create_store_zones_request import CreateStoreZonesRequest
 from moysklad_remap_12_sdk.models.delete_row_result import DeleteRowResult
 from moysklad_remap_12_sdk.models.store import Store
 from moysklad_remap_12_sdk.models.store_list import StoreList
@@ -705,10 +703,10 @@ class StoresApi:
 
 
     @validate_call
-    def create_store_slots(
+    def create_store_slot(
         self,
         store_id: StrictStr,
-        create_store_slots_request: CreateStoreSlotsRequest,
+        store_slot: StoreSlot,
         accept: Optional[StrictStr] = None,
         accept_encoding: Optional[StrictStr] = None,
         _request_timeout: Union[
@@ -729,8 +727,8 @@ class StoresApi:
 
         :param store_id: (required)
         :type store_id: str
-        :param create_store_slots_request: (required)
-        :type create_store_slots_request: CreateStoreSlotsRequest
+        :param store_slot: (required)
+        :type store_slot: StoreSlot
         :param accept:
         :type accept: str
         :param accept_encoding:
@@ -757,9 +755,9 @@ class StoresApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._create_store_slots_serialize(
+        _param = self._create_store_slot_serialize(
             store_id=store_id,
-            create_store_slots_request=create_store_slots_request,
+            store_slot=store_slot,
             accept=accept,
             accept_encoding=accept_encoding,
             _request_auth=_request_auth,
@@ -783,10 +781,10 @@ class StoresApi:
 
 
     @validate_call
-    def create_store_slots_with_http_info(
+    def create_store_slot_with_http_info(
         self,
         store_id: StrictStr,
-        create_store_slots_request: CreateStoreSlotsRequest,
+        store_slot: StoreSlot,
         accept: Optional[StrictStr] = None,
         accept_encoding: Optional[StrictStr] = None,
         _request_timeout: Union[
@@ -807,8 +805,8 @@ class StoresApi:
 
         :param store_id: (required)
         :type store_id: str
-        :param create_store_slots_request: (required)
-        :type create_store_slots_request: CreateStoreSlotsRequest
+        :param store_slot: (required)
+        :type store_slot: StoreSlot
         :param accept:
         :type accept: str
         :param accept_encoding:
@@ -835,9 +833,9 @@ class StoresApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._create_store_slots_serialize(
+        _param = self._create_store_slot_serialize(
             store_id=store_id,
-            create_store_slots_request=create_store_slots_request,
+            store_slot=store_slot,
             accept=accept,
             accept_encoding=accept_encoding,
             _request_auth=_request_auth,
@@ -861,10 +859,10 @@ class StoresApi:
 
 
     @validate_call
-    def create_store_slots_without_preload_content(
+    def create_store_slot_without_preload_content(
         self,
         store_id: StrictStr,
-        create_store_slots_request: CreateStoreSlotsRequest,
+        store_slot: StoreSlot,
         accept: Optional[StrictStr] = None,
         accept_encoding: Optional[StrictStr] = None,
         _request_timeout: Union[
@@ -885,8 +883,8 @@ class StoresApi:
 
         :param store_id: (required)
         :type store_id: str
-        :param create_store_slots_request: (required)
-        :type create_store_slots_request: CreateStoreSlotsRequest
+        :param store_slot: (required)
+        :type store_slot: StoreSlot
         :param accept:
         :type accept: str
         :param accept_encoding:
@@ -913,9 +911,9 @@ class StoresApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._create_store_slots_serialize(
+        _param = self._create_store_slot_serialize(
             store_id=store_id,
-            create_store_slots_request=create_store_slots_request,
+            store_slot=store_slot,
             accept=accept,
             accept_encoding=accept_encoding,
             _request_auth=_request_auth,
@@ -934,10 +932,10 @@ class StoresApi:
         return response_data.response
 
 
-    def _create_store_slots_serialize(
+    def _create_store_slot_serialize(
         self,
         store_id,
-        create_store_slots_request,
+        store_slot,
         accept,
         accept_encoding,
         _request_auth,
@@ -971,8 +969,8 @@ class StoresApi:
             _header_params['Accept-Encoding'] = accept_encoding
         # process the form parameters
         # process the body parameter
-        if create_store_slots_request is not None:
-            _body_params = create_store_slots_request
+        if store_slot is not None:
+            _body_params = store_slot
 
 
         # set the HTTP header `Accept`
@@ -1023,10 +1021,10 @@ class StoresApi:
 
 
     @validate_call
-    def create_store_zones(
+    def create_store_slots(
         self,
         store_id: StrictStr,
-        create_store_zones_request: CreateStoreZonesRequest,
+        store_slot: Annotated[List[StoreSlot], Field(min_length=1, max_length=1000)],
         accept: Optional[StrictStr] = None,
         accept_encoding: Optional[StrictStr] = None,
         _request_timeout: Union[
@@ -1041,14 +1039,14 @@ class StoresApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> List[StoreZone]:
-        """Создать зону склада
+    ) -> List[BatchResponseEntity]:
+        """Массовое создание и обновление ячеек склада
 
 
         :param store_id: (required)
         :type store_id: str
-        :param create_store_zones_request: (required)
-        :type create_store_zones_request: CreateStoreZonesRequest
+        :param store_slot: (required)
+        :type store_slot: List[StoreSlot]
         :param accept:
         :type accept: str
         :param accept_encoding:
@@ -1075,9 +1073,328 @@ class StoresApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._create_store_zones_serialize(
+        _param = self._create_store_slots_serialize(
             store_id=store_id,
-            create_store_zones_request=create_store_zones_request,
+            store_slot=store_slot,
+            accept=accept,
+            accept_encoding=accept_encoding,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "List[BatchResponseEntity]",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def create_store_slots_with_http_info(
+        self,
+        store_id: StrictStr,
+        store_slot: Annotated[List[StoreSlot], Field(min_length=1, max_length=1000)],
+        accept: Optional[StrictStr] = None,
+        accept_encoding: Optional[StrictStr] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[List[BatchResponseEntity]]:
+        """Массовое создание и обновление ячеек склада
+
+
+        :param store_id: (required)
+        :type store_id: str
+        :param store_slot: (required)
+        :type store_slot: List[StoreSlot]
+        :param accept:
+        :type accept: str
+        :param accept_encoding:
+        :type accept_encoding: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._create_store_slots_serialize(
+            store_id=store_id,
+            store_slot=store_slot,
+            accept=accept,
+            accept_encoding=accept_encoding,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "List[BatchResponseEntity]",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    def create_store_slots_without_preload_content(
+        self,
+        store_id: StrictStr,
+        store_slot: Annotated[List[StoreSlot], Field(min_length=1, max_length=1000)],
+        accept: Optional[StrictStr] = None,
+        accept_encoding: Optional[StrictStr] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """Массовое создание и обновление ячеек склада
+
+
+        :param store_id: (required)
+        :type store_id: str
+        :param store_slot: (required)
+        :type store_slot: List[StoreSlot]
+        :param accept:
+        :type accept: str
+        :param accept_encoding:
+        :type accept_encoding: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._create_store_slots_serialize(
+            store_id=store_id,
+            store_slot=store_slot,
+            accept=accept,
+            accept_encoding=accept_encoding,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "List[BatchResponseEntity]",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _create_store_slots_serialize(
+        self,
+        store_id,
+        store_slot,
+        accept,
+        accept_encoding,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+            'StoreSlot': '',
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        if store_id is not None:
+            _path_params['storeId'] = store_id
+        # process the query parameters
+        # process the header parameters
+        if accept is not None:
+            _header_params['accept'] = accept
+        if accept_encoding is not None:
+            _header_params['Accept-Encoding'] = accept_encoding
+        # process the form parameters
+        # process the body parameter
+        if store_slot is not None:
+            _body_params = store_slot
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json', 
+                    'text/html;charset=UTF-8'
+                ]
+            )
+
+        # set the HTTP header `Content-Type`
+        if _content_type:
+            _header_params['Content-Type'] = _content_type
+        else:
+            _default_content_type = (
+                self.api_client.select_header_content_type(
+                    [
+                        'application/json'
+                    ]
+                )
+            )
+            if _default_content_type is not None:
+                _header_params['Content-Type'] = _default_content_type
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'basicAuth', 
+            'bearerAuth'
+        ]
+
+        return self.api_client.param_serialize(
+            method='POST',
+            resource_path='/entity/store/{storeId}/slots/batch',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
+    def create_store_zone(
+        self,
+        store_id: StrictStr,
+        store_zone: StoreZone,
+        accept: Optional[StrictStr] = None,
+        accept_encoding: Optional[StrictStr] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> List[StoreZone]:
+        """Создать зону склада
+
+
+        :param store_id: (required)
+        :type store_id: str
+        :param store_zone: (required)
+        :type store_zone: StoreZone
+        :param accept:
+        :type accept: str
+        :param accept_encoding:
+        :type accept_encoding: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._create_store_zone_serialize(
+            store_id=store_id,
+            store_zone=store_zone,
             accept=accept,
             accept_encoding=accept_encoding,
             _request_auth=_request_auth,
@@ -1101,10 +1418,10 @@ class StoresApi:
 
 
     @validate_call
-    def create_store_zones_with_http_info(
+    def create_store_zone_with_http_info(
         self,
         store_id: StrictStr,
-        create_store_zones_request: CreateStoreZonesRequest,
+        store_zone: StoreZone,
         accept: Optional[StrictStr] = None,
         accept_encoding: Optional[StrictStr] = None,
         _request_timeout: Union[
@@ -1125,8 +1442,8 @@ class StoresApi:
 
         :param store_id: (required)
         :type store_id: str
-        :param create_store_zones_request: (required)
-        :type create_store_zones_request: CreateStoreZonesRequest
+        :param store_zone: (required)
+        :type store_zone: StoreZone
         :param accept:
         :type accept: str
         :param accept_encoding:
@@ -1153,9 +1470,9 @@ class StoresApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._create_store_zones_serialize(
+        _param = self._create_store_zone_serialize(
             store_id=store_id,
-            create_store_zones_request=create_store_zones_request,
+            store_zone=store_zone,
             accept=accept,
             accept_encoding=accept_encoding,
             _request_auth=_request_auth,
@@ -1179,10 +1496,10 @@ class StoresApi:
 
 
     @validate_call
-    def create_store_zones_without_preload_content(
+    def create_store_zone_without_preload_content(
         self,
         store_id: StrictStr,
-        create_store_zones_request: CreateStoreZonesRequest,
+        store_zone: StoreZone,
         accept: Optional[StrictStr] = None,
         accept_encoding: Optional[StrictStr] = None,
         _request_timeout: Union[
@@ -1203,8 +1520,8 @@ class StoresApi:
 
         :param store_id: (required)
         :type store_id: str
-        :param create_store_zones_request: (required)
-        :type create_store_zones_request: CreateStoreZonesRequest
+        :param store_zone: (required)
+        :type store_zone: StoreZone
         :param accept:
         :type accept: str
         :param accept_encoding:
@@ -1231,9 +1548,9 @@ class StoresApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._create_store_zones_serialize(
+        _param = self._create_store_zone_serialize(
             store_id=store_id,
-            create_store_zones_request=create_store_zones_request,
+            store_zone=store_zone,
             accept=accept,
             accept_encoding=accept_encoding,
             _request_auth=_request_auth,
@@ -1252,10 +1569,10 @@ class StoresApi:
         return response_data.response
 
 
-    def _create_store_zones_serialize(
+    def _create_store_zone_serialize(
         self,
         store_id,
-        create_store_zones_request,
+        store_zone,
         accept,
         accept_encoding,
         _request_auth,
@@ -1289,8 +1606,8 @@ class StoresApi:
             _header_params['Accept-Encoding'] = accept_encoding
         # process the form parameters
         # process the body parameter
-        if create_store_zones_request is not None:
-            _body_params = create_store_zones_request
+        if store_zone is not None:
+            _body_params = store_zone
 
 
         # set the HTTP header `Accept`
@@ -1325,6 +1642,325 @@ class StoresApi:
         return self.api_client.param_serialize(
             method='POST',
             resource_path='/entity/store/{storeId}/zones',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
+    def create_store_zones(
+        self,
+        store_id: StrictStr,
+        store_zone: Annotated[List[StoreZone], Field(min_length=1, max_length=1000)],
+        accept: Optional[StrictStr] = None,
+        accept_encoding: Optional[StrictStr] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> List[BatchResponseEntity]:
+        """Массовое создание и обновление зон склада
+
+
+        :param store_id: (required)
+        :type store_id: str
+        :param store_zone: (required)
+        :type store_zone: List[StoreZone]
+        :param accept:
+        :type accept: str
+        :param accept_encoding:
+        :type accept_encoding: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._create_store_zones_serialize(
+            store_id=store_id,
+            store_zone=store_zone,
+            accept=accept,
+            accept_encoding=accept_encoding,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "List[BatchResponseEntity]",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def create_store_zones_with_http_info(
+        self,
+        store_id: StrictStr,
+        store_zone: Annotated[List[StoreZone], Field(min_length=1, max_length=1000)],
+        accept: Optional[StrictStr] = None,
+        accept_encoding: Optional[StrictStr] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[List[BatchResponseEntity]]:
+        """Массовое создание и обновление зон склада
+
+
+        :param store_id: (required)
+        :type store_id: str
+        :param store_zone: (required)
+        :type store_zone: List[StoreZone]
+        :param accept:
+        :type accept: str
+        :param accept_encoding:
+        :type accept_encoding: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._create_store_zones_serialize(
+            store_id=store_id,
+            store_zone=store_zone,
+            accept=accept,
+            accept_encoding=accept_encoding,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "List[BatchResponseEntity]",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    def create_store_zones_without_preload_content(
+        self,
+        store_id: StrictStr,
+        store_zone: Annotated[List[StoreZone], Field(min_length=1, max_length=1000)],
+        accept: Optional[StrictStr] = None,
+        accept_encoding: Optional[StrictStr] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """Массовое создание и обновление зон склада
+
+
+        :param store_id: (required)
+        :type store_id: str
+        :param store_zone: (required)
+        :type store_zone: List[StoreZone]
+        :param accept:
+        :type accept: str
+        :param accept_encoding:
+        :type accept_encoding: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._create_store_zones_serialize(
+            store_id=store_id,
+            store_zone=store_zone,
+            accept=accept,
+            accept_encoding=accept_encoding,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "List[BatchResponseEntity]",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _create_store_zones_serialize(
+        self,
+        store_id,
+        store_zone,
+        accept,
+        accept_encoding,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+            'StoreZone': '',
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        if store_id is not None:
+            _path_params['storeId'] = store_id
+        # process the query parameters
+        # process the header parameters
+        if accept is not None:
+            _header_params['accept'] = accept
+        if accept_encoding is not None:
+            _header_params['Accept-Encoding'] = accept_encoding
+        # process the form parameters
+        # process the body parameter
+        if store_zone is not None:
+            _body_params = store_zone
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json', 
+                    'text/html;charset=UTF-8'
+                ]
+            )
+
+        # set the HTTP header `Content-Type`
+        if _content_type:
+            _header_params['Content-Type'] = _content_type
+        else:
+            _default_content_type = (
+                self.api_client.select_header_content_type(
+                    [
+                        'application/json'
+                    ]
+                )
+            )
+            if _default_content_type is not None:
+                _header_params['Content-Type'] = _default_content_type
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'basicAuth', 
+            'bearerAuth'
+        ]
+
+        return self.api_client.param_serialize(
+            method='POST',
+            resource_path='/entity/store/{storeId}/zones/batch',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,

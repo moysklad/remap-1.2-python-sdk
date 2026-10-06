@@ -19,7 +19,6 @@ from typing_extensions import Annotated
 from pydantic import Field, StrictStr, field_validator
 from typing import List, Optional
 from typing_extensions import Annotated
-from moysklad_remap_12_sdk.models.add_product_images_request import AddProductImagesRequest
 from moysklad_remap_12_sdk.models.attribute_meta_info import AttributeMetaInfo
 from moysklad_remap_12_sdk.models.attribute_meta_info_list import AttributeMetaInfoList
 from moysklad_remap_12_sdk.models.batch_response_entity import BatchResponseEntity
@@ -392,10 +391,10 @@ class ProductsApi:
 
 
     @validate_call
-    def add_product_images(
+    def add_product_image(
         self,
         id: Annotated[StrictStr, Field(description="ID сущности")],
-        add_product_images_request: AddProductImagesRequest,
+        file_upload: FileUpload,
         accept: Optional[StrictStr] = None,
         accept_encoding: Optional[StrictStr] = None,
         content_type: Optional[StrictStr] = None,
@@ -412,14 +411,14 @@ class ProductsApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> List[Image]:
-        """Добавить изображения к товару
+        """Добавить изображение к товару
 
-        Добавить новые Изображения к Товару или изменить список Изображений. В поле `content` нужно указать изображение, закодированное в Base64, в поле `filename` — имя файла с расширением. У Товара может быть не более 10 Изображений. 
+        Добавить новое Изображение к Товару. В поле `content` нужно указать изображение, закодированное в Base64, в поле `filename` — имя файла с расширением. У Товара может быть не более 10 Изображений. 
 
         :param id: ID сущности (required)
         :type id: str
-        :param add_product_images_request: (required)
-        :type add_product_images_request: AddProductImagesRequest
+        :param file_upload: (required)
+        :type file_upload: FileUpload
         :param accept:
         :type accept: str
         :param accept_encoding:
@@ -448,9 +447,9 @@ class ProductsApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._add_product_images_serialize(
+        _param = self._add_product_image_serialize(
             id=id,
-            add_product_images_request=add_product_images_request,
+            file_upload=file_upload,
             accept=accept,
             accept_encoding=accept_encoding,
             content_type=content_type,
@@ -475,10 +474,10 @@ class ProductsApi:
 
 
     @validate_call
-    def add_product_images_with_http_info(
+    def add_product_image_with_http_info(
         self,
         id: Annotated[StrictStr, Field(description="ID сущности")],
-        add_product_images_request: AddProductImagesRequest,
+        file_upload: FileUpload,
         accept: Optional[StrictStr] = None,
         accept_encoding: Optional[StrictStr] = None,
         content_type: Optional[StrictStr] = None,
@@ -495,14 +494,14 @@ class ProductsApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[List[Image]]:
-        """Добавить изображения к товару
+        """Добавить изображение к товару
 
-        Добавить новые Изображения к Товару или изменить список Изображений. В поле `content` нужно указать изображение, закодированное в Base64, в поле `filename` — имя файла с расширением. У Товара может быть не более 10 Изображений. 
+        Добавить новое Изображение к Товару. В поле `content` нужно указать изображение, закодированное в Base64, в поле `filename` — имя файла с расширением. У Товара может быть не более 10 Изображений. 
 
         :param id: ID сущности (required)
         :type id: str
-        :param add_product_images_request: (required)
-        :type add_product_images_request: AddProductImagesRequest
+        :param file_upload: (required)
+        :type file_upload: FileUpload
         :param accept:
         :type accept: str
         :param accept_encoding:
@@ -531,9 +530,9 @@ class ProductsApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._add_product_images_serialize(
+        _param = self._add_product_image_serialize(
             id=id,
-            add_product_images_request=add_product_images_request,
+            file_upload=file_upload,
             accept=accept,
             accept_encoding=accept_encoding,
             content_type=content_type,
@@ -558,10 +557,10 @@ class ProductsApi:
 
 
     @validate_call
-    def add_product_images_without_preload_content(
+    def add_product_image_without_preload_content(
         self,
         id: Annotated[StrictStr, Field(description="ID сущности")],
-        add_product_images_request: AddProductImagesRequest,
+        file_upload: FileUpload,
         accept: Optional[StrictStr] = None,
         accept_encoding: Optional[StrictStr] = None,
         content_type: Optional[StrictStr] = None,
@@ -578,14 +577,14 @@ class ProductsApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Добавить изображения к товару
+        """Добавить изображение к товару
 
-        Добавить новые Изображения к Товару или изменить список Изображений. В поле `content` нужно указать изображение, закодированное в Base64, в поле `filename` — имя файла с расширением. У Товара может быть не более 10 Изображений. 
+        Добавить новое Изображение к Товару. В поле `content` нужно указать изображение, закодированное в Base64, в поле `filename` — имя файла с расширением. У Товара может быть не более 10 Изображений. 
 
         :param id: ID сущности (required)
         :type id: str
-        :param add_product_images_request: (required)
-        :type add_product_images_request: AddProductImagesRequest
+        :param file_upload: (required)
+        :type file_upload: FileUpload
         :param accept:
         :type accept: str
         :param accept_encoding:
@@ -614,9 +613,9 @@ class ProductsApi:
         :return: Returns the result object.
         """ # noqa: E501
 
-        _param = self._add_product_images_serialize(
+        _param = self._add_product_image_serialize(
             id=id,
-            add_product_images_request=add_product_images_request,
+            file_upload=file_upload,
             accept=accept,
             accept_encoding=accept_encoding,
             content_type=content_type,
@@ -636,10 +635,10 @@ class ProductsApi:
         return response_data.response
 
 
-    def _add_product_images_serialize(
+    def _add_product_image_serialize(
         self,
         id,
-        add_product_images_request,
+        file_upload,
         accept,
         accept_encoding,
         content_type,
@@ -676,8 +675,8 @@ class ProductsApi:
             _header_params['Content-Type'] = content_type
         # process the form parameters
         # process the body parameter
-        if add_product_images_request is not None:
-            _body_params = add_product_images_request
+        if file_upload is not None:
+            _body_params = file_upload
 
 
         # set the HTTP header `Accept`
@@ -712,6 +711,343 @@ class ProductsApi:
         return self.api_client.param_serialize(
             method='POST',
             resource_path='/entity/product/{id}/images',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
+    def add_product_images(
+        self,
+        id: Annotated[StrictStr, Field(description="ID сущности")],
+        file_upload: Annotated[List[FileUpload], Field(max_length=10)],
+        accept: Optional[StrictStr] = None,
+        accept_encoding: Optional[StrictStr] = None,
+        content_type: Optional[StrictStr] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> List[Image]:
+        """Изменить список изображений товара
+
+        Установить список Изображений Товара. В теле запроса нужно передать массив Изображений, которые должны быть у Товара. Чтобы оставить существующие Изображения, передайте их метаданные. Для новых Изображений в поле `content` нужно указать изображение, закодированное в Base64, в поле `filename` — имя файла с расширением. У Товара может быть не более 10 Изображений. 
+
+        :param id: ID сущности (required)
+        :type id: str
+        :param file_upload: (required)
+        :type file_upload: List[FileUpload]
+        :param accept:
+        :type accept: str
+        :param accept_encoding:
+        :type accept_encoding: str
+        :param content_type:
+        :type content_type: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._add_product_images_serialize(
+            id=id,
+            file_upload=file_upload,
+            accept=accept,
+            accept_encoding=accept_encoding,
+            content_type=content_type,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "List[Image]",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def add_product_images_with_http_info(
+        self,
+        id: Annotated[StrictStr, Field(description="ID сущности")],
+        file_upload: Annotated[List[FileUpload], Field(max_length=10)],
+        accept: Optional[StrictStr] = None,
+        accept_encoding: Optional[StrictStr] = None,
+        content_type: Optional[StrictStr] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[List[Image]]:
+        """Изменить список изображений товара
+
+        Установить список Изображений Товара. В теле запроса нужно передать массив Изображений, которые должны быть у Товара. Чтобы оставить существующие Изображения, передайте их метаданные. Для новых Изображений в поле `content` нужно указать изображение, закодированное в Base64, в поле `filename` — имя файла с расширением. У Товара может быть не более 10 Изображений. 
+
+        :param id: ID сущности (required)
+        :type id: str
+        :param file_upload: (required)
+        :type file_upload: List[FileUpload]
+        :param accept:
+        :type accept: str
+        :param accept_encoding:
+        :type accept_encoding: str
+        :param content_type:
+        :type content_type: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._add_product_images_serialize(
+            id=id,
+            file_upload=file_upload,
+            accept=accept,
+            accept_encoding=accept_encoding,
+            content_type=content_type,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "List[Image]",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    def add_product_images_without_preload_content(
+        self,
+        id: Annotated[StrictStr, Field(description="ID сущности")],
+        file_upload: Annotated[List[FileUpload], Field(max_length=10)],
+        accept: Optional[StrictStr] = None,
+        accept_encoding: Optional[StrictStr] = None,
+        content_type: Optional[StrictStr] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """Изменить список изображений товара
+
+        Установить список Изображений Товара. В теле запроса нужно передать массив Изображений, которые должны быть у Товара. Чтобы оставить существующие Изображения, передайте их метаданные. Для новых Изображений в поле `content` нужно указать изображение, закодированное в Base64, в поле `filename` — имя файла с расширением. У Товара может быть не более 10 Изображений. 
+
+        :param id: ID сущности (required)
+        :type id: str
+        :param file_upload: (required)
+        :type file_upload: List[FileUpload]
+        :param accept:
+        :type accept: str
+        :param accept_encoding:
+        :type accept_encoding: str
+        :param content_type:
+        :type content_type: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._add_product_images_serialize(
+            id=id,
+            file_upload=file_upload,
+            accept=accept,
+            accept_encoding=accept_encoding,
+            content_type=content_type,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "List[Image]",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _add_product_images_serialize(
+        self,
+        id,
+        file_upload,
+        accept,
+        accept_encoding,
+        content_type,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+            'FileUpload': '',
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        if id is not None:
+            _path_params['id'] = id
+        # process the query parameters
+        # process the header parameters
+        if accept is not None:
+            _header_params['accept'] = accept
+        if accept_encoding is not None:
+            _header_params['Accept-Encoding'] = accept_encoding
+        if content_type is not None:
+            _header_params['Content-Type'] = content_type
+        # process the form parameters
+        # process the body parameter
+        if file_upload is not None:
+            _body_params = file_upload
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json', 
+                    'text/html;charset=UTF-8'
+                ]
+            )
+
+        # set the HTTP header `Content-Type`
+        if _content_type:
+            _header_params['Content-Type'] = _content_type
+        else:
+            _default_content_type = (
+                self.api_client.select_header_content_type(
+                    [
+                        'application/json'
+                    ]
+                )
+            )
+            if _default_content_type is not None:
+                _header_params['Content-Type'] = _default_content_type
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'basicAuth', 
+            'bearerAuth'
+        ]
+
+        return self.api_client.param_serialize(
+            method='POST',
+            resource_path='/entity/product/{id}/images/batch',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,

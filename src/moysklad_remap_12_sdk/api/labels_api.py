@@ -23,6 +23,7 @@ from moysklad_remap_12_sdk.models.label_print_request import LabelPrintRequest
 
 from moysklad_remap_12_sdk.api_client import ApiClient, RequestSerialized
 from moysklad_remap_12_sdk.api_response import ApiResponse
+from moysklad_remap_12_sdk.location_response import LocationResponse
 from moysklad_remap_12_sdk.rest import RESTResponseType
 
 
@@ -60,7 +61,7 @@ class LabelsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> None:
+    ) -> LocationResponse:
         """Запрос на печать этикеток и ценников
 
         Запрос на формирование печатной формы с этикетками и ценниками. В случае готовности сервер возвращает пустой ответ с кодом 303 и заголовком Location. 
@@ -116,15 +117,21 @@ class LabelsApi:
             '202': None,
             '303': None,
         }
-        response_data = self.api_client.call_api(
+        response_data = self.api_client.rest_client.request(
             *_param,
-            _request_timeout=_request_timeout
+            _request_timeout=_request_timeout,
+            redirect=False
         )
-        response_data.read()
-        return self.api_client.response_deserialize(
-            response_data=response_data,
-            response_types_map=_response_types_map,
-        ).data
+        if not (200 <= response_data.status <= 299 or response_data.status == 303):
+            response_data.read()
+            # бросает ApiException для любого статуса вне 2xx
+            self.api_client.response_deserialize(
+                response_data=response_data,
+                response_types_map=_response_types_map,
+            )
+        # тело 2xx/303 пустое и не разбирается; drain_conn возвращает соединение в пул
+        response_data.response.drain_conn()
+        return LocationResponse.from_headers(response_data.status, response_data.getheaders())
 
 
     @validate_call
@@ -204,11 +211,19 @@ class LabelsApi:
             '202': None,
             '303': None,
         }
-        response_data = self.api_client.call_api(
+        response_data = self.api_client.rest_client.request(
             *_param,
-            _request_timeout=_request_timeout
+            _request_timeout=_request_timeout,
+            redirect=False
         )
         response_data.read()
+        if response_data.status == 303:
+            return ApiResponse(
+                status_code=response_data.status,
+                data=None,
+                headers=response_data.getheaders(),
+                raw_data=response_data.data
+            )
         return self.api_client.response_deserialize(
             response_data=response_data,
             response_types_map=_response_types_map,
@@ -292,9 +307,10 @@ class LabelsApi:
             '202': None,
             '303': None,
         }
-        response_data = self.api_client.call_api(
+        response_data = self.api_client.rest_client.request(
             *_param,
-            _request_timeout=_request_timeout
+            _request_timeout=_request_timeout,
+            redirect=False
         )
         return response_data.response
 

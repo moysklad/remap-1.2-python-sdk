@@ -6,8 +6,10 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**create_store**](StoresApi.md#create_store) | **POST** /entity/store | Создать Склад
 [**create_store_metadata_attribute**](StoresApi.md#create_store_metadata_attribute) | **POST** /entity/store/metadata/attributes | Создать Доп. поле Store
-[**create_store_slots**](StoresApi.md#create_store_slots) | **POST** /entity/store/{storeId}/slots | Создать ячейку склада
-[**create_store_zones**](StoresApi.md#create_store_zones) | **POST** /entity/store/{storeId}/zones | Создать зону склада
+[**create_store_slot**](StoresApi.md#create_store_slot) | **POST** /entity/store/{storeId}/slots | Создать ячейку склада
+[**create_store_slots**](StoresApi.md#create_store_slots) | **POST** /entity/store/{storeId}/slots/batch | Массовое создание и обновление ячеек склада
+[**create_store_zone**](StoresApi.md#create_store_zone) | **POST** /entity/store/{storeId}/zones | Создать зону склада
+[**create_store_zones**](StoresApi.md#create_store_zones) | **POST** /entity/store/{storeId}/zones/batch | Массовое создание и обновление зон склада
 [**create_stores_batch**](StoresApi.md#create_stores_batch) | **POST** /entity/store/batch | Массовое создание и обновление Складов
 [**delete_store**](StoresApi.md#delete_store) | **DELETE** /entity/store/{id} | Удалить Склад
 [**delete_store_slot**](StoresApi.md#delete_store_slot) | **DELETE** /entity/store/{storeId}/slots/{id} | Удалить ячейку склада
@@ -211,8 +213,8 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **create_store_slots**
-> List[StoreSlot] create_store_slots(store_id, create_store_slots_request, accept=accept, accept_encoding=accept_encoding)
+# **create_store_slot**
+> List[StoreSlot] create_store_slot(store_id, store_slot, accept=accept, accept_encoding=accept_encoding)
 
 Создать ячейку склада
 
@@ -223,7 +225,6 @@ Name | Type | Description  | Notes
 
 ```python
 import moysklad_remap_12_sdk
-from moysklad_remap_12_sdk.models.create_store_slots_request import CreateStoreSlotsRequest
 from moysklad_remap_12_sdk.models.store_slot import StoreSlot
 from moysklad_remap_12_sdk.rest import ApiException
 from pprint import pprint
@@ -255,17 +256,17 @@ with moysklad_remap_12_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = moysklad_remap_12_sdk.StoresApi(api_client)
     store_id = 'store_id_example' # str | 
-    create_store_slots_request = moysklad_remap_12_sdk.CreateStoreSlotsRequest() # CreateStoreSlotsRequest | 
+    store_slot = moysklad_remap_12_sdk.StoreSlot() # StoreSlot | 
     accept = application/json;charset=utf-8 # str |  (optional) (default to application/json;charset=utf-8)
     accept_encoding = 'gzip, deflate, br' # str |  (optional) (default to 'gzip, deflate, br')
 
     try:
         # Создать ячейку склада
-        api_response = api_instance.create_store_slots(store_id, create_store_slots_request, accept=accept, accept_encoding=accept_encoding)
-        print("The response of StoresApi->create_store_slots:\n")
+        api_response = api_instance.create_store_slot(store_id, store_slot, accept=accept, accept_encoding=accept_encoding)
+        print("The response of StoresApi->create_store_slot:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling StoresApi->create_store_slots: %s\n" % e)
+        print("Exception when calling StoresApi->create_store_slot: %s\n" % e)
 ```
 
 
@@ -276,7 +277,7 @@ with moysklad_remap_12_sdk.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **store_id** | **str**|  | 
- **create_store_slots_request** | [**CreateStoreSlotsRequest**](CreateStoreSlotsRequest.md)|  | 
+ **store_slot** | [**StoreSlot**](StoreSlot.md)|  | 
  **accept** | **str**|  | [optional] [default to application/json;charset&#x3D;utf-8]
  **accept_encoding** | **str**|  | [optional] [default to &#39;gzip, deflate, br&#39;]
 
@@ -302,8 +303,99 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **create_store_zones**
-> List[StoreZone] create_store_zones(store_id, create_store_zones_request, accept=accept, accept_encoding=accept_encoding)
+# **create_store_slots**
+> List[BatchResponseEntity] create_store_slots(store_id, store_slot, accept=accept, accept_encoding=accept_encoding)
+
+Массовое создание и обновление ячеек склада
+
+### Example
+
+* Basic Authentication (basicAuth):
+* Bearer Authentication (bearerAuth):
+
+```python
+import moysklad_remap_12_sdk
+from moysklad_remap_12_sdk.models.batch_response_entity import BatchResponseEntity
+from moysklad_remap_12_sdk.models.store_slot import StoreSlot
+from moysklad_remap_12_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.moysklad.ru/api/remap/1.2
+# See configuration.py for a list of all supported configuration parameters.
+configuration = moysklad_remap_12_sdk.Configuration(
+    host = "https://api.moysklad.ru/api/remap/1.2"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure HTTP basic authorization: basicAuth
+configuration = moysklad_remap_12_sdk.Configuration(
+    username = os.environ["USERNAME"],
+    password = os.environ["PASSWORD"]
+)
+
+# Configure Bearer authorization: bearerAuth
+configuration = moysklad_remap_12_sdk.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with moysklad_remap_12_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = moysklad_remap_12_sdk.StoresApi(api_client)
+    store_id = 'store_id_example' # str | 
+    store_slot = [moysklad_remap_12_sdk.StoreSlot()] # List[StoreSlot] | 
+    accept = application/json;charset=utf-8 # str |  (optional) (default to application/json;charset=utf-8)
+    accept_encoding = 'gzip, deflate, br' # str |  (optional) (default to 'gzip, deflate, br')
+
+    try:
+        # Массовое создание и обновление ячеек склада
+        api_response = api_instance.create_store_slots(store_id, store_slot, accept=accept, accept_encoding=accept_encoding)
+        print("The response of StoresApi->create_store_slots:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling StoresApi->create_store_slots: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **store_id** | **str**|  | 
+ **store_slot** | [**List[StoreSlot]**](StoreSlot.md)|  | 
+ **accept** | **str**|  | [optional] [default to application/json;charset&#x3D;utf-8]
+ **accept_encoding** | **str**|  | [optional] [default to &#39;gzip, deflate, br&#39;]
+
+### Return type
+
+[**List[BatchResponseEntity]**](BatchResponseEntity.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json, text/html;charset=UTF-8
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Успешный запрос |  -  |
+**0** | Ошибка запроса (тело — объект с полем errors) |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **create_store_zone**
+> List[StoreZone] create_store_zone(store_id, store_zone, accept=accept, accept_encoding=accept_encoding)
 
 Создать зону склада
 
@@ -314,7 +406,6 @@ Name | Type | Description  | Notes
 
 ```python
 import moysklad_remap_12_sdk
-from moysklad_remap_12_sdk.models.create_store_zones_request import CreateStoreZonesRequest
 from moysklad_remap_12_sdk.models.store_zone import StoreZone
 from moysklad_remap_12_sdk.rest import ApiException
 from pprint import pprint
@@ -346,13 +437,104 @@ with moysklad_remap_12_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = moysklad_remap_12_sdk.StoresApi(api_client)
     store_id = 'store_id_example' # str | 
-    create_store_zones_request = moysklad_remap_12_sdk.CreateStoreZonesRequest() # CreateStoreZonesRequest | 
+    store_zone = moysklad_remap_12_sdk.StoreZone() # StoreZone | 
     accept = application/json;charset=utf-8 # str |  (optional) (default to application/json;charset=utf-8)
     accept_encoding = 'gzip, deflate, br' # str |  (optional) (default to 'gzip, deflate, br')
 
     try:
         # Создать зону склада
-        api_response = api_instance.create_store_zones(store_id, create_store_zones_request, accept=accept, accept_encoding=accept_encoding)
+        api_response = api_instance.create_store_zone(store_id, store_zone, accept=accept, accept_encoding=accept_encoding)
+        print("The response of StoresApi->create_store_zone:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling StoresApi->create_store_zone: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **store_id** | **str**|  | 
+ **store_zone** | [**StoreZone**](StoreZone.md)|  | 
+ **accept** | **str**|  | [optional] [default to application/json;charset&#x3D;utf-8]
+ **accept_encoding** | **str**|  | [optional] [default to &#39;gzip, deflate, br&#39;]
+
+### Return type
+
+[**List[StoreZone]**](StoreZone.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json, text/html;charset=UTF-8
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Успешный запрос |  -  |
+**0** | Ошибка запроса (тело — объект с полем errors) |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **create_store_zones**
+> List[BatchResponseEntity] create_store_zones(store_id, store_zone, accept=accept, accept_encoding=accept_encoding)
+
+Массовое создание и обновление зон склада
+
+### Example
+
+* Basic Authentication (basicAuth):
+* Bearer Authentication (bearerAuth):
+
+```python
+import moysklad_remap_12_sdk
+from moysklad_remap_12_sdk.models.batch_response_entity import BatchResponseEntity
+from moysklad_remap_12_sdk.models.store_zone import StoreZone
+from moysklad_remap_12_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.moysklad.ru/api/remap/1.2
+# See configuration.py for a list of all supported configuration parameters.
+configuration = moysklad_remap_12_sdk.Configuration(
+    host = "https://api.moysklad.ru/api/remap/1.2"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure HTTP basic authorization: basicAuth
+configuration = moysklad_remap_12_sdk.Configuration(
+    username = os.environ["USERNAME"],
+    password = os.environ["PASSWORD"]
+)
+
+# Configure Bearer authorization: bearerAuth
+configuration = moysklad_remap_12_sdk.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with moysklad_remap_12_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = moysklad_remap_12_sdk.StoresApi(api_client)
+    store_id = 'store_id_example' # str | 
+    store_zone = [moysklad_remap_12_sdk.StoreZone()] # List[StoreZone] | 
+    accept = application/json;charset=utf-8 # str |  (optional) (default to application/json;charset=utf-8)
+    accept_encoding = 'gzip, deflate, br' # str |  (optional) (default to 'gzip, deflate, br')
+
+    try:
+        # Массовое создание и обновление зон склада
+        api_response = api_instance.create_store_zones(store_id, store_zone, accept=accept, accept_encoding=accept_encoding)
         print("The response of StoresApi->create_store_zones:\n")
         pprint(api_response)
     except Exception as e:
@@ -367,13 +549,13 @@ with moysklad_remap_12_sdk.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **store_id** | **str**|  | 
- **create_store_zones_request** | [**CreateStoreZonesRequest**](CreateStoreZonesRequest.md)|  | 
+ **store_zone** | [**List[StoreZone]**](StoreZone.md)|  | 
  **accept** | **str**|  | [optional] [default to application/json;charset&#x3D;utf-8]
  **accept_encoding** | **str**|  | [optional] [default to &#39;gzip, deflate, br&#39;]
 
 ### Return type
 
-[**List[StoreZone]**](StoreZone.md)
+[**List[BatchResponseEntity]**](BatchResponseEntity.md)
 
 ### Authorization
 

@@ -24,7 +24,9 @@ from moysklad_remap_12_sdk.models.meta import Meta
 from typing import Optional, Set
 from typing_extensions import Self
 
-class StoreZone(BaseModel):
+from moysklad_remap_12_sdk.models.entity_with_meta import EntityWithMeta
+
+class StoreZone(EntityWithMeta):
     """
     Зона склада
     """ # noqa: E501

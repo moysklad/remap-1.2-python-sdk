@@ -25,7 +25,9 @@ from moysklad_remap_12_sdk.models.store_zone import StoreZone
 from typing import Optional, Set
 from typing_extensions import Self
 
-class StoreSlot(BaseModel):
+from moysklad_remap_12_sdk.models.entity_with_meta import EntityWithMeta
+
+class StoreSlot(EntityWithMeta):
     """
     Ячейка склада
     """ # noqa: E501
