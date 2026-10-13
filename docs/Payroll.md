@@ -21,6 +21,7 @@ Name | Type | Description | Notes
 **name** | **str** | Наименование Начисления зарплаты | [optional] 
 **organization** | [**Organization**](Organization.md) |  | [optional] 
 **owner** | [**Employee**](Employee.md) | Владелец (Сотрудник) | [optional] 
+**payments** | [**List[PayrollPaymentAbstract]**](PayrollPaymentAbstract.md) | Связанные платежи: Исходящий платеж (paymentout) и Расходный ордер (cashout). Каждый элемент содержит метаданные платежа и сумму оплаты &#x60;linkedSum&#x60;.  | [optional] [readonly] 
 **positions** | [**PayrollPositionList**](PayrollPositionList.md) |  | [optional] 
 **printed** | **bool** | Напечатан ли документ | [optional] [readonly] 
 **published** | **bool** | Опубликован ли документ | [optional] [readonly] 

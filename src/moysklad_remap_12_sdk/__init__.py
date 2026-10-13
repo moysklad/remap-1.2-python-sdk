@@ -14,7 +14,7 @@
 """  # noqa: E501
 
 
-__version__ = "0.30.0"
+__version__ = "0.31.0"
 
 # Define package exports
 __all__ = [
@@ -322,6 +322,7 @@ __all__ = [
     "FinanceOutOperationAbstract",
     "FinanceOutOperationCommissionReportOut",
     "FinanceOutOperationInvoiceIn",
+    "FinanceOutOperationPayroll",
     "FinanceOutOperationPurchaseOrder",
     "FinanceOutOperationSalesReturn",
     "FinanceOutOperationSupply",
@@ -434,6 +435,9 @@ __all__ = [
     "PaymentOutList",
     "Payroll",
     "PayrollList",
+    "PayrollPaymentAbstract",
+    "PayrollPaymentCashOut",
+    "PayrollPaymentPaymentOut",
     "PayrollPosition",
     "PayrollPositionList",
     "PermissionValue",
@@ -995,6 +999,7 @@ from moysklad_remap_12_sdk.models.finance_in_operation_retail_shift import Finan
 from moysklad_remap_12_sdk.models.finance_out_operation_abstract import FinanceOutOperationAbstract as FinanceOutOperationAbstract
 from moysklad_remap_12_sdk.models.finance_out_operation_commission_report_out import FinanceOutOperationCommissionReportOut as FinanceOutOperationCommissionReportOut
 from moysklad_remap_12_sdk.models.finance_out_operation_invoice_in import FinanceOutOperationInvoiceIn as FinanceOutOperationInvoiceIn
+from moysklad_remap_12_sdk.models.finance_out_operation_payroll import FinanceOutOperationPayroll as FinanceOutOperationPayroll
 from moysklad_remap_12_sdk.models.finance_out_operation_purchase_order import FinanceOutOperationPurchaseOrder as FinanceOutOperationPurchaseOrder
 from moysklad_remap_12_sdk.models.finance_out_operation_sales_return import FinanceOutOperationSalesReturn as FinanceOutOperationSalesReturn
 from moysklad_remap_12_sdk.models.finance_out_operation_supply import FinanceOutOperationSupply as FinanceOutOperationSupply
@@ -1107,6 +1112,9 @@ from moysklad_remap_12_sdk.models.payment_out import PaymentOut as PaymentOut
 from moysklad_remap_12_sdk.models.payment_out_list import PaymentOutList as PaymentOutList
 from moysklad_remap_12_sdk.models.payroll import Payroll as Payroll
 from moysklad_remap_12_sdk.models.payroll_list import PayrollList as PayrollList
+from moysklad_remap_12_sdk.models.payroll_payment_abstract import PayrollPaymentAbstract as PayrollPaymentAbstract
+from moysklad_remap_12_sdk.models.payroll_payment_cash_out import PayrollPaymentCashOut as PayrollPaymentCashOut
+from moysklad_remap_12_sdk.models.payroll_payment_payment_out import PayrollPaymentPaymentOut as PayrollPaymentPaymentOut
 from moysklad_remap_12_sdk.models.payroll_position import PayrollPosition as PayrollPosition
 from moysklad_remap_12_sdk.models.payroll_position_list import PayrollPositionList as PayrollPositionList
 from moysklad_remap_12_sdk.models.permission_value import PermissionValue as PermissionValue

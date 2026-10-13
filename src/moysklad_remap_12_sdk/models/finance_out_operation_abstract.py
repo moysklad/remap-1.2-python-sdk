@@ -24,7 +24,7 @@ from typing_extensions import Self
 
 class FinanceOutOperationAbstract(BaseModel):
     """
-    Элемент массива `operations` расходного ордера / исходящего платежа: документ одного из допустимых типов плюс обязательное поле `linkedSum`.  Допустимые `meta.type`: salesreturn, supply, invoicein, purchaseorder, commissionreportout. 
+    Элемент массива `operations` расходного ордера / исходящего платежа: документ одного из допустимых типов плюс обязательное поле `linkedSum`.  Допустимые `meta.type`: salesreturn, supply, invoicein, purchaseorder, commissionreportout, payroll. 
     """ # noqa: E501
     linked_sum: Union[StrictFloat, StrictInt] = Field(description="Сумма, оплаченная по данному документу", alias="linkedSum")
     additional_properties: Dict[str, Any] = {}
@@ -89,7 +89,8 @@ class FinanceOutOperationAbstract(BaseModel):
 "supply": ("finance_out_operation_supply", "FinanceOutOperationSupply"),
 "invoicein": ("finance_out_operation_invoice_in", "FinanceOutOperationInvoiceIn"),
 "purchaseorder": ("finance_out_operation_purchase_order", "FinanceOutOperationPurchaseOrder"),
-"commissionreportout": ("finance_out_operation_commission_report_out", "FinanceOutOperationCommissionReportOut")
+"commissionreportout": ("finance_out_operation_commission_report_out", "FinanceOutOperationCommissionReportOut"),
+"payroll": ("finance_out_operation_payroll", "FinanceOutOperationPayroll")
             }.get(discriminator)
             if model_info:
                 from importlib import import_module

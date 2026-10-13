@@ -76,7 +76,7 @@ class CashOut(EntityWithMeta):
     sum: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Сумма расходного ордера в установленной валюте")
     vat_sum: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Сумма НДС", alias="vatSum")
     facture_in: Optional[FactureIn] = Field(default=None, description="Счет-фактура полученный, с которым связан этот платеж", alias="factureIn")
-    operations: Optional[List[FinanceOutOperationAbstract]] = Field(default=None, description="Связанные операции: полное тело документа плюс `linkedSum`. Допустимые типы по `meta.type`: salesreturn, supply, invoicein, purchaseorder, commissionreportout ")
+    operations: Optional[List[FinanceOutOperationAbstract]] = Field(default=None, description="Связанные операции: полное тело документа плюс `linkedSum`. Допустимые типы по `meta.type`: salesreturn, supply, invoicein, purchaseorder, commissionreportout, payroll ")
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["meta", "id", "accountId", "name", "code", "externalCode", "syncId", "description", "created", "deleted", "updated", "moment", "owner", "group", "applicable", "printed", "published", "rate", "organization", "agent", "expenseItem", "attributes", "contract", "files", "noClosingDocs", "paymentPurpose", "project", "salesChannel", "shared", "state", "sum", "vatSum", "factureIn", "operations"]
 

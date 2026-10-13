@@ -26,6 +26,7 @@ from moysklad_remap_12_sdk.models.file_list import FileList
 from moysklad_remap_12_sdk.models.group import Group
 from moysklad_remap_12_sdk.models.meta import Meta
 from moysklad_remap_12_sdk.models.organization import Organization
+from moysklad_remap_12_sdk.models.payroll_payment_abstract import PayrollPaymentAbstract
 from moysklad_remap_12_sdk.models.payroll_position_list import PayrollPositionList
 from moysklad_remap_12_sdk.models.state import State
 from typing import Optional, Set
@@ -52,6 +53,7 @@ class Payroll(EntityWithMeta):
     name: Optional[Annotated[str, Field(strict=True, max_length=255)]] = Field(default=None, description="Наименование Начисления зарплаты")
     organization: Optional[Organization] = None
     owner: Optional[Employee] = Field(default=None, description="Владелец (Сотрудник)")
+    payments: Optional[List[PayrollPaymentAbstract]] = Field(default=None, description="Связанные платежи: Исходящий платеж (paymentout) и Расходный ордер (cashout). Каждый элемент содержит метаданные платежа и сумму оплаты `linkedSum`. ")
     positions: Optional[PayrollPositionList] = None
     printed: Optional[StrictBool] = Field(default=None, description="Напечатан ли документ")
     published: Optional[StrictBool] = Field(default=None, description="Опубликован ли документ")
@@ -62,7 +64,7 @@ class Payroll(EntityWithMeta):
     sync_id: Optional[StrictStr] = Field(default=None, description="ID синхронизации. После заполнения недоступен для изменения", alias="syncId")
     updated: Optional[StrictStr] = Field(default=None, description="Момент последнего обновления Начисления зарплаты")
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["meta", "id", "accountId", "applicable", "attributes", "created", "description", "endPayrollPeriod", "externalCode", "files", "group", "moment", "name", "organization", "owner", "positions", "printed", "published", "shared", "startPayrollPeriod", "state", "sum", "syncId", "updated"]
+    __properties: ClassVar[List[str]] = ["meta", "id", "accountId", "applicable", "attributes", "created", "description", "endPayrollPeriod", "externalCode", "files", "group", "moment", "name", "organization", "owner", "payments", "positions", "printed", "published", "shared", "startPayrollPeriod", "state", "sum", "syncId", "updated"]
 
     model_config = ConfigDict(
         extra="allow",
@@ -136,6 +138,12 @@ class Payroll(EntityWithMeta):
             _dict['organization'] = self.organization.to_dict()
         if self.owner:
             _dict['owner'] = self.owner.to_dict()
+        _items = []
+        if self.payments:
+            for _item_payments in self.payments:
+                if _item_payments:
+                    _items.append(_item_payments.to_dict())
+            _dict['payments'] = _items
         if self.positions:
             _dict['positions'] = self.positions.to_dict()
         if self.state:
@@ -184,6 +192,7 @@ class Payroll(EntityWithMeta):
             "name": obj.get("name"),
             "organization": Organization.from_dict(obj["organization"]) if obj.get("organization") is not None else None,
             "owner": Employee.from_dict(obj["owner"]) if obj.get("owner") is not None else None,
+            "payments": [PayrollPaymentAbstract.from_dict(_item) for _item in obj["payments"]] if obj.get("payments") is not None else None,
             "positions": PayrollPositionList.from_dict(obj["positions"]) if obj.get("positions") is not None else None,
             "printed": obj.get("printed"),
             "published": obj.get("published"),
@@ -243,6 +252,10 @@ from moysklad_remap_12_sdk.models.organization import Organization
 
 from moysklad_remap_12_sdk.models.employee import Employee
 
+
+
+
+from moysklad_remap_12_sdk.models.payroll_payment_abstract import PayrollPaymentAbstract
 
 
 from moysklad_remap_12_sdk.models.payroll_position_list import PayrollPositionList
