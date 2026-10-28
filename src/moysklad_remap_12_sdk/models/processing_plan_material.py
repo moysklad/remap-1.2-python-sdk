@@ -27,7 +27,9 @@ from moysklad_remap_12_sdk.models.product_marker import ProductMarker
 from typing import Optional, Set
 from typing_extensions import Self
 
-class ProcessingPlanMaterial(BaseModel):
+from moysklad_remap_12_sdk.models.entity_with_meta import EntityWithMeta
+
+class ProcessingPlanMaterial(EntityWithMeta):
     """
     Материал Техкарты
     """ # noqa: E501

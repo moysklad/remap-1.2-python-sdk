@@ -25,6 +25,9 @@ from moysklad_remap_12_sdk.models.batch_response_entity import BatchResponseEnti
 from moysklad_remap_12_sdk.models.create_retail_demand_positions200_response_inner import CreateRetailDemandPositions200ResponseInner
 from moysklad_remap_12_sdk.models.delete_row_result import DeleteRowResult
 from moysklad_remap_12_sdk.models.document_metadata import DocumentMetadata
+from moysklad_remap_12_sdk.models.file import File
+from moysklad_remap_12_sdk.models.file_upload import FileUpload
+from moysklad_remap_12_sdk.models.get_task_files200_response import GetTaskFiles200Response
 from moysklad_remap_12_sdk.models.retail_demand import RetailDemand
 from moysklad_remap_12_sdk.models.retail_demand_list import RetailDemandList
 from moysklad_remap_12_sdk.models.retail_demand_position import RetailDemandPosition
@@ -48,6 +51,679 @@ class RetailDemandsApi:
         if api_client is None:
             api_client = ApiClient.get_default()
         self.api_client = api_client
+
+
+    @validate_call
+    def add_retail_demand_file(
+        self,
+        id: Annotated[StrictStr, Field(description="ID сущности")],
+        file_upload: FileUpload,
+        accept: Optional[StrictStr] = None,
+        accept_encoding: Optional[StrictStr] = None,
+        content_type: Optional[StrictStr] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> List[File]:
+        """Добавить файл к Розничной продаже
+
+        Добавить новый Файл к Розничной продаже. В поле `content` нужно указать файл, закодированный в Base64, в поле `filename` — имя файла с расширением. 
+
+        :param id: ID сущности (required)
+        :type id: str
+        :param file_upload: (required)
+        :type file_upload: FileUpload
+        :param accept:
+        :type accept: str
+        :param accept_encoding:
+        :type accept_encoding: str
+        :param content_type:
+        :type content_type: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._add_retail_demand_file_serialize(
+            id=id,
+            file_upload=file_upload,
+            accept=accept,
+            accept_encoding=accept_encoding,
+            content_type=content_type,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "List[File]",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def add_retail_demand_file_with_http_info(
+        self,
+        id: Annotated[StrictStr, Field(description="ID сущности")],
+        file_upload: FileUpload,
+        accept: Optional[StrictStr] = None,
+        accept_encoding: Optional[StrictStr] = None,
+        content_type: Optional[StrictStr] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[List[File]]:
+        """Добавить файл к Розничной продаже
+
+        Добавить новый Файл к Розничной продаже. В поле `content` нужно указать файл, закодированный в Base64, в поле `filename` — имя файла с расширением. 
+
+        :param id: ID сущности (required)
+        :type id: str
+        :param file_upload: (required)
+        :type file_upload: FileUpload
+        :param accept:
+        :type accept: str
+        :param accept_encoding:
+        :type accept_encoding: str
+        :param content_type:
+        :type content_type: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._add_retail_demand_file_serialize(
+            id=id,
+            file_upload=file_upload,
+            accept=accept,
+            accept_encoding=accept_encoding,
+            content_type=content_type,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "List[File]",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    def add_retail_demand_file_without_preload_content(
+        self,
+        id: Annotated[StrictStr, Field(description="ID сущности")],
+        file_upload: FileUpload,
+        accept: Optional[StrictStr] = None,
+        accept_encoding: Optional[StrictStr] = None,
+        content_type: Optional[StrictStr] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """Добавить файл к Розничной продаже
+
+        Добавить новый Файл к Розничной продаже. В поле `content` нужно указать файл, закодированный в Base64, в поле `filename` — имя файла с расширением. 
+
+        :param id: ID сущности (required)
+        :type id: str
+        :param file_upload: (required)
+        :type file_upload: FileUpload
+        :param accept:
+        :type accept: str
+        :param accept_encoding:
+        :type accept_encoding: str
+        :param content_type:
+        :type content_type: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._add_retail_demand_file_serialize(
+            id=id,
+            file_upload=file_upload,
+            accept=accept,
+            accept_encoding=accept_encoding,
+            content_type=content_type,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "List[File]",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _add_retail_demand_file_serialize(
+        self,
+        id,
+        file_upload,
+        accept,
+        accept_encoding,
+        content_type,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        if id is not None:
+            _path_params['id'] = id
+        # process the query parameters
+        # process the header parameters
+        if accept is not None:
+            _header_params['accept'] = accept
+        if accept_encoding is not None:
+            _header_params['Accept-Encoding'] = accept_encoding
+        if content_type is not None:
+            _header_params['Content-Type'] = content_type
+        # process the form parameters
+        # process the body parameter
+        if file_upload is not None:
+            _body_params = file_upload
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json', 
+                    'text/html;charset=UTF-8'
+                ]
+            )
+
+        # set the HTTP header `Content-Type`
+        if _content_type:
+            _header_params['Content-Type'] = _content_type
+        else:
+            _default_content_type = (
+                self.api_client.select_header_content_type(
+                    [
+                        'application/json'
+                    ]
+                )
+            )
+            if _default_content_type is not None:
+                _header_params['Content-Type'] = _default_content_type
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'basicAuth', 
+            'bearerAuth'
+        ]
+
+        return self.api_client.param_serialize(
+            method='POST',
+            resource_path='/entity/retaildemand/{id}/files',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
+    def add_retail_demand_files(
+        self,
+        id: Annotated[StrictStr, Field(description="ID сущности")],
+        file_upload: Annotated[List[FileUpload], Field(min_length=1, max_length=10)],
+        accept: Optional[StrictStr] = None,
+        accept_encoding: Optional[StrictStr] = None,
+        content_type: Optional[StrictStr] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> List[File]:
+        """Добавить файлы к Розничной продаже
+
+        Добавить новые Файлы к Розничной продаже. В одном запросе можно добавить максимум 10 Файлов. В поле `content` нужно указать файл, закодированный в Base64, в поле `filename` — имя файла с расширением. 
+
+        :param id: ID сущности (required)
+        :type id: str
+        :param file_upload: (required)
+        :type file_upload: List[FileUpload]
+        :param accept:
+        :type accept: str
+        :param accept_encoding:
+        :type accept_encoding: str
+        :param content_type:
+        :type content_type: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._add_retail_demand_files_serialize(
+            id=id,
+            file_upload=file_upload,
+            accept=accept,
+            accept_encoding=accept_encoding,
+            content_type=content_type,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "List[File]",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def add_retail_demand_files_with_http_info(
+        self,
+        id: Annotated[StrictStr, Field(description="ID сущности")],
+        file_upload: Annotated[List[FileUpload], Field(min_length=1, max_length=10)],
+        accept: Optional[StrictStr] = None,
+        accept_encoding: Optional[StrictStr] = None,
+        content_type: Optional[StrictStr] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[List[File]]:
+        """Добавить файлы к Розничной продаже
+
+        Добавить новые Файлы к Розничной продаже. В одном запросе можно добавить максимум 10 Файлов. В поле `content` нужно указать файл, закодированный в Base64, в поле `filename` — имя файла с расширением. 
+
+        :param id: ID сущности (required)
+        :type id: str
+        :param file_upload: (required)
+        :type file_upload: List[FileUpload]
+        :param accept:
+        :type accept: str
+        :param accept_encoding:
+        :type accept_encoding: str
+        :param content_type:
+        :type content_type: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._add_retail_demand_files_serialize(
+            id=id,
+            file_upload=file_upload,
+            accept=accept,
+            accept_encoding=accept_encoding,
+            content_type=content_type,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "List[File]",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    def add_retail_demand_files_without_preload_content(
+        self,
+        id: Annotated[StrictStr, Field(description="ID сущности")],
+        file_upload: Annotated[List[FileUpload], Field(min_length=1, max_length=10)],
+        accept: Optional[StrictStr] = None,
+        accept_encoding: Optional[StrictStr] = None,
+        content_type: Optional[StrictStr] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """Добавить файлы к Розничной продаже
+
+        Добавить новые Файлы к Розничной продаже. В одном запросе можно добавить максимум 10 Файлов. В поле `content` нужно указать файл, закодированный в Base64, в поле `filename` — имя файла с расширением. 
+
+        :param id: ID сущности (required)
+        :type id: str
+        :param file_upload: (required)
+        :type file_upload: List[FileUpload]
+        :param accept:
+        :type accept: str
+        :param accept_encoding:
+        :type accept_encoding: str
+        :param content_type:
+        :type content_type: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._add_retail_demand_files_serialize(
+            id=id,
+            file_upload=file_upload,
+            accept=accept,
+            accept_encoding=accept_encoding,
+            content_type=content_type,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "List[File]",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _add_retail_demand_files_serialize(
+        self,
+        id,
+        file_upload,
+        accept,
+        accept_encoding,
+        content_type,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+            'FileUpload': '',
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        if id is not None:
+            _path_params['id'] = id
+        # process the query parameters
+        # process the header parameters
+        if accept is not None:
+            _header_params['accept'] = accept
+        if accept_encoding is not None:
+            _header_params['Accept-Encoding'] = accept_encoding
+        if content_type is not None:
+            _header_params['Content-Type'] = content_type
+        # process the form parameters
+        # process the body parameter
+        if file_upload is not None:
+            _body_params = file_upload
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json', 
+                    'text/html;charset=UTF-8'
+                ]
+            )
+
+        # set the HTTP header `Content-Type`
+        if _content_type:
+            _header_params['Content-Type'] = _content_type
+        else:
+            _default_content_type = (
+                self.api_client.select_header_content_type(
+                    [
+                        'application/json'
+                    ]
+                )
+            )
+            if _default_content_type is not None:
+                _header_params['Content-Type'] = _default_content_type
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'basicAuth', 
+            'bearerAuth'
+        ]
+
+        return self.api_client.param_serialize(
+            method='POST',
+            resource_path='/entity/retaildemand/{id}/files/batch',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
 
 
     @validate_call
@@ -3002,6 +3678,314 @@ class RetailDemandsApi:
 
 
     @validate_call
+    def delete_retail_demand_file(
+        self,
+        id: Annotated[StrictStr, Field(description="ID сущности")],
+        file_id: Annotated[StrictStr, Field(description="ID файла")],
+        accept: Optional[StrictStr] = None,
+        accept_encoding: Optional[StrictStr] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> None:
+        """Удалить файл Розничной продажи
+
+        Удаление Файла Розничной продажи.
+
+        :param id: ID сущности (required)
+        :type id: str
+        :param file_id: ID файла (required)
+        :type file_id: str
+        :param accept:
+        :type accept: str
+        :param accept_encoding:
+        :type accept_encoding: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._delete_retail_demand_file_serialize(
+            id=id,
+            file_id=file_id,
+            accept=accept,
+            accept_encoding=accept_encoding,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': None,
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def delete_retail_demand_file_with_http_info(
+        self,
+        id: Annotated[StrictStr, Field(description="ID сущности")],
+        file_id: Annotated[StrictStr, Field(description="ID файла")],
+        accept: Optional[StrictStr] = None,
+        accept_encoding: Optional[StrictStr] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[None]:
+        """Удалить файл Розничной продажи
+
+        Удаление Файла Розничной продажи.
+
+        :param id: ID сущности (required)
+        :type id: str
+        :param file_id: ID файла (required)
+        :type file_id: str
+        :param accept:
+        :type accept: str
+        :param accept_encoding:
+        :type accept_encoding: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._delete_retail_demand_file_serialize(
+            id=id,
+            file_id=file_id,
+            accept=accept,
+            accept_encoding=accept_encoding,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': None,
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    def delete_retail_demand_file_without_preload_content(
+        self,
+        id: Annotated[StrictStr, Field(description="ID сущности")],
+        file_id: Annotated[StrictStr, Field(description="ID файла")],
+        accept: Optional[StrictStr] = None,
+        accept_encoding: Optional[StrictStr] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """Удалить файл Розничной продажи
+
+        Удаление Файла Розничной продажи.
+
+        :param id: ID сущности (required)
+        :type id: str
+        :param file_id: ID файла (required)
+        :type file_id: str
+        :param accept:
+        :type accept: str
+        :param accept_encoding:
+        :type accept_encoding: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._delete_retail_demand_file_serialize(
+            id=id,
+            file_id=file_id,
+            accept=accept,
+            accept_encoding=accept_encoding,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': None,
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _delete_retail_demand_file_serialize(
+        self,
+        id,
+        file_id,
+        accept,
+        accept_encoding,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        if id is not None:
+            _path_params['id'] = id
+        if file_id is not None:
+            _path_params['fileId'] = file_id
+        # process the query parameters
+        # process the header parameters
+        if accept is not None:
+            _header_params['accept'] = accept
+        if accept_encoding is not None:
+            _header_params['Accept-Encoding'] = accept_encoding
+        # process the form parameters
+        # process the body parameter
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json', 
+                    'text/html;charset=UTF-8'
+                ]
+            )
+
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'basicAuth', 
+            'bearerAuth'
+        ]
+
+        return self.api_client.param_serialize(
+            method='DELETE',
+            resource_path='/entity/retaildemand/{id}/files/{fileId}',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
     def delete_retail_demand_metadata_attribute_by_id(
         self,
         id: Annotated[StrictStr, Field(description="ID сущности")],
@@ -4594,6 +5578,333 @@ class RetailDemandsApi:
         return self.api_client.param_serialize(
             method='GET',
             resource_path='/entity/retaildemand/{id}',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
+    def get_retail_demand_files(
+        self,
+        id: Annotated[StrictStr, Field(description="ID сущности")],
+        limit: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=1)]], Field(description="Максимальное количество элементов в выданном списке (максимум 1000)")] = None,
+        offset: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="Отступ в выданном списке")] = None,
+        accept: Optional[StrictStr] = None,
+        accept_encoding: Optional[StrictStr] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> GetTaskFiles200Response:
+        """Получить файлы Розничной продажи
+
+        Запрос на получение списка всех Файлов Розничной продажи.
+
+        :param id: ID сущности (required)
+        :type id: str
+        :param limit: Максимальное количество элементов в выданном списке (максимум 1000)
+        :type limit: int
+        :param offset: Отступ в выданном списке
+        :type offset: int
+        :param accept:
+        :type accept: str
+        :param accept_encoding:
+        :type accept_encoding: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_retail_demand_files_serialize(
+            id=id,
+            limit=limit,
+            offset=offset,
+            accept=accept,
+            accept_encoding=accept_encoding,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "GetTaskFiles200Response",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def get_retail_demand_files_with_http_info(
+        self,
+        id: Annotated[StrictStr, Field(description="ID сущности")],
+        limit: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=1)]], Field(description="Максимальное количество элементов в выданном списке (максимум 1000)")] = None,
+        offset: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="Отступ в выданном списке")] = None,
+        accept: Optional[StrictStr] = None,
+        accept_encoding: Optional[StrictStr] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[GetTaskFiles200Response]:
+        """Получить файлы Розничной продажи
+
+        Запрос на получение списка всех Файлов Розничной продажи.
+
+        :param id: ID сущности (required)
+        :type id: str
+        :param limit: Максимальное количество элементов в выданном списке (максимум 1000)
+        :type limit: int
+        :param offset: Отступ в выданном списке
+        :type offset: int
+        :param accept:
+        :type accept: str
+        :param accept_encoding:
+        :type accept_encoding: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_retail_demand_files_serialize(
+            id=id,
+            limit=limit,
+            offset=offset,
+            accept=accept,
+            accept_encoding=accept_encoding,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "GetTaskFiles200Response",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    def get_retail_demand_files_without_preload_content(
+        self,
+        id: Annotated[StrictStr, Field(description="ID сущности")],
+        limit: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=1)]], Field(description="Максимальное количество элементов в выданном списке (максимум 1000)")] = None,
+        offset: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="Отступ в выданном списке")] = None,
+        accept: Optional[StrictStr] = None,
+        accept_encoding: Optional[StrictStr] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """Получить файлы Розничной продажи
+
+        Запрос на получение списка всех Файлов Розничной продажи.
+
+        :param id: ID сущности (required)
+        :type id: str
+        :param limit: Максимальное количество элементов в выданном списке (максимум 1000)
+        :type limit: int
+        :param offset: Отступ в выданном списке
+        :type offset: int
+        :param accept:
+        :type accept: str
+        :param accept_encoding:
+        :type accept_encoding: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_retail_demand_files_serialize(
+            id=id,
+            limit=limit,
+            offset=offset,
+            accept=accept,
+            accept_encoding=accept_encoding,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "GetTaskFiles200Response",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _get_retail_demand_files_serialize(
+        self,
+        id,
+        limit,
+        offset,
+        accept,
+        accept_encoding,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        if id is not None:
+            _path_params['id'] = id
+        # process the query parameters
+        if limit is not None:
+            
+            _query_params.append(('limit', limit))
+            
+        if offset is not None:
+            
+            _query_params.append(('offset', offset))
+            
+        # process the header parameters
+        if accept is not None:
+            _header_params['accept'] = accept
+        if accept_encoding is not None:
+            _header_params['Accept-Encoding'] = accept_encoding
+        # process the form parameters
+        # process the body parameter
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json', 
+                    'text/html;charset=UTF-8'
+                ]
+            )
+
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'basicAuth', 
+            'bearerAuth'
+        ]
+
+        return self.api_client.param_serialize(
+            method='GET',
+            resource_path='/entity/retaildemand/{id}/files',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,

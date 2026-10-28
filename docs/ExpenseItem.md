@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **meta** | [**Meta**](Meta.md) |  | [optional] 
 **id** | **str** | ID Статьи расходов | [optional] [readonly] 
 **account_id** | **str** | ID учетной записи | [optional] [readonly] 
+**archived** | **bool** | Добавлена ли Статья расходов в архив | [optional] 
 **code** | **str** | Код Статьи расходов | [optional] 
 **description** | **str** | Описание Статьи расходов | [optional] 
 **external_code** | **str** | Внешний код Статьи расходов | [optional] 

@@ -4,12 +4,14 @@ All URIs are relative to *https://api.moysklad.ru/api/remap/1.2*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**add_product_files**](ProductsApi.md#add_product_files) | **POST** /entity/product/{id}/files | Добавить файлы к товару
+[**add_product_file**](ProductsApi.md#add_product_file) | **POST** /entity/product/{id}/files | Добавить файл к товару
+[**add_product_files**](ProductsApi.md#add_product_files) | **POST** /entity/product/{id}/files/batch | Добавить файлы к товару
 [**add_product_image**](ProductsApi.md#add_product_image) | **POST** /entity/product/{id}/images | Добавить изображение к товару
 [**add_product_images**](ProductsApi.md#add_product_images) | **POST** /entity/product/{id}/images/batch | Изменить список изображений товара
 [**create_product**](ProductsApi.md#create_product) | **POST** /entity/product | Создать товар
 [**create_product_metadata_attribute**](ProductsApi.md#create_product_metadata_attribute) | **POST** /entity/product/metadata/attributes | Создать доп. поле товара
 [**create_product_store_balance**](ProductsApi.md#create_product_store_balance) | **POST** /entity/product/{id}/storebalances | Создать НСО товара для склада
+[**create_product_store_balances**](ProductsApi.md#create_product_store_balances) | **POST** /entity/product/{id}/storebalances/batch | Массовое создание и обновление неснижаемых остатков товара
 [**create_products_batch**](ProductsApi.md#create_products_batch) | **POST** /entity/product/batch | Создать или изменить товары
 [**delete_product**](ProductsApi.md#delete_product) | **DELETE** /entity/product/{id} | Удалить товар
 [**delete_product_file**](ProductsApi.md#delete_product_file) | **DELETE** /entity/product/{id}/files/{fileId} | Удалить файл товара
@@ -32,6 +34,103 @@ Method | HTTP request | Description
 [**update_product_metadata_attribute_by_id**](ProductsApi.md#update_product_metadata_attribute_by_id) | **PUT** /entity/product/metadata/attributes/{id} | Обновить отдельное доп. поле товара
 [**update_product_store_balance**](ProductsApi.md#update_product_store_balance) | **PUT** /entity/product/{id}/storebalances/{storeBalanceId} | Изменить НСО товара по складу
 
+
+# **add_product_file**
+> List[File] add_product_file(id, file_upload, accept=accept, accept_encoding=accept_encoding, content_type=content_type)
+
+Добавить файл к товару
+
+Добавить новый Файл к Товару.
+В поле `content` нужно указать файл, закодированный в Base64, в поле `filename` — имя файла с расширением.
+
+
+### Example
+
+* Basic Authentication (basicAuth):
+* Bearer Authentication (bearerAuth):
+
+```python
+import moysklad_remap_12_sdk
+from moysklad_remap_12_sdk.models.file import File
+from moysklad_remap_12_sdk.models.file_upload import FileUpload
+from moysklad_remap_12_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.moysklad.ru/api/remap/1.2
+# See configuration.py for a list of all supported configuration parameters.
+configuration = moysklad_remap_12_sdk.Configuration(
+    host = "https://api.moysklad.ru/api/remap/1.2"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure HTTP basic authorization: basicAuth
+configuration = moysklad_remap_12_sdk.Configuration(
+    username = os.environ["USERNAME"],
+    password = os.environ["PASSWORD"]
+)
+
+# Configure Bearer authorization: bearerAuth
+configuration = moysklad_remap_12_sdk.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with moysklad_remap_12_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = moysklad_remap_12_sdk.ProductsApi(api_client)
+    id = 'id_example' # str | ID сущности
+    file_upload = {filename=doc.pdf, content=SGVsbG8gV29ybGQ=} # FileUpload | 
+    accept = application/json;charset=utf-8 # str |  (optional) (default to application/json;charset=utf-8)
+    accept_encoding = 'gzip, deflate, br' # str |  (optional) (default to 'gzip, deflate, br')
+    content_type = application/json # str |  (optional) (default to application/json)
+
+    try:
+        # Добавить файл к товару
+        api_response = api_instance.add_product_file(id, file_upload, accept=accept, accept_encoding=accept_encoding, content_type=content_type)
+        print("The response of ProductsApi->add_product_file:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling ProductsApi->add_product_file: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **str**| ID сущности | 
+ **file_upload** | [**FileUpload**](FileUpload.md)|  | 
+ **accept** | **str**|  | [optional] [default to application/json;charset&#x3D;utf-8]
+ **accept_encoding** | **str**|  | [optional] [default to &#39;gzip, deflate, br&#39;]
+ **content_type** | **str**|  | [optional] [default to application/json]
+
+### Return type
+
+[**List[File]**](File.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json, text/html;charset=UTF-8
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Файл успешно добавлен. Результат — массив всех Файлов Товара. |  -  |
+**0** | Ошибка запроса (тело — объект с полем errors) |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **add_product_files**
 > List[File] add_product_files(id, file_upload, accept=accept, accept_encoding=accept_encoding, content_type=content_type)
@@ -603,6 +702,101 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | НСО успешно создан |  -  |
+**0** | Ошибка запроса (тело — объект с полем errors) |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **create_product_store_balances**
+> List[BatchResponseEntity] create_product_store_balances(id, store_balance, accept=accept, accept_encoding=accept_encoding, content_type=content_type)
+
+Массовое создание и обновление неснижаемых остатков товара
+
+В теле запроса передается массив неснижаемых остатков по складам. Для создания требуются store и quantity, для обновления — метаданные (meta).
+
+### Example
+
+* Basic Authentication (basicAuth):
+* Bearer Authentication (bearerAuth):
+
+```python
+import moysklad_remap_12_sdk
+from moysklad_remap_12_sdk.models.batch_response_entity import BatchResponseEntity
+from moysklad_remap_12_sdk.models.store_balance import StoreBalance
+from moysklad_remap_12_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.moysklad.ru/api/remap/1.2
+# See configuration.py for a list of all supported configuration parameters.
+configuration = moysklad_remap_12_sdk.Configuration(
+    host = "https://api.moysklad.ru/api/remap/1.2"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure HTTP basic authorization: basicAuth
+configuration = moysklad_remap_12_sdk.Configuration(
+    username = os.environ["USERNAME"],
+    password = os.environ["PASSWORD"]
+)
+
+# Configure Bearer authorization: bearerAuth
+configuration = moysklad_remap_12_sdk.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with moysklad_remap_12_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = moysklad_remap_12_sdk.ProductsApi(api_client)
+    id = 'id_example' # str | ID сущности
+    store_balance = [moysklad_remap_12_sdk.StoreBalance()] # List[StoreBalance] | 
+    accept = application/json;charset=utf-8 # str |  (optional) (default to application/json;charset=utf-8)
+    accept_encoding = 'gzip, deflate, br' # str |  (optional) (default to 'gzip, deflate, br')
+    content_type = application/json # str |  (optional) (default to application/json)
+
+    try:
+        # Массовое создание и обновление неснижаемых остатков товара
+        api_response = api_instance.create_product_store_balances(id, store_balance, accept=accept, accept_encoding=accept_encoding, content_type=content_type)
+        print("The response of ProductsApi->create_product_store_balances:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling ProductsApi->create_product_store_balances: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **str**| ID сущности | 
+ **store_balance** | [**List[StoreBalance]**](StoreBalance.md)|  | 
+ **accept** | **str**|  | [optional] [default to application/json;charset&#x3D;utf-8]
+ **accept_encoding** | **str**|  | [optional] [default to &#39;gzip, deflate, br&#39;]
+ **content_type** | **str**|  | [optional] [default to application/json]
+
+### Return type
+
+[**List[BatchResponseEntity]**](BatchResponseEntity.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json, text/html;charset=UTF-8
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Успешный запрос |  -  |
 **0** | Ошибка запроса (тело — объект с полем errors) |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -1601,7 +1795,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_product_files**
-> GetProductFiles200Response get_product_files(id, limit=limit, offset=offset, accept=accept, accept_encoding=accept_encoding)
+> GetTaskFiles200Response get_product_files(id, limit=limit, offset=offset, accept=accept, accept_encoding=accept_encoding)
 
 Получить файлы товара
 
@@ -1614,7 +1808,7 @@ Name | Type | Description  | Notes
 
 ```python
 import moysklad_remap_12_sdk
-from moysklad_remap_12_sdk.models.get_product_files200_response import GetProductFiles200Response
+from moysklad_remap_12_sdk.models.get_task_files200_response import GetTaskFiles200Response
 from moysklad_remap_12_sdk.rest import ApiException
 from pprint import pprint
 
@@ -1674,7 +1868,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**GetProductFiles200Response**](GetProductFiles200Response.md)
+[**GetTaskFiles200Response**](GetTaskFiles200Response.md)
 
 ### Authorization
 

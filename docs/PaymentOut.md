@@ -18,6 +18,7 @@ Name | Type | Description | Notes
 **deleted** | **str** | Момент последнего удаления Исходящего платежа | [optional] [readonly] 
 **updated** | **str** | Момент последнего обновления Исходящего платежа | [optional] [readonly] 
 **moment** | **str** | Дата документа | [optional] 
+**accrual_date** | **str** | Дата начисления | [optional] 
 **owner** | [**Employee**](Employee.md) | Владелец (Сотрудник) | [optional] 
 **group** | [**Group**](Group.md) |  | [optional] 
 **applicable** | **bool** | Отметка о проведении | [optional] 

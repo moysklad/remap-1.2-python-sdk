@@ -5,6 +5,8 @@ All URIs are relative to *https://api.moysklad.ru/api/remap/1.2*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**create_organization**](OrganizationsApi.md#create_organization) | **POST** /entity/organization | Создать юрлицо
+[**create_organization_account**](OrganizationsApi.md#create_organization_account) | **POST** /entity/organization/{id}/accounts | Создать счёт юрлица
+[**create_organization_accounts**](OrganizationsApi.md#create_organization_accounts) | **POST** /entity/organization/{id}/accounts/batch | Массовое создание и обновление счетов юрлица
 [**create_organization_metadata_attribute**](OrganizationsApi.md#create_organization_metadata_attribute) | **POST** /entity/organization/metadata/attributes | Создать доп. поле юрлица
 [**create_organizations_batch**](OrganizationsApi.md#create_organizations_batch) | **POST** /entity/organization/batch | Создать или изменить юрлица
 [**delete_organization**](OrganizationsApi.md#delete_organization) | **DELETE** /entity/organization/{id} | Удалить юрлицо
@@ -21,7 +23,6 @@ Method | HTTP request | Description
 [**get_organizations**](OrganizationsApi.md#get_organizations) | **GET** /entity/organization | Получить список юрлиц
 [**update_organization**](OrganizationsApi.md#update_organization) | **PUT** /entity/organization/{id} | Обновить юрлицо
 [**update_organization_account**](OrganizationsApi.md#update_organization_account) | **PUT** /entity/organization/{id}/accounts/{accountId} | Обновить счёт юрлица
-[**update_organization_accounts**](OrganizationsApi.md#update_organization_accounts) | **POST** /entity/organization/{id}/accounts | Изменить счета юрлица
 [**update_organization_metadata_attribute_by_id**](OrganizationsApi.md#update_organization_metadata_attribute_by_id) | **PUT** /entity/organization/metadata/attributes/{id} | Обновить отдельное доп. поле юрлица
 
 
@@ -115,6 +116,195 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Юрлицо успешно создано |  -  |
+**0** | Ошибка запроса (тело — объект с полем errors) |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **create_organization_account**
+> List[Account] create_organization_account(id, account, accept=accept, accept_encoding=accept_encoding, content_type=content_type)
+
+Создать счёт юрлица
+
+Создание нового счёта у данного юрлица
+
+### Example
+
+* Basic Authentication (basicAuth):
+* Bearer Authentication (bearerAuth):
+
+```python
+import moysklad_remap_12_sdk
+from moysklad_remap_12_sdk.models.account import Account
+from moysklad_remap_12_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.moysklad.ru/api/remap/1.2
+# See configuration.py for a list of all supported configuration parameters.
+configuration = moysklad_remap_12_sdk.Configuration(
+    host = "https://api.moysklad.ru/api/remap/1.2"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure HTTP basic authorization: basicAuth
+configuration = moysklad_remap_12_sdk.Configuration(
+    username = os.environ["USERNAME"],
+    password = os.environ["PASSWORD"]
+)
+
+# Configure Bearer authorization: bearerAuth
+configuration = moysklad_remap_12_sdk.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with moysklad_remap_12_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = moysklad_remap_12_sdk.OrganizationsApi(api_client)
+    id = 'id_example' # str | ID сущности
+    account = moysklad_remap_12_sdk.Account() # Account | 
+    accept = application/json;charset=utf-8 # str |  (optional) (default to application/json;charset=utf-8)
+    accept_encoding = 'gzip, deflate, br' # str |  (optional) (default to 'gzip, deflate, br')
+    content_type = application/json # str |  (optional) (default to application/json)
+
+    try:
+        # Создать счёт юрлица
+        api_response = api_instance.create_organization_account(id, account, accept=accept, accept_encoding=accept_encoding, content_type=content_type)
+        print("The response of OrganizationsApi->create_organization_account:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling OrganizationsApi->create_organization_account: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **str**| ID сущности | 
+ **account** | [**Account**](Account.md)|  | 
+ **accept** | **str**|  | [optional] [default to application/json;charset&#x3D;utf-8]
+ **accept_encoding** | **str**|  | [optional] [default to &#39;gzip, deflate, br&#39;]
+ **content_type** | **str**|  | [optional] [default to application/json]
+
+### Return type
+
+[**List[Account]**](Account.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json, text/html;charset=UTF-8
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Счёт успешно создан |  -  |
+**0** | Ошибка запроса (тело — объект с полем errors) |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **create_organization_accounts**
+> List[BatchResponseEntity] create_organization_accounts(id, account, accept=accept, accept_encoding=accept_encoding, content_type=content_type)
+
+Массовое создание и обновление счетов юрлица
+
+В теле запроса передается массив счетов. Для создания счета требуется accountNumber, для обновления — метаданные (meta). Валюту существующего счета изменить нельзя.
+
+### Example
+
+* Basic Authentication (basicAuth):
+* Bearer Authentication (bearerAuth):
+
+```python
+import moysklad_remap_12_sdk
+from moysklad_remap_12_sdk.models.account import Account
+from moysklad_remap_12_sdk.models.batch_response_entity import BatchResponseEntity
+from moysklad_remap_12_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.moysklad.ru/api/remap/1.2
+# See configuration.py for a list of all supported configuration parameters.
+configuration = moysklad_remap_12_sdk.Configuration(
+    host = "https://api.moysklad.ru/api/remap/1.2"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure HTTP basic authorization: basicAuth
+configuration = moysklad_remap_12_sdk.Configuration(
+    username = os.environ["USERNAME"],
+    password = os.environ["PASSWORD"]
+)
+
+# Configure Bearer authorization: bearerAuth
+configuration = moysklad_remap_12_sdk.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with moysklad_remap_12_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = moysklad_remap_12_sdk.OrganizationsApi(api_client)
+    id = 'id_example' # str | ID сущности
+    account = [moysklad_remap_12_sdk.Account()] # List[Account] | 
+    accept = application/json;charset=utf-8 # str |  (optional) (default to application/json;charset=utf-8)
+    accept_encoding = 'gzip, deflate, br' # str |  (optional) (default to 'gzip, deflate, br')
+    content_type = application/json # str |  (optional) (default to application/json)
+
+    try:
+        # Массовое создание и обновление счетов юрлица
+        api_response = api_instance.create_organization_accounts(id, account, accept=accept, accept_encoding=accept_encoding, content_type=content_type)
+        print("The response of OrganizationsApi->create_organization_accounts:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling OrganizationsApi->create_organization_accounts: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **str**| ID сущности | 
+ **account** | [**List[Account]**](Account.md)|  | 
+ **accept** | **str**|  | [optional] [default to application/json;charset&#x3D;utf-8]
+ **accept_encoding** | **str**|  | [optional] [default to &#39;gzip, deflate, br&#39;]
+ **content_type** | **str**|  | [optional] [default to application/json]
+
+### Return type
+
+[**List[BatchResponseEntity]**](BatchResponseEntity.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json, text/html;charset=UTF-8
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Успешный запрос |  -  |
 **0** | Ошибка запроса (тело — объект с полем errors) |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -1597,100 +1787,6 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Счёт успешно обновлён |  -  |
-**0** | Ошибка запроса (тело — объект с полем errors) |  -  |
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **update_organization_accounts**
-> List[Account] update_organization_accounts(id, account, accept=accept, accept_encoding=accept_encoding, content_type=content_type)
-
-Изменить счета юрлица
-
-Создание нового счёта у данного юрлица
-
-### Example
-
-* Basic Authentication (basicAuth):
-* Bearer Authentication (bearerAuth):
-
-```python
-import moysklad_remap_12_sdk
-from moysklad_remap_12_sdk.models.account import Account
-from moysklad_remap_12_sdk.rest import ApiException
-from pprint import pprint
-
-# Defining the host is optional and defaults to https://api.moysklad.ru/api/remap/1.2
-# See configuration.py for a list of all supported configuration parameters.
-configuration = moysklad_remap_12_sdk.Configuration(
-    host = "https://api.moysklad.ru/api/remap/1.2"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure HTTP basic authorization: basicAuth
-configuration = moysklad_remap_12_sdk.Configuration(
-    username = os.environ["USERNAME"],
-    password = os.environ["PASSWORD"]
-)
-
-# Configure Bearer authorization: bearerAuth
-configuration = moysklad_remap_12_sdk.Configuration(
-    access_token = os.environ["BEARER_TOKEN"]
-)
-
-# Enter a context with an instance of the API client
-with moysklad_remap_12_sdk.ApiClient(configuration) as api_client:
-    # Create an instance of the API class
-    api_instance = moysklad_remap_12_sdk.OrganizationsApi(api_client)
-    id = 'id_example' # str | ID сущности
-    account = moysklad_remap_12_sdk.Account() # Account | 
-    accept = application/json;charset=utf-8 # str |  (optional) (default to application/json;charset=utf-8)
-    accept_encoding = 'gzip, deflate, br' # str |  (optional) (default to 'gzip, deflate, br')
-    content_type = application/json # str |  (optional) (default to application/json)
-
-    try:
-        # Изменить счета юрлица
-        api_response = api_instance.update_organization_accounts(id, account, accept=accept, accept_encoding=accept_encoding, content_type=content_type)
-        print("The response of OrganizationsApi->update_organization_accounts:\n")
-        pprint(api_response)
-    except Exception as e:
-        print("Exception when calling OrganizationsApi->update_organization_accounts: %s\n" % e)
-```
-
-
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **str**| ID сущности | 
- **account** | [**Account**](Account.md)|  | 
- **accept** | **str**|  | [optional] [default to application/json;charset&#x3D;utf-8]
- **accept_encoding** | **str**|  | [optional] [default to &#39;gzip, deflate, br&#39;]
- **content_type** | **str**|  | [optional] [default to application/json]
-
-### Return type
-
-[**List[Account]**](Account.md)
-
-### Authorization
-
-[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json, text/html;charset=UTF-8
-
-### HTTP response details
-
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-**200** | Счета успешно изменены |  -  |
 **0** | Ошибка запроса (тело — объект с полем errors) |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

@@ -4,13 +4,17 @@ All URIs are relative to *https://api.moysklad.ru/api/remap/1.2*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**add_prepayment_return_file**](PrepaymentReturnsApi.md#add_prepayment_return_file) | **POST** /entity/prepaymentreturn/{id}/files | Добавить файл к Возврату предоплаты
+[**add_prepayment_return_files**](PrepaymentReturnsApi.md#add_prepayment_return_files) | **POST** /entity/prepaymentreturn/{id}/files/batch | Добавить файлы к Возврату предоплаты
 [**create_prepayment_return_metadata_attribute**](PrepaymentReturnsApi.md#create_prepayment_return_metadata_attribute) | **POST** /entity/prepaymentreturn/metadata/attributes | Создать доп. поле Возврата предоплаты
 [**create_prepayment_return_metadata_state**](PrepaymentReturnsApi.md#create_prepayment_return_metadata_state) | **POST** /entity/prepaymentreturn/metadata/states | Создать статус Возврата предоплаты
 [**create_prepayment_return_metadata_states_batch**](PrepaymentReturnsApi.md#create_prepayment_return_metadata_states_batch) | **POST** /entity/prepaymentreturn/metadata/states/batch | Массовое создание и обновление статусов Возврата предоплаты
 [**delete_prepayment_return**](PrepaymentReturnsApi.md#delete_prepayment_return) | **DELETE** /entity/prepaymentreturn/{id} | Удалить Возврат предоплаты
+[**delete_prepayment_return_file**](PrepaymentReturnsApi.md#delete_prepayment_return_file) | **DELETE** /entity/prepaymentreturn/{id}/files/{fileId} | Удалить файл Возврата предоплаты
 [**delete_prepayment_return_metadata_attribute_by_id**](PrepaymentReturnsApi.md#delete_prepayment_return_metadata_attribute_by_id) | **DELETE** /entity/prepaymentreturn/metadata/attributes/{id} | Удалить отдельное доп. поле Возврата предоплаты
 [**delete_prepayment_return_metadata_state_by_id**](PrepaymentReturnsApi.md#delete_prepayment_return_metadata_state_by_id) | **DELETE** /entity/prepaymentreturn/metadata/states/{id} | Удалить отдельный статус Возврата предоплаты
 [**get_prepayment_return_by_id**](PrepaymentReturnsApi.md#get_prepayment_return_by_id) | **GET** /entity/prepaymentreturn/{id} | Получить Возврат предоплаты
+[**get_prepayment_return_files**](PrepaymentReturnsApi.md#get_prepayment_return_files) | **GET** /entity/prepaymentreturn/{id}/files | Получить файлы Возврата предоплаты
 [**get_prepayment_return_list**](PrepaymentReturnsApi.md#get_prepayment_return_list) | **GET** /entity/prepaymentreturn | Получить список Возвратов предоплаты
 [**get_prepayment_return_metadata**](PrepaymentReturnsApi.md#get_prepayment_return_metadata) | **GET** /entity/prepaymentreturn/metadata | Метаданные Возвратов предоплаты
 [**get_prepayment_return_metadata_attribute**](PrepaymentReturnsApi.md#get_prepayment_return_metadata_attribute) | **GET** /entity/prepaymentreturn/metadata/attributes | Доп. поля Возврата предоплаты
@@ -22,6 +26,200 @@ Method | HTTP request | Description
 [**update_prepayment_return_metadata_attribute_by_id**](PrepaymentReturnsApi.md#update_prepayment_return_metadata_attribute_by_id) | **PUT** /entity/prepaymentreturn/metadata/attributes/{id} | Обновить отдельное доп. поле Возврата предоплаты
 [**update_prepayment_return_metadata_state_by_id**](PrepaymentReturnsApi.md#update_prepayment_return_metadata_state_by_id) | **PUT** /entity/prepaymentreturn/metadata/states/{id} | Обновить отдельный статус Возврата предоплаты
 
+
+# **add_prepayment_return_file**
+> List[File] add_prepayment_return_file(id, file_upload, accept=accept, accept_encoding=accept_encoding, content_type=content_type)
+
+Добавить файл к Возврату предоплаты
+
+Добавить новый Файл к Возврату предоплаты.
+В поле `content` нужно указать файл, закодированный в Base64, в поле `filename` — имя файла с расширением.
+
+
+### Example
+
+* Basic Authentication (basicAuth):
+* Bearer Authentication (bearerAuth):
+
+```python
+import moysklad_remap_12_sdk
+from moysklad_remap_12_sdk.models.file import File
+from moysklad_remap_12_sdk.models.file_upload import FileUpload
+from moysklad_remap_12_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.moysklad.ru/api/remap/1.2
+# See configuration.py for a list of all supported configuration parameters.
+configuration = moysklad_remap_12_sdk.Configuration(
+    host = "https://api.moysklad.ru/api/remap/1.2"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure HTTP basic authorization: basicAuth
+configuration = moysklad_remap_12_sdk.Configuration(
+    username = os.environ["USERNAME"],
+    password = os.environ["PASSWORD"]
+)
+
+# Configure Bearer authorization: bearerAuth
+configuration = moysklad_remap_12_sdk.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with moysklad_remap_12_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = moysklad_remap_12_sdk.PrepaymentReturnsApi(api_client)
+    id = 'id_example' # str | ID сущности
+    file_upload = moysklad_remap_12_sdk.FileUpload() # FileUpload | 
+    accept = application/json;charset=utf-8 # str |  (optional) (default to application/json;charset=utf-8)
+    accept_encoding = 'gzip, deflate, br' # str |  (optional) (default to 'gzip, deflate, br')
+    content_type = application/json # str |  (optional) (default to application/json)
+
+    try:
+        # Добавить файл к Возврату предоплаты
+        api_response = api_instance.add_prepayment_return_file(id, file_upload, accept=accept, accept_encoding=accept_encoding, content_type=content_type)
+        print("The response of PrepaymentReturnsApi->add_prepayment_return_file:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling PrepaymentReturnsApi->add_prepayment_return_file: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **str**| ID сущности | 
+ **file_upload** | [**FileUpload**](FileUpload.md)|  | 
+ **accept** | **str**|  | [optional] [default to application/json;charset&#x3D;utf-8]
+ **accept_encoding** | **str**|  | [optional] [default to &#39;gzip, deflate, br&#39;]
+ **content_type** | **str**|  | [optional] [default to application/json]
+
+### Return type
+
+[**List[File]**](File.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json, text/html;charset=UTF-8
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Файл успешно добавлен. Результат — массив всех Файлов Возврата предоплаты. |  -  |
+**0** | Ошибка запроса (тело — объект с полем errors) |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **add_prepayment_return_files**
+> List[File] add_prepayment_return_files(id, file_upload, accept=accept, accept_encoding=accept_encoding, content_type=content_type)
+
+Добавить файлы к Возврату предоплаты
+
+Добавить новые Файлы к Возврату предоплаты. В одном запросе можно добавить максимум 10 Файлов.
+В поле `content` нужно указать файл, закодированный в Base64, в поле `filename` — имя файла с расширением.
+
+
+### Example
+
+* Basic Authentication (basicAuth):
+* Bearer Authentication (bearerAuth):
+
+```python
+import moysklad_remap_12_sdk
+from moysklad_remap_12_sdk.models.file import File
+from moysklad_remap_12_sdk.models.file_upload import FileUpload
+from moysklad_remap_12_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.moysklad.ru/api/remap/1.2
+# See configuration.py for a list of all supported configuration parameters.
+configuration = moysklad_remap_12_sdk.Configuration(
+    host = "https://api.moysklad.ru/api/remap/1.2"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure HTTP basic authorization: basicAuth
+configuration = moysklad_remap_12_sdk.Configuration(
+    username = os.environ["USERNAME"],
+    password = os.environ["PASSWORD"]
+)
+
+# Configure Bearer authorization: bearerAuth
+configuration = moysklad_remap_12_sdk.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with moysklad_remap_12_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = moysklad_remap_12_sdk.PrepaymentReturnsApi(api_client)
+    id = 'id_example' # str | ID сущности
+    file_upload = [moysklad_remap_12_sdk.FileUpload()] # List[FileUpload] | 
+    accept = application/json;charset=utf-8 # str |  (optional) (default to application/json;charset=utf-8)
+    accept_encoding = 'gzip, deflate, br' # str |  (optional) (default to 'gzip, deflate, br')
+    content_type = application/json # str |  (optional) (default to application/json)
+
+    try:
+        # Добавить файлы к Возврату предоплаты
+        api_response = api_instance.add_prepayment_return_files(id, file_upload, accept=accept, accept_encoding=accept_encoding, content_type=content_type)
+        print("The response of PrepaymentReturnsApi->add_prepayment_return_files:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling PrepaymentReturnsApi->add_prepayment_return_files: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **str**| ID сущности | 
+ **file_upload** | [**List[FileUpload]**](FileUpload.md)|  | 
+ **accept** | **str**|  | [optional] [default to application/json;charset&#x3D;utf-8]
+ **accept_encoding** | **str**|  | [optional] [default to &#39;gzip, deflate, br&#39;]
+ **content_type** | **str**|  | [optional] [default to application/json]
+
+### Return type
+
+[**List[File]**](File.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json, text/html;charset=UTF-8
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Файлы успешно добавлены. Результат — массив всех Файлов Возврата предоплаты. |  -  |
+**0** | Ошибка запроса (тело — объект с полем errors) |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **create_prepayment_return_metadata_attribute**
 > AttributeMetaInfo create_prepayment_return_metadata_attribute(attribute_meta_info, accept=accept, accept_encoding=accept_encoding, content_type=content_type)
@@ -379,6 +577,95 @@ void (empty response body)
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **delete_prepayment_return_file**
+> delete_prepayment_return_file(id, file_id, accept=accept, accept_encoding=accept_encoding)
+
+Удалить файл Возврата предоплаты
+
+Удаление Файла Возврата предоплаты.
+
+### Example
+
+* Basic Authentication (basicAuth):
+* Bearer Authentication (bearerAuth):
+
+```python
+import moysklad_remap_12_sdk
+from moysklad_remap_12_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.moysklad.ru/api/remap/1.2
+# See configuration.py for a list of all supported configuration parameters.
+configuration = moysklad_remap_12_sdk.Configuration(
+    host = "https://api.moysklad.ru/api/remap/1.2"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure HTTP basic authorization: basicAuth
+configuration = moysklad_remap_12_sdk.Configuration(
+    username = os.environ["USERNAME"],
+    password = os.environ["PASSWORD"]
+)
+
+# Configure Bearer authorization: bearerAuth
+configuration = moysklad_remap_12_sdk.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with moysklad_remap_12_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = moysklad_remap_12_sdk.PrepaymentReturnsApi(api_client)
+    id = 'id_example' # str | ID сущности
+    file_id = 'file_id_example' # str | ID файла
+    accept = application/json;charset=utf-8 # str |  (optional) (default to application/json;charset=utf-8)
+    accept_encoding = 'gzip, deflate, br' # str |  (optional) (default to 'gzip, deflate, br')
+
+    try:
+        # Удалить файл Возврата предоплаты
+        api_instance.delete_prepayment_return_file(id, file_id, accept=accept, accept_encoding=accept_encoding)
+    except Exception as e:
+        print("Exception when calling PrepaymentReturnsApi->delete_prepayment_return_file: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **str**| ID сущности | 
+ **file_id** | **str**| ID файла | 
+ **accept** | **str**|  | [optional] [default to application/json;charset&#x3D;utf-8]
+ **accept_encoding** | **str**|  | [optional] [default to &#39;gzip, deflate, br&#39;]
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json, text/html;charset=UTF-8
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Файл успешно удалён |  -  |
+**0** | Ошибка запроса (тело — объект с полем errors) |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **delete_prepayment_return_metadata_attribute_by_id**
 > delete_prepayment_return_metadata_attribute_by_id(id, accept=accept, accept_encoding=accept_encoding)
 
@@ -623,6 +910,100 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**PrepaymentReturn**](PrepaymentReturn.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json, text/html;charset=UTF-8
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Успешный запрос |  -  |
+**0** | Ошибка запроса (тело — объект с полем errors) |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **get_prepayment_return_files**
+> GetTaskFiles200Response get_prepayment_return_files(id, limit=limit, offset=offset, accept=accept, accept_encoding=accept_encoding)
+
+Получить файлы Возврата предоплаты
+
+Запрос на получение списка всех Файлов Возврата предоплаты.
+
+### Example
+
+* Basic Authentication (basicAuth):
+* Bearer Authentication (bearerAuth):
+
+```python
+import moysklad_remap_12_sdk
+from moysklad_remap_12_sdk.models.get_task_files200_response import GetTaskFiles200Response
+from moysklad_remap_12_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.moysklad.ru/api/remap/1.2
+# See configuration.py for a list of all supported configuration parameters.
+configuration = moysklad_remap_12_sdk.Configuration(
+    host = "https://api.moysklad.ru/api/remap/1.2"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure HTTP basic authorization: basicAuth
+configuration = moysklad_remap_12_sdk.Configuration(
+    username = os.environ["USERNAME"],
+    password = os.environ["PASSWORD"]
+)
+
+# Configure Bearer authorization: bearerAuth
+configuration = moysklad_remap_12_sdk.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with moysklad_remap_12_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = moysklad_remap_12_sdk.PrepaymentReturnsApi(api_client)
+    id = 'id_example' # str | ID сущности
+    limit = 1000 # int | Максимальное количество элементов в выданном списке (максимум 1000) (optional) (default to 1000)
+    offset = 0 # int | Отступ в выданном списке (optional) (default to 0)
+    accept = application/json;charset=utf-8 # str |  (optional) (default to application/json;charset=utf-8)
+    accept_encoding = 'gzip, deflate, br' # str |  (optional) (default to 'gzip, deflate, br')
+
+    try:
+        # Получить файлы Возврата предоплаты
+        api_response = api_instance.get_prepayment_return_files(id, limit=limit, offset=offset, accept=accept, accept_encoding=accept_encoding)
+        print("The response of PrepaymentReturnsApi->get_prepayment_return_files:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling PrepaymentReturnsApi->get_prepayment_return_files: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **str**| ID сущности | 
+ **limit** | **int**| Максимальное количество элементов в выданном списке (максимум 1000) | [optional] [default to 1000]
+ **offset** | **int**| Отступ в выданном списке | [optional] [default to 0]
+ **accept** | **str**|  | [optional] [default to application/json;charset&#x3D;utf-8]
+ **accept_encoding** | **str**|  | [optional] [default to &#39;gzip, deflate, br&#39;]
+
+### Return type
+
+[**GetTaskFiles200Response**](GetTaskFiles200Response.md)
 
 ### Authorization
 

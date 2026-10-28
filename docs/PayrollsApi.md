@@ -4,7 +4,8 @@ All URIs are relative to *https://api.moysklad.ru/api/remap/1.2*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**add_payroll_files**](PayrollsApi.md#add_payroll_files) | **POST** /entity/payroll/{id}/files | Добавить файлы к Начислению зарплаты
+[**add_payroll_file**](PayrollsApi.md#add_payroll_file) | **POST** /entity/payroll/{id}/files | Добавить файл к Начислению зарплаты
+[**add_payroll_files**](PayrollsApi.md#add_payroll_files) | **POST** /entity/payroll/{id}/files/batch | Добавить файлы к Начислению зарплаты
 [**create_payroll**](PayrollsApi.md#create_payroll) | **POST** /entity/payroll | Создать Начисление зарплаты
 [**create_payroll_metadata_attribute**](PayrollsApi.md#create_payroll_metadata_attribute) | **POST** /entity/payroll/metadata/attributes | Создать доп. поле Начисления зарплаты
 [**create_payroll_metadata_state**](PayrollsApi.md#create_payroll_metadata_state) | **POST** /entity/payroll/metadata/states | Создать статус Начисления зарплаты
@@ -36,6 +37,103 @@ Method | HTTP request | Description
 [**update_payroll_metadata_state_by_id**](PayrollsApi.md#update_payroll_metadata_state_by_id) | **PUT** /entity/payroll/metadata/states/{id} | Обновить отдельный статус Начисления зарплаты
 [**update_payroll_position**](PayrollsApi.md#update_payroll_position) | **PUT** /entity/payroll/{id}/positions/{positionId} | Изменить позицию Начисления зарплаты
 
+
+# **add_payroll_file**
+> List[File] add_payroll_file(id, file_upload, accept=accept, accept_encoding=accept_encoding, content_type=content_type)
+
+Добавить файл к Начислению зарплаты
+
+Добавить новый Файл к Начислению зарплаты.
+В поле `content` нужно указать файл, закодированный в Base64, в поле `filename` — имя файла с расширением.
+
+
+### Example
+
+* Basic Authentication (basicAuth):
+* Bearer Authentication (bearerAuth):
+
+```python
+import moysklad_remap_12_sdk
+from moysklad_remap_12_sdk.models.file import File
+from moysklad_remap_12_sdk.models.file_upload import FileUpload
+from moysklad_remap_12_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.moysklad.ru/api/remap/1.2
+# See configuration.py for a list of all supported configuration parameters.
+configuration = moysklad_remap_12_sdk.Configuration(
+    host = "https://api.moysklad.ru/api/remap/1.2"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure HTTP basic authorization: basicAuth
+configuration = moysklad_remap_12_sdk.Configuration(
+    username = os.environ["USERNAME"],
+    password = os.environ["PASSWORD"]
+)
+
+# Configure Bearer authorization: bearerAuth
+configuration = moysklad_remap_12_sdk.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with moysklad_remap_12_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = moysklad_remap_12_sdk.PayrollsApi(api_client)
+    id = 'id_example' # str | ID сущности
+    file_upload = moysklad_remap_12_sdk.FileUpload() # FileUpload | 
+    accept = application/json;charset=utf-8 # str |  (optional) (default to application/json;charset=utf-8)
+    accept_encoding = 'gzip, deflate, br' # str |  (optional) (default to 'gzip, deflate, br')
+    content_type = application/json # str |  (optional) (default to application/json)
+
+    try:
+        # Добавить файл к Начислению зарплаты
+        api_response = api_instance.add_payroll_file(id, file_upload, accept=accept, accept_encoding=accept_encoding, content_type=content_type)
+        print("The response of PayrollsApi->add_payroll_file:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling PayrollsApi->add_payroll_file: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **str**| ID сущности | 
+ **file_upload** | [**FileUpload**](FileUpload.md)|  | 
+ **accept** | **str**|  | [optional] [default to application/json;charset&#x3D;utf-8]
+ **accept_encoding** | **str**|  | [optional] [default to &#39;gzip, deflate, br&#39;]
+ **content_type** | **str**|  | [optional] [default to application/json]
+
+### Return type
+
+[**List[File]**](File.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json, text/html;charset=UTF-8
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Файл успешно добавлен. Результат — массив всех Файлов Начисления зарплаты. |  -  |
+**0** | Ошибка запроса (тело — объект с полем errors) |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **add_payroll_files**
 > List[File] add_payroll_files(id, file_upload, accept=accept, accept_encoding=accept_encoding, content_type=content_type)
@@ -1588,7 +1686,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_payroll_files**
-> GetProductFiles200Response get_payroll_files(id, limit=limit, offset=offset, accept=accept, accept_encoding=accept_encoding)
+> GetTaskFiles200Response get_payroll_files(id, limit=limit, offset=offset, accept=accept, accept_encoding=accept_encoding)
 
 Получить файлы Начисления зарплаты
 
@@ -1601,7 +1699,7 @@ Name | Type | Description  | Notes
 
 ```python
 import moysklad_remap_12_sdk
-from moysklad_remap_12_sdk.models.get_product_files200_response import GetProductFiles200Response
+from moysklad_remap_12_sdk.models.get_task_files200_response import GetTaskFiles200Response
 from moysklad_remap_12_sdk.rest import ApiException
 from pprint import pprint
 
@@ -1661,7 +1759,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**GetProductFiles200Response**](GetProductFiles200Response.md)
+[**GetTaskFiles200Response**](GetTaskFiles200Response.md)
 
 ### Authorization
 

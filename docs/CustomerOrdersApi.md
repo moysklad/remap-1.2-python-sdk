@@ -4,6 +4,8 @@ All URIs are relative to *https://api.moysklad.ru/api/remap/1.2*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**add_customer_order_file**](CustomerOrdersApi.md#add_customer_order_file) | **POST** /entity/customerorder/{id}/files | Добавить файл к Заказу покупателя
+[**add_customer_order_files**](CustomerOrdersApi.md#add_customer_order_files) | **POST** /entity/customerorder/{id}/files/batch | Добавить файлы к Заказу покупателя
 [**create_customer_order**](CustomerOrdersApi.md#create_customer_order) | **POST** /entity/customerorder | Создать CustomerOrders
 [**create_customer_order_batch**](CustomerOrdersApi.md#create_customer_order_batch) | **POST** /entity/customerorder/batch | Массовое создание и обновление CustomerOrders
 [**create_customer_order_metadata_attribute**](CustomerOrdersApi.md#create_customer_order_metadata_attribute) | **POST** /entity/customerorder/metadata/attributes | Создать Доп. поле CustomerOrder
@@ -16,6 +18,7 @@ Method | HTTP request | Description
 [**create_customer_order_publication**](CustomerOrdersApi.md#create_customer_order_publication) | **POST** /entity/customerorder/{id}/publication | Создать Публикацию Заказа покупателя
 [**delete_customer_order**](CustomerOrdersApi.md#delete_customer_order) | **DELETE** /entity/customerorder/{id} | Удалить CustomerOrders
 [**delete_customer_order_batch**](CustomerOrdersApi.md#delete_customer_order_batch) | **POST** /entity/customerorder/delete | Массовое удаление CustomerOrders
+[**delete_customer_order_file**](CustomerOrdersApi.md#delete_customer_order_file) | **DELETE** /entity/customerorder/{id}/files/{fileId} | Удалить файл Заказа покупателя
 [**delete_customer_order_metadata_attribute_by_id**](CustomerOrdersApi.md#delete_customer_order_metadata_attribute_by_id) | **DELETE** /entity/customerorder/metadata/attributes/{id} | Удалить отдельное доп. поле CustomerOrder
 [**delete_customer_order_metadata_state_by_id**](CustomerOrdersApi.md#delete_customer_order_metadata_state_by_id) | **DELETE** /entity/customerorder/metadata/states/{id} | Удалить отдельный статус CustomerOrder
 [**delete_customer_order_note**](CustomerOrdersApi.md#delete_customer_order_note) | **DELETE** /entity/customerorder/{id}/notes/{noteId} | Удалить Событие Заказа покупателя
@@ -25,6 +28,7 @@ Method | HTTP request | Description
 [**delete_customer_order_publication**](CustomerOrdersApi.md#delete_customer_order_publication) | **DELETE** /entity/customerorder/{id}/publication/{publicationId} | Удалить Публикацию Заказа покупателя
 [**export_customer_order**](CustomerOrdersApi.md#export_customer_order) | **POST** /entity/customerorder/{id}/export | Запрос на печать Заказа покупателя
 [**get_customer_order_by_id**](CustomerOrdersApi.md#get_customer_order_by_id) | **GET** /entity/customerorder/{id} | Получить CustomerOrders
+[**get_customer_order_files**](CustomerOrdersApi.md#get_customer_order_files) | **GET** /entity/customerorder/{id}/files | Получить файлы Заказа покупателя
 [**get_customer_order_list**](CustomerOrdersApi.md#get_customer_order_list) | **GET** /entity/customerorder | Получить список CustomerOrders
 [**get_customer_order_metadata**](CustomerOrdersApi.md#get_customer_order_metadata) | **GET** /entity/customerorder/metadata | Метаданные CustomerOrders
 [**get_customer_order_metadata_attribute**](CustomerOrdersApi.md#get_customer_order_metadata_attribute) | **GET** /entity/customerorder/metadata/attributes | Доп. поля CustomerOrder
@@ -44,6 +48,200 @@ Method | HTTP request | Description
 [**update_customer_order_note**](CustomerOrdersApi.md#update_customer_order_note) | **PUT** /entity/customerorder/{id}/notes/{noteId} | Обновить Событие Заказа покупателя
 [**update_customer_order_position**](CustomerOrdersApi.md#update_customer_order_position) | **PUT** /entity/customerorder/{id}/positions/{positionId} | Изменить позицию CustomerOrders
 
+
+# **add_customer_order_file**
+> List[File] add_customer_order_file(id, file_upload, accept=accept, accept_encoding=accept_encoding, content_type=content_type)
+
+Добавить файл к Заказу покупателя
+
+Добавить новый Файл к Заказу покупателя.
+В поле `content` нужно указать файл, закодированный в Base64, в поле `filename` — имя файла с расширением.
+
+
+### Example
+
+* Basic Authentication (basicAuth):
+* Bearer Authentication (bearerAuth):
+
+```python
+import moysklad_remap_12_sdk
+from moysklad_remap_12_sdk.models.file import File
+from moysklad_remap_12_sdk.models.file_upload import FileUpload
+from moysklad_remap_12_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.moysklad.ru/api/remap/1.2
+# See configuration.py for a list of all supported configuration parameters.
+configuration = moysklad_remap_12_sdk.Configuration(
+    host = "https://api.moysklad.ru/api/remap/1.2"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure HTTP basic authorization: basicAuth
+configuration = moysklad_remap_12_sdk.Configuration(
+    username = os.environ["USERNAME"],
+    password = os.environ["PASSWORD"]
+)
+
+# Configure Bearer authorization: bearerAuth
+configuration = moysklad_remap_12_sdk.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with moysklad_remap_12_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = moysklad_remap_12_sdk.CustomerOrdersApi(api_client)
+    id = 'id_example' # str | ID сущности
+    file_upload = moysklad_remap_12_sdk.FileUpload() # FileUpload | 
+    accept = application/json;charset=utf-8 # str |  (optional) (default to application/json;charset=utf-8)
+    accept_encoding = 'gzip, deflate, br' # str |  (optional) (default to 'gzip, deflate, br')
+    content_type = application/json # str |  (optional) (default to application/json)
+
+    try:
+        # Добавить файл к Заказу покупателя
+        api_response = api_instance.add_customer_order_file(id, file_upload, accept=accept, accept_encoding=accept_encoding, content_type=content_type)
+        print("The response of CustomerOrdersApi->add_customer_order_file:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling CustomerOrdersApi->add_customer_order_file: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **str**| ID сущности | 
+ **file_upload** | [**FileUpload**](FileUpload.md)|  | 
+ **accept** | **str**|  | [optional] [default to application/json;charset&#x3D;utf-8]
+ **accept_encoding** | **str**|  | [optional] [default to &#39;gzip, deflate, br&#39;]
+ **content_type** | **str**|  | [optional] [default to application/json]
+
+### Return type
+
+[**List[File]**](File.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json, text/html;charset=UTF-8
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Файл успешно добавлен. Результат — массив всех Файлов Заказа покупателя. |  -  |
+**0** | Ошибка запроса (тело — объект с полем errors) |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **add_customer_order_files**
+> List[File] add_customer_order_files(id, file_upload, accept=accept, accept_encoding=accept_encoding, content_type=content_type)
+
+Добавить файлы к Заказу покупателя
+
+Добавить новые Файлы к Заказу покупателя. В одном запросе можно добавить максимум 10 Файлов.
+В поле `content` нужно указать файл, закодированный в Base64, в поле `filename` — имя файла с расширением.
+
+
+### Example
+
+* Basic Authentication (basicAuth):
+* Bearer Authentication (bearerAuth):
+
+```python
+import moysklad_remap_12_sdk
+from moysklad_remap_12_sdk.models.file import File
+from moysklad_remap_12_sdk.models.file_upload import FileUpload
+from moysklad_remap_12_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.moysklad.ru/api/remap/1.2
+# See configuration.py for a list of all supported configuration parameters.
+configuration = moysklad_remap_12_sdk.Configuration(
+    host = "https://api.moysklad.ru/api/remap/1.2"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure HTTP basic authorization: basicAuth
+configuration = moysklad_remap_12_sdk.Configuration(
+    username = os.environ["USERNAME"],
+    password = os.environ["PASSWORD"]
+)
+
+# Configure Bearer authorization: bearerAuth
+configuration = moysklad_remap_12_sdk.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with moysklad_remap_12_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = moysklad_remap_12_sdk.CustomerOrdersApi(api_client)
+    id = 'id_example' # str | ID сущности
+    file_upload = [moysklad_remap_12_sdk.FileUpload()] # List[FileUpload] | 
+    accept = application/json;charset=utf-8 # str |  (optional) (default to application/json;charset=utf-8)
+    accept_encoding = 'gzip, deflate, br' # str |  (optional) (default to 'gzip, deflate, br')
+    content_type = application/json # str |  (optional) (default to application/json)
+
+    try:
+        # Добавить файлы к Заказу покупателя
+        api_response = api_instance.add_customer_order_files(id, file_upload, accept=accept, accept_encoding=accept_encoding, content_type=content_type)
+        print("The response of CustomerOrdersApi->add_customer_order_files:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling CustomerOrdersApi->add_customer_order_files: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **str**| ID сущности | 
+ **file_upload** | [**List[FileUpload]**](FileUpload.md)|  | 
+ **accept** | **str**|  | [optional] [default to application/json;charset&#x3D;utf-8]
+ **accept_encoding** | **str**|  | [optional] [default to &#39;gzip, deflate, br&#39;]
+ **content_type** | **str**|  | [optional] [default to application/json]
+
+### Return type
+
+[**List[File]**](File.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json, text/html;charset=UTF-8
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Файлы успешно добавлены. Результат — массив всех Файлов Заказа покупателя. |  -  |
+**0** | Ошибка запроса (тело — объект с полем errors) |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **create_customer_order**
 > CustomerOrder create_customer_order(customer_order, expand=expand, accept=accept, accept_encoding=accept_encoding, content_type=content_type)
@@ -1151,6 +1349,95 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **delete_customer_order_file**
+> delete_customer_order_file(id, file_id, accept=accept, accept_encoding=accept_encoding)
+
+Удалить файл Заказа покупателя
+
+Удаление Файла Заказа покупателя.
+
+### Example
+
+* Basic Authentication (basicAuth):
+* Bearer Authentication (bearerAuth):
+
+```python
+import moysklad_remap_12_sdk
+from moysklad_remap_12_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.moysklad.ru/api/remap/1.2
+# See configuration.py for a list of all supported configuration parameters.
+configuration = moysklad_remap_12_sdk.Configuration(
+    host = "https://api.moysklad.ru/api/remap/1.2"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure HTTP basic authorization: basicAuth
+configuration = moysklad_remap_12_sdk.Configuration(
+    username = os.environ["USERNAME"],
+    password = os.environ["PASSWORD"]
+)
+
+# Configure Bearer authorization: bearerAuth
+configuration = moysklad_remap_12_sdk.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with moysklad_remap_12_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = moysklad_remap_12_sdk.CustomerOrdersApi(api_client)
+    id = 'id_example' # str | ID сущности
+    file_id = 'file_id_example' # str | ID файла
+    accept = application/json;charset=utf-8 # str |  (optional) (default to application/json;charset=utf-8)
+    accept_encoding = 'gzip, deflate, br' # str |  (optional) (default to 'gzip, deflate, br')
+
+    try:
+        # Удалить файл Заказа покупателя
+        api_instance.delete_customer_order_file(id, file_id, accept=accept, accept_encoding=accept_encoding)
+    except Exception as e:
+        print("Exception when calling CustomerOrdersApi->delete_customer_order_file: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **str**| ID сущности | 
+ **file_id** | **str**| ID файла | 
+ **accept** | **str**|  | [optional] [default to application/json;charset&#x3D;utf-8]
+ **accept_encoding** | **str**|  | [optional] [default to &#39;gzip, deflate, br&#39;]
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json, text/html;charset=UTF-8
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Файл успешно удалён |  -  |
+**0** | Ошибка запроса (тело — объект с полем errors) |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **delete_customer_order_metadata_attribute_by_id**
 > delete_customer_order_metadata_attribute_by_id(id, accept=accept, accept_encoding=accept_encoding, content_type=content_type)
 
@@ -1948,6 +2235,100 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**CustomerOrder**](CustomerOrder.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json, text/html;charset=UTF-8
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Успешный запрос |  -  |
+**0** | Ошибка запроса (тело — объект с полем errors) |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **get_customer_order_files**
+> GetTaskFiles200Response get_customer_order_files(id, limit=limit, offset=offset, accept=accept, accept_encoding=accept_encoding)
+
+Получить файлы Заказа покупателя
+
+Запрос на получение списка всех Файлов Заказа покупателя.
+
+### Example
+
+* Basic Authentication (basicAuth):
+* Bearer Authentication (bearerAuth):
+
+```python
+import moysklad_remap_12_sdk
+from moysklad_remap_12_sdk.models.get_task_files200_response import GetTaskFiles200Response
+from moysklad_remap_12_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.moysklad.ru/api/remap/1.2
+# See configuration.py for a list of all supported configuration parameters.
+configuration = moysklad_remap_12_sdk.Configuration(
+    host = "https://api.moysklad.ru/api/remap/1.2"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure HTTP basic authorization: basicAuth
+configuration = moysklad_remap_12_sdk.Configuration(
+    username = os.environ["USERNAME"],
+    password = os.environ["PASSWORD"]
+)
+
+# Configure Bearer authorization: bearerAuth
+configuration = moysklad_remap_12_sdk.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with moysklad_remap_12_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = moysklad_remap_12_sdk.CustomerOrdersApi(api_client)
+    id = 'id_example' # str | ID сущности
+    limit = 1000 # int | Максимальное количество элементов в выданном списке (максимум 1000) (optional) (default to 1000)
+    offset = 0 # int | Отступ в выданном списке (optional) (default to 0)
+    accept = application/json;charset=utf-8 # str |  (optional) (default to application/json;charset=utf-8)
+    accept_encoding = 'gzip, deflate, br' # str |  (optional) (default to 'gzip, deflate, br')
+
+    try:
+        # Получить файлы Заказа покупателя
+        api_response = api_instance.get_customer_order_files(id, limit=limit, offset=offset, accept=accept, accept_encoding=accept_encoding)
+        print("The response of CustomerOrdersApi->get_customer_order_files:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling CustomerOrdersApi->get_customer_order_files: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **str**| ID сущности | 
+ **limit** | **int**| Максимальное количество элементов в выданном списке (максимум 1000) | [optional] [default to 1000]
+ **offset** | **int**| Отступ в выданном списке | [optional] [default to 0]
+ **accept** | **str**|  | [optional] [default to application/json;charset&#x3D;utf-8]
+ **accept_encoding** | **str**|  | [optional] [default to &#39;gzip, deflate, br&#39;]
+
+### Return type
+
+[**GetTaskFiles200Response**](GetTaskFiles200Response.md)
 
 ### Authorization
 

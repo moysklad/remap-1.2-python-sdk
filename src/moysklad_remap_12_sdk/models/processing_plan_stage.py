@@ -25,7 +25,9 @@ from moysklad_remap_12_sdk.models.processing_process_position import ProcessingP
 from typing import Optional, Set
 from typing_extensions import Self
 
-class ProcessingPlanStage(BaseModel):
+from moysklad_remap_12_sdk.models.entity_with_meta import EntityWithMeta
+
+class ProcessingPlanStage(EntityWithMeta):
     """
     Этап Техкарты
     """ # noqa: E501

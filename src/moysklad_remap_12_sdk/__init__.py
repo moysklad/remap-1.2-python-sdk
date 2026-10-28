@@ -14,7 +14,7 @@
 """  # noqa: E501
 
 
-__version__ = "0.31.0"
+__version__ = "0.34.0"
 
 # Define package exports
 __all__ = [
@@ -332,8 +332,8 @@ __all__ = [
     "GetCounterpartyContactPersons200Response",
     "GetCounterpartyNotes200Response",
     "GetOrganizationAccounts200Response",
-    "GetProductFiles200Response",
     "GetProductImages200Response",
+    "GetTaskFiles200Response",
     "GetVariantCharacteristics200Response",
     "Group",
     "GroupList",
@@ -1009,8 +1009,8 @@ from moysklad_remap_12_sdk.models.get_counterparty_accounts200_response import G
 from moysklad_remap_12_sdk.models.get_counterparty_contact_persons200_response import GetCounterpartyContactPersons200Response as GetCounterpartyContactPersons200Response
 from moysklad_remap_12_sdk.models.get_counterparty_notes200_response import GetCounterpartyNotes200Response as GetCounterpartyNotes200Response
 from moysklad_remap_12_sdk.models.get_organization_accounts200_response import GetOrganizationAccounts200Response as GetOrganizationAccounts200Response
-from moysklad_remap_12_sdk.models.get_product_files200_response import GetProductFiles200Response as GetProductFiles200Response
 from moysklad_remap_12_sdk.models.get_product_images200_response import GetProductImages200Response as GetProductImages200Response
+from moysklad_remap_12_sdk.models.get_task_files200_response import GetTaskFiles200Response as GetTaskFiles200Response
 from moysklad_remap_12_sdk.models.get_variant_characteristics200_response import GetVariantCharacteristics200Response as GetVariantCharacteristics200Response
 from moysklad_remap_12_sdk.models.group import Group as Group
 from moysklad_remap_12_sdk.models.group_list import GroupList as GroupList

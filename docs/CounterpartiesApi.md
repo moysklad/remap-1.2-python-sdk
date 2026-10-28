@@ -4,14 +4,18 @@ All URIs are relative to *https://api.moysklad.ru/api/remap/1.2*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**add_counterparty_files**](CounterpartiesApi.md#add_counterparty_files) | **POST** /entity/counterparty/{id}/files | Добавить файлы к контрагенту
+[**add_counterparty_file**](CounterpartiesApi.md#add_counterparty_file) | **POST** /entity/counterparty/{id}/files | Добавить файл к контрагенту
+[**add_counterparty_files**](CounterpartiesApi.md#add_counterparty_files) | **POST** /entity/counterparty/{id}/files/batch | Добавить файлы к контрагенту
 [**create_counterparties_batch**](CounterpartiesApi.md#create_counterparties_batch) | **POST** /entity/counterparty/batch | Создать или изменить контрагентов
 [**create_counterparty**](CounterpartiesApi.md#create_counterparty) | **POST** /entity/counterparty | Создать контрагента
 [**create_counterparty_account**](CounterpartiesApi.md#create_counterparty_account) | **POST** /entity/counterparty/{id}/accounts | Создать счёт контрагента
+[**create_counterparty_accounts**](CounterpartiesApi.md#create_counterparty_accounts) | **POST** /entity/counterparty/{id}/accounts/batch | Массовое создание и обновление счетов контрагента
 [**create_counterparty_contact_person**](CounterpartiesApi.md#create_counterparty_contact_person) | **POST** /entity/counterparty/{id}/contactpersons | Создать контактное лицо контрагента
+[**create_counterparty_contact_persons**](CounterpartiesApi.md#create_counterparty_contact_persons) | **POST** /entity/counterparty/{id}/contactpersons/batch | Массовое создание и обновление контактных лиц контрагента
 [**create_counterparty_metadata_attribute**](CounterpartiesApi.md#create_counterparty_metadata_attribute) | **POST** /entity/counterparty/metadata/attributes | Создать доп. поле контрагента
 [**create_counterparty_metadata_state**](CounterpartiesApi.md#create_counterparty_metadata_state) | **POST** /entity/counterparty/metadata/states | Создать статус Counterparty
 [**create_counterparty_note**](CounterpartiesApi.md#create_counterparty_note) | **POST** /entity/counterparty/{id}/notes | Создать событие контрагента
+[**create_counterparty_notes**](CounterpartiesApi.md#create_counterparty_notes) | **POST** /entity/counterparty/{id}/notes/batch | Массовое создание и обновление событий контрагента
 [**delete_counterparties_batch**](CounterpartiesApi.md#delete_counterparties_batch) | **POST** /entity/counterparty/delete | Удалить контрагентов
 [**delete_counterparty**](CounterpartiesApi.md#delete_counterparty) | **DELETE** /entity/counterparty/{id} | Удалить контрагента
 [**delete_counterparty_account**](CounterpartiesApi.md#delete_counterparty_account) | **DELETE** /entity/counterparty/{id}/accounts/{accountId} | Удалить счёт контрагента
@@ -40,6 +44,103 @@ Method | HTTP request | Description
 [**update_counterparty_metadata_state_by_id**](CounterpartiesApi.md#update_counterparty_metadata_state_by_id) | **PUT** /entity/counterparty/metadata/states/{id} | Обновить отдельный статус Контрагента
 [**update_counterparty_note**](CounterpartiesApi.md#update_counterparty_note) | **PUT** /entity/counterparty/{id}/notes/{noteId} | Обновить событие контрагента
 
+
+# **add_counterparty_file**
+> List[File] add_counterparty_file(id, file_upload, accept=accept, accept_encoding=accept_encoding, content_type=content_type)
+
+Добавить файл к контрагенту
+
+Добавить новый Файл к Контрагенту.
+В поле `content` нужно указать файл, закодированный в Base64, в поле `filename` — имя файла с расширением.
+
+
+### Example
+
+* Basic Authentication (basicAuth):
+* Bearer Authentication (bearerAuth):
+
+```python
+import moysklad_remap_12_sdk
+from moysklad_remap_12_sdk.models.file import File
+from moysklad_remap_12_sdk.models.file_upload import FileUpload
+from moysklad_remap_12_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.moysklad.ru/api/remap/1.2
+# See configuration.py for a list of all supported configuration parameters.
+configuration = moysklad_remap_12_sdk.Configuration(
+    host = "https://api.moysklad.ru/api/remap/1.2"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure HTTP basic authorization: basicAuth
+configuration = moysklad_remap_12_sdk.Configuration(
+    username = os.environ["USERNAME"],
+    password = os.environ["PASSWORD"]
+)
+
+# Configure Bearer authorization: bearerAuth
+configuration = moysklad_remap_12_sdk.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with moysklad_remap_12_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = moysklad_remap_12_sdk.CounterpartiesApi(api_client)
+    id = 'id_example' # str | ID сущности
+    file_upload = {filename=doc.pdf, content=SGVsbG8gV29ybGQ=} # FileUpload | 
+    accept = application/json;charset=utf-8 # str |  (optional) (default to application/json;charset=utf-8)
+    accept_encoding = 'gzip, deflate, br' # str |  (optional) (default to 'gzip, deflate, br')
+    content_type = application/json # str |  (optional) (default to application/json)
+
+    try:
+        # Добавить файл к контрагенту
+        api_response = api_instance.add_counterparty_file(id, file_upload, accept=accept, accept_encoding=accept_encoding, content_type=content_type)
+        print("The response of CounterpartiesApi->add_counterparty_file:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling CounterpartiesApi->add_counterparty_file: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **str**| ID сущности | 
+ **file_upload** | [**FileUpload**](FileUpload.md)|  | 
+ **accept** | **str**|  | [optional] [default to application/json;charset&#x3D;utf-8]
+ **accept_encoding** | **str**|  | [optional] [default to &#39;gzip, deflate, br&#39;]
+ **content_type** | **str**|  | [optional] [default to application/json]
+
+### Return type
+
+[**List[File]**](File.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json, text/html;charset=UTF-8
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Файл успешно добавлен. Результат — массив всех Файлов Контрагента. |  -  |
+**0** | Ошибка запроса (тело — объект с полем errors) |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **add_counterparty_files**
 > List[File] add_counterparty_files(id, file_upload, accept=accept, accept_encoding=accept_encoding, content_type=content_type)
@@ -421,6 +522,101 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **create_counterparty_accounts**
+> List[BatchResponseEntity] create_counterparty_accounts(id, account, accept=accept, accept_encoding=accept_encoding, content_type=content_type)
+
+Массовое создание и обновление счетов контрагента
+
+В теле запроса передается массив счетов. Для создания счета требуется accountNumber, для обновления — метаданные (meta).
+
+### Example
+
+* Basic Authentication (basicAuth):
+* Bearer Authentication (bearerAuth):
+
+```python
+import moysklad_remap_12_sdk
+from moysklad_remap_12_sdk.models.account import Account
+from moysklad_remap_12_sdk.models.batch_response_entity import BatchResponseEntity
+from moysklad_remap_12_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.moysklad.ru/api/remap/1.2
+# See configuration.py for a list of all supported configuration parameters.
+configuration = moysklad_remap_12_sdk.Configuration(
+    host = "https://api.moysklad.ru/api/remap/1.2"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure HTTP basic authorization: basicAuth
+configuration = moysklad_remap_12_sdk.Configuration(
+    username = os.environ["USERNAME"],
+    password = os.environ["PASSWORD"]
+)
+
+# Configure Bearer authorization: bearerAuth
+configuration = moysklad_remap_12_sdk.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with moysklad_remap_12_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = moysklad_remap_12_sdk.CounterpartiesApi(api_client)
+    id = 'id_example' # str | ID сущности
+    account = [moysklad_remap_12_sdk.Account()] # List[Account] | 
+    accept = application/json;charset=utf-8 # str |  (optional) (default to application/json;charset=utf-8)
+    accept_encoding = 'gzip, deflate, br' # str |  (optional) (default to 'gzip, deflate, br')
+    content_type = application/json # str |  (optional) (default to application/json)
+
+    try:
+        # Массовое создание и обновление счетов контрагента
+        api_response = api_instance.create_counterparty_accounts(id, account, accept=accept, accept_encoding=accept_encoding, content_type=content_type)
+        print("The response of CounterpartiesApi->create_counterparty_accounts:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling CounterpartiesApi->create_counterparty_accounts: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **str**| ID сущности | 
+ **account** | [**List[Account]**](Account.md)|  | 
+ **accept** | **str**|  | [optional] [default to application/json;charset&#x3D;utf-8]
+ **accept_encoding** | **str**|  | [optional] [default to &#39;gzip, deflate, br&#39;]
+ **content_type** | **str**|  | [optional] [default to application/json]
+
+### Return type
+
+[**List[BatchResponseEntity]**](BatchResponseEntity.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json, text/html;charset=UTF-8
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Успешный запрос |  -  |
+**0** | Ошибка запроса (тело — объект с полем errors) |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **create_counterparty_contact_person**
 > List[ContactPerson] create_counterparty_contact_person(id, contact_person, accept=accept, accept_encoding=accept_encoding, content_type=content_type)
 
@@ -511,6 +707,101 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Контактное лицо успешно создано |  -  |
+**0** | Ошибка запроса (тело — объект с полем errors) |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **create_counterparty_contact_persons**
+> List[BatchResponseEntity] create_counterparty_contact_persons(id, contact_person, accept=accept, accept_encoding=accept_encoding, content_type=content_type)
+
+Массовое создание и обновление контактных лиц контрагента
+
+В теле запроса передается массив контактных лиц. Для создания требуется name, для обновления — метаданные (meta).
+
+### Example
+
+* Basic Authentication (basicAuth):
+* Bearer Authentication (bearerAuth):
+
+```python
+import moysklad_remap_12_sdk
+from moysklad_remap_12_sdk.models.batch_response_entity import BatchResponseEntity
+from moysklad_remap_12_sdk.models.contact_person import ContactPerson
+from moysklad_remap_12_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.moysklad.ru/api/remap/1.2
+# See configuration.py for a list of all supported configuration parameters.
+configuration = moysklad_remap_12_sdk.Configuration(
+    host = "https://api.moysklad.ru/api/remap/1.2"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure HTTP basic authorization: basicAuth
+configuration = moysklad_remap_12_sdk.Configuration(
+    username = os.environ["USERNAME"],
+    password = os.environ["PASSWORD"]
+)
+
+# Configure Bearer authorization: bearerAuth
+configuration = moysklad_remap_12_sdk.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with moysklad_remap_12_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = moysklad_remap_12_sdk.CounterpartiesApi(api_client)
+    id = 'id_example' # str | ID сущности
+    contact_person = [moysklad_remap_12_sdk.ContactPerson()] # List[ContactPerson] | 
+    accept = application/json;charset=utf-8 # str |  (optional) (default to application/json;charset=utf-8)
+    accept_encoding = 'gzip, deflate, br' # str |  (optional) (default to 'gzip, deflate, br')
+    content_type = application/json # str |  (optional) (default to application/json)
+
+    try:
+        # Массовое создание и обновление контактных лиц контрагента
+        api_response = api_instance.create_counterparty_contact_persons(id, contact_person, accept=accept, accept_encoding=accept_encoding, content_type=content_type)
+        print("The response of CounterpartiesApi->create_counterparty_contact_persons:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling CounterpartiesApi->create_counterparty_contact_persons: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **str**| ID сущности | 
+ **contact_person** | [**List[ContactPerson]**](ContactPerson.md)|  | 
+ **accept** | **str**|  | [optional] [default to application/json;charset&#x3D;utf-8]
+ **accept_encoding** | **str**|  | [optional] [default to &#39;gzip, deflate, br&#39;]
+ **content_type** | **str**|  | [optional] [default to application/json]
+
+### Return type
+
+[**List[BatchResponseEntity]**](BatchResponseEntity.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json, text/html;charset=UTF-8
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Успешный запрос |  -  |
 **0** | Ошибка запроса (тело — объект с полем errors) |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -787,6 +1078,101 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Событие успешно создано |  -  |
+**0** | Ошибка запроса (тело — объект с полем errors) |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **create_counterparty_notes**
+> List[BatchResponseEntity] create_counterparty_notes(id, note, accept=accept, accept_encoding=accept_encoding, content_type=content_type)
+
+Массовое создание и обновление событий контрагента
+
+В теле запроса передается массив событий. Для создания события требуется description, для обновления — метаданные (meta).
+
+### Example
+
+* Basic Authentication (basicAuth):
+* Bearer Authentication (bearerAuth):
+
+```python
+import moysklad_remap_12_sdk
+from moysklad_remap_12_sdk.models.batch_response_entity import BatchResponseEntity
+from moysklad_remap_12_sdk.models.note import Note
+from moysklad_remap_12_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.moysklad.ru/api/remap/1.2
+# See configuration.py for a list of all supported configuration parameters.
+configuration = moysklad_remap_12_sdk.Configuration(
+    host = "https://api.moysklad.ru/api/remap/1.2"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure HTTP basic authorization: basicAuth
+configuration = moysklad_remap_12_sdk.Configuration(
+    username = os.environ["USERNAME"],
+    password = os.environ["PASSWORD"]
+)
+
+# Configure Bearer authorization: bearerAuth
+configuration = moysklad_remap_12_sdk.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with moysklad_remap_12_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = moysklad_remap_12_sdk.CounterpartiesApi(api_client)
+    id = 'id_example' # str | ID сущности
+    note = [moysklad_remap_12_sdk.Note()] # List[Note] | 
+    accept = application/json;charset=utf-8 # str |  (optional) (default to application/json;charset=utf-8)
+    accept_encoding = 'gzip, deflate, br' # str |  (optional) (default to 'gzip, deflate, br')
+    content_type = application/json # str |  (optional) (default to application/json)
+
+    try:
+        # Массовое создание и обновление событий контрагента
+        api_response = api_instance.create_counterparty_notes(id, note, accept=accept, accept_encoding=accept_encoding, content_type=content_type)
+        print("The response of CounterpartiesApi->create_counterparty_notes:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling CounterpartiesApi->create_counterparty_notes: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **str**| ID сущности | 
+ **note** | [**List[Note]**](Note.md)|  | 
+ **accept** | **str**|  | [optional] [default to application/json;charset&#x3D;utf-8]
+ **accept_encoding** | **str**|  | [optional] [default to &#39;gzip, deflate, br&#39;]
+ **content_type** | **str**|  | [optional] [default to application/json]
+
+### Return type
+
+[**List[BatchResponseEntity]**](BatchResponseEntity.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json, text/html;charset=UTF-8
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Успешный запрос |  -  |
 **0** | Ошибка запроса (тело — объект с полем errors) |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -2064,7 +2450,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_counterparty_files**
-> GetProductFiles200Response get_counterparty_files(id, limit=limit, offset=offset, accept=accept, accept_encoding=accept_encoding)
+> GetTaskFiles200Response get_counterparty_files(id, limit=limit, offset=offset, accept=accept, accept_encoding=accept_encoding)
 
 Получить файлы контрагента
 
@@ -2077,7 +2463,7 @@ Name | Type | Description  | Notes
 
 ```python
 import moysklad_remap_12_sdk
-from moysklad_remap_12_sdk.models.get_product_files200_response import GetProductFiles200Response
+from moysklad_remap_12_sdk.models.get_task_files200_response import GetTaskFiles200Response
 from moysklad_remap_12_sdk.rest import ApiException
 from pprint import pprint
 
@@ -2137,7 +2523,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**GetProductFiles200Response**](GetProductFiles200Response.md)
+[**GetTaskFiles200Response**](GetTaskFiles200Response.md)
 
 ### Authorization
 

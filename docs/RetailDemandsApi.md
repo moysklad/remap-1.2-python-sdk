@@ -4,6 +4,8 @@ All URIs are relative to *https://api.moysklad.ru/api/remap/1.2*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**add_retail_demand_file**](RetailDemandsApi.md#add_retail_demand_file) | **POST** /entity/retaildemand/{id}/files | Добавить файл к Розничной продаже
+[**add_retail_demand_files**](RetailDemandsApi.md#add_retail_demand_files) | **POST** /entity/retaildemand/{id}/files/batch | Добавить файлы к Розничной продаже
 [**create_retail_demand**](RetailDemandsApi.md#create_retail_demand) | **POST** /entity/retaildemand | Создать Розничную продажу
 [**create_retail_demand_batch**](RetailDemandsApi.md#create_retail_demand_batch) | **POST** /entity/retaildemand/batch | Массовое создание и обновление Розничных продаж
 [**create_retail_demand_metadata_attribute**](RetailDemandsApi.md#create_retail_demand_metadata_attribute) | **POST** /entity/retaildemand/metadata/attributes | Создать доп. поле Розничной продажи
@@ -13,11 +15,13 @@ Method | HTTP request | Description
 [**create_retail_demand_positions**](RetailDemandsApi.md#create_retail_demand_positions) | **POST** /entity/retaildemand/{id}/positions/batch | Массовое создание и обновление позиций Розничной продажи
 [**delete_retail_demand**](RetailDemandsApi.md#delete_retail_demand) | **DELETE** /entity/retaildemand/{id} | Удалить Розничную продажу
 [**delete_retail_demand_batch**](RetailDemandsApi.md#delete_retail_demand_batch) | **POST** /entity/retaildemand/delete | Массовое удаление Розничных продаж
+[**delete_retail_demand_file**](RetailDemandsApi.md#delete_retail_demand_file) | **DELETE** /entity/retaildemand/{id}/files/{fileId} | Удалить файл Розничной продажи
 [**delete_retail_demand_metadata_attribute_by_id**](RetailDemandsApi.md#delete_retail_demand_metadata_attribute_by_id) | **DELETE** /entity/retaildemand/metadata/attributes/{id} | Удалить отдельное доп. поле Розничной продажи
 [**delete_retail_demand_metadata_state_by_id**](RetailDemandsApi.md#delete_retail_demand_metadata_state_by_id) | **DELETE** /entity/retaildemand/metadata/states/{id} | Удалить отдельный статус Розничной продажи
 [**delete_retail_demand_position**](RetailDemandsApi.md#delete_retail_demand_position) | **DELETE** /entity/retaildemand/{id}/positions/{positionId} | Удалить позицию Розничной продажи
 [**delete_retail_demand_positions_batch**](RetailDemandsApi.md#delete_retail_demand_positions_batch) | **POST** /entity/retaildemand/{id}/positions/delete | Массовое удаление позиций Розничной продажи
 [**get_retail_demand_by_id**](RetailDemandsApi.md#get_retail_demand_by_id) | **GET** /entity/retaildemand/{id} | Получить Розничную продажу
+[**get_retail_demand_files**](RetailDemandsApi.md#get_retail_demand_files) | **GET** /entity/retaildemand/{id}/files | Получить файлы Розничной продажи
 [**get_retail_demand_list**](RetailDemandsApi.md#get_retail_demand_list) | **GET** /entity/retaildemand | Получить список Розничных продаж
 [**get_retail_demand_metadata**](RetailDemandsApi.md#get_retail_demand_metadata) | **GET** /entity/retaildemand/metadata | Метаданные Розничных продаж
 [**get_retail_demand_metadata_attribute**](RetailDemandsApi.md#get_retail_demand_metadata_attribute) | **GET** /entity/retaildemand/metadata/attributes | Доп. поля Розничной продажи
@@ -32,6 +36,200 @@ Method | HTTP request | Description
 [**update_retail_demand_metadata_state_by_id**](RetailDemandsApi.md#update_retail_demand_metadata_state_by_id) | **PUT** /entity/retaildemand/metadata/states/{id} | Обновить отдельный статус Розничной продажи
 [**update_retail_demand_position**](RetailDemandsApi.md#update_retail_demand_position) | **PUT** /entity/retaildemand/{id}/positions/{positionId} | Изменить позицию Розничной продажи
 
+
+# **add_retail_demand_file**
+> List[File] add_retail_demand_file(id, file_upload, accept=accept, accept_encoding=accept_encoding, content_type=content_type)
+
+Добавить файл к Розничной продаже
+
+Добавить новый Файл к Розничной продаже.
+В поле `content` нужно указать файл, закодированный в Base64, в поле `filename` — имя файла с расширением.
+
+
+### Example
+
+* Basic Authentication (basicAuth):
+* Bearer Authentication (bearerAuth):
+
+```python
+import moysklad_remap_12_sdk
+from moysklad_remap_12_sdk.models.file import File
+from moysklad_remap_12_sdk.models.file_upload import FileUpload
+from moysklad_remap_12_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.moysklad.ru/api/remap/1.2
+# See configuration.py for a list of all supported configuration parameters.
+configuration = moysklad_remap_12_sdk.Configuration(
+    host = "https://api.moysklad.ru/api/remap/1.2"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure HTTP basic authorization: basicAuth
+configuration = moysklad_remap_12_sdk.Configuration(
+    username = os.environ["USERNAME"],
+    password = os.environ["PASSWORD"]
+)
+
+# Configure Bearer authorization: bearerAuth
+configuration = moysklad_remap_12_sdk.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with moysklad_remap_12_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = moysklad_remap_12_sdk.RetailDemandsApi(api_client)
+    id = 'id_example' # str | ID сущности
+    file_upload = moysklad_remap_12_sdk.FileUpload() # FileUpload | 
+    accept = application/json;charset=utf-8 # str |  (optional) (default to application/json;charset=utf-8)
+    accept_encoding = 'gzip, deflate, br' # str |  (optional) (default to 'gzip, deflate, br')
+    content_type = application/json # str |  (optional) (default to application/json)
+
+    try:
+        # Добавить файл к Розничной продаже
+        api_response = api_instance.add_retail_demand_file(id, file_upload, accept=accept, accept_encoding=accept_encoding, content_type=content_type)
+        print("The response of RetailDemandsApi->add_retail_demand_file:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling RetailDemandsApi->add_retail_demand_file: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **str**| ID сущности | 
+ **file_upload** | [**FileUpload**](FileUpload.md)|  | 
+ **accept** | **str**|  | [optional] [default to application/json;charset&#x3D;utf-8]
+ **accept_encoding** | **str**|  | [optional] [default to &#39;gzip, deflate, br&#39;]
+ **content_type** | **str**|  | [optional] [default to application/json]
+
+### Return type
+
+[**List[File]**](File.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json, text/html;charset=UTF-8
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Файл успешно добавлен. Результат — массив всех Файлов Розничной продажи. |  -  |
+**0** | Ошибка запроса (тело — объект с полем errors) |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **add_retail_demand_files**
+> List[File] add_retail_demand_files(id, file_upload, accept=accept, accept_encoding=accept_encoding, content_type=content_type)
+
+Добавить файлы к Розничной продаже
+
+Добавить новые Файлы к Розничной продаже. В одном запросе можно добавить максимум 10 Файлов.
+В поле `content` нужно указать файл, закодированный в Base64, в поле `filename` — имя файла с расширением.
+
+
+### Example
+
+* Basic Authentication (basicAuth):
+* Bearer Authentication (bearerAuth):
+
+```python
+import moysklad_remap_12_sdk
+from moysklad_remap_12_sdk.models.file import File
+from moysklad_remap_12_sdk.models.file_upload import FileUpload
+from moysklad_remap_12_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.moysklad.ru/api/remap/1.2
+# See configuration.py for a list of all supported configuration parameters.
+configuration = moysklad_remap_12_sdk.Configuration(
+    host = "https://api.moysklad.ru/api/remap/1.2"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure HTTP basic authorization: basicAuth
+configuration = moysklad_remap_12_sdk.Configuration(
+    username = os.environ["USERNAME"],
+    password = os.environ["PASSWORD"]
+)
+
+# Configure Bearer authorization: bearerAuth
+configuration = moysklad_remap_12_sdk.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with moysklad_remap_12_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = moysklad_remap_12_sdk.RetailDemandsApi(api_client)
+    id = 'id_example' # str | ID сущности
+    file_upload = [moysklad_remap_12_sdk.FileUpload()] # List[FileUpload] | 
+    accept = application/json;charset=utf-8 # str |  (optional) (default to application/json;charset=utf-8)
+    accept_encoding = 'gzip, deflate, br' # str |  (optional) (default to 'gzip, deflate, br')
+    content_type = application/json # str |  (optional) (default to application/json)
+
+    try:
+        # Добавить файлы к Розничной продаже
+        api_response = api_instance.add_retail_demand_files(id, file_upload, accept=accept, accept_encoding=accept_encoding, content_type=content_type)
+        print("The response of RetailDemandsApi->add_retail_demand_files:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling RetailDemandsApi->add_retail_demand_files: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **str**| ID сущности | 
+ **file_upload** | [**List[FileUpload]**](FileUpload.md)|  | 
+ **accept** | **str**|  | [optional] [default to application/json;charset&#x3D;utf-8]
+ **accept_encoding** | **str**|  | [optional] [default to &#39;gzip, deflate, br&#39;]
+ **content_type** | **str**|  | [optional] [default to application/json]
+
+### Return type
+
+[**List[File]**](File.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json, text/html;charset=UTF-8
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Файлы успешно добавлены. Результат — массив всех Файлов Розничной продажи. |  -  |
+**0** | Ошибка запроса (тело — объект с полем errors) |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **create_retail_demand**
 > RetailDemand create_retail_demand(retail_demand, expand=expand, accept=accept, accept_encoding=accept_encoding, content_type=content_type)
@@ -856,6 +1054,95 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **delete_retail_demand_file**
+> delete_retail_demand_file(id, file_id, accept=accept, accept_encoding=accept_encoding)
+
+Удалить файл Розничной продажи
+
+Удаление Файла Розничной продажи.
+
+### Example
+
+* Basic Authentication (basicAuth):
+* Bearer Authentication (bearerAuth):
+
+```python
+import moysklad_remap_12_sdk
+from moysklad_remap_12_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.moysklad.ru/api/remap/1.2
+# See configuration.py for a list of all supported configuration parameters.
+configuration = moysklad_remap_12_sdk.Configuration(
+    host = "https://api.moysklad.ru/api/remap/1.2"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure HTTP basic authorization: basicAuth
+configuration = moysklad_remap_12_sdk.Configuration(
+    username = os.environ["USERNAME"],
+    password = os.environ["PASSWORD"]
+)
+
+# Configure Bearer authorization: bearerAuth
+configuration = moysklad_remap_12_sdk.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with moysklad_remap_12_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = moysklad_remap_12_sdk.RetailDemandsApi(api_client)
+    id = 'id_example' # str | ID сущности
+    file_id = 'file_id_example' # str | ID файла
+    accept = application/json;charset=utf-8 # str |  (optional) (default to application/json;charset=utf-8)
+    accept_encoding = 'gzip, deflate, br' # str |  (optional) (default to 'gzip, deflate, br')
+
+    try:
+        # Удалить файл Розничной продажи
+        api_instance.delete_retail_demand_file(id, file_id, accept=accept, accept_encoding=accept_encoding)
+    except Exception as e:
+        print("Exception when calling RetailDemandsApi->delete_retail_demand_file: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **str**| ID сущности | 
+ **file_id** | **str**| ID файла | 
+ **accept** | **str**|  | [optional] [default to application/json;charset&#x3D;utf-8]
+ **accept_encoding** | **str**|  | [optional] [default to &#39;gzip, deflate, br&#39;]
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json, text/html;charset=UTF-8
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Файл успешно удалён |  -  |
+**0** | Ошибка запроса (тело — объект с полем errors) |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **delete_retail_demand_metadata_attribute_by_id**
 > delete_retail_demand_metadata_attribute_by_id(id, accept=accept, accept_encoding=accept_encoding, content_type=content_type)
 
@@ -1288,6 +1575,100 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**RetailDemand**](RetailDemand.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json, text/html;charset=UTF-8
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Успешный запрос |  -  |
+**0** | Ошибка запроса (тело — объект с полем errors) |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **get_retail_demand_files**
+> GetTaskFiles200Response get_retail_demand_files(id, limit=limit, offset=offset, accept=accept, accept_encoding=accept_encoding)
+
+Получить файлы Розничной продажи
+
+Запрос на получение списка всех Файлов Розничной продажи.
+
+### Example
+
+* Basic Authentication (basicAuth):
+* Bearer Authentication (bearerAuth):
+
+```python
+import moysklad_remap_12_sdk
+from moysklad_remap_12_sdk.models.get_task_files200_response import GetTaskFiles200Response
+from moysklad_remap_12_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.moysklad.ru/api/remap/1.2
+# See configuration.py for a list of all supported configuration parameters.
+configuration = moysklad_remap_12_sdk.Configuration(
+    host = "https://api.moysklad.ru/api/remap/1.2"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure HTTP basic authorization: basicAuth
+configuration = moysklad_remap_12_sdk.Configuration(
+    username = os.environ["USERNAME"],
+    password = os.environ["PASSWORD"]
+)
+
+# Configure Bearer authorization: bearerAuth
+configuration = moysklad_remap_12_sdk.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with moysklad_remap_12_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = moysklad_remap_12_sdk.RetailDemandsApi(api_client)
+    id = 'id_example' # str | ID сущности
+    limit = 1000 # int | Максимальное количество элементов в выданном списке (максимум 1000) (optional) (default to 1000)
+    offset = 0 # int | Отступ в выданном списке (optional) (default to 0)
+    accept = application/json;charset=utf-8 # str |  (optional) (default to application/json;charset=utf-8)
+    accept_encoding = 'gzip, deflate, br' # str |  (optional) (default to 'gzip, deflate, br')
+
+    try:
+        # Получить файлы Розничной продажи
+        api_response = api_instance.get_retail_demand_files(id, limit=limit, offset=offset, accept=accept, accept_encoding=accept_encoding)
+        print("The response of RetailDemandsApi->get_retail_demand_files:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling RetailDemandsApi->get_retail_demand_files: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **str**| ID сущности | 
+ **limit** | **int**| Максимальное количество элементов в выданном списке (максимум 1000) | [optional] [default to 1000]
+ **offset** | **int**| Отступ в выданном списке | [optional] [default to 0]
+ **accept** | **str**|  | [optional] [default to application/json;charset&#x3D;utf-8]
+ **accept_encoding** | **str**|  | [optional] [default to &#39;gzip, deflate, br&#39;]
+
+### Return type
+
+[**GetTaskFiles200Response**](GetTaskFiles200Response.md)
 
 ### Authorization
 

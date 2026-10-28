@@ -17,6 +17,7 @@ Name | Type | Description | Notes
 **deleted** | **str** | Момент последнего удаления Расходного ордера | [optional] [readonly] 
 **updated** | **str** | Момент последнего обновления Расходного ордера | [optional] [readonly] 
 **moment** | **str** | Дата документа | [optional] 
+**accrual_date** | **str** | Дата начисления | [optional] 
 **owner** | [**Employee**](Employee.md) | Владелец (Сотрудник) | [optional] 
 **group** | [**Group**](Group.md) |  | [optional] 
 **applicable** | **bool** | Отметка о проведении | [optional] 

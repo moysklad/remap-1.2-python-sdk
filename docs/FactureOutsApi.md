@@ -4,16 +4,20 @@ All URIs are relative to *https://api.moysklad.ru/api/remap/1.2*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**add_facture_out_file**](FactureOutsApi.md#add_facture_out_file) | **POST** /entity/factureout/{id}/files | Добавить файл к Счету-фактуре выданному
+[**add_facture_out_files**](FactureOutsApi.md#add_facture_out_files) | **POST** /entity/factureout/{id}/files/batch | Добавить файлы к Счету-фактуре выданному
 [**create_facture_out**](FactureOutsApi.md#create_facture_out) | **POST** /entity/factureout | Создать Счет-фактуру выданный
 [**create_facture_out_metadata_attribute**](FactureOutsApi.md#create_facture_out_metadata_attribute) | **POST** /entity/factureout/metadata/attributes | Создать доп. поле Счета-фактуры выданного
 [**create_facture_out_metadata_state**](FactureOutsApi.md#create_facture_out_metadata_state) | **POST** /entity/factureout/metadata/states | Создать статус Счета-фактуры выданного
 [**create_facture_out_metadata_states_batch**](FactureOutsApi.md#create_facture_out_metadata_states_batch) | **POST** /entity/factureout/metadata/states/batch | Массовое создание и обновление статусов Счета-фактуры выданного
 [**create_facture_outs_batch**](FactureOutsApi.md#create_facture_outs_batch) | **POST** /entity/factureout/batch | Массовое создание и обновление Счетов-фактур выданных
 [**delete_facture_out**](FactureOutsApi.md#delete_facture_out) | **DELETE** /entity/factureout/{id} | Удалить Счет-фактуру выданный
+[**delete_facture_out_file**](FactureOutsApi.md#delete_facture_out_file) | **DELETE** /entity/factureout/{id}/files/{fileId} | Удалить файл Счета-фактуры выданного
 [**delete_facture_out_metadata_attribute_by_id**](FactureOutsApi.md#delete_facture_out_metadata_attribute_by_id) | **DELETE** /entity/factureout/metadata/attributes/{id} | Удалить отдельное доп. поле Счета-фактуры выданного
 [**delete_facture_out_metadata_state_by_id**](FactureOutsApi.md#delete_facture_out_metadata_state_by_id) | **DELETE** /entity/factureout/metadata/states/{id} | Удалить отдельный статус Счета-фактуры выданного
 [**delete_facture_outs_batch**](FactureOutsApi.md#delete_facture_outs_batch) | **POST** /entity/factureout/delete | Массовое удаление Счетов-фактур выданных
 [**get_facture_out_by_id**](FactureOutsApi.md#get_facture_out_by_id) | **GET** /entity/factureout/{id} | Получить Счет-фактуру выданный
+[**get_facture_out_files**](FactureOutsApi.md#get_facture_out_files) | **GET** /entity/factureout/{id}/files | Получить файлы Счета-фактуры выданного
 [**get_facture_out_metadata**](FactureOutsApi.md#get_facture_out_metadata) | **GET** /entity/factureout/metadata | Метаданные Счетов-фактур выданных
 [**get_facture_out_metadata_attribute_by_id**](FactureOutsApi.md#get_facture_out_metadata_attribute_by_id) | **GET** /entity/factureout/metadata/attributes/{id} | Отдельное доп. поле Счета-фактуры выданного
 [**get_facture_out_metadata_attributes**](FactureOutsApi.md#get_facture_out_metadata_attributes) | **GET** /entity/factureout/metadata/attributes | Доп. поля Счетов-фактур выданных
@@ -25,6 +29,200 @@ Method | HTTP request | Description
 [**update_facture_out_metadata_attribute_by_id**](FactureOutsApi.md#update_facture_out_metadata_attribute_by_id) | **PUT** /entity/factureout/metadata/attributes/{id} | Обновить отдельное доп. поле Счета-фактуры выданного
 [**update_facture_out_metadata_state_by_id**](FactureOutsApi.md#update_facture_out_metadata_state_by_id) | **PUT** /entity/factureout/metadata/states/{id} | Обновить отдельный статус Счета-фактуры выданного
 
+
+# **add_facture_out_file**
+> List[File] add_facture_out_file(id, file_upload, accept=accept, accept_encoding=accept_encoding, content_type=content_type)
+
+Добавить файл к Счету-фактуре выданному
+
+Добавить новый Файл к Счету-фактуре выданному.
+В поле `content` нужно указать файл, закодированный в Base64, в поле `filename` — имя файла с расширением.
+
+
+### Example
+
+* Basic Authentication (basicAuth):
+* Bearer Authentication (bearerAuth):
+
+```python
+import moysklad_remap_12_sdk
+from moysklad_remap_12_sdk.models.file import File
+from moysklad_remap_12_sdk.models.file_upload import FileUpload
+from moysklad_remap_12_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.moysklad.ru/api/remap/1.2
+# See configuration.py for a list of all supported configuration parameters.
+configuration = moysklad_remap_12_sdk.Configuration(
+    host = "https://api.moysklad.ru/api/remap/1.2"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure HTTP basic authorization: basicAuth
+configuration = moysklad_remap_12_sdk.Configuration(
+    username = os.environ["USERNAME"],
+    password = os.environ["PASSWORD"]
+)
+
+# Configure Bearer authorization: bearerAuth
+configuration = moysklad_remap_12_sdk.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with moysklad_remap_12_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = moysklad_remap_12_sdk.FactureOutsApi(api_client)
+    id = 'id_example' # str | ID сущности
+    file_upload = moysklad_remap_12_sdk.FileUpload() # FileUpload | 
+    accept = application/json;charset=utf-8 # str |  (optional) (default to application/json;charset=utf-8)
+    accept_encoding = 'gzip, deflate, br' # str |  (optional) (default to 'gzip, deflate, br')
+    content_type = application/json # str |  (optional) (default to application/json)
+
+    try:
+        # Добавить файл к Счету-фактуре выданному
+        api_response = api_instance.add_facture_out_file(id, file_upload, accept=accept, accept_encoding=accept_encoding, content_type=content_type)
+        print("The response of FactureOutsApi->add_facture_out_file:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling FactureOutsApi->add_facture_out_file: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **str**| ID сущности | 
+ **file_upload** | [**FileUpload**](FileUpload.md)|  | 
+ **accept** | **str**|  | [optional] [default to application/json;charset&#x3D;utf-8]
+ **accept_encoding** | **str**|  | [optional] [default to &#39;gzip, deflate, br&#39;]
+ **content_type** | **str**|  | [optional] [default to application/json]
+
+### Return type
+
+[**List[File]**](File.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json, text/html;charset=UTF-8
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Файл успешно добавлен. Результат — массив всех Файлов Счета-фактуры выданного. |  -  |
+**0** | Ошибка запроса (тело — объект с полем errors) |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **add_facture_out_files**
+> List[File] add_facture_out_files(id, file_upload, accept=accept, accept_encoding=accept_encoding, content_type=content_type)
+
+Добавить файлы к Счету-фактуре выданному
+
+Добавить новые Файлы к Счету-фактуре выданному. В одном запросе можно добавить максимум 10 Файлов.
+В поле `content` нужно указать файл, закодированный в Base64, в поле `filename` — имя файла с расширением.
+
+
+### Example
+
+* Basic Authentication (basicAuth):
+* Bearer Authentication (bearerAuth):
+
+```python
+import moysklad_remap_12_sdk
+from moysklad_remap_12_sdk.models.file import File
+from moysklad_remap_12_sdk.models.file_upload import FileUpload
+from moysklad_remap_12_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.moysklad.ru/api/remap/1.2
+# See configuration.py for a list of all supported configuration parameters.
+configuration = moysklad_remap_12_sdk.Configuration(
+    host = "https://api.moysklad.ru/api/remap/1.2"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure HTTP basic authorization: basicAuth
+configuration = moysklad_remap_12_sdk.Configuration(
+    username = os.environ["USERNAME"],
+    password = os.environ["PASSWORD"]
+)
+
+# Configure Bearer authorization: bearerAuth
+configuration = moysklad_remap_12_sdk.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with moysklad_remap_12_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = moysklad_remap_12_sdk.FactureOutsApi(api_client)
+    id = 'id_example' # str | ID сущности
+    file_upload = [moysklad_remap_12_sdk.FileUpload()] # List[FileUpload] | 
+    accept = application/json;charset=utf-8 # str |  (optional) (default to application/json;charset=utf-8)
+    accept_encoding = 'gzip, deflate, br' # str |  (optional) (default to 'gzip, deflate, br')
+    content_type = application/json # str |  (optional) (default to application/json)
+
+    try:
+        # Добавить файлы к Счету-фактуре выданному
+        api_response = api_instance.add_facture_out_files(id, file_upload, accept=accept, accept_encoding=accept_encoding, content_type=content_type)
+        print("The response of FactureOutsApi->add_facture_out_files:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling FactureOutsApi->add_facture_out_files: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **str**| ID сущности | 
+ **file_upload** | [**List[FileUpload]**](FileUpload.md)|  | 
+ **accept** | **str**|  | [optional] [default to application/json;charset&#x3D;utf-8]
+ **accept_encoding** | **str**|  | [optional] [default to &#39;gzip, deflate, br&#39;]
+ **content_type** | **str**|  | [optional] [default to application/json]
+
+### Return type
+
+[**List[File]**](File.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json, text/html;charset=UTF-8
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Файлы успешно добавлены. Результат — массив всех Файлов Счета-фактуры выданного. |  -  |
+**0** | Ошибка запроса (тело — объект с полем errors) |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **create_facture_out**
 > FactureOut create_facture_out(facture_out, expand=expand, accept=accept, accept_encoding=accept_encoding, content_type=content_type)
@@ -571,6 +769,95 @@ void (empty response body)
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **delete_facture_out_file**
+> delete_facture_out_file(id, file_id, accept=accept, accept_encoding=accept_encoding)
+
+Удалить файл Счета-фактуры выданного
+
+Удаление Файла Счета-фактуры выданного.
+
+### Example
+
+* Basic Authentication (basicAuth):
+* Bearer Authentication (bearerAuth):
+
+```python
+import moysklad_remap_12_sdk
+from moysklad_remap_12_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.moysklad.ru/api/remap/1.2
+# See configuration.py for a list of all supported configuration parameters.
+configuration = moysklad_remap_12_sdk.Configuration(
+    host = "https://api.moysklad.ru/api/remap/1.2"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure HTTP basic authorization: basicAuth
+configuration = moysklad_remap_12_sdk.Configuration(
+    username = os.environ["USERNAME"],
+    password = os.environ["PASSWORD"]
+)
+
+# Configure Bearer authorization: bearerAuth
+configuration = moysklad_remap_12_sdk.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with moysklad_remap_12_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = moysklad_remap_12_sdk.FactureOutsApi(api_client)
+    id = 'id_example' # str | ID сущности
+    file_id = 'file_id_example' # str | ID файла
+    accept = application/json;charset=utf-8 # str |  (optional) (default to application/json;charset=utf-8)
+    accept_encoding = 'gzip, deflate, br' # str |  (optional) (default to 'gzip, deflate, br')
+
+    try:
+        # Удалить файл Счета-фактуры выданного
+        api_instance.delete_facture_out_file(id, file_id, accept=accept, accept_encoding=accept_encoding)
+    except Exception as e:
+        print("Exception when calling FactureOutsApi->delete_facture_out_file: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **str**| ID сущности | 
+ **file_id** | **str**| ID файла | 
+ **accept** | **str**|  | [optional] [default to application/json;charset&#x3D;utf-8]
+ **accept_encoding** | **str**|  | [optional] [default to &#39;gzip, deflate, br&#39;]
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json, text/html;charset=UTF-8
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Файл успешно удалён |  -  |
+**0** | Ошибка запроса (тело — объект с полем errors) |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **delete_facture_out_metadata_attribute_by_id**
 > delete_facture_out_metadata_attribute_by_id(id, accept=accept, accept_encoding=accept_encoding)
 
@@ -906,6 +1193,100 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**FactureOut**](FactureOut.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json, text/html;charset=UTF-8
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Успешный запрос |  -  |
+**0** | Ошибка запроса (тело — объект с полем errors) |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **get_facture_out_files**
+> GetTaskFiles200Response get_facture_out_files(id, limit=limit, offset=offset, accept=accept, accept_encoding=accept_encoding)
+
+Получить файлы Счета-фактуры выданного
+
+Запрос на получение списка всех Файлов Счета-фактуры выданного.
+
+### Example
+
+* Basic Authentication (basicAuth):
+* Bearer Authentication (bearerAuth):
+
+```python
+import moysklad_remap_12_sdk
+from moysklad_remap_12_sdk.models.get_task_files200_response import GetTaskFiles200Response
+from moysklad_remap_12_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.moysklad.ru/api/remap/1.2
+# See configuration.py for a list of all supported configuration parameters.
+configuration = moysklad_remap_12_sdk.Configuration(
+    host = "https://api.moysklad.ru/api/remap/1.2"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure HTTP basic authorization: basicAuth
+configuration = moysklad_remap_12_sdk.Configuration(
+    username = os.environ["USERNAME"],
+    password = os.environ["PASSWORD"]
+)
+
+# Configure Bearer authorization: bearerAuth
+configuration = moysklad_remap_12_sdk.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with moysklad_remap_12_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = moysklad_remap_12_sdk.FactureOutsApi(api_client)
+    id = 'id_example' # str | ID сущности
+    limit = 1000 # int | Максимальное количество элементов в выданном списке (максимум 1000) (optional) (default to 1000)
+    offset = 0 # int | Отступ в выданном списке (optional) (default to 0)
+    accept = application/json;charset=utf-8 # str |  (optional) (default to application/json;charset=utf-8)
+    accept_encoding = 'gzip, deflate, br' # str |  (optional) (default to 'gzip, deflate, br')
+
+    try:
+        # Получить файлы Счета-фактуры выданного
+        api_response = api_instance.get_facture_out_files(id, limit=limit, offset=offset, accept=accept, accept_encoding=accept_encoding)
+        print("The response of FactureOutsApi->get_facture_out_files:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling FactureOutsApi->get_facture_out_files: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **str**| ID сущности | 
+ **limit** | **int**| Максимальное количество элементов в выданном списке (максимум 1000) | [optional] [default to 1000]
+ **offset** | **int**| Отступ в выданном списке | [optional] [default to 0]
+ **accept** | **str**|  | [optional] [default to application/json;charset&#x3D;utf-8]
+ **accept_encoding** | **str**|  | [optional] [default to &#39;gzip, deflate, br&#39;]
+
+### Return type
+
+[**GetTaskFiles200Response**](GetTaskFiles200Response.md)
 
 ### Authorization
 

@@ -4,6 +4,8 @@ All URIs are relative to *https://api.moysklad.ru/api/remap/1.2*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**add_commission_report_in_file**](CommissionReportInsApi.md#add_commission_report_in_file) | **POST** /entity/commissionreportin/{id}/files | Добавить файл к Полученному отчету комиссионера
+[**add_commission_report_in_files**](CommissionReportInsApi.md#add_commission_report_in_files) | **POST** /entity/commissionreportin/{id}/files/batch | Добавить файлы к Полученному отчету комиссионера
 [**create_commission_report_in**](CommissionReportInsApi.md#create_commission_report_in) | **POST** /entity/commissionreportin | Создать CommissionReportIn
 [**create_commission_report_in_batch**](CommissionReportInsApi.md#create_commission_report_in_batch) | **POST** /entity/commissionreportin/batch | Массовое создание и обновление CommissionReportIn
 [**create_commission_report_in_metadata_attribute**](CommissionReportInsApi.md#create_commission_report_in_metadata_attribute) | **POST** /entity/commissionreportin/metadata/attributes | Создать доп. поле CommissionReportIn
@@ -15,6 +17,7 @@ Method | HTTP request | Description
 [**create_commission_report_in_returned_positions**](CommissionReportInsApi.md#create_commission_report_in_returned_positions) | **POST** /entity/commissionreportin/{id}/returntocommissionerpositions/batch | Массовое создание и обновление позиций возврата на склад комиссионера
 [**delete_commission_report_in**](CommissionReportInsApi.md#delete_commission_report_in) | **DELETE** /entity/commissionreportin/{id} | Удалить CommissionReportIn
 [**delete_commission_report_in_batch**](CommissionReportInsApi.md#delete_commission_report_in_batch) | **POST** /entity/commissionreportin/delete | Массовое удаление CommissionReportIn
+[**delete_commission_report_in_file**](CommissionReportInsApi.md#delete_commission_report_in_file) | **DELETE** /entity/commissionreportin/{id}/files/{fileId} | Удалить файл Полученного отчета комиссионера
 [**delete_commission_report_in_metadata_attribute_by_id**](CommissionReportInsApi.md#delete_commission_report_in_metadata_attribute_by_id) | **DELETE** /entity/commissionreportin/metadata/attributes/{id} | Удалить отдельное доп. поле CommissionReportIn
 [**delete_commission_report_in_metadata_state_by_id**](CommissionReportInsApi.md#delete_commission_report_in_metadata_state_by_id) | **DELETE** /entity/commissionreportin/metadata/states/{id} | Удалить отдельный статус CommissionReportIn
 [**delete_commission_report_in_position**](CommissionReportInsApi.md#delete_commission_report_in_position) | **DELETE** /entity/commissionreportin/{id}/positions/{positionId} | Удалить позицию CommissionReportIn
@@ -22,6 +25,7 @@ Method | HTTP request | Description
 [**delete_commission_report_in_returned_position**](CommissionReportInsApi.md#delete_commission_report_in_returned_position) | **DELETE** /entity/commissionreportin/{id}/returntocommissionerpositions/{positionId} | Удалить позицию возврата на склад комиссионера
 [**delete_commission_report_in_returned_positions_batch**](CommissionReportInsApi.md#delete_commission_report_in_returned_positions_batch) | **POST** /entity/commissionreportin/{id}/returntocommissionerpositions/delete | Массовое удаление позиций возврата на склад комиссионера
 [**get_commission_report_in_by_id**](CommissionReportInsApi.md#get_commission_report_in_by_id) | **GET** /entity/commissionreportin/{id} | Получить CommissionReportIn по ID
+[**get_commission_report_in_files**](CommissionReportInsApi.md#get_commission_report_in_files) | **GET** /entity/commissionreportin/{id}/files | Получить файлы Полученного отчета комиссионера
 [**get_commission_report_in_list**](CommissionReportInsApi.md#get_commission_report_in_list) | **GET** /entity/commissionreportin | Получить список CommissionReportIn
 [**get_commission_report_in_metadata**](CommissionReportInsApi.md#get_commission_report_in_metadata) | **GET** /entity/commissionreportin/metadata | Метаданные CommissionReportIn
 [**get_commission_report_in_metadata_attribute**](CommissionReportInsApi.md#get_commission_report_in_metadata_attribute) | **GET** /entity/commissionreportin/metadata/attributes | Доп. поля CommissionReportIn
@@ -38,6 +42,200 @@ Method | HTTP request | Description
 [**update_commission_report_in_position**](CommissionReportInsApi.md#update_commission_report_in_position) | **PUT** /entity/commissionreportin/{id}/positions/{positionId} | Изменить позицию CommissionReportIn
 [**update_commission_report_in_returned_position**](CommissionReportInsApi.md#update_commission_report_in_returned_position) | **PUT** /entity/commissionreportin/{id}/returntocommissionerpositions/{positionId} | Изменить позицию возврата на склад комиссионера
 
+
+# **add_commission_report_in_file**
+> List[File] add_commission_report_in_file(id, file_upload, accept=accept, accept_encoding=accept_encoding, content_type=content_type)
+
+Добавить файл к Полученному отчету комиссионера
+
+Добавить новый Файл к Полученному отчету комиссионера.
+В поле `content` нужно указать файл, закодированный в Base64, в поле `filename` — имя файла с расширением.
+
+
+### Example
+
+* Basic Authentication (basicAuth):
+* Bearer Authentication (bearerAuth):
+
+```python
+import moysklad_remap_12_sdk
+from moysklad_remap_12_sdk.models.file import File
+from moysklad_remap_12_sdk.models.file_upload import FileUpload
+from moysklad_remap_12_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.moysklad.ru/api/remap/1.2
+# See configuration.py for a list of all supported configuration parameters.
+configuration = moysklad_remap_12_sdk.Configuration(
+    host = "https://api.moysklad.ru/api/remap/1.2"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure HTTP basic authorization: basicAuth
+configuration = moysklad_remap_12_sdk.Configuration(
+    username = os.environ["USERNAME"],
+    password = os.environ["PASSWORD"]
+)
+
+# Configure Bearer authorization: bearerAuth
+configuration = moysklad_remap_12_sdk.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with moysklad_remap_12_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = moysklad_remap_12_sdk.CommissionReportInsApi(api_client)
+    id = 'id_example' # str | ID сущности
+    file_upload = moysklad_remap_12_sdk.FileUpload() # FileUpload | 
+    accept = application/json;charset=utf-8 # str |  (optional) (default to application/json;charset=utf-8)
+    accept_encoding = 'gzip, deflate, br' # str |  (optional) (default to 'gzip, deflate, br')
+    content_type = application/json # str |  (optional) (default to application/json)
+
+    try:
+        # Добавить файл к Полученному отчету комиссионера
+        api_response = api_instance.add_commission_report_in_file(id, file_upload, accept=accept, accept_encoding=accept_encoding, content_type=content_type)
+        print("The response of CommissionReportInsApi->add_commission_report_in_file:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling CommissionReportInsApi->add_commission_report_in_file: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **str**| ID сущности | 
+ **file_upload** | [**FileUpload**](FileUpload.md)|  | 
+ **accept** | **str**|  | [optional] [default to application/json;charset&#x3D;utf-8]
+ **accept_encoding** | **str**|  | [optional] [default to &#39;gzip, deflate, br&#39;]
+ **content_type** | **str**|  | [optional] [default to application/json]
+
+### Return type
+
+[**List[File]**](File.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json, text/html;charset=UTF-8
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Файл успешно добавлен. Результат — массив всех Файлов Полученного отчета комиссионера. |  -  |
+**0** | Ошибка запроса (тело — объект с полем errors) |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **add_commission_report_in_files**
+> List[File] add_commission_report_in_files(id, file_upload, accept=accept, accept_encoding=accept_encoding, content_type=content_type)
+
+Добавить файлы к Полученному отчету комиссионера
+
+Добавить новые Файлы к Полученному отчету комиссионера. В одном запросе можно добавить максимум 10 Файлов.
+В поле `content` нужно указать файл, закодированный в Base64, в поле `filename` — имя файла с расширением.
+
+
+### Example
+
+* Basic Authentication (basicAuth):
+* Bearer Authentication (bearerAuth):
+
+```python
+import moysklad_remap_12_sdk
+from moysklad_remap_12_sdk.models.file import File
+from moysklad_remap_12_sdk.models.file_upload import FileUpload
+from moysklad_remap_12_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.moysklad.ru/api/remap/1.2
+# See configuration.py for a list of all supported configuration parameters.
+configuration = moysklad_remap_12_sdk.Configuration(
+    host = "https://api.moysklad.ru/api/remap/1.2"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure HTTP basic authorization: basicAuth
+configuration = moysklad_remap_12_sdk.Configuration(
+    username = os.environ["USERNAME"],
+    password = os.environ["PASSWORD"]
+)
+
+# Configure Bearer authorization: bearerAuth
+configuration = moysklad_remap_12_sdk.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with moysklad_remap_12_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = moysklad_remap_12_sdk.CommissionReportInsApi(api_client)
+    id = 'id_example' # str | ID сущности
+    file_upload = [moysklad_remap_12_sdk.FileUpload()] # List[FileUpload] | 
+    accept = application/json;charset=utf-8 # str |  (optional) (default to application/json;charset=utf-8)
+    accept_encoding = 'gzip, deflate, br' # str |  (optional) (default to 'gzip, deflate, br')
+    content_type = application/json # str |  (optional) (default to application/json)
+
+    try:
+        # Добавить файлы к Полученному отчету комиссионера
+        api_response = api_instance.add_commission_report_in_files(id, file_upload, accept=accept, accept_encoding=accept_encoding, content_type=content_type)
+        print("The response of CommissionReportInsApi->add_commission_report_in_files:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling CommissionReportInsApi->add_commission_report_in_files: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **str**| ID сущности | 
+ **file_upload** | [**List[FileUpload]**](FileUpload.md)|  | 
+ **accept** | **str**|  | [optional] [default to application/json;charset&#x3D;utf-8]
+ **accept_encoding** | **str**|  | [optional] [default to &#39;gzip, deflate, br&#39;]
+ **content_type** | **str**|  | [optional] [default to application/json]
+
+### Return type
+
+[**List[File]**](File.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json, text/html;charset=UTF-8
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Файлы успешно добавлены. Результат — массив всех Файлов Полученного отчета комиссионера. |  -  |
+**0** | Ошибка запроса (тело — объект с полем errors) |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **create_commission_report_in**
 > CommissionReportIn create_commission_report_in(commission_report_in, expand=expand, accept=accept, accept_encoding=accept_encoding, content_type=content_type)
@@ -1051,6 +1249,95 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **delete_commission_report_in_file**
+> delete_commission_report_in_file(id, file_id, accept=accept, accept_encoding=accept_encoding)
+
+Удалить файл Полученного отчета комиссионера
+
+Удаление Файла Полученного отчета комиссионера.
+
+### Example
+
+* Basic Authentication (basicAuth):
+* Bearer Authentication (bearerAuth):
+
+```python
+import moysklad_remap_12_sdk
+from moysklad_remap_12_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.moysklad.ru/api/remap/1.2
+# See configuration.py for a list of all supported configuration parameters.
+configuration = moysklad_remap_12_sdk.Configuration(
+    host = "https://api.moysklad.ru/api/remap/1.2"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure HTTP basic authorization: basicAuth
+configuration = moysklad_remap_12_sdk.Configuration(
+    username = os.environ["USERNAME"],
+    password = os.environ["PASSWORD"]
+)
+
+# Configure Bearer authorization: bearerAuth
+configuration = moysklad_remap_12_sdk.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with moysklad_remap_12_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = moysklad_remap_12_sdk.CommissionReportInsApi(api_client)
+    id = 'id_example' # str | ID сущности
+    file_id = 'file_id_example' # str | ID файла
+    accept = application/json;charset=utf-8 # str |  (optional) (default to application/json;charset=utf-8)
+    accept_encoding = 'gzip, deflate, br' # str |  (optional) (default to 'gzip, deflate, br')
+
+    try:
+        # Удалить файл Полученного отчета комиссионера
+        api_instance.delete_commission_report_in_file(id, file_id, accept=accept, accept_encoding=accept_encoding)
+    except Exception as e:
+        print("Exception when calling CommissionReportInsApi->delete_commission_report_in_file: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **str**| ID сущности | 
+ **file_id** | **str**| ID файла | 
+ **accept** | **str**|  | [optional] [default to application/json;charset&#x3D;utf-8]
+ **accept_encoding** | **str**|  | [optional] [default to &#39;gzip, deflate, br&#39;]
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json, text/html;charset=UTF-8
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Файл успешно удалён |  -  |
+**0** | Ошибка запроса (тело — объект с полем errors) |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **delete_commission_report_in_metadata_attribute_by_id**
 > delete_commission_report_in_metadata_attribute_by_id(id, accept=accept, accept_encoding=accept_encoding, content_type=content_type)
 
@@ -1667,6 +1954,100 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**CommissionReportIn**](CommissionReportIn.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json, text/html;charset=UTF-8
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Успешный запрос |  -  |
+**0** | Ошибка запроса (тело — объект с полем errors) |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **get_commission_report_in_files**
+> GetTaskFiles200Response get_commission_report_in_files(id, limit=limit, offset=offset, accept=accept, accept_encoding=accept_encoding)
+
+Получить файлы Полученного отчета комиссионера
+
+Запрос на получение списка всех Файлов Полученного отчета комиссионера.
+
+### Example
+
+* Basic Authentication (basicAuth):
+* Bearer Authentication (bearerAuth):
+
+```python
+import moysklad_remap_12_sdk
+from moysklad_remap_12_sdk.models.get_task_files200_response import GetTaskFiles200Response
+from moysklad_remap_12_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.moysklad.ru/api/remap/1.2
+# See configuration.py for a list of all supported configuration parameters.
+configuration = moysklad_remap_12_sdk.Configuration(
+    host = "https://api.moysklad.ru/api/remap/1.2"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure HTTP basic authorization: basicAuth
+configuration = moysklad_remap_12_sdk.Configuration(
+    username = os.environ["USERNAME"],
+    password = os.environ["PASSWORD"]
+)
+
+# Configure Bearer authorization: bearerAuth
+configuration = moysklad_remap_12_sdk.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with moysklad_remap_12_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = moysklad_remap_12_sdk.CommissionReportInsApi(api_client)
+    id = 'id_example' # str | ID сущности
+    limit = 1000 # int | Максимальное количество элементов в выданном списке (максимум 1000) (optional) (default to 1000)
+    offset = 0 # int | Отступ в выданном списке (optional) (default to 0)
+    accept = application/json;charset=utf-8 # str |  (optional) (default to application/json;charset=utf-8)
+    accept_encoding = 'gzip, deflate, br' # str |  (optional) (default to 'gzip, deflate, br')
+
+    try:
+        # Получить файлы Полученного отчета комиссионера
+        api_response = api_instance.get_commission_report_in_files(id, limit=limit, offset=offset, accept=accept, accept_encoding=accept_encoding)
+        print("The response of CommissionReportInsApi->get_commission_report_in_files:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling CommissionReportInsApi->get_commission_report_in_files: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **str**| ID сущности | 
+ **limit** | **int**| Максимальное количество элементов в выданном списке (максимум 1000) | [optional] [default to 1000]
+ **offset** | **int**| Отступ в выданном списке | [optional] [default to 0]
+ **accept** | **str**|  | [optional] [default to application/json;charset&#x3D;utf-8]
+ **accept_encoding** | **str**|  | [optional] [default to &#39;gzip, deflate, br&#39;]
+
+### Return type
+
+[**GetTaskFiles200Response**](GetTaskFiles200Response.md)
 
 ### Authorization
 

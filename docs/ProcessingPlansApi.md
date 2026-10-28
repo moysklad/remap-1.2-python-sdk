@@ -7,8 +7,10 @@ Method | HTTP request | Description
 [**create_processing_plan**](ProcessingPlansApi.md#create_processing_plan) | **POST** /entity/processingplan | Создать Техкарту
 [**create_processing_plan_batch**](ProcessingPlansApi.md#create_processing_plan_batch) | **POST** /entity/processingplan/batch | Создать или изменить Техкарты
 [**create_processing_plan_materials**](ProcessingPlansApi.md#create_processing_plan_materials) | **POST** /entity/processingplan/{id}/materials | Создать материал Техкарты
+[**create_processing_plan_materials_batch**](ProcessingPlansApi.md#create_processing_plan_materials_batch) | **POST** /entity/processingplan/{id}/materials/batch | Массовое создание и обновление материалов техкарты
 [**create_processing_plan_metadata_attribute**](ProcessingPlansApi.md#create_processing_plan_metadata_attribute) | **POST** /entity/processingplan/metadata/attributes | Создать Доп. поле ProcessingPlan
 [**create_processing_plan_products**](ProcessingPlansApi.md#create_processing_plan_products) | **POST** /entity/processingplan/{id}/products | Создать продукт Техкарты
+[**create_processing_plan_products_batch**](ProcessingPlansApi.md#create_processing_plan_products_batch) | **POST** /entity/processingplan/{id}/products/batch | Массовое создание и обновление продуктов техкарты
 [**delete_processing_plan**](ProcessingPlansApi.md#delete_processing_plan) | **DELETE** /entity/processingplan/{id} | Удалить Техкарту
 [**delete_processing_plan_material**](ProcessingPlansApi.md#delete_processing_plan_material) | **DELETE** /entity/processingplan/{id}/materials/{positionId} | Удалить материал Техкарты
 [**delete_processing_plan_materials_batch**](ProcessingPlansApi.md#delete_processing_plan_materials_batch) | **POST** /entity/processingplan/{id}/materials/delete | Массовое удаление материалов Техкарты
@@ -32,6 +34,7 @@ Method | HTTP request | Description
 [**update_processing_plan_metadata_attribute_by_id**](ProcessingPlansApi.md#update_processing_plan_metadata_attribute_by_id) | **PUT** /entity/processingplan/metadata/attributes/{id} | Обновить отдельное доп. поле ProcessingPlan
 [**update_processing_plan_product**](ProcessingPlansApi.md#update_processing_plan_product) | **PUT** /entity/processingplan/{id}/products/{positionId} | Изменить продукт Техкарты
 [**update_processing_plan_stage**](ProcessingPlansApi.md#update_processing_plan_stage) | **PUT** /entity/processingplan/{id}/stages/{positionId} | Изменить отдельный этап Техкарты
+[**update_processing_plan_stages**](ProcessingPlansApi.md#update_processing_plan_stages) | **POST** /entity/processingplan/{id}/stages/batch | Массовое изменение этапов Техкарты
 
 
 # **create_processing_plan**
@@ -319,6 +322,103 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **create_processing_plan_materials_batch**
+> List[BatchResponseEntity] create_processing_plan_materials_batch(id, processing_plan_material, expand=expand, accept=accept, accept_encoding=accept_encoding, content_type=content_type)
+
+Массовое создание и обновление материалов техкарты
+
+В теле запроса передается массив материалов. Для создания требуются assortment и quantity, для обновления — метаданные (meta).
+
+### Example
+
+* Basic Authentication (basicAuth):
+* Bearer Authentication (bearerAuth):
+
+```python
+import moysklad_remap_12_sdk
+from moysklad_remap_12_sdk.models.batch_response_entity import BatchResponseEntity
+from moysklad_remap_12_sdk.models.processing_plan_material import ProcessingPlanMaterial
+from moysklad_remap_12_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.moysklad.ru/api/remap/1.2
+# See configuration.py for a list of all supported configuration parameters.
+configuration = moysklad_remap_12_sdk.Configuration(
+    host = "https://api.moysklad.ru/api/remap/1.2"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure HTTP basic authorization: basicAuth
+configuration = moysklad_remap_12_sdk.Configuration(
+    username = os.environ["USERNAME"],
+    password = os.environ["PASSWORD"]
+)
+
+# Configure Bearer authorization: bearerAuth
+configuration = moysklad_remap_12_sdk.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with moysklad_remap_12_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = moysklad_remap_12_sdk.ProcessingPlansApi(api_client)
+    id = 'id_example' # str | ID сущности
+    processing_plan_material = [moysklad_remap_12_sdk.ProcessingPlanMaterial()] # List[ProcessingPlanMaterial] | 
+    expand = 'expand_example' # str | Замена ссылок объектами с помощью expand (optional)
+    accept = application/json;charset=utf-8 # str |  (optional) (default to application/json;charset=utf-8)
+    accept_encoding = 'gzip, deflate, br' # str |  (optional) (default to 'gzip, deflate, br')
+    content_type = application/json # str |  (optional) (default to application/json)
+
+    try:
+        # Массовое создание и обновление материалов техкарты
+        api_response = api_instance.create_processing_plan_materials_batch(id, processing_plan_material, expand=expand, accept=accept, accept_encoding=accept_encoding, content_type=content_type)
+        print("The response of ProcessingPlansApi->create_processing_plan_materials_batch:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling ProcessingPlansApi->create_processing_plan_materials_batch: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **str**| ID сущности | 
+ **processing_plan_material** | [**List[ProcessingPlanMaterial]**](ProcessingPlanMaterial.md)|  | 
+ **expand** | **str**| Замена ссылок объектами с помощью expand | [optional] 
+ **accept** | **str**|  | [optional] [default to application/json;charset&#x3D;utf-8]
+ **accept_encoding** | **str**|  | [optional] [default to &#39;gzip, deflate, br&#39;]
+ **content_type** | **str**|  | [optional] [default to application/json]
+
+### Return type
+
+[**List[BatchResponseEntity]**](BatchResponseEntity.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json, text/html;charset=UTF-8
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Успешный запрос |  -  |
+**0** | Ошибка запроса (тело — объект с полем errors) |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **create_processing_plan_metadata_attribute**
 > AttributeMetaInfo create_processing_plan_metadata_attribute(attribute_meta_info, accept=accept, accept_encoding=accept_encoding, content_type=content_type)
 
@@ -410,7 +510,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **create_processing_plan_products**
-> ProcessingPlanProduct create_processing_plan_products(id, processing_plan_product, expand=expand, accept=accept, accept_encoding=accept_encoding, content_type=content_type)
+> List[ProcessingPlanProduct] create_processing_plan_products(id, processing_plan_product, expand=expand, accept=accept, accept_encoding=accept_encoding, content_type=content_type)
 
 Создать продукт Техкарты
 
@@ -485,7 +585,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ProcessingPlanProduct**](ProcessingPlanProduct.md)
+[**List[ProcessingPlanProduct]**](ProcessingPlanProduct.md)
 
 ### Authorization
 
@@ -501,6 +601,103 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Продукты Техкарты успешно созданы |  -  |
+**0** | Ошибка запроса (тело — объект с полем errors) |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **create_processing_plan_products_batch**
+> List[BatchResponseEntity] create_processing_plan_products_batch(id, processing_plan_product, expand=expand, accept=accept, accept_encoding=accept_encoding, content_type=content_type)
+
+Массовое создание и обновление продуктов техкарты
+
+В теле запроса передается массив продуктов. Для создания требуются assortment и quantity, для обновления — метаданные (meta).
+
+### Example
+
+* Basic Authentication (basicAuth):
+* Bearer Authentication (bearerAuth):
+
+```python
+import moysklad_remap_12_sdk
+from moysklad_remap_12_sdk.models.batch_response_entity import BatchResponseEntity
+from moysklad_remap_12_sdk.models.processing_plan_product import ProcessingPlanProduct
+from moysklad_remap_12_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.moysklad.ru/api/remap/1.2
+# See configuration.py for a list of all supported configuration parameters.
+configuration = moysklad_remap_12_sdk.Configuration(
+    host = "https://api.moysklad.ru/api/remap/1.2"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure HTTP basic authorization: basicAuth
+configuration = moysklad_remap_12_sdk.Configuration(
+    username = os.environ["USERNAME"],
+    password = os.environ["PASSWORD"]
+)
+
+# Configure Bearer authorization: bearerAuth
+configuration = moysklad_remap_12_sdk.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with moysklad_remap_12_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = moysklad_remap_12_sdk.ProcessingPlansApi(api_client)
+    id = 'id_example' # str | ID сущности
+    processing_plan_product = [moysklad_remap_12_sdk.ProcessingPlanProduct()] # List[ProcessingPlanProduct] | 
+    expand = 'expand_example' # str | Замена ссылок объектами с помощью expand (optional)
+    accept = application/json;charset=utf-8 # str |  (optional) (default to application/json;charset=utf-8)
+    accept_encoding = 'gzip, deflate, br' # str |  (optional) (default to 'gzip, deflate, br')
+    content_type = application/json # str |  (optional) (default to application/json)
+
+    try:
+        # Массовое создание и обновление продуктов техкарты
+        api_response = api_instance.create_processing_plan_products_batch(id, processing_plan_product, expand=expand, accept=accept, accept_encoding=accept_encoding, content_type=content_type)
+        print("The response of ProcessingPlansApi->create_processing_plan_products_batch:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling ProcessingPlansApi->create_processing_plan_products_batch: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **str**| ID сущности | 
+ **processing_plan_product** | [**List[ProcessingPlanProduct]**](ProcessingPlanProduct.md)|  | 
+ **expand** | **str**| Замена ссылок объектами с помощью expand | [optional] 
+ **accept** | **str**|  | [optional] [default to application/json;charset&#x3D;utf-8]
+ **accept_encoding** | **str**|  | [optional] [default to &#39;gzip, deflate, br&#39;]
+ **content_type** | **str**|  | [optional] [default to application/json]
+
+### Return type
+
+[**List[BatchResponseEntity]**](BatchResponseEntity.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json, text/html;charset=UTF-8
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Успешный запрос |  -  |
 **0** | Ошибка запроса (тело — объект с полем errors) |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -2639,6 +2836,103 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**ProcessingPlanStage**](ProcessingPlanStage.md)
+
+### Authorization
+
+[basicAuth](../README.md#basicAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json, text/html;charset=UTF-8
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Успешный запрос |  -  |
+**0** | Ошибка запроса (тело — объект с полем errors) |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **update_processing_plan_stages**
+> List[BatchResponseEntity] update_processing_plan_stages(id, processing_plan_stage, expand=expand, accept=accept, accept_encoding=accept_encoding, content_type=content_type)
+
+Массовое изменение этапов Техкарты
+
+В теле запроса передается массив этапов Техкарты с метаданными (meta). Этапы Техкарты соответствуют этапам позиций привязанного техпроцесса, поэтому создать новый этап нельзя — только изменить существующий.
+
+### Example
+
+* Basic Authentication (basicAuth):
+* Bearer Authentication (bearerAuth):
+
+```python
+import moysklad_remap_12_sdk
+from moysklad_remap_12_sdk.models.batch_response_entity import BatchResponseEntity
+from moysklad_remap_12_sdk.models.processing_plan_stage import ProcessingPlanStage
+from moysklad_remap_12_sdk.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to https://api.moysklad.ru/api/remap/1.2
+# See configuration.py for a list of all supported configuration parameters.
+configuration = moysklad_remap_12_sdk.Configuration(
+    host = "https://api.moysklad.ru/api/remap/1.2"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure HTTP basic authorization: basicAuth
+configuration = moysklad_remap_12_sdk.Configuration(
+    username = os.environ["USERNAME"],
+    password = os.environ["PASSWORD"]
+)
+
+# Configure Bearer authorization: bearerAuth
+configuration = moysklad_remap_12_sdk.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with moysklad_remap_12_sdk.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = moysklad_remap_12_sdk.ProcessingPlansApi(api_client)
+    id = 'id_example' # str | ID сущности
+    processing_plan_stage = [moysklad_remap_12_sdk.ProcessingPlanStage()] # List[ProcessingPlanStage] | 
+    expand = 'expand_example' # str | Замена ссылок объектами с помощью expand (optional)
+    accept = application/json;charset=utf-8 # str |  (optional) (default to application/json;charset=utf-8)
+    accept_encoding = 'gzip, deflate, br' # str |  (optional) (default to 'gzip, deflate, br')
+    content_type = application/json # str |  (optional) (default to application/json)
+
+    try:
+        # Массовое изменение этапов Техкарты
+        api_response = api_instance.update_processing_plan_stages(id, processing_plan_stage, expand=expand, accept=accept, accept_encoding=accept_encoding, content_type=content_type)
+        print("The response of ProcessingPlansApi->update_processing_plan_stages:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling ProcessingPlansApi->update_processing_plan_stages: %s\n" % e)
+```
+
+
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **str**| ID сущности | 
+ **processing_plan_stage** | [**List[ProcessingPlanStage]**](ProcessingPlanStage.md)|  | 
+ **expand** | **str**| Замена ссылок объектами с помощью expand | [optional] 
+ **accept** | **str**|  | [optional] [default to application/json;charset&#x3D;utf-8]
+ **accept_encoding** | **str**|  | [optional] [default to &#39;gzip, deflate, br&#39;]
+ **content_type** | **str**|  | [optional] [default to application/json]
+
+### Return type
+
+[**List[BatchResponseEntity]**](BatchResponseEntity.md)
 
 ### Authorization
 

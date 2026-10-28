@@ -56,6 +56,7 @@ class PaymentOut(EntityWithMeta):
     deleted: Optional[StrictStr] = Field(default=None, description="Момент последнего удаления Исходящего платежа")
     updated: Optional[StrictStr] = Field(default=None, description="Момент последнего обновления Исходящего платежа")
     moment: Optional[StrictStr] = Field(default=None, description="Дата документа")
+    accrual_date: Optional[StrictStr] = Field(default=None, description="Дата начисления", alias="accrualDate")
     owner: Optional[Employee] = Field(default=None, description="Владелец (Сотрудник)")
     group: Optional[Group] = None
     applicable: Optional[StrictBool] = Field(default=None, description="Отметка о проведении")
@@ -81,7 +82,7 @@ class PaymentOut(EntityWithMeta):
     organization_account: Optional[Account] = Field(default=None, description="Метаданные счета юрлица", alias="organizationAccount")
     operations: Optional[List[FinanceOutOperationAbstract]] = Field(default=None, description="Связанные операции: полное тело документа плюс `linkedSum`. Допустимые типы по `meta.type`: salesreturn, supply, invoicein, purchaseorder, commissionreportout, payroll ")
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["meta", "id", "accountId", "name", "code", "externalCode", "syncId", "description", "created", "deleted", "updated", "moment", "owner", "group", "applicable", "printed", "published", "rate", "organization", "agent", "expenseItem", "attributes", "contract", "files", "noClosingDocs", "paymentPurpose", "project", "salesChannel", "shared", "state", "sum", "vatSum", "factureIn", "agentAccount", "organizationAccount", "operations"]
+    __properties: ClassVar[List[str]] = ["meta", "id", "accountId", "name", "code", "externalCode", "syncId", "description", "created", "deleted", "updated", "moment", "accrualDate", "owner", "group", "applicable", "printed", "published", "rate", "organization", "agent", "expenseItem", "attributes", "contract", "files", "noClosingDocs", "paymentPurpose", "project", "salesChannel", "shared", "state", "sum", "vatSum", "factureIn", "agentAccount", "organizationAccount", "operations"]
 
     model_config = ConfigDict(
         extra="allow",
@@ -249,6 +250,7 @@ class PaymentOut(EntityWithMeta):
             "deleted": obj.get("deleted"),
             "updated": obj.get("updated"),
             "moment": obj.get("moment"),
+            "accrualDate": obj.get("accrualDate"),
             "owner": Employee.from_dict(obj["owner"]) if obj.get("owner") is not None else None,
             "group": Group.from_dict(obj["group"]) if obj.get("group") is not None else None,
             "applicable": obj.get("applicable"),
@@ -287,6 +289,8 @@ PaymentOut.model_rebuild(raise_errors=False)
 
 
 from moysklad_remap_12_sdk.models.meta import Meta
+
+
 
 
 

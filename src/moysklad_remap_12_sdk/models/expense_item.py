@@ -17,7 +17,7 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictStr
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
 from typing_extensions import Annotated
 from moysklad_remap_12_sdk.models.meta import Meta
@@ -33,13 +33,14 @@ class ExpenseItem(EntityWithMeta):
     meta: Optional[Meta] = None
     id: Optional[StrictStr] = Field(default=None, description="ID Статьи расходов")
     account_id: Optional[StrictStr] = Field(default=None, description="ID учетной записи", alias="accountId")
+    archived: Optional[StrictBool] = Field(default=None, description="Добавлена ли Статья расходов в архив")
     code: Optional[Annotated[str, Field(strict=True, max_length=255)]] = Field(default=None, description="Код Статьи расходов")
     description: Optional[Annotated[str, Field(strict=True, max_length=4096)]] = Field(default=None, description="Описание Статьи расходов")
     external_code: Optional[Annotated[str, Field(strict=True, max_length=255)]] = Field(default=None, description="Внешний код Статьи расходов", alias="externalCode")
     name: Optional[Annotated[str, Field(strict=True, max_length=255)]] = Field(default=None, description="Наименование Статьи расходов")
     updated: Optional[StrictStr] = Field(default=None, description="Момент последнего обновления сущности")
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["meta", "id", "accountId", "code", "description", "externalCode", "name", "updated"]
+    __properties: ClassVar[List[str]] = ["meta", "id", "accountId", "archived", "code", "description", "externalCode", "name", "updated"]
 
     model_config = ConfigDict(
         extra="allow",
@@ -119,6 +120,7 @@ class ExpenseItem(EntityWithMeta):
             "meta": Meta.from_dict(obj["meta"]) if obj.get("meta") is not None else None,
             "id": obj.get("id"),
             "accountId": obj.get("accountId"),
+            "archived": obj.get("archived"),
             "code": obj.get("code"),
             "description": obj.get("description"),
             "externalCode": obj.get("externalCode"),
@@ -135,6 +137,8 @@ class ExpenseItem(EntityWithMeta):
 
 
 from moysklad_remap_12_sdk.models.meta import Meta
+
+
 
 
 

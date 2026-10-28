@@ -26,7 +26,7 @@ from moysklad_remap_12_sdk.models.delete_row_result import DeleteRowResult
 from moysklad_remap_12_sdk.models.document_metadata import DocumentMetadata
 from moysklad_remap_12_sdk.models.file import File
 from moysklad_remap_12_sdk.models.file_upload import FileUpload
-from moysklad_remap_12_sdk.models.get_product_files200_response import GetProductFiles200Response
+from moysklad_remap_12_sdk.models.get_task_files200_response import GetTaskFiles200Response
 from moysklad_remap_12_sdk.models.payment_out import PaymentOut
 from moysklad_remap_12_sdk.models.payment_out_list import PaymentOutList
 from moysklad_remap_12_sdk.models.state import State
@@ -51,10 +51,346 @@ class PaymentOutsApi:
 
 
     @validate_call
+    def add_payment_out_file(
+        self,
+        id: Annotated[StrictStr, Field(description="ID сущности")],
+        file_upload: FileUpload,
+        accept: Optional[StrictStr] = None,
+        accept_encoding: Optional[StrictStr] = None,
+        content_type: Optional[StrictStr] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> List[File]:
+        """Добавить файл
+
+        Добавить новый Файл. В поле `content` нужно указать файл, закодированный в Base64, в поле `filename` — имя файла с расширением. 
+
+        :param id: ID сущности (required)
+        :type id: str
+        :param file_upload: (required)
+        :type file_upload: FileUpload
+        :param accept:
+        :type accept: str
+        :param accept_encoding:
+        :type accept_encoding: str
+        :param content_type:
+        :type content_type: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._add_payment_out_file_serialize(
+            id=id,
+            file_upload=file_upload,
+            accept=accept,
+            accept_encoding=accept_encoding,
+            content_type=content_type,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "List[File]",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def add_payment_out_file_with_http_info(
+        self,
+        id: Annotated[StrictStr, Field(description="ID сущности")],
+        file_upload: FileUpload,
+        accept: Optional[StrictStr] = None,
+        accept_encoding: Optional[StrictStr] = None,
+        content_type: Optional[StrictStr] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[List[File]]:
+        """Добавить файл
+
+        Добавить новый Файл. В поле `content` нужно указать файл, закодированный в Base64, в поле `filename` — имя файла с расширением. 
+
+        :param id: ID сущности (required)
+        :type id: str
+        :param file_upload: (required)
+        :type file_upload: FileUpload
+        :param accept:
+        :type accept: str
+        :param accept_encoding:
+        :type accept_encoding: str
+        :param content_type:
+        :type content_type: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._add_payment_out_file_serialize(
+            id=id,
+            file_upload=file_upload,
+            accept=accept,
+            accept_encoding=accept_encoding,
+            content_type=content_type,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "List[File]",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    def add_payment_out_file_without_preload_content(
+        self,
+        id: Annotated[StrictStr, Field(description="ID сущности")],
+        file_upload: FileUpload,
+        accept: Optional[StrictStr] = None,
+        accept_encoding: Optional[StrictStr] = None,
+        content_type: Optional[StrictStr] = None,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """Добавить файл
+
+        Добавить новый Файл. В поле `content` нужно указать файл, закодированный в Base64, в поле `filename` — имя файла с расширением. 
+
+        :param id: ID сущности (required)
+        :type id: str
+        :param file_upload: (required)
+        :type file_upload: FileUpload
+        :param accept:
+        :type accept: str
+        :param accept_encoding:
+        :type accept_encoding: str
+        :param content_type:
+        :type content_type: str
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._add_payment_out_file_serialize(
+            id=id,
+            file_upload=file_upload,
+            accept=accept,
+            accept_encoding=accept_encoding,
+            content_type=content_type,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "List[File]",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _add_payment_out_file_serialize(
+        self,
+        id,
+        file_upload,
+        accept,
+        accept_encoding,
+        content_type,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        if id is not None:
+            _path_params['id'] = id
+        # process the query parameters
+        # process the header parameters
+        if accept is not None:
+            _header_params['accept'] = accept
+        if accept_encoding is not None:
+            _header_params['Accept-Encoding'] = accept_encoding
+        if content_type is not None:
+            _header_params['Content-Type'] = content_type
+        # process the form parameters
+        # process the body parameter
+        if file_upload is not None:
+            _body_params = file_upload
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json', 
+                    'text/html;charset=UTF-8'
+                ]
+            )
+
+        # set the HTTP header `Content-Type`
+        if _content_type:
+            _header_params['Content-Type'] = _content_type
+        else:
+            _default_content_type = (
+                self.api_client.select_header_content_type(
+                    [
+                        'application/json'
+                    ]
+                )
+            )
+            if _default_content_type is not None:
+                _header_params['Content-Type'] = _default_content_type
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'basicAuth', 
+            'bearerAuth'
+        ]
+
+        return self.api_client.param_serialize(
+            method='POST',
+            resource_path='/entity/paymentout/{id}/files',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
     def add_payment_out_files(
         self,
         id: Annotated[StrictStr, Field(description="ID сущности")],
-        file_upload: Annotated[List[FileUpload], Field(max_length=10)],
+        file_upload: Annotated[List[FileUpload], Field(min_length=1, max_length=10)],
         accept: Optional[StrictStr] = None,
         accept_encoding: Optional[StrictStr] = None,
         content_type: Optional[StrictStr] = None,
@@ -137,7 +473,7 @@ class PaymentOutsApi:
     def add_payment_out_files_with_http_info(
         self,
         id: Annotated[StrictStr, Field(description="ID сущности")],
-        file_upload: Annotated[List[FileUpload], Field(max_length=10)],
+        file_upload: Annotated[List[FileUpload], Field(min_length=1, max_length=10)],
         accept: Optional[StrictStr] = None,
         accept_encoding: Optional[StrictStr] = None,
         content_type: Optional[StrictStr] = None,
@@ -220,7 +556,7 @@ class PaymentOutsApi:
     def add_payment_out_files_without_preload_content(
         self,
         id: Annotated[StrictStr, Field(description="ID сущности")],
-        file_upload: Annotated[List[FileUpload], Field(max_length=10)],
+        file_upload: Annotated[List[FileUpload], Field(min_length=1, max_length=10)],
         accept: Optional[StrictStr] = None,
         accept_encoding: Optional[StrictStr] = None,
         content_type: Optional[StrictStr] = None,
@@ -371,7 +707,7 @@ class PaymentOutsApi:
 
         return self.api_client.param_serialize(
             method='POST',
-            resource_path='/entity/paymentout/{id}/files',
+            resource_path='/entity/paymentout/{id}/files/batch',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -4133,7 +4469,7 @@ class PaymentOutsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> GetProductFiles200Response:
+    ) -> GetTaskFiles200Response:
         """Получить файлы
 
         Запрос на получение списка всех Файлов.
@@ -4183,7 +4519,7 @@ class PaymentOutsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "GetProductFiles200Response",
+            '200': "GetTaskFiles200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -4216,7 +4552,7 @@ class PaymentOutsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[GetProductFiles200Response]:
+    ) -> ApiResponse[GetTaskFiles200Response]:
         """Получить файлы
 
         Запрос на получение списка всех Файлов.
@@ -4266,7 +4602,7 @@ class PaymentOutsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "GetProductFiles200Response",
+            '200': "GetTaskFiles200Response",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -4349,7 +4685,7 @@ class PaymentOutsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "GetProductFiles200Response",
+            '200': "GetTaskFiles200Response",
         }
         response_data = self.api_client.call_api(
             *_param,

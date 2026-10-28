@@ -25,7 +25,9 @@ from moysklad_remap_12_sdk.models.store import Store
 from typing import Optional, Set
 from typing_extensions import Self
 
-class StoreBalance(BaseModel):
+from moysklad_remap_12_sdk.models.entity_with_meta import EntityWithMeta
+
+class StoreBalance(EntityWithMeta):
     """
     Неснижаемый остаток по складу
     """ # noqa: E501
@@ -48,6 +50,7 @@ class StoreBalance(BaseModel):
     @classmethod
     def create_with_meta(
         cls,
+        entityType: str,
         parentId: str,
         id: str,
     ) -> Self:
@@ -55,7 +58,7 @@ class StoreBalance(BaseModel):
         from moysklad_remap_12_sdk.configuration import Configuration
         from moysklad_remap_12_sdk.models.meta import Meta
 
-        href = Configuration.get_default().host + "/entity" + "/product" + "/" + parentId + "/storebalances" + "/" + id
+        href = Configuration.get_default().host + "/entity" + "/" + entityType + "/" + parentId + "/storebalances" + "/" + id
         return cls(
             id=id,
             meta=Meta(
