@@ -54,7 +54,7 @@ with moysklad_remap_12_sdk.ApiClient(configuration) as api_client:
     type = 'type_example' # str | Тип сущности в URL, например `product` или `customerorder`
     id = 'id_example' # str | ID сущности
     accept = application/json;charset=utf-8 # str |  (optional) (default to application/json;charset=utf-8)
-    accept_encoding = 'gzip, deflate, br' # str |  (optional) (default to 'gzip, deflate, br')
+    accept_encoding = 'gzip' # str |  (optional) (default to 'gzip')
 
     try:
         # Получить Стандартный шаблон печатной формы
@@ -75,7 +75,7 @@ Name | Type | Description  | Notes
  **type** | **str**| Тип сущности в URL, например &#x60;product&#x60; или &#x60;customerorder&#x60; | 
  **id** | **str**| ID сущности | 
  **accept** | **str**|  | [optional] [default to application/json;charset&#x3D;utf-8]
- **accept_encoding** | **str**|  | [optional] [default to &#39;gzip, deflate, br&#39;]
+ **accept_encoding** | **str**|  | [optional] [default to &#39;gzip&#39;]
 
 ### Return type
 
@@ -88,7 +88,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json, text/html;charset=UTF-8
+ - **Accept**: application/json
 
 ### HTTP response details
 
@@ -145,7 +145,7 @@ with moysklad_remap_12_sdk.ApiClient(configuration) as api_client:
     limit = 1000 # int | Максимальное количество элементов в выданном списке (максимум 1000) (optional) (default to 1000)
     offset = 0 # int | Отступ в выданном списке (optional) (default to 0)
     accept = application/json;charset=utf-8 # str |  (optional) (default to application/json;charset=utf-8)
-    accept_encoding = 'gzip, deflate, br' # str |  (optional) (default to 'gzip, deflate, br')
+    accept_encoding = 'gzip' # str |  (optional) (default to 'gzip')
 
     try:
         # Получить Стандартные шаблоны печатных форм
@@ -167,7 +167,7 @@ Name | Type | Description  | Notes
  **limit** | **int**| Максимальное количество элементов в выданном списке (максимум 1000) | [optional] [default to 1000]
  **offset** | **int**| Отступ в выданном списке | [optional] [default to 0]
  **accept** | **str**|  | [optional] [default to application/json;charset&#x3D;utf-8]
- **accept_encoding** | **str**|  | [optional] [default to &#39;gzip, deflate, br&#39;]
+ **accept_encoding** | **str**|  | [optional] [default to &#39;gzip&#39;]
 
 ### Return type
 
@@ -180,7 +180,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json, text/html;charset=UTF-8
+ - **Accept**: application/json
 
 ### HTTP response details
 
@@ -236,7 +236,7 @@ with moysklad_remap_12_sdk.ApiClient(configuration) as api_client:
     type = 'type_example' # str | Тип сущности в URL, например `product` или `customerorder`
     expand = 'expand_example' # str | Замена ссылок объектами с помощью expand (optional)
     accept = application/json;charset=utf-8 # str |  (optional) (default to application/json;charset=utf-8)
-    accept_encoding = 'gzip, deflate, br' # str |  (optional) (default to 'gzip, deflate, br')
+    accept_encoding = 'gzip' # str |  (optional) (default to 'gzip')
 
     try:
         # Получить метаданные сущности
@@ -257,7 +257,7 @@ Name | Type | Description  | Notes
  **type** | **str**| Тип сущности в URL, например &#x60;product&#x60; или &#x60;customerorder&#x60; | 
  **expand** | **str**| Замена ссылок объектами с помощью expand | [optional] 
  **accept** | **str**|  | [optional] [default to application/json;charset&#x3D;utf-8]
- **accept_encoding** | **str**|  | [optional] [default to &#39;gzip, deflate, br&#39;]
+ **accept_encoding** | **str**|  | [optional] [default to &#39;gzip&#39;]
 
 ### Return type
 
@@ -270,7 +270,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json, text/html;charset=UTF-8
+ - **Accept**: application/json
 
 ### HTTP response details
 

@@ -57,7 +57,7 @@ with moysklad_remap_12_sdk.ApiClient(configuration) as api_client:
     type = 'type_example' # str | Тип сущности, для которой запрашивается печать
     label_print_request = moysklad_remap_12_sdk.LabelPrintRequest() # LabelPrintRequest | 
     accept = application/json;charset=utf-8 # str |  (optional) (default to application/json;charset=utf-8)
-    accept_encoding = 'gzip, deflate, br' # str |  (optional) (default to 'gzip, deflate, br')
+    accept_encoding = 'gzip' # str |  (optional) (default to 'gzip')
     content_type = application/json # str |  (optional) (default to application/json)
 
     try:
@@ -78,7 +78,7 @@ Name | Type | Description  | Notes
  **type** | **str**| Тип сущности, для которой запрашивается печать | 
  **label_print_request** | [**LabelPrintRequest**](LabelPrintRequest.md)|  | 
  **accept** | **str**|  | [optional] [default to application/json;charset&#x3D;utf-8]
- **accept_encoding** | **str**|  | [optional] [default to &#39;gzip, deflate, br&#39;]
+ **accept_encoding** | **str**|  | [optional] [default to &#39;gzip&#39;]
  **content_type** | **str**|  | [optional] [default to application/json]
 
 ### Return type
@@ -92,7 +92,7 @@ void (empty response body)
 ### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: application/json, text/html;charset=UTF-8
+ - **Accept**: application/json
 
 ### HTTP response details
 

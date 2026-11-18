@@ -17,7 +17,7 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt, StrictStr
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional, Union
 from typing_extensions import Annotated
 from moysklad_remap_12_sdk.models.agent import Agent
@@ -86,6 +86,7 @@ class Product(ProductMarker):
     payment_item_type: Optional[StrictStr] = Field(default=None, description="Признак предмета расчета. Известные значения описаны в PaymentItemType", alias="paymentItemType")
     tax_system: Optional[StrictStr] = Field(default=None, description="Код системы налогообложения. Известные значения описаны в TaxSystem", alias="taxSystem")
     attributes: Optional[List[AttributeAbstract]] = Field(default=None, description="Дополнительные поля")
+    minimum_balance: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Неснижаемый остаток. Для очистки передайте null.", alias="minimumBalance")
     minimum_stock: Optional[MinimumStockAbstract] = Field(default=None, description="Неснижаемый остаток. Не выводится по умолчанию. Для получения передайте параметр `?fields=minimumStock`. ", alias="minimumStock")
     min_price: Optional[Price] = Field(default=None, alias="minPrice")
     weighed: Optional[StrictBool] = Field(default=None, description="Поле, показывающее является ли товар весовым")
@@ -95,7 +96,7 @@ class Product(ProductMarker):
     sync_id: Optional[StrictStr] = Field(default=None, description="ID синхронизации", alias="syncId")
     ppe_type: Optional[StrictStr] = Field(default=None, description="Код вида номенклатурной классификации медицинских средств индивидуальной защиты. Известные значения описаны в PpeType", alias="ppeType")
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["meta", "id", "accountId", "alcoholic", "archived", "tobacco", "name", "code", "externalCode", "pathName", "article", "description", "vat", "vatEnabled", "useParentVat", "effectiveVat", "effectiveVatEnabled", "discountProhibited", "variantsCount", "isSerialTrackable", "shared", "group", "owner", "updated", "weight", "volume", "buyPrice", "salePrices", "supplier", "country", "uom", "productFolder", "images", "files", "barcodes", "packs", "trackingType", "tnved", "paymentItemType", "taxSystem", "attributes", "minimumStock", "minPrice", "weighed", "onTap", "partialDisposal", "things", "syncId", "ppeType"]
+    __properties: ClassVar[List[str]] = ["meta", "id", "accountId", "alcoholic", "archived", "tobacco", "name", "code", "externalCode", "pathName", "article", "description", "vat", "vatEnabled", "useParentVat", "effectiveVat", "effectiveVatEnabled", "discountProhibited", "variantsCount", "isSerialTrackable", "shared", "group", "owner", "updated", "weight", "volume", "buyPrice", "salePrices", "supplier", "country", "uom", "productFolder", "images", "files", "barcodes", "packs", "trackingType", "tnved", "paymentItemType", "taxSystem", "attributes", "minimumBalance", "minimumStock", "minPrice", "weighed", "onTap", "partialDisposal", "things", "syncId", "ppeType"]
 
     model_config = ConfigDict(
         extra="allow",
@@ -144,6 +145,24 @@ class Product(ProductMarker):
         `None` is only added for nullable fields set at initialization.
         OpenAPI `readOnly` response fields are retained.
         """
+        def _json_model_value(value):
+            if isinstance(value, list):
+                return [_json_model_value(item) for item in value]
+            if value is not None and hasattr(value, "to_dict") and callable(value.to_dict):
+                return value.to_dict()
+            return value
+
+        def _model_value_replaces_schema_set(value):
+            if isinstance(value, set):
+                return True
+            if isinstance(value, list):
+                return any(_model_value_replaces_schema_set(item) for item in value)
+            if isinstance(value, dict):
+                if "one_of_schemas" in value or "any_of_schemas" in value:
+                    return True
+                return any(_model_value_replaces_schema_set(item) for item in value.values())
+            return False
+
         excluded_fields: Set[str] = {
             "additional_properties",
         }
@@ -207,6 +226,22 @@ class Product(ProductMarker):
             for _key, _value in self.additional_properties.items():
                 _dict[_key] = _value
 
+        # oneOf/anyOf, унаследованные поля и лишние свойства не должны уносить в JSON
+        # служебное множество имен схем: оно не сериализуется.
+        for _field_name, _field in type(self).model_fields.items():
+            if _field_name == "additional_properties":
+                continue
+            _value = getattr(self, _field_name)
+            _alias = _field.alias or _field_name
+            if _model_value_replaces_schema_set(_dict.get(_alias)):
+                _converted = _json_model_value(_value)
+                if _converted is not None:
+                    _dict[_alias] = _converted
+        for _extra_key, _extra_value in (getattr(self, "__pydantic_extra__", None) or {}).items():
+            if _model_value_replaces_schema_set(_dict.get(_extra_key)):
+                _converted = _json_model_value(_extra_value)
+                if _converted is not None:
+                    _dict[_extra_key] = _converted
         if self.description is None and "description" in self.model_fields_set:
             _dict['description'] = None
 
@@ -236,6 +271,9 @@ class Product(ProductMarker):
 
         if self.attributes is None and "attributes" in self.model_fields_set:
             _dict['attributes'] = None
+
+        if self.minimum_balance is None and "minimum_balance" in self.model_fields_set:
+            _dict['minimumBalance'] = None
 
         if self.minimum_stock is None and "minimum_stock" in self.model_fields_set:
             _dict['minimumStock'] = None
@@ -297,6 +335,7 @@ class Product(ProductMarker):
             "paymentItemType": obj.get("paymentItemType"),
             "taxSystem": obj.get("taxSystem"),
             "attributes": [AttributeAbstract.from_dict(_item) for _item in obj["attributes"]] if obj.get("attributes") is not None else None,
+            "minimumBalance": obj.get("minimumBalance"),
             "minimumStock": MinimumStockAbstract.from_dict(obj["minimumStock"]) if obj.get("minimumStock") is not None else None,
             "minPrice": Price.from_dict(obj["minPrice"]) if obj.get("minPrice") is not None else None,
             "weighed": obj.get("weighed"),
@@ -425,6 +464,8 @@ from moysklad_remap_12_sdk.models.pack import Pack
 
 
 from moysklad_remap_12_sdk.models.attribute_abstract import AttributeAbstract
+
+
 
 
 from moysklad_remap_12_sdk.models.minimum_stock_abstract import MinimumStockAbstract

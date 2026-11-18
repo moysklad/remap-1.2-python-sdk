@@ -64,9 +64,9 @@ configuration = moysklad_remap_12_sdk.Configuration(
 with moysklad_remap_12_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = moysklad_remap_12_sdk.DiscountsApi(api_client)
-    accumulation_discount = {name=accumulationDiscountExample, active=true, allProducts=true, allAgents=true, agentTags=[]} # AccumulationDiscount | 
+    accumulation_discount = {name=accumulationDiscountExample, active=true, allProducts=true, allAgents=true, agentTags=[], levels=[{amount=100000.0, discount=10.0}]} # AccumulationDiscount | 
     accept = application/json;charset=utf-8 # str |  (optional) (default to application/json;charset=utf-8)
-    accept_encoding = 'gzip, deflate, br' # str |  (optional) (default to 'gzip, deflate, br')
+    accept_encoding = 'gzip' # str |  (optional) (default to 'gzip')
     content_type = application/json # str |  (optional) (default to application/json)
 
     try:
@@ -87,7 +87,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **accumulation_discount** | [**AccumulationDiscount**](AccumulationDiscount.md)|  | 
  **accept** | **str**|  | [optional] [default to application/json;charset&#x3D;utf-8]
- **accept_encoding** | **str**|  | [optional] [default to &#39;gzip, deflate, br&#39;]
+ **accept_encoding** | **str**|  | [optional] [default to &#39;gzip&#39;]
  **content_type** | **str**|  | [optional] [default to application/json]
 
 ### Return type
@@ -101,7 +101,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: application/json, text/html;charset=UTF-8
+ - **Accept**: application/json
 
 ### HTTP response details
 
@@ -158,7 +158,7 @@ with moysklad_remap_12_sdk.ApiClient(configuration) as api_client:
     api_instance = moysklad_remap_12_sdk.DiscountsApi(api_client)
     personal_discount = {name=personalDiscountExample, active=true, allProducts=true, allAgents=true} # PersonalDiscount | 
     accept = application/json;charset=utf-8 # str |  (optional) (default to application/json;charset=utf-8)
-    accept_encoding = 'gzip, deflate, br' # str |  (optional) (default to 'gzip, deflate, br')
+    accept_encoding = 'gzip' # str |  (optional) (default to 'gzip')
     content_type = application/json # str |  (optional) (default to application/json)
 
     try:
@@ -179,7 +179,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **personal_discount** | [**PersonalDiscount**](PersonalDiscount.md)|  | 
  **accept** | **str**|  | [optional] [default to application/json;charset&#x3D;utf-8]
- **accept_encoding** | **str**|  | [optional] [default to &#39;gzip, deflate, br&#39;]
+ **accept_encoding** | **str**|  | [optional] [default to &#39;gzip&#39;]
  **content_type** | **str**|  | [optional] [default to application/json]
 
 ### Return type
@@ -193,7 +193,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: application/json, text/html;charset=UTF-8
+ - **Accept**: application/json
 
 ### HTTP response details
 
@@ -248,9 +248,9 @@ configuration = moysklad_remap_12_sdk.Configuration(
 with moysklad_remap_12_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = moysklad_remap_12_sdk.DiscountsApi(api_client)
-    special_price_discount = moysklad_remap_12_sdk.SpecialPriceDiscount() # SpecialPriceDiscount | 
+    special_price_discount = {name=specialPriceDiscountExample, active=true, allProducts=true, allAgents=true, usePriceType=false, discount=10.0} # SpecialPriceDiscount | 
     accept = application/json;charset=utf-8 # str |  (optional) (default to application/json;charset=utf-8)
-    accept_encoding = 'gzip, deflate, br' # str |  (optional) (default to 'gzip, deflate, br')
+    accept_encoding = 'gzip' # str |  (optional) (default to 'gzip')
     content_type = application/json # str |  (optional) (default to application/json)
 
     try:
@@ -271,7 +271,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **special_price_discount** | [**SpecialPriceDiscount**](SpecialPriceDiscount.md)|  | 
  **accept** | **str**|  | [optional] [default to application/json;charset&#x3D;utf-8]
- **accept_encoding** | **str**|  | [optional] [default to &#39;gzip, deflate, br&#39;]
+ **accept_encoding** | **str**|  | [optional] [default to &#39;gzip&#39;]
  **content_type** | **str**|  | [optional] [default to application/json]
 
 ### Return type
@@ -285,7 +285,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: application/json, text/html;charset=UTF-8
+ - **Accept**: application/json
 
 ### HTTP response details
 
@@ -341,7 +341,7 @@ with moysklad_remap_12_sdk.ApiClient(configuration) as api_client:
     api_instance = moysklad_remap_12_sdk.DiscountsApi(api_client)
     id = 'id_example' # str | ID сущности
     accept = application/json;charset=utf-8 # str |  (optional) (default to application/json;charset=utf-8)
-    accept_encoding = 'gzip, deflate, br' # str |  (optional) (default to 'gzip, deflate, br')
+    accept_encoding = 'gzip' # str |  (optional) (default to 'gzip')
 
     try:
         # Удалить накопительную скидку
@@ -359,7 +359,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **str**| ID сущности | 
  **accept** | **str**|  | [optional] [default to application/json;charset&#x3D;utf-8]
- **accept_encoding** | **str**|  | [optional] [default to &#39;gzip, deflate, br&#39;]
+ **accept_encoding** | **str**|  | [optional] [default to &#39;gzip&#39;]
 
 ### Return type
 
@@ -372,7 +372,7 @@ void (empty response body)
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json, text/html;charset=UTF-8
+ - **Accept**: application/json
 
 ### HTTP response details
 
@@ -428,7 +428,7 @@ with moysklad_remap_12_sdk.ApiClient(configuration) as api_client:
     api_instance = moysklad_remap_12_sdk.DiscountsApi(api_client)
     id = 'id_example' # str | ID сущности
     accept = application/json;charset=utf-8 # str |  (optional) (default to application/json;charset=utf-8)
-    accept_encoding = 'gzip, deflate, br' # str |  (optional) (default to 'gzip, deflate, br')
+    accept_encoding = 'gzip' # str |  (optional) (default to 'gzip')
 
     try:
         # Удалить персональную скидку
@@ -446,7 +446,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **str**| ID сущности | 
  **accept** | **str**|  | [optional] [default to application/json;charset&#x3D;utf-8]
- **accept_encoding** | **str**|  | [optional] [default to &#39;gzip, deflate, br&#39;]
+ **accept_encoding** | **str**|  | [optional] [default to &#39;gzip&#39;]
 
 ### Return type
 
@@ -459,7 +459,7 @@ void (empty response body)
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json, text/html;charset=UTF-8
+ - **Accept**: application/json
 
 ### HTTP response details
 
@@ -515,7 +515,7 @@ with moysklad_remap_12_sdk.ApiClient(configuration) as api_client:
     api_instance = moysklad_remap_12_sdk.DiscountsApi(api_client)
     id = 'id_example' # str | ID сущности
     accept = application/json;charset=utf-8 # str |  (optional) (default to application/json;charset=utf-8)
-    accept_encoding = 'gzip, deflate, br' # str |  (optional) (default to 'gzip, deflate, br')
+    accept_encoding = 'gzip' # str |  (optional) (default to 'gzip')
 
     try:
         # Удалить специальную цену
@@ -533,7 +533,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **str**| ID сущности | 
  **accept** | **str**|  | [optional] [default to application/json;charset&#x3D;utf-8]
- **accept_encoding** | **str**|  | [optional] [default to &#39;gzip, deflate, br&#39;]
+ **accept_encoding** | **str**|  | [optional] [default to &#39;gzip&#39;]
 
 ### Return type
 
@@ -546,7 +546,7 @@ void (empty response body)
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json, text/html;charset=UTF-8
+ - **Accept**: application/json
 
 ### HTTP response details
 
@@ -603,7 +603,7 @@ with moysklad_remap_12_sdk.ApiClient(configuration) as api_client:
     api_instance = moysklad_remap_12_sdk.DiscountsApi(api_client)
     id = 'id_example' # str | ID сущности
     accept = application/json;charset=utf-8 # str |  (optional) (default to application/json;charset=utf-8)
-    accept_encoding = 'gzip, deflate, br' # str |  (optional) (default to 'gzip, deflate, br')
+    accept_encoding = 'gzip' # str |  (optional) (default to 'gzip')
 
     try:
         # Получить накопительную скидку по ID
@@ -623,7 +623,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **str**| ID сущности | 
  **accept** | **str**|  | [optional] [default to application/json;charset&#x3D;utf-8]
- **accept_encoding** | **str**|  | [optional] [default to &#39;gzip, deflate, br&#39;]
+ **accept_encoding** | **str**|  | [optional] [default to &#39;gzip&#39;]
 
 ### Return type
 
@@ -636,7 +636,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json, text/html;charset=UTF-8
+ - **Accept**: application/json
 
 ### HTTP response details
 
@@ -694,7 +694,7 @@ with moysklad_remap_12_sdk.ApiClient(configuration) as api_client:
     limit = 1000 # int | Максимальное количество элементов в выданном списке (максимум 1000) (optional) (default to 1000)
     offset = 0 # int | Отступ в выданном списке (optional) (default to 0)
     accept = application/json;charset=utf-8 # str |  (optional) (default to application/json;charset=utf-8)
-    accept_encoding = 'gzip, deflate, br' # str |  (optional) (default to 'gzip, deflate, br')
+    accept_encoding = 'gzip' # str |  (optional) (default to 'gzip')
     expand = 'expand_example' # str | Замена ссылок объектами с помощью expand (optional)
 
     try:
@@ -716,7 +716,7 @@ Name | Type | Description  | Notes
  **limit** | **int**| Максимальное количество элементов в выданном списке (максимум 1000) | [optional] [default to 1000]
  **offset** | **int**| Отступ в выданном списке | [optional] [default to 0]
  **accept** | **str**|  | [optional] [default to application/json;charset&#x3D;utf-8]
- **accept_encoding** | **str**|  | [optional] [default to &#39;gzip, deflate, br&#39;]
+ **accept_encoding** | **str**|  | [optional] [default to &#39;gzip&#39;]
  **expand** | **str**| Замена ссылок объектами с помощью expand | [optional] 
 
 ### Return type
@@ -730,7 +730,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json, text/html;charset=UTF-8
+ - **Accept**: application/json
 
 ### HTTP response details
 
@@ -787,7 +787,7 @@ with moysklad_remap_12_sdk.ApiClient(configuration) as api_client:
     api_instance = moysklad_remap_12_sdk.DiscountsApi(api_client)
     id = 'id_example' # str | ID сущности
     accept = application/json;charset=utf-8 # str |  (optional) (default to application/json;charset=utf-8)
-    accept_encoding = 'gzip, deflate, br' # str |  (optional) (default to 'gzip, deflate, br')
+    accept_encoding = 'gzip' # str |  (optional) (default to 'gzip')
 
     try:
         # Получить персональную скидку по ID
@@ -807,7 +807,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **str**| ID сущности | 
  **accept** | **str**|  | [optional] [default to application/json;charset&#x3D;utf-8]
- **accept_encoding** | **str**|  | [optional] [default to &#39;gzip, deflate, br&#39;]
+ **accept_encoding** | **str**|  | [optional] [default to &#39;gzip&#39;]
 
 ### Return type
 
@@ -820,7 +820,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json, text/html;charset=UTF-8
+ - **Accept**: application/json
 
 ### HTTP response details
 
@@ -877,7 +877,7 @@ with moysklad_remap_12_sdk.ApiClient(configuration) as api_client:
     api_instance = moysklad_remap_12_sdk.DiscountsApi(api_client)
     id = 'id_example' # str | ID сущности
     accept = application/json;charset=utf-8 # str |  (optional) (default to application/json;charset=utf-8)
-    accept_encoding = 'gzip, deflate, br' # str |  (optional) (default to 'gzip, deflate, br')
+    accept_encoding = 'gzip' # str |  (optional) (default to 'gzip')
 
     try:
         # Получить специальную цену по ID
@@ -897,7 +897,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **str**| ID сущности | 
  **accept** | **str**|  | [optional] [default to application/json;charset&#x3D;utf-8]
- **accept_encoding** | **str**|  | [optional] [default to &#39;gzip, deflate, br&#39;]
+ **accept_encoding** | **str**|  | [optional] [default to &#39;gzip&#39;]
 
 ### Return type
 
@@ -910,7 +910,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json, text/html;charset=UTF-8
+ - **Accept**: application/json
 
 ### HTTP response details
 
@@ -968,7 +968,7 @@ with moysklad_remap_12_sdk.ApiClient(configuration) as api_client:
     id = 'id_example' # str | ID сущности
     accumulation_discount = moysklad_remap_12_sdk.AccumulationDiscount() # AccumulationDiscount | 
     accept = application/json;charset=utf-8 # str |  (optional) (default to application/json;charset=utf-8)
-    accept_encoding = 'gzip, deflate, br' # str |  (optional) (default to 'gzip, deflate, br')
+    accept_encoding = 'gzip' # str |  (optional) (default to 'gzip')
     content_type = application/json # str |  (optional) (default to application/json)
 
     try:
@@ -990,7 +990,7 @@ Name | Type | Description  | Notes
  **id** | **str**| ID сущности | 
  **accumulation_discount** | [**AccumulationDiscount**](AccumulationDiscount.md)|  | 
  **accept** | **str**|  | [optional] [default to application/json;charset&#x3D;utf-8]
- **accept_encoding** | **str**|  | [optional] [default to &#39;gzip, deflate, br&#39;]
+ **accept_encoding** | **str**|  | [optional] [default to &#39;gzip&#39;]
  **content_type** | **str**|  | [optional] [default to application/json]
 
 ### Return type
@@ -1004,7 +1004,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: application/json, text/html;charset=UTF-8
+ - **Accept**: application/json
 
 ### HTTP response details
 
@@ -1062,7 +1062,7 @@ with moysklad_remap_12_sdk.ApiClient(configuration) as api_client:
     id = 'id_example' # str | ID сущности
     discount = moysklad_remap_12_sdk.Discount() # Discount | 
     accept = application/json;charset=utf-8 # str |  (optional) (default to application/json;charset=utf-8)
-    accept_encoding = 'gzip, deflate, br' # str |  (optional) (default to 'gzip, deflate, br')
+    accept_encoding = 'gzip' # str |  (optional) (default to 'gzip')
     content_type = application/json # str |  (optional) (default to application/json)
 
     try:
@@ -1084,7 +1084,7 @@ Name | Type | Description  | Notes
  **id** | **str**| ID сущности | 
  **discount** | [**Discount**](Discount.md)|  | 
  **accept** | **str**|  | [optional] [default to application/json;charset&#x3D;utf-8]
- **accept_encoding** | **str**|  | [optional] [default to &#39;gzip, deflate, br&#39;]
+ **accept_encoding** | **str**|  | [optional] [default to &#39;gzip&#39;]
  **content_type** | **str**|  | [optional] [default to application/json]
 
 ### Return type
@@ -1098,7 +1098,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: application/json, text/html;charset=UTF-8
+ - **Accept**: application/json
 
 ### HTTP response details
 
@@ -1156,7 +1156,7 @@ with moysklad_remap_12_sdk.ApiClient(configuration) as api_client:
     id = 'id_example' # str | ID сущности
     personal_discount = moysklad_remap_12_sdk.PersonalDiscount() # PersonalDiscount | 
     accept = application/json;charset=utf-8 # str |  (optional) (default to application/json;charset=utf-8)
-    accept_encoding = 'gzip, deflate, br' # str |  (optional) (default to 'gzip, deflate, br')
+    accept_encoding = 'gzip' # str |  (optional) (default to 'gzip')
     content_type = application/json # str |  (optional) (default to application/json)
 
     try:
@@ -1178,7 +1178,7 @@ Name | Type | Description  | Notes
  **id** | **str**| ID сущности | 
  **personal_discount** | [**PersonalDiscount**](PersonalDiscount.md)|  | 
  **accept** | **str**|  | [optional] [default to application/json;charset&#x3D;utf-8]
- **accept_encoding** | **str**|  | [optional] [default to &#39;gzip, deflate, br&#39;]
+ **accept_encoding** | **str**|  | [optional] [default to &#39;gzip&#39;]
  **content_type** | **str**|  | [optional] [default to application/json]
 
 ### Return type
@@ -1192,7 +1192,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: application/json, text/html;charset=UTF-8
+ - **Accept**: application/json
 
 ### HTTP response details
 
@@ -1250,7 +1250,7 @@ with moysklad_remap_12_sdk.ApiClient(configuration) as api_client:
     id = 'id_example' # str | ID сущности
     special_price_discount = moysklad_remap_12_sdk.SpecialPriceDiscount() # SpecialPriceDiscount | 
     accept = application/json;charset=utf-8 # str |  (optional) (default to application/json;charset=utf-8)
-    accept_encoding = 'gzip, deflate, br' # str |  (optional) (default to 'gzip, deflate, br')
+    accept_encoding = 'gzip' # str |  (optional) (default to 'gzip')
     content_type = application/json # str |  (optional) (default to application/json)
 
     try:
@@ -1272,7 +1272,7 @@ Name | Type | Description  | Notes
  **id** | **str**| ID сущности | 
  **special_price_discount** | [**SpecialPriceDiscount**](SpecialPriceDiscount.md)|  | 
  **accept** | **str**|  | [optional] [default to application/json;charset&#x3D;utf-8]
- **accept_encoding** | **str**|  | [optional] [default to &#39;gzip, deflate, br&#39;]
+ **accept_encoding** | **str**|  | [optional] [default to &#39;gzip&#39;]
  **content_type** | **str**|  | [optional] [default to application/json]
 
 ### Return type
@@ -1286,7 +1286,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: application/json, text/html;charset=UTF-8
+ - **Accept**: application/json
 
 ### HTTP response details
 

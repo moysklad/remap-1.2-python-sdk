@@ -66,6 +66,24 @@ class NotificationAbstract(BaseModel):
         `None` is only added for nullable fields set at initialization.
         OpenAPI `readOnly` response fields are retained.
         """
+        def _json_model_value(value):
+            if isinstance(value, list):
+                return [_json_model_value(item) for item in value]
+            if value is not None and hasattr(value, "to_dict") and callable(value.to_dict):
+                return value.to_dict()
+            return value
+
+        def _model_value_replaces_schema_set(value):
+            if isinstance(value, set):
+                return True
+            if isinstance(value, list):
+                return any(_model_value_replaces_schema_set(item) for item in value)
+            if isinstance(value, dict):
+                if "one_of_schemas" in value or "any_of_schemas" in value:
+                    return True
+                return any(_model_value_replaces_schema_set(item) for item in value.values())
+            return False
+
         excluded_fields: Set[str] = {
             "additional_properties",
         }
@@ -81,6 +99,22 @@ class NotificationAbstract(BaseModel):
             for _key, _value in self.additional_properties.items():
                 _dict[_key] = _value
 
+        # oneOf/anyOf, унаследованные поля и лишние свойства не должны уносить в JSON
+        # служебное множество имен схем: оно не сериализуется.
+        for _field_name, _field in type(self).model_fields.items():
+            if _field_name == "additional_properties":
+                continue
+            _value = getattr(self, _field_name)
+            _alias = _field.alias or _field_name
+            if _model_value_replaces_schema_set(_dict.get(_alias)):
+                _converted = _json_model_value(_value)
+                if _converted is not None:
+                    _dict[_alias] = _converted
+        for _extra_key, _extra_value in (getattr(self, "__pydantic_extra__", None) or {}).items():
+            if _model_value_replaces_schema_set(_dict.get(_extra_key)):
+                _converted = _json_model_value(_extra_value)
+                if _converted is not None:
+                    _dict[_extra_key] = _converted
         return _dict
 
     @classmethod
@@ -124,7 +158,7 @@ class NotificationAbstract(BaseModel):
 "NewMentionInTaskNote": ("new_mention_in_task_note", "NewMentionInTaskNote"),
 "NewEventInEventFeed": ("new_event_in_event_feed", "NewEventInEventFeed"),
 "RetireOrderByDemandNotificationCompleted": ("retire_order_by_demand_notification_completed", "RetireOrderByDemandNotificationCompleted"),
-"SalesManagerChatMessage": ("sales_manager_chat_message", "SalesManagerChatMessage")
+"SalesManagerChatMessage": ("sales_manager_chat_message", "SalesManagerChatMessage"),
             }.get(discriminator)
             if model_info:
                 from importlib import import_module

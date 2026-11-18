@@ -67,7 +67,7 @@ with moysklad_remap_12_sdk.ApiClient(configuration) as api_client:
     processing_process = moysklad_remap_12_sdk.ProcessingProcess() # ProcessingProcess | 
     expand = 'expand_example' # str | Замена ссылок объектами с помощью expand (optional)
     accept = application/json;charset=utf-8 # str |  (optional) (default to application/json;charset=utf-8)
-    accept_encoding = 'gzip, deflate, br' # str |  (optional) (default to 'gzip, deflate, br')
+    accept_encoding = 'gzip' # str |  (optional) (default to 'gzip')
     content_type = application/json # str |  (optional) (default to application/json)
 
     try:
@@ -89,7 +89,7 @@ Name | Type | Description  | Notes
  **processing_process** | [**ProcessingProcess**](ProcessingProcess.md)|  | 
  **expand** | **str**| Замена ссылок объектами с помощью expand | [optional] 
  **accept** | **str**|  | [optional] [default to application/json;charset&#x3D;utf-8]
- **accept_encoding** | **str**|  | [optional] [default to &#39;gzip, deflate, br&#39;]
+ **accept_encoding** | **str**|  | [optional] [default to &#39;gzip&#39;]
  **content_type** | **str**|  | [optional] [default to application/json]
 
 ### Return type
@@ -103,7 +103,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: application/json, text/html;charset=UTF-8
+ - **Accept**: application/json
 
 ### HTTP response details
 
@@ -160,7 +160,7 @@ with moysklad_remap_12_sdk.ApiClient(configuration) as api_client:
     processing_process_position = moysklad_remap_12_sdk.ProcessingProcessPosition() # ProcessingProcessPosition | 
     expand = 'expand_example' # str | Замена ссылок объектами с помощью expand (optional)
     accept = application/json;charset=utf-8 # str |  (optional) (default to application/json;charset=utf-8)
-    accept_encoding = 'gzip, deflate, br' # str |  (optional) (default to 'gzip, deflate, br')
+    accept_encoding = 'gzip' # str |  (optional) (default to 'gzip')
     content_type = application/json # str |  (optional) (default to application/json)
 
     try:
@@ -183,7 +183,7 @@ Name | Type | Description  | Notes
  **processing_process_position** | [**ProcessingProcessPosition**](ProcessingProcessPosition.md)|  | 
  **expand** | **str**| Замена ссылок объектами с помощью expand | [optional] 
  **accept** | **str**|  | [optional] [default to application/json;charset&#x3D;utf-8]
- **accept_encoding** | **str**|  | [optional] [default to &#39;gzip, deflate, br&#39;]
+ **accept_encoding** | **str**|  | [optional] [default to &#39;gzip&#39;]
  **content_type** | **str**|  | [optional] [default to application/json]
 
 ### Return type
@@ -197,7 +197,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: application/json, text/html;charset=UTF-8
+ - **Accept**: application/json
 
 ### HTTP response details
 
@@ -209,7 +209,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **create_processing_process_positions**
-> List[CreateProcessingProcessPositions200ResponseInner] create_processing_process_positions(id, processing_process_position, expand=expand, accept=accept, accept_encoding=accept_encoding, content_type=content_type)
+> List[BatchResponseEntity] create_processing_process_positions(id, processing_process_position, expand=expand, accept=accept, accept_encoding=accept_encoding, content_type=content_type)
 
 Массовое создание и обновление позиций Техпроцесса
 
@@ -220,7 +220,7 @@ Name | Type | Description  | Notes
 
 ```python
 import moysklad_remap_12_sdk
-from moysklad_remap_12_sdk.models.create_processing_process_positions200_response_inner import CreateProcessingProcessPositions200ResponseInner
+from moysklad_remap_12_sdk.models.batch_response_entity import BatchResponseEntity
 from moysklad_remap_12_sdk.models.processing_process_position import ProcessingProcessPosition
 from moysklad_remap_12_sdk.rest import ApiException
 from pprint import pprint
@@ -255,7 +255,7 @@ with moysklad_remap_12_sdk.ApiClient(configuration) as api_client:
     processing_process_position = [moysklad_remap_12_sdk.ProcessingProcessPosition()] # List[ProcessingProcessPosition] | 
     expand = 'expand_example' # str | Замена ссылок объектами с помощью expand (optional)
     accept = application/json;charset=utf-8 # str |  (optional) (default to application/json;charset=utf-8)
-    accept_encoding = 'gzip, deflate, br' # str |  (optional) (default to 'gzip, deflate, br')
+    accept_encoding = 'gzip' # str |  (optional) (default to 'gzip')
     content_type = application/json # str |  (optional) (default to application/json)
 
     try:
@@ -278,12 +278,12 @@ Name | Type | Description  | Notes
  **processing_process_position** | [**List[ProcessingProcessPosition]**](ProcessingProcessPosition.md)|  | 
  **expand** | **str**| Замена ссылок объектами с помощью expand | [optional] 
  **accept** | **str**|  | [optional] [default to application/json;charset&#x3D;utf-8]
- **accept_encoding** | **str**|  | [optional] [default to &#39;gzip, deflate, br&#39;]
+ **accept_encoding** | **str**|  | [optional] [default to &#39;gzip&#39;]
  **content_type** | **str**|  | [optional] [default to application/json]
 
 ### Return type
 
-[**List[CreateProcessingProcessPositions200ResponseInner]**](CreateProcessingProcessPositions200ResponseInner.md)
+[**List[BatchResponseEntity]**](BatchResponseEntity.md)
 
 ### Authorization
 
@@ -292,13 +292,15 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: application/json, text/html;charset=UTF-8
+ - **Accept**: application/json
 
 ### HTTP response details
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Успешный запрос |  -  |
+**404** | Ошибка массовой операции: объект errors или массив результатов по каждому элементу  |  -  |
+**412** | Ошибка массовой операции: объект errors или массив результатов по каждому элементу  |  -  |
 **0** | Ошибка запроса (тело — объект с полем errors) |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -351,7 +353,7 @@ with moysklad_remap_12_sdk.ApiClient(configuration) as api_client:
     processing_process = [moysklad_remap_12_sdk.ProcessingProcess()] # List[ProcessingProcess] | 
     expand = 'expand_example' # str | Замена ссылок объектами с помощью expand (optional)
     accept = application/json;charset=utf-8 # str |  (optional) (default to application/json;charset=utf-8)
-    accept_encoding = 'gzip, deflate, br' # str |  (optional) (default to 'gzip, deflate, br')
+    accept_encoding = 'gzip' # str |  (optional) (default to 'gzip')
     content_type = application/json # str |  (optional) (default to application/json)
 
     try:
@@ -373,7 +375,7 @@ Name | Type | Description  | Notes
  **processing_process** | [**List[ProcessingProcess]**](ProcessingProcess.md)|  | 
  **expand** | **str**| Замена ссылок объектами с помощью expand | [optional] 
  **accept** | **str**|  | [optional] [default to application/json;charset&#x3D;utf-8]
- **accept_encoding** | **str**|  | [optional] [default to &#39;gzip, deflate, br&#39;]
+ **accept_encoding** | **str**|  | [optional] [default to &#39;gzip&#39;]
  **content_type** | **str**|  | [optional] [default to application/json]
 
 ### Return type
@@ -387,13 +389,15 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: application/json, text/html;charset=UTF-8
+ - **Accept**: application/json
 
 ### HTTP response details
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Техпроцессы созданы или изменены (элемент - сущность или объект ошибки) |  -  |
+**404** | Ошибка массовой операции: объект errors или массив результатов по каждому элементу  |  -  |
+**412** | Ошибка массовой операции: объект errors или массив результатов по каждому элементу  |  -  |
 **0** | Ошибка запроса (тело — объект с полем errors) |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -443,7 +447,7 @@ with moysklad_remap_12_sdk.ApiClient(configuration) as api_client:
     api_instance = moysklad_remap_12_sdk.ProcessingProcessesApi(api_client)
     id = 'id_example' # str | ID сущности
     accept = application/json;charset=utf-8 # str |  (optional) (default to application/json;charset=utf-8)
-    accept_encoding = 'gzip, deflate, br' # str |  (optional) (default to 'gzip, deflate, br')
+    accept_encoding = 'gzip' # str |  (optional) (default to 'gzip')
 
     try:
         # Удалить Техпроцесс
@@ -461,7 +465,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **str**| ID сущности | 
  **accept** | **str**|  | [optional] [default to application/json;charset&#x3D;utf-8]
- **accept_encoding** | **str**|  | [optional] [default to &#39;gzip, deflate, br&#39;]
+ **accept_encoding** | **str**|  | [optional] [default to &#39;gzip&#39;]
 
 ### Return type
 
@@ -474,7 +478,7 @@ void (empty response body)
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json, text/html;charset=UTF-8
+ - **Accept**: application/json
 
 ### HTTP response details
 
@@ -531,7 +535,7 @@ with moysklad_remap_12_sdk.ApiClient(configuration) as api_client:
     id = 'id_example' # str | ID сущности
     position_id = 'position_id_example' # str | ID позиции
     accept = application/json;charset=utf-8 # str |  (optional) (default to application/json;charset=utf-8)
-    accept_encoding = 'gzip, deflate, br' # str |  (optional) (default to 'gzip, deflate, br')
+    accept_encoding = 'gzip' # str |  (optional) (default to 'gzip')
 
     try:
         # Удалить позицию Техпроцесса
@@ -550,7 +554,7 @@ Name | Type | Description  | Notes
  **id** | **str**| ID сущности | 
  **position_id** | **str**| ID позиции | 
  **accept** | **str**|  | [optional] [default to application/json;charset&#x3D;utf-8]
- **accept_encoding** | **str**|  | [optional] [default to &#39;gzip, deflate, br&#39;]
+ **accept_encoding** | **str**|  | [optional] [default to &#39;gzip&#39;]
 
 ### Return type
 
@@ -563,7 +567,7 @@ void (empty response body)
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json, text/html;charset=UTF-8
+ - **Accept**: application/json
 
 ### HTTP response details
 
@@ -622,7 +626,7 @@ with moysklad_remap_12_sdk.ApiClient(configuration) as api_client:
     id = 'id_example' # str | ID сущности
     processing_process_position = [moysklad_remap_12_sdk.ProcessingProcessPosition()] # List[ProcessingProcessPosition] | 
     accept = application/json;charset=utf-8 # str |  (optional) (default to application/json;charset=utf-8)
-    accept_encoding = 'gzip, deflate, br' # str |  (optional) (default to 'gzip, deflate, br')
+    accept_encoding = 'gzip' # str |  (optional) (default to 'gzip')
     content_type = application/json # str |  (optional) (default to application/json)
 
     try:
@@ -644,7 +648,7 @@ Name | Type | Description  | Notes
  **id** | **str**| ID сущности | 
  **processing_process_position** | [**List[ProcessingProcessPosition]**](ProcessingProcessPosition.md)|  | 
  **accept** | **str**|  | [optional] [default to application/json;charset&#x3D;utf-8]
- **accept_encoding** | **str**|  | [optional] [default to &#39;gzip, deflate, br&#39;]
+ **accept_encoding** | **str**|  | [optional] [default to &#39;gzip&#39;]
  **content_type** | **str**|  | [optional] [default to application/json]
 
 ### Return type
@@ -658,13 +662,15 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: application/json, text/html;charset=UTF-8
+ - **Accept**: application/json
 
 ### HTTP response details
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Результат по каждому элементу (успех или объект ошибки) |  -  |
+**404** | Ошибка массовой операции: объект errors или массив результатов по каждому элементу  |  -  |
+**412** | Ошибка массовой операции: объект errors или массив результатов по каждому элементу  |  -  |
 **0** | Ошибка запроса (тело — объект с полем errors) |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -716,7 +722,7 @@ with moysklad_remap_12_sdk.ApiClient(configuration) as api_client:
     api_instance = moysklad_remap_12_sdk.ProcessingProcessesApi(api_client)
     processing_process = [moysklad_remap_12_sdk.ProcessingProcess()] # List[ProcessingProcess] | 
     accept = application/json;charset=utf-8 # str |  (optional) (default to application/json;charset=utf-8)
-    accept_encoding = 'gzip, deflate, br' # str |  (optional) (default to 'gzip, deflate, br')
+    accept_encoding = 'gzip' # str |  (optional) (default to 'gzip')
     content_type = application/json # str |  (optional) (default to application/json)
 
     try:
@@ -737,7 +743,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **processing_process** | [**List[ProcessingProcess]**](ProcessingProcess.md)|  | 
  **accept** | **str**|  | [optional] [default to application/json;charset&#x3D;utf-8]
- **accept_encoding** | **str**|  | [optional] [default to &#39;gzip, deflate, br&#39;]
+ **accept_encoding** | **str**|  | [optional] [default to &#39;gzip&#39;]
  **content_type** | **str**|  | [optional] [default to application/json]
 
 ### Return type
@@ -751,13 +757,15 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: application/json, text/html;charset=UTF-8
+ - **Accept**: application/json
 
 ### HTTP response details
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Результат по каждому элементу (успех или объект ошибки) |  -  |
+**404** | Ошибка массовой операции: объект errors или массив результатов по каждому элементу  |  -  |
+**412** | Ошибка массовой операции: объект errors или массив результатов по каждому элементу  |  -  |
 **0** | Ошибка запроса (тело — объект с полем errors) |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -809,7 +817,7 @@ with moysklad_remap_12_sdk.ApiClient(configuration) as api_client:
     id = 'id_example' # str | ID сущности
     expand = 'expand_example' # str | Замена ссылок объектами с помощью expand (optional)
     accept = application/json;charset=utf-8 # str |  (optional) (default to application/json;charset=utf-8)
-    accept_encoding = 'gzip, deflate, br' # str |  (optional) (default to 'gzip, deflate, br')
+    accept_encoding = 'gzip' # str |  (optional) (default to 'gzip')
 
     try:
         # Получить Техпроцесс по ID
@@ -830,7 +838,7 @@ Name | Type | Description  | Notes
  **id** | **str**| ID сущности | 
  **expand** | **str**| Замена ссылок объектами с помощью expand | [optional] 
  **accept** | **str**|  | [optional] [default to application/json;charset&#x3D;utf-8]
- **accept_encoding** | **str**|  | [optional] [default to &#39;gzip, deflate, br&#39;]
+ **accept_encoding** | **str**|  | [optional] [default to &#39;gzip&#39;]
 
 ### Return type
 
@@ -843,7 +851,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json, text/html;charset=UTF-8
+ - **Accept**: application/json
 
 ### HTTP response details
 
@@ -902,7 +910,7 @@ with moysklad_remap_12_sdk.ApiClient(configuration) as api_client:
     position_id = 'position_id_example' # str | ID позиции
     expand = 'expand_example' # str | Замена ссылок объектами с помощью expand (optional)
     accept = application/json;charset=utf-8 # str |  (optional) (default to application/json;charset=utf-8)
-    accept_encoding = 'gzip, deflate, br' # str |  (optional) (default to 'gzip, deflate, br')
+    accept_encoding = 'gzip' # str |  (optional) (default to 'gzip')
 
     try:
         # Получить позицию Техпроцесса
@@ -924,7 +932,7 @@ Name | Type | Description  | Notes
  **position_id** | **str**| ID позиции | 
  **expand** | **str**| Замена ссылок объектами с помощью expand | [optional] 
  **accept** | **str**|  | [optional] [default to application/json;charset&#x3D;utf-8]
- **accept_encoding** | **str**|  | [optional] [default to &#39;gzip, deflate, br&#39;]
+ **accept_encoding** | **str**|  | [optional] [default to &#39;gzip&#39;]
 
 ### Return type
 
@@ -937,7 +945,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json, text/html;charset=UTF-8
+ - **Accept**: application/json
 
 ### HTTP response details
 
@@ -997,7 +1005,7 @@ with moysklad_remap_12_sdk.ApiClient(configuration) as api_client:
     offset = 0 # int | Отступ в выданном списке (optional) (default to 0)
     expand = 'expand_example' # str | Замена ссылок объектами с помощью expand (optional)
     accept = application/json;charset=utf-8 # str |  (optional) (default to application/json;charset=utf-8)
-    accept_encoding = 'gzip, deflate, br' # str |  (optional) (default to 'gzip, deflate, br')
+    accept_encoding = 'gzip' # str |  (optional) (default to 'gzip')
 
     try:
         # Получить позиции Техпроцесса
@@ -1020,7 +1028,7 @@ Name | Type | Description  | Notes
  **offset** | **int**| Отступ в выданном списке | [optional] [default to 0]
  **expand** | **str**| Замена ссылок объектами с помощью expand | [optional] 
  **accept** | **str**|  | [optional] [default to application/json;charset&#x3D;utf-8]
- **accept_encoding** | **str**|  | [optional] [default to &#39;gzip, deflate, br&#39;]
+ **accept_encoding** | **str**|  | [optional] [default to &#39;gzip&#39;]
 
 ### Return type
 
@@ -1033,7 +1041,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json, text/html;charset=UTF-8
+ - **Accept**: application/json
 
 ### HTTP response details
 
@@ -1094,7 +1102,7 @@ with moysklad_remap_12_sdk.ApiClient(configuration) as api_client:
     expand = 'expand_example' # str | Замена ссылок объектами с помощью expand (optional)
     order = 'order_example' # str | Сортировка (optional)
     accept = application/json;charset=utf-8 # str |  (optional) (default to application/json;charset=utf-8)
-    accept_encoding = 'gzip, deflate, br' # str |  (optional) (default to 'gzip, deflate, br')
+    accept_encoding = 'gzip' # str |  (optional) (default to 'gzip')
 
     try:
         # Получить список Техпроцессов
@@ -1118,7 +1126,7 @@ Name | Type | Description  | Notes
  **expand** | **str**| Замена ссылок объектами с помощью expand | [optional] 
  **order** | **str**| Сортировка | [optional] 
  **accept** | **str**|  | [optional] [default to application/json;charset&#x3D;utf-8]
- **accept_encoding** | **str**|  | [optional] [default to &#39;gzip, deflate, br&#39;]
+ **accept_encoding** | **str**|  | [optional] [default to &#39;gzip&#39;]
 
 ### Return type
 
@@ -1131,7 +1139,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json, text/html;charset=UTF-8
+ - **Accept**: application/json
 
 ### HTTP response details
 
@@ -1190,7 +1198,7 @@ with moysklad_remap_12_sdk.ApiClient(configuration) as api_client:
     processing_process = moysklad_remap_12_sdk.ProcessingProcess() # ProcessingProcess | 
     expand = 'expand_example' # str | Замена ссылок объектами с помощью expand (optional)
     accept = application/json;charset=utf-8 # str |  (optional) (default to application/json;charset=utf-8)
-    accept_encoding = 'gzip, deflate, br' # str |  (optional) (default to 'gzip, deflate, br')
+    accept_encoding = 'gzip' # str |  (optional) (default to 'gzip')
     content_type = application/json # str |  (optional) (default to application/json)
 
     try:
@@ -1213,7 +1221,7 @@ Name | Type | Description  | Notes
  **processing_process** | [**ProcessingProcess**](ProcessingProcess.md)|  | 
  **expand** | **str**| Замена ссылок объектами с помощью expand | [optional] 
  **accept** | **str**|  | [optional] [default to application/json;charset&#x3D;utf-8]
- **accept_encoding** | **str**|  | [optional] [default to &#39;gzip, deflate, br&#39;]
+ **accept_encoding** | **str**|  | [optional] [default to &#39;gzip&#39;]
  **content_type** | **str**|  | [optional] [default to application/json]
 
 ### Return type
@@ -1227,7 +1235,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: application/json, text/html;charset=UTF-8
+ - **Accept**: application/json
 
 ### HTTP response details
 
@@ -1287,7 +1295,7 @@ with moysklad_remap_12_sdk.ApiClient(configuration) as api_client:
     processing_process_position = moysklad_remap_12_sdk.ProcessingProcessPosition() # ProcessingProcessPosition | 
     expand = 'expand_example' # str | Замена ссылок объектами с помощью expand (optional)
     accept = application/json;charset=utf-8 # str |  (optional) (default to application/json;charset=utf-8)
-    accept_encoding = 'gzip, deflate, br' # str |  (optional) (default to 'gzip, deflate, br')
+    accept_encoding = 'gzip' # str |  (optional) (default to 'gzip')
     content_type = application/json # str |  (optional) (default to application/json)
 
     try:
@@ -1311,7 +1319,7 @@ Name | Type | Description  | Notes
  **processing_process_position** | [**ProcessingProcessPosition**](ProcessingProcessPosition.md)|  | 
  **expand** | **str**| Замена ссылок объектами с помощью expand | [optional] 
  **accept** | **str**|  | [optional] [default to application/json;charset&#x3D;utf-8]
- **accept_encoding** | **str**|  | [optional] [default to &#39;gzip, deflate, br&#39;]
+ **accept_encoding** | **str**|  | [optional] [default to &#39;gzip&#39;]
  **content_type** | **str**|  | [optional] [default to application/json]
 
 ### Return type
@@ -1325,7 +1333,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: application/json, text/html;charset=UTF-8
+ - **Accept**: application/json
 
 ### HTTP response details
 

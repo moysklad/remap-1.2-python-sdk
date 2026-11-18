@@ -35,6 +35,7 @@ if TYPE_CHECKING:
     from moysklad_remap_12_sdk.models.attribute_file import AttributeFile
     from moysklad_remap_12_sdk.models.attribute_link import AttributeLink
     from moysklad_remap_12_sdk.models.attribute_long import AttributeLong
+    from moysklad_remap_12_sdk.models.attribute_counterparty_entity import AttributeCounterpartyEntity
     from moysklad_remap_12_sdk.models.attribute_product_entity import AttributeProductEntity
     from moysklad_remap_12_sdk.models.attribute_project_entity import AttributeProjectEntity
     from moysklad_remap_12_sdk.models.attribute_store_entity import AttributeStoreEntity
@@ -63,7 +64,7 @@ class AttributeAbstract(BaseModel):
 
     __discriminator_property_name: ClassVar[str] = 'type'
     __discriminator_value_class_map: ClassVar[Dict[str, str]] = {
-        'boolean': 'AttributeBool','contract': 'AttributeContractEntity','counterparty': 'AttributeCounterpartyEntity','customentity': 'AttributeCustomEntity','double': 'AttributeDouble','employee': 'AttributeEmployeeEntity','file': 'AttributeFile','link': 'AttributeLink','long': 'AttributeLong','product': 'AttributeProductEntity','project': 'AttributeProjectEntity','store': 'AttributeStoreEntity','string': 'AttributeString','text': 'AttributeText','time': 'AttributeDateTime'
+        'boolean': 'AttributeBool','contract': 'AttributeContractEntity','counterparty': 'AttributeCounterpartyEntity','customentity': 'AttributeCustomEntity','double': 'AttributeDouble','employee': 'AttributeEmployeeEntity','file': 'AttributeFile','link': 'AttributeLink','long': 'AttributeLong','organization': 'AttributeCounterpartyEntity','product': 'AttributeProductEntity','project': 'AttributeProjectEntity','store': 'AttributeStoreEntity','string': 'AttributeString','text': 'AttributeText','time': 'AttributeDateTime'
     }
 
     @classmethod
@@ -84,7 +85,7 @@ class AttributeAbstract(BaseModel):
         return json.dumps(self.to_dict())
 
     @classmethod
-    def from_json(cls, json_str: str) -> Optional[Union[AttributeBool, AttributeContractEntity, AttributeCounterpartyEntity, AttributeCustomEntity, AttributeDouble, AttributeEmployeeEntity, AttributeFile, AttributeLink, AttributeLong, AttributeProductEntity, AttributeProjectEntity, AttributeStoreEntity, AttributeString, AttributeText, AttributeDateTime]]:
+    def from_json(cls, json_str: str) -> Optional[Union[AttributeBool, AttributeContractEntity, AttributeCounterpartyEntity, AttributeCustomEntity, AttributeDouble, AttributeEmployeeEntity, AttributeFile, AttributeLink, AttributeLong, AttributeCounterpartyEntity, AttributeProductEntity, AttributeProjectEntity, AttributeStoreEntity, AttributeString, AttributeText, AttributeDateTime]]:
         """Create an instance of AttributeAbstract from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
@@ -94,6 +95,24 @@ class AttributeAbstract(BaseModel):
         `None` is only added for nullable fields set at initialization.
         OpenAPI `readOnly` response fields are retained.
         """
+        def _json_model_value(value):
+            if isinstance(value, list):
+                return [_json_model_value(item) for item in value]
+            if value is not None and hasattr(value, "to_dict") and callable(value.to_dict):
+                return value.to_dict()
+            return value
+
+        def _model_value_replaces_schema_set(value):
+            if isinstance(value, set):
+                return True
+            if isinstance(value, list):
+                return any(_model_value_replaces_schema_set(item) for item in value)
+            if isinstance(value, dict):
+                if "one_of_schemas" in value or "any_of_schemas" in value:
+                    return True
+                return any(_model_value_replaces_schema_set(item) for item in value.values())
+            return False
+
         excluded_fields: Set[str] = {
             "additional_properties",
         }
@@ -109,10 +128,26 @@ class AttributeAbstract(BaseModel):
             for _key, _value in self.additional_properties.items():
                 _dict[_key] = _value
 
+        # oneOf/anyOf, унаследованные поля и лишние свойства не должны уносить в JSON
+        # служебное множество имен схем: оно не сериализуется.
+        for _field_name, _field in type(self).model_fields.items():
+            if _field_name == "additional_properties":
+                continue
+            _value = getattr(self, _field_name)
+            _alias = _field.alias or _field_name
+            if _model_value_replaces_schema_set(_dict.get(_alias)):
+                _converted = _json_model_value(_value)
+                if _converted is not None:
+                    _dict[_alias] = _converted
+        for _extra_key, _extra_value in (getattr(self, "__pydantic_extra__", None) or {}).items():
+            if _model_value_replaces_schema_set(_dict.get(_extra_key)):
+                _converted = _json_model_value(_extra_value)
+                if _converted is not None:
+                    _dict[_extra_key] = _converted
         return _dict
 
     @classmethod
-    def from_dict(cls, obj: Dict[str, Any]) -> Optional[Union[AttributeBool, AttributeContractEntity, AttributeCounterpartyEntity, AttributeCustomEntity, AttributeDouble, AttributeEmployeeEntity, AttributeFile, AttributeLink, AttributeLong, AttributeProductEntity, AttributeProjectEntity, AttributeStoreEntity, AttributeString, AttributeText, AttributeDateTime]]:
+    def from_dict(cls, obj: Dict[str, Any]) -> Optional[Union[AttributeBool, AttributeContractEntity, AttributeCounterpartyEntity, AttributeCustomEntity, AttributeDouble, AttributeEmployeeEntity, AttributeFile, AttributeLink, AttributeLong, AttributeCounterpartyEntity, AttributeProductEntity, AttributeProjectEntity, AttributeStoreEntity, AttributeString, AttributeText, AttributeDateTime]]:
         """Create an instance of AttributeAbstract from a dict"""
         object_type = cls.get_discriminator_value(obj)
         if object_type == 'AttributeBool':
@@ -133,6 +168,8 @@ class AttributeAbstract(BaseModel):
             return import_module("moysklad_remap_12_sdk.models.attribute_link").AttributeLink.from_dict(obj)
         if object_type == 'AttributeLong':
             return import_module("moysklad_remap_12_sdk.models.attribute_long").AttributeLong.from_dict(obj)
+        if object_type == 'AttributeCounterpartyEntity':
+            return import_module("moysklad_remap_12_sdk.models.attribute_counterparty_entity").AttributeCounterpartyEntity.from_dict(obj)
         if object_type == 'AttributeProductEntity':
             return import_module("moysklad_remap_12_sdk.models.attribute_product_entity").AttributeProductEntity.from_dict(obj)
         if object_type == 'AttributeProjectEntity':

@@ -35,7 +35,7 @@ from moysklad_remap_12_sdk.models.meta import Meta
 from moysklad_remap_12_sdk.models.organization import Organization
 from moysklad_remap_12_sdk.models.project import Project
 from moysklad_remap_12_sdk.models.sales_channel import SalesChannel
-from moysklad_remap_12_sdk.models.sales_return_payments_inner import SalesReturnPaymentsInner
+from moysklad_remap_12_sdk.models.sales_return_payment import SalesReturnPayment
 from moysklad_remap_12_sdk.models.sales_return_position_list import SalesReturnPositionList
 from moysklad_remap_12_sdk.models.state import State
 from moysklad_remap_12_sdk.models.store import Store
@@ -86,7 +86,7 @@ class FinanceOutOperationSalesReturn(FinanceOutOperationAbstract):
     sales_channel: Optional[SalesChannel] = Field(default=None, description="Метаданные канала продаж", alias="salesChannel")
     demand: Optional[Demand] = Field(default=None, description="Отгрузка, по которой произошел возврат")
     losses: Optional[List[Loss]] = Field(default=None, description="Массив ссылок на связанные списания")
-    payments: Optional[List[SalesReturnPaymentsInner]] = Field(default=None, description="Массив ссылок на связанные платежи")
+    payments: Optional[List[SalesReturnPayment]] = Field(default=None, description="Массив ссылок на связанные платежи")
     facture_out: Optional[FactureOut] = Field(default=None, description="Счет-фактура выданный, с которым связан этот возврат", alias="factureOut")
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["meta", "id", "accountId", "name", "code", "externalCode", "syncId", "description", "created", "deleted", "updated", "moment", "applicable", "printed", "published", "shared", "vatEnabled", "vatIncluded", "vatSum", "sum", "payedSum", "organization", "organizationAccount", "agent", "agentAccount", "store", "state", "contract", "project", "owner", "group", "attributes", "files", "rate", "positions", "salesChannel", "demand", "losses", "payments", "factureOut"]
@@ -119,6 +119,24 @@ class FinanceOutOperationSalesReturn(FinanceOutOperationAbstract):
         `None` is only added for nullable fields set at initialization.
         OpenAPI `readOnly` response fields are retained.
         """
+        def _json_model_value(value):
+            if isinstance(value, list):
+                return [_json_model_value(item) for item in value]
+            if value is not None and hasattr(value, "to_dict") and callable(value.to_dict):
+                return value.to_dict()
+            return value
+
+        def _model_value_replaces_schema_set(value):
+            if isinstance(value, set):
+                return True
+            if isinstance(value, list):
+                return any(_model_value_replaces_schema_set(item) for item in value)
+            if isinstance(value, dict):
+                if "one_of_schemas" in value or "any_of_schemas" in value:
+                    return True
+                return any(_model_value_replaces_schema_set(item) for item in value.values())
+            return False
+
         excluded_fields: Set[str] = {
             "additional_properties",
         }
@@ -184,6 +202,22 @@ class FinanceOutOperationSalesReturn(FinanceOutOperationAbstract):
             for _key, _value in self.additional_properties.items():
                 _dict[_key] = _value
 
+        # oneOf/anyOf, унаследованные поля и лишние свойства не должны уносить в JSON
+        # служебное множество имен схем: оно не сериализуется.
+        for _field_name, _field in type(self).model_fields.items():
+            if _field_name == "additional_properties":
+                continue
+            _value = getattr(self, _field_name)
+            _alias = _field.alias or _field_name
+            if _model_value_replaces_schema_set(_dict.get(_alias)):
+                _converted = _json_model_value(_value)
+                if _converted is not None:
+                    _dict[_alias] = _converted
+        for _extra_key, _extra_value in (getattr(self, "__pydantic_extra__", None) or {}).items():
+            if _model_value_replaces_schema_set(_dict.get(_extra_key)):
+                _converted = _json_model_value(_extra_value)
+                if _converted is not None:
+                    _dict[_extra_key] = _converted
         if self.description is None and "description" in self.model_fields_set:
             _dict['description'] = None
 
@@ -280,7 +314,7 @@ class FinanceOutOperationSalesReturn(FinanceOutOperationAbstract):
             "salesChannel": SalesChannel.from_dict(obj["salesChannel"]) if obj.get("salesChannel") is not None else None,
             "demand": Demand.from_dict(obj["demand"]) if obj.get("demand") is not None else None,
             "losses": [Loss.from_dict(_item) for _item in obj["losses"]] if obj.get("losses") is not None else None,
-            "payments": [SalesReturnPaymentsInner.from_dict(_item) for _item in obj["payments"]] if obj.get("payments") is not None else None,
+            "payments": [SalesReturnPayment.from_dict(_item) for _item in obj["payments"]] if obj.get("payments") is not None else None,
             "factureOut": FactureOut.from_dict(obj["factureOut"]) if obj.get("factureOut") is not None else None
         })
         _obj = cls.model_validate(_data)
@@ -405,7 +439,7 @@ from moysklad_remap_12_sdk.models.loss import Loss
 
 
 
-from moysklad_remap_12_sdk.models.sales_return_payments_inner import SalesReturnPaymentsInner
+from moysklad_remap_12_sdk.models.sales_return_payment import SalesReturnPayment
 
 
 from moysklad_remap_12_sdk.models.facture_out import FactureOut

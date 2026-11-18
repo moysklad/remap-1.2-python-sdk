@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **meta** | [**Meta**](Meta.md) |  | [optional] 
 **product_folders** | [**List[ProductFolder]**](ProductFolder.md) | Группы товаров со скидкой | [optional] 
 **levels** | [**List[AccumulationDiscountLevelsInner]**](AccumulationDiscountLevelsInner.md) | Проценты скидок при определенной сумме продаж | [optional] 
+**assortment** | [**List[DiscountAssortmentItem]**](DiscountAssortmentItem.md) | Массив метаданных товаров, услуг и модификаций | [optional] 
 
 ## Example
 

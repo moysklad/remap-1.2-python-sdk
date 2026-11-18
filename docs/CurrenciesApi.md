@@ -61,7 +61,7 @@ with moysklad_remap_12_sdk.ApiClient(configuration) as api_client:
     currency = [{name=евро, fullName=Евро, code=978, isoCode=EUR, rate=90.0, shared=true, archived=false, externalCode=euroCurrency}] # List[Currency] | 
     expand = 'expand_example' # str | Замена ссылок объектами с помощью expand (optional)
     accept = application/json;charset=utf-8 # str |  (optional) (default to application/json;charset=utf-8)
-    accept_encoding = 'gzip, deflate, br' # str |  (optional) (default to 'gzip, deflate, br')
+    accept_encoding = 'gzip' # str |  (optional) (default to 'gzip')
     content_type = application/json # str |  (optional) (default to application/json)
 
     try:
@@ -83,7 +83,7 @@ Name | Type | Description  | Notes
  **currency** | [**List[Currency]**](Currency.md)|  | 
  **expand** | **str**| Замена ссылок объектами с помощью expand | [optional] 
  **accept** | **str**|  | [optional] [default to application/json;charset&#x3D;utf-8]
- **accept_encoding** | **str**|  | [optional] [default to &#39;gzip, deflate, br&#39;]
+ **accept_encoding** | **str**|  | [optional] [default to &#39;gzip&#39;]
  **content_type** | **str**|  | [optional] [default to application/json]
 
 ### Return type
@@ -97,13 +97,15 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: application/json, text/html;charset=UTF-8
+ - **Accept**: application/json
 
 ### HTTP response details
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Валюты созданы или изменены (элемент — сущность или объект ошибки) |  -  |
+**404** | Ошибка массовой операции: объект errors или массив результатов по каждому элементу  |  -  |
+**412** | Ошибка массовой операции: объект errors или массив результатов по каждому элементу  |  -  |
 **0** | Ошибка запроса (тело — объект с полем errors) |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -155,7 +157,7 @@ with moysklad_remap_12_sdk.ApiClient(configuration) as api_client:
     currency = {name=доллар, fullName=Доллар США, code=840, isoCode=USD, rate=75.0, shared=true, archived=false, externalCode=dollarCurrency} # Currency | 
     expand = 'expand_example' # str | Замена ссылок объектами с помощью expand (optional)
     accept = application/json;charset=utf-8 # str |  (optional) (default to application/json;charset=utf-8)
-    accept_encoding = 'gzip, deflate, br' # str |  (optional) (default to 'gzip, deflate, br')
+    accept_encoding = 'gzip' # str |  (optional) (default to 'gzip')
     content_type = application/json # str |  (optional) (default to application/json)
 
     try:
@@ -177,7 +179,7 @@ Name | Type | Description  | Notes
  **currency** | [**Currency**](Currency.md)|  | 
  **expand** | **str**| Замена ссылок объектами с помощью expand | [optional] 
  **accept** | **str**|  | [optional] [default to application/json;charset&#x3D;utf-8]
- **accept_encoding** | **str**|  | [optional] [default to &#39;gzip, deflate, br&#39;]
+ **accept_encoding** | **str**|  | [optional] [default to &#39;gzip&#39;]
  **content_type** | **str**|  | [optional] [default to application/json]
 
 ### Return type
@@ -191,7 +193,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: application/json, text/html;charset=UTF-8
+ - **Accept**: application/json
 
 ### HTTP response details
 
@@ -249,7 +251,7 @@ with moysklad_remap_12_sdk.ApiClient(configuration) as api_client:
     api_instance = moysklad_remap_12_sdk.CurrenciesApi(api_client)
     currency = [moysklad_remap_12_sdk.Currency()] # List[Currency] | 
     accept = application/json;charset=utf-8 # str |  (optional) (default to application/json;charset=utf-8)
-    accept_encoding = 'gzip, deflate, br' # str |  (optional) (default to 'gzip, deflate, br')
+    accept_encoding = 'gzip' # str |  (optional) (default to 'gzip')
     content_type = application/json # str |  (optional) (default to application/json)
 
     try:
@@ -270,7 +272,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **currency** | [**List[Currency]**](Currency.md)|  | 
  **accept** | **str**|  | [optional] [default to application/json;charset&#x3D;utf-8]
- **accept_encoding** | **str**|  | [optional] [default to &#39;gzip, deflate, br&#39;]
+ **accept_encoding** | **str**|  | [optional] [default to &#39;gzip&#39;]
  **content_type** | **str**|  | [optional] [default to application/json]
 
 ### Return type
@@ -284,13 +286,15 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: application/json, text/html;charset=UTF-8
+ - **Accept**: application/json
 
 ### HTTP response details
 
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Результат по каждому элементу (успех или объект ошибки) |  -  |
+**404** | Ошибка массовой операции: объект errors или массив результатов по каждому элементу  |  -  |
+**412** | Ошибка массовой операции: объект errors или массив результатов по каждому элементу  |  -  |
 **0** | Ошибка запроса (тело — объект с полем errors) |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -340,7 +344,7 @@ with moysklad_remap_12_sdk.ApiClient(configuration) as api_client:
     api_instance = moysklad_remap_12_sdk.CurrenciesApi(api_client)
     id = 'id_example' # str | ID сущности
     accept = application/json;charset=utf-8 # str |  (optional) (default to application/json;charset=utf-8)
-    accept_encoding = 'gzip, deflate, br' # str |  (optional) (default to 'gzip, deflate, br')
+    accept_encoding = 'gzip' # str |  (optional) (default to 'gzip')
 
     try:
         # Удалить валюту
@@ -358,7 +362,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **str**| ID сущности | 
  **accept** | **str**|  | [optional] [default to application/json;charset&#x3D;utf-8]
- **accept_encoding** | **str**|  | [optional] [default to &#39;gzip, deflate, br&#39;]
+ **accept_encoding** | **str**|  | [optional] [default to &#39;gzip&#39;]
 
 ### Return type
 
@@ -371,7 +375,7 @@ void (empty response body)
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json, text/html;charset=UTF-8
+ - **Accept**: application/json
 
 ### HTTP response details
 
@@ -433,7 +437,7 @@ with moysklad_remap_12_sdk.ApiClient(configuration) as api_client:
     expand = 'expand_example' # str | Замена ссылок объектами с помощью expand (optional)
     order = 'order_example' # str | Сортировка (optional)
     accept = application/json;charset=utf-8 # str |  (optional) (default to application/json;charset=utf-8)
-    accept_encoding = 'gzip, deflate, br' # str |  (optional) (default to 'gzip, deflate, br')
+    accept_encoding = 'gzip' # str |  (optional) (default to 'gzip')
 
     try:
         # Получить список валют
@@ -458,7 +462,7 @@ Name | Type | Description  | Notes
  **expand** | **str**| Замена ссылок объектами с помощью expand | [optional] 
  **order** | **str**| Сортировка | [optional] 
  **accept** | **str**|  | [optional] [default to application/json;charset&#x3D;utf-8]
- **accept_encoding** | **str**|  | [optional] [default to &#39;gzip, deflate, br&#39;]
+ **accept_encoding** | **str**|  | [optional] [default to &#39;gzip&#39;]
 
 ### Return type
 
@@ -471,7 +475,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json, text/html;charset=UTF-8
+ - **Accept**: application/json
 
 ### HTTP response details
 
@@ -529,7 +533,7 @@ with moysklad_remap_12_sdk.ApiClient(configuration) as api_client:
     id = 'id_example' # str | ID сущности
     expand = 'expand_example' # str | Замена ссылок объектами с помощью expand (optional)
     accept = application/json;charset=utf-8 # str |  (optional) (default to application/json;charset=utf-8)
-    accept_encoding = 'gzip, deflate, br' # str |  (optional) (default to 'gzip, deflate, br')
+    accept_encoding = 'gzip' # str |  (optional) (default to 'gzip')
 
     try:
         # Получить валюту по ID
@@ -550,7 +554,7 @@ Name | Type | Description  | Notes
  **id** | **str**| ID сущности | 
  **expand** | **str**| Замена ссылок объектами с помощью expand | [optional] 
  **accept** | **str**|  | [optional] [default to application/json;charset&#x3D;utf-8]
- **accept_encoding** | **str**|  | [optional] [default to &#39;gzip, deflate, br&#39;]
+ **accept_encoding** | **str**|  | [optional] [default to &#39;gzip&#39;]
 
 ### Return type
 
@@ -563,7 +567,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json, text/html;charset=UTF-8
+ - **Accept**: application/json
 
 ### HTTP response details
 
@@ -622,7 +626,7 @@ with moysklad_remap_12_sdk.ApiClient(configuration) as api_client:
     currency = moysklad_remap_12_sdk.Currency() # Currency | 
     expand = 'expand_example' # str | Замена ссылок объектами с помощью expand (optional)
     accept = application/json;charset=utf-8 # str |  (optional) (default to application/json;charset=utf-8)
-    accept_encoding = 'gzip, deflate, br' # str |  (optional) (default to 'gzip, deflate, br')
+    accept_encoding = 'gzip' # str |  (optional) (default to 'gzip')
     content_type = application/json # str |  (optional) (default to application/json)
 
     try:
@@ -645,7 +649,7 @@ Name | Type | Description  | Notes
  **currency** | [**Currency**](Currency.md)|  | 
  **expand** | **str**| Замена ссылок объектами с помощью expand | [optional] 
  **accept** | **str**|  | [optional] [default to application/json;charset&#x3D;utf-8]
- **accept_encoding** | **str**|  | [optional] [default to &#39;gzip, deflate, br&#39;]
+ **accept_encoding** | **str**|  | [optional] [default to &#39;gzip&#39;]
  **content_type** | **str**|  | [optional] [default to application/json]
 
 ### Return type
@@ -659,7 +663,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: application/json, text/html;charset=UTF-8
+ - **Accept**: application/json
 
 ### HTTP response details
 

@@ -72,7 +72,7 @@ with moysklad_remap_12_sdk.ApiClient(configuration) as api_client:
     offset = 0 # int | Отступ в выданном списке (optional) (default to 0)
     filter = 'filter_example' # str | Фильтрация выборки (optional)
     accept = application/json;charset=utf-8 # str |  (optional) (default to application/json;charset=utf-8)
-    accept_encoding = 'gzip, deflate, br' # str |  (optional) (default to 'gzip, deflate, br')
+    accept_encoding = 'gzip' # str |  (optional) (default to 'gzip')
 
     try:
         # Получить показатели контрагентов
@@ -94,7 +94,7 @@ Name | Type | Description  | Notes
  **offset** | **int**| Отступ в выданном списке | [optional] [default to 0]
  **filter** | **str**| Фильтрация выборки | [optional] 
  **accept** | **str**|  | [optional] [default to application/json;charset&#x3D;utf-8]
- **accept_encoding** | **str**|  | [optional] [default to &#39;gzip, deflate, br&#39;]
+ **accept_encoding** | **str**|  | [optional] [default to &#39;gzip&#39;]
 
 ### Return type
 
@@ -107,7 +107,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json, text/html;charset=UTF-8
+ - **Accept**: application/json
 
 ### HTTP response details
 
@@ -164,7 +164,7 @@ with moysklad_remap_12_sdk.ApiClient(configuration) as api_client:
     api_instance = moysklad_remap_12_sdk.ReportsApi(api_client)
     id = 'id_example' # str | ID сущности
     accept = application/json;charset=utf-8 # str |  (optional) (default to application/json;charset=utf-8)
-    accept_encoding = 'gzip, deflate, br' # str |  (optional) (default to 'gzip, deflate, br')
+    accept_encoding = 'gzip' # str |  (optional) (default to 'gzip')
 
     try:
         # Получить показатели контрагента
@@ -184,7 +184,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **str**| ID сущности | 
  **accept** | **str**|  | [optional] [default to application/json;charset&#x3D;utf-8]
- **accept_encoding** | **str**|  | [optional] [default to &#39;gzip, deflate, br&#39;]
+ **accept_encoding** | **str**|  | [optional] [default to &#39;gzip&#39;]
 
 ### Return type
 
@@ -197,7 +197,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json, text/html;charset=UTF-8
+ - **Accept**: application/json
 
 ### HTTP response details
 
@@ -255,7 +255,7 @@ with moysklad_remap_12_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = moysklad_remap_12_sdk.ReportsApi(api_client)
     accept = application/json;charset=utf-8 # str |  (optional) (default to application/json;charset=utf-8)
-    accept_encoding = 'gzip, deflate, br' # str |  (optional) (default to 'gzip, deflate, br')
+    accept_encoding = 'gzip' # str |  (optional) (default to 'gzip')
 
     try:
         # Получить показатели за день
@@ -274,7 +274,7 @@ with moysklad_remap_12_sdk.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **accept** | **str**|  | [optional] [default to application/json;charset&#x3D;utf-8]
- **accept_encoding** | **str**|  | [optional] [default to &#39;gzip, deflate, br&#39;]
+ **accept_encoding** | **str**|  | [optional] [default to &#39;gzip&#39;]
 
 ### Return type
 
@@ -287,7 +287,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json, text/html;charset=UTF-8
+ - **Accept**: application/json
 
 ### HTTP response details
 
@@ -345,7 +345,7 @@ with moysklad_remap_12_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = moysklad_remap_12_sdk.ReportsApi(api_client)
     accept = application/json;charset=utf-8 # str |  (optional) (default to application/json;charset=utf-8)
-    accept_encoding = 'gzip, deflate, br' # str |  (optional) (default to 'gzip, deflate, br')
+    accept_encoding = 'gzip' # str |  (optional) (default to 'gzip')
 
     try:
         # Получить показатели за месяц
@@ -364,7 +364,7 @@ with moysklad_remap_12_sdk.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **accept** | **str**|  | [optional] [default to application/json;charset&#x3D;utf-8]
- **accept_encoding** | **str**|  | [optional] [default to &#39;gzip, deflate, br&#39;]
+ **accept_encoding** | **str**|  | [optional] [default to &#39;gzip&#39;]
 
 ### Return type
 
@@ -377,7 +377,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json, text/html;charset=UTF-8
+ - **Accept**: application/json
 
 ### HTTP response details
 
@@ -435,7 +435,7 @@ with moysklad_remap_12_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = moysklad_remap_12_sdk.ReportsApi(api_client)
     accept = application/json;charset=utf-8 # str |  (optional) (default to application/json;charset=utf-8)
-    accept_encoding = 'gzip, deflate, br' # str |  (optional) (default to 'gzip, deflate, br')
+    accept_encoding = 'gzip' # str |  (optional) (default to 'gzip')
 
     try:
         # Получить показатели за неделю
@@ -454,7 +454,7 @@ with moysklad_remap_12_sdk.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **accept** | **str**|  | [optional] [default to application/json;charset&#x3D;utf-8]
- **accept_encoding** | **str**|  | [optional] [default to &#39;gzip, deflate, br&#39;]
+ **accept_encoding** | **str**|  | [optional] [default to &#39;gzip&#39;]
 
 ### Return type
 
@@ -467,7 +467,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json, text/html;charset=UTF-8
+ - **Accept**: application/json
 
 ### HTTP response details
 
@@ -526,7 +526,7 @@ with moysklad_remap_12_sdk.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = moysklad_remap_12_sdk.ReportsApi(api_client)
     accept = application/json;charset=utf-8 # str |  (optional) (default to application/json;charset=utf-8)
-    accept_encoding = 'gzip, deflate, br' # str |  (optional) (default to 'gzip, deflate, br')
+    accept_encoding = 'gzip' # str |  (optional) (default to 'gzip')
 
     try:
         # Получить остатки денежных средств по кассам и счетам
@@ -545,7 +545,7 @@ with moysklad_remap_12_sdk.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **accept** | **str**|  | [optional] [default to application/json;charset&#x3D;utf-8]
- **accept_encoding** | **str**|  | [optional] [default to &#39;gzip, deflate, br&#39;]
+ **accept_encoding** | **str**|  | [optional] [default to &#39;gzip&#39;]
 
 ### Return type
 
@@ -558,7 +558,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json, text/html;charset=UTF-8
+ - **Accept**: application/json
 
 ### HTTP response details
 
@@ -621,7 +621,7 @@ with moysklad_remap_12_sdk.ApiClient(configuration) as api_client:
     interval = 'interval_example' # str | Интервал построения отчета
     filter = 'filter_example' # str | Фильтрация выборки (optional)
     accept = application/json;charset=utf-8 # str |  (optional) (default to application/json;charset=utf-8)
-    accept_encoding = 'gzip, deflate, br' # str |  (optional) (default to 'gzip, deflate, br')
+    accept_encoding = 'gzip' # str |  (optional) (default to 'gzip')
     x_lognex_accept_timezone = 'x_lognex_accept_timezone_example' # str | Опциональный заголовок, в котором указана текущая дата на клиенте в RFC 3522. Таймзону обязательно указывать в формате знак и 4 символа. Пример: `Wed, 16 Aug 2017 23:07:01 +0700`. При подсчете показателей даты операций смещаются в таймзону клиента.  (optional)
 
     try:
@@ -645,7 +645,7 @@ Name | Type | Description  | Notes
  **interval** | **str**| Интервал построения отчета | 
  **filter** | **str**| Фильтрация выборки | [optional] 
  **accept** | **str**|  | [optional] [default to application/json;charset&#x3D;utf-8]
- **accept_encoding** | **str**|  | [optional] [default to &#39;gzip, deflate, br&#39;]
+ **accept_encoding** | **str**|  | [optional] [default to &#39;gzip&#39;]
  **x_lognex_accept_timezone** | **str**| Опциональный заголовок, в котором указана текущая дата на клиенте в RFC 3522. Таймзону обязательно указывать в формате знак и 4 символа. Пример: &#x60;Wed, 16 Aug 2017 23:07:01 +0700&#x60;. При подсчете показателей даты операций смещаются в таймзону клиента.  | [optional] 
 
 ### Return type
@@ -659,7 +659,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json, text/html;charset=UTF-8
+ - **Accept**: application/json
 
 ### HTTP response details
 
@@ -721,7 +721,7 @@ with moysklad_remap_12_sdk.ApiClient(configuration) as api_client:
     interval = 'interval_example' # str | Интервал построения отчета
     filter = 'filter_example' # str | Фильтрация показателей заказов. Доступные поля: `organization`, `store`, `project`. Можно указать несколько значений; пустые значения недопустимы.  (optional)
     accept = application/json;charset=utf-8 # str |  (optional) (default to application/json;charset=utf-8)
-    accept_encoding = 'gzip, deflate, br' # str |  (optional) (default to 'gzip, deflate, br')
+    accept_encoding = 'gzip' # str |  (optional) (default to 'gzip')
     x_lognex_accept_timezone = 'x_lognex_accept_timezone_example' # str | Опциональный заголовок, в котором указана текущая дата на клиенте в RFC 3522. Таймзону обязательно указывать в формате знак и 4 символа. Пример: `Wed, 16 Aug 2017 23:07:01 +0700`. При подсчете показателей даты операций смещаются в таймзону клиента.  (optional)
 
     try:
@@ -745,7 +745,7 @@ Name | Type | Description  | Notes
  **interval** | **str**| Интервал построения отчета | 
  **filter** | **str**| Фильтрация показателей заказов. Доступные поля: &#x60;organization&#x60;, &#x60;store&#x60;, &#x60;project&#x60;. Можно указать несколько значений; пустые значения недопустимы.  | [optional] 
  **accept** | **str**|  | [optional] [default to application/json;charset&#x3D;utf-8]
- **accept_encoding** | **str**|  | [optional] [default to &#39;gzip, deflate, br&#39;]
+ **accept_encoding** | **str**|  | [optional] [default to &#39;gzip&#39;]
  **x_lognex_accept_timezone** | **str**| Опциональный заголовок, в котором указана текущая дата на клиенте в RFC 3522. Таймзону обязательно указывать в формате знак и 4 символа. Пример: &#x60;Wed, 16 Aug 2017 23:07:01 +0700&#x60;. При подсчете показателей даты операций смещаются в таймзону клиента.  | [optional] 
 
 ### Return type
@@ -759,7 +759,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json, text/html;charset=UTF-8
+ - **Accept**: application/json
 
 ### HTTP response details
 
@@ -822,7 +822,7 @@ with moysklad_remap_12_sdk.ApiClient(configuration) as api_client:
     moment_from = 'moment_from_example' # str | Начало периода отчета в формате YYYY-MM-DD HH:MM:SS (optional)
     moment_to = 'moment_to_example' # str | Конец периода отчета в формате YYYY-MM-DD HH:MM:SS (optional)
     accept = application/json;charset=utf-8 # str |  (optional) (default to application/json;charset=utf-8)
-    accept_encoding = 'gzip, deflate, br' # str |  (optional) (default to 'gzip, deflate, br')
+    accept_encoding = 'gzip' # str |  (optional) (default to 'gzip')
     x_lognex_accept_timezone = 'x_lognex_accept_timezone_example' # str | Опциональный заголовок, в котором указана текущая дата на клиенте в RFC 3522. Таймзону обязательно указывать в формате знак и 4 символа. Пример: `Wed, 16 Aug 2017 23:07:01 +0700`. При подсчете показателей даты операций смещаются в таймзону клиента.  (optional)
 
     try:
@@ -847,7 +847,7 @@ Name | Type | Description  | Notes
  **moment_from** | **str**| Начало периода отчета в формате YYYY-MM-DD HH:MM:SS | [optional] 
  **moment_to** | **str**| Конец периода отчета в формате YYYY-MM-DD HH:MM:SS | [optional] 
  **accept** | **str**|  | [optional] [default to application/json;charset&#x3D;utf-8]
- **accept_encoding** | **str**|  | [optional] [default to &#39;gzip, deflate, br&#39;]
+ **accept_encoding** | **str**|  | [optional] [default to &#39;gzip&#39;]
  **x_lognex_accept_timezone** | **str**| Опциональный заголовок, в котором указана текущая дата на клиенте в RFC 3522. Таймзону обязательно указывать в формате знак и 4 символа. Пример: &#x60;Wed, 16 Aug 2017 23:07:01 +0700&#x60;. При подсчете показателей даты операций смещаются в таймзону клиента.  | [optional] 
 
 ### Return type
@@ -861,7 +861,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json, text/html;charset=UTF-8
+ - **Accept**: application/json
 
 ### HTTP response details
 
@@ -924,7 +924,7 @@ with moysklad_remap_12_sdk.ApiClient(configuration) as api_client:
     moment_from = 'moment_from_example' # str | Начало периода отчета в формате YYYY-MM-DD HH:MM:SS (optional)
     moment_to = 'moment_to_example' # str | Конец периода отчета в формате YYYY-MM-DD HH:MM:SS (optional)
     accept = application/json;charset=utf-8 # str |  (optional) (default to application/json;charset=utf-8)
-    accept_encoding = 'gzip, deflate, br' # str |  (optional) (default to 'gzip, deflate, br')
+    accept_encoding = 'gzip' # str |  (optional) (default to 'gzip')
     x_lognex_accept_timezone = 'x_lognex_accept_timezone_example' # str | Опциональный заголовок, в котором указана текущая дата на клиенте в RFC 3522. Таймзону обязательно указывать в формате знак и 4 символа. Пример: `Wed, 16 Aug 2017 23:07:01 +0700`. При подсчете показателей даты операций смещаются в таймзону клиента.  (optional)
 
     try:
@@ -949,7 +949,7 @@ Name | Type | Description  | Notes
  **moment_from** | **str**| Начало периода отчета в формате YYYY-MM-DD HH:MM:SS | [optional] 
  **moment_to** | **str**| Конец периода отчета в формате YYYY-MM-DD HH:MM:SS | [optional] 
  **accept** | **str**|  | [optional] [default to application/json;charset&#x3D;utf-8]
- **accept_encoding** | **str**|  | [optional] [default to &#39;gzip, deflate, br&#39;]
+ **accept_encoding** | **str**|  | [optional] [default to &#39;gzip&#39;]
  **x_lognex_accept_timezone** | **str**| Опциональный заголовок, в котором указана текущая дата на клиенте в RFC 3522. Таймзону обязательно указывать в формате знак и 4 символа. Пример: &#x60;Wed, 16 Aug 2017 23:07:01 +0700&#x60;. При подсчете показателей даты операций смещаются в таймзону клиента.  | [optional] 
 
 ### Return type
@@ -963,7 +963,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json, text/html;charset=UTF-8
+ - **Accept**: application/json
 
 ### HTTP response details
 
@@ -1026,7 +1026,7 @@ with moysklad_remap_12_sdk.ApiClient(configuration) as api_client:
     moment_from = 'moment_from_example' # str | Начало периода отчета в формате YYYY-MM-DD HH:MM:SS (optional)
     moment_to = 'moment_to_example' # str | Конец периода отчета в формате YYYY-MM-DD HH:MM:SS (optional)
     accept = application/json;charset=utf-8 # str |  (optional) (default to application/json;charset=utf-8)
-    accept_encoding = 'gzip, deflate, br' # str |  (optional) (default to 'gzip, deflate, br')
+    accept_encoding = 'gzip' # str |  (optional) (default to 'gzip')
     x_lognex_accept_timezone = 'x_lognex_accept_timezone_example' # str | Опциональный заголовок, в котором указана текущая дата на клиенте в RFC 3522. Таймзону обязательно указывать в формате знак и 4 символа. Пример: `Wed, 16 Aug 2017 23:07:01 +0700`. При подсчете показателей даты операций смещаются в таймзону клиента.  (optional)
 
     try:
@@ -1051,7 +1051,7 @@ Name | Type | Description  | Notes
  **moment_from** | **str**| Начало периода отчета в формате YYYY-MM-DD HH:MM:SS | [optional] 
  **moment_to** | **str**| Конец периода отчета в формате YYYY-MM-DD HH:MM:SS | [optional] 
  **accept** | **str**|  | [optional] [default to application/json;charset&#x3D;utf-8]
- **accept_encoding** | **str**|  | [optional] [default to &#39;gzip, deflate, br&#39;]
+ **accept_encoding** | **str**|  | [optional] [default to &#39;gzip&#39;]
  **x_lognex_accept_timezone** | **str**| Опциональный заголовок, в котором указана текущая дата на клиенте в RFC 3522. Таймзону обязательно указывать в формате знак и 4 символа. Пример: &#x60;Wed, 16 Aug 2017 23:07:01 +0700&#x60;. При подсчете показателей даты операций смещаются в таймзону клиента.  | [optional] 
 
 ### Return type
@@ -1065,7 +1065,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json, text/html;charset=UTF-8
+ - **Accept**: application/json
 
 ### HTTP response details
 
@@ -1128,7 +1128,7 @@ with moysklad_remap_12_sdk.ApiClient(configuration) as api_client:
     moment_from = 'moment_from_example' # str | Начало периода отчета в формате YYYY-MM-DD HH:MM:SS (optional)
     moment_to = 'moment_to_example' # str | Конец периода отчета в формате YYYY-MM-DD HH:MM:SS (optional)
     accept = application/json;charset=utf-8 # str |  (optional) (default to application/json;charset=utf-8)
-    accept_encoding = 'gzip, deflate, br' # str |  (optional) (default to 'gzip, deflate, br')
+    accept_encoding = 'gzip' # str |  (optional) (default to 'gzip')
     x_lognex_accept_timezone = 'x_lognex_accept_timezone_example' # str | Опциональный заголовок, в котором указана текущая дата на клиенте в RFC 3522. Таймзону обязательно указывать в формате знак и 4 символа. Пример: `Wed, 16 Aug 2017 23:07:01 +0700`. При подсчете показателей даты операций смещаются в таймзону клиента.  (optional)
 
     try:
@@ -1153,7 +1153,7 @@ Name | Type | Description  | Notes
  **moment_from** | **str**| Начало периода отчета в формате YYYY-MM-DD HH:MM:SS | [optional] 
  **moment_to** | **str**| Конец периода отчета в формате YYYY-MM-DD HH:MM:SS | [optional] 
  **accept** | **str**|  | [optional] [default to application/json;charset&#x3D;utf-8]
- **accept_encoding** | **str**|  | [optional] [default to &#39;gzip, deflate, br&#39;]
+ **accept_encoding** | **str**|  | [optional] [default to &#39;gzip&#39;]
  **x_lognex_accept_timezone** | **str**| Опциональный заголовок, в котором указана текущая дата на клиенте в RFC 3522. Таймзону обязательно указывать в формате знак и 4 символа. Пример: &#x60;Wed, 16 Aug 2017 23:07:01 +0700&#x60;. При подсчете показателей даты операций смещаются в таймзону клиента.  | [optional] 
 
 ### Return type
@@ -1167,7 +1167,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json, text/html;charset=UTF-8
+ - **Accept**: application/json
 
 ### HTTP response details
 
@@ -1231,7 +1231,7 @@ with moysklad_remap_12_sdk.ApiClient(configuration) as api_client:
     moment_from = 'moment_from_example' # str | Начало периода отчета в формате YYYY-MM-DD HH:MM:SS (optional)
     moment_to = 'moment_to_example' # str | Конец периода отчета в формате YYYY-MM-DD HH:MM:SS (optional)
     accept = application/json;charset=utf-8 # str |  (optional) (default to application/json;charset=utf-8)
-    accept_encoding = 'gzip, deflate, br' # str |  (optional) (default to 'gzip, deflate, br')
+    accept_encoding = 'gzip' # str |  (optional) (default to 'gzip')
     x_lognex_accept_timezone = 'x_lognex_accept_timezone_example' # str | Опциональный заголовок, в котором указана текущая дата на клиенте в RFC 3522. Таймзону обязательно указывать в формате знак и 4 символа. Пример: `Wed, 16 Aug 2017 23:07:01 +0700`. При подсчете показателей даты операций смещаются в таймзону клиента.  (optional)
 
     try:
@@ -1256,7 +1256,7 @@ Name | Type | Description  | Notes
  **moment_from** | **str**| Начало периода отчета в формате YYYY-MM-DD HH:MM:SS | [optional] 
  **moment_to** | **str**| Конец периода отчета в формате YYYY-MM-DD HH:MM:SS | [optional] 
  **accept** | **str**|  | [optional] [default to application/json;charset&#x3D;utf-8]
- **accept_encoding** | **str**|  | [optional] [default to &#39;gzip, deflate, br&#39;]
+ **accept_encoding** | **str**|  | [optional] [default to &#39;gzip&#39;]
  **x_lognex_accept_timezone** | **str**| Опциональный заголовок, в котором указана текущая дата на клиенте в RFC 3522. Таймзону обязательно указывать в формате знак и 4 символа. Пример: &#x60;Wed, 16 Aug 2017 23:07:01 +0700&#x60;. При подсчете показателей даты операций смещаются в таймзону клиента.  | [optional] 
 
 ### Return type
@@ -1270,7 +1270,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json, text/html;charset=UTF-8
+ - **Accept**: application/json
 
 ### HTTP response details
 
@@ -1333,7 +1333,7 @@ with moysklad_remap_12_sdk.ApiClient(configuration) as api_client:
     interval = 'interval_example' # str | Интервал построения отчета
     filter = 'filter_example' # str | Фильтрация показателей продаж. Доступные поля: `organization`, `store`, `project`, `retailStore`. Можно указать несколько значений; пустые значения недопустимы.  (optional)
     accept = application/json;charset=utf-8 # str |  (optional) (default to application/json;charset=utf-8)
-    accept_encoding = 'gzip, deflate, br' # str |  (optional) (default to 'gzip, deflate, br')
+    accept_encoding = 'gzip' # str |  (optional) (default to 'gzip')
     x_lognex_accept_timezone = 'x_lognex_accept_timezone_example' # str | Опциональный заголовок, в котором указана текущая дата на клиенте в RFC 3522. Таймзону обязательно указывать в формате знак и 4 символа. Пример: `Wed, 16 Aug 2017 23:07:01 +0700`. При подсчете показателей даты операций смещаются в таймзону клиента.  (optional)
 
     try:
@@ -1357,7 +1357,7 @@ Name | Type | Description  | Notes
  **interval** | **str**| Интервал построения отчета | 
  **filter** | **str**| Фильтрация показателей продаж. Доступные поля: &#x60;organization&#x60;, &#x60;store&#x60;, &#x60;project&#x60;, &#x60;retailStore&#x60;. Можно указать несколько значений; пустые значения недопустимы.  | [optional] 
  **accept** | **str**|  | [optional] [default to application/json;charset&#x3D;utf-8]
- **accept_encoding** | **str**|  | [optional] [default to &#39;gzip, deflate, br&#39;]
+ **accept_encoding** | **str**|  | [optional] [default to &#39;gzip&#39;]
  **x_lognex_accept_timezone** | **str**| Опциональный заголовок, в котором указана текущая дата на клиенте в RFC 3522. Таймзону обязательно указывать в формате знак и 4 символа. Пример: &#x60;Wed, 16 Aug 2017 23:07:01 +0700&#x60;. При подсчете показателей даты операций смещаются в таймзону клиента.  | [optional] 
 
 ### Return type
@@ -1371,7 +1371,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json, text/html;charset=UTF-8
+ - **Accept**: application/json
 
 ### HTTP response details
 
@@ -1433,7 +1433,7 @@ with moysklad_remap_12_sdk.ApiClient(configuration) as api_client:
     moment_to = 'moment_to_example' # str | Конец периода отчета в формате YYYY-MM-DD HH:MM:SS (optional)
     group_by = product # str | Тип, по которому нужно сгруппировать выдачу. Значение по умолчанию `product`. (optional) (default to product)
     accept = application/json;charset=utf-8 # str |  (optional) (default to application/json;charset=utf-8)
-    accept_encoding = 'gzip, deflate, br' # str |  (optional) (default to 'gzip, deflate, br')
+    accept_encoding = 'gzip' # str |  (optional) (default to 'gzip')
     x_lognex_accept_timezone = 'x_lognex_accept_timezone_example' # str | Опциональный заголовок, в котором указана текущая дата на клиенте в RFC 3522. Таймзону обязательно указывать в формате знак и 4 символа. Пример: `Wed, 16 Aug 2017 23:07:01 +0700`. При подсчете показателей даты операций смещаются в таймзону клиента.  (optional)
 
     try:
@@ -1459,7 +1459,7 @@ Name | Type | Description  | Notes
  **moment_to** | **str**| Конец периода отчета в формате YYYY-MM-DD HH:MM:SS | [optional] 
  **group_by** | **str**| Тип, по которому нужно сгруппировать выдачу. Значение по умолчанию &#x60;product&#x60;. | [optional] [default to product]
  **accept** | **str**|  | [optional] [default to application/json;charset&#x3D;utf-8]
- **accept_encoding** | **str**|  | [optional] [default to &#39;gzip, deflate, br&#39;]
+ **accept_encoding** | **str**|  | [optional] [default to &#39;gzip&#39;]
  **x_lognex_accept_timezone** | **str**| Опциональный заголовок, в котором указана текущая дата на клиенте в RFC 3522. Таймзону обязательно указывать в формате знак и 4 символа. Пример: &#x60;Wed, 16 Aug 2017 23:07:01 +0700&#x60;. При подсчете показателей даты операций смещаются в таймзону клиента.  | [optional] 
 
 ### Return type
@@ -1473,7 +1473,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json, text/html;charset=UTF-8
+ - **Accept**: application/json
 
 ### HTTP response details
 
@@ -1532,7 +1532,7 @@ with moysklad_remap_12_sdk.ApiClient(configuration) as api_client:
     moment_from = 'moment_from_example' # str | Начало периода отчета в формате YYYY-MM-DD HH:MM:SS (optional)
     moment_to = 'moment_to_example' # str | Конец периода отчета в формате YYYY-MM-DD HH:MM:SS (optional)
     accept = application/json;charset=utf-8 # str |  (optional) (default to application/json;charset=utf-8)
-    accept_encoding = 'gzip, deflate, br' # str |  (optional) (default to 'gzip, deflate, br')
+    accept_encoding = 'gzip' # str |  (optional) (default to 'gzip')
     x_lognex_accept_timezone = 'x_lognex_accept_timezone_example' # str | Опциональный заголовок, в котором указана текущая дата на клиенте в RFC 3522. Таймзону обязательно указывать в формате знак и 4 символа. Пример: `Wed, 16 Aug 2017 23:07:01 +0700`. При подсчете показателей даты операций смещаются в таймзону клиента.  (optional)
 
     try:
@@ -1555,7 +1555,7 @@ Name | Type | Description  | Notes
  **moment_from** | **str**| Начало периода отчета в формате YYYY-MM-DD HH:MM:SS | [optional] 
  **moment_to** | **str**| Конец периода отчета в формате YYYY-MM-DD HH:MM:SS | [optional] 
  **accept** | **str**|  | [optional] [default to application/json;charset&#x3D;utf-8]
- **accept_encoding** | **str**|  | [optional] [default to &#39;gzip, deflate, br&#39;]
+ **accept_encoding** | **str**|  | [optional] [default to &#39;gzip&#39;]
  **x_lognex_accept_timezone** | **str**| Опциональный заголовок, в котором указана текущая дата на клиенте в RFC 3522. Таймзону обязательно указывать в формате знак и 4 символа. Пример: &#x60;Wed, 16 Aug 2017 23:07:01 +0700&#x60;. При подсчете показателей даты операций смещаются в таймзону клиента.  | [optional] 
 
 ### Return type
@@ -1569,7 +1569,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json, text/html;charset=UTF-8
+ - **Accept**: application/json
 
 ### HTTP response details
 
@@ -1628,7 +1628,7 @@ with moysklad_remap_12_sdk.ApiClient(configuration) as api_client:
     moment_from = 'moment_from_example' # str | Начало периода отчета в формате YYYY-MM-DD HH:MM:SS (optional)
     moment_to = 'moment_to_example' # str | Конец периода отчета в формате YYYY-MM-DD HH:MM:SS (optional)
     accept = application/json;charset=utf-8 # str |  (optional) (default to application/json;charset=utf-8)
-    accept_encoding = 'gzip, deflate, br' # str |  (optional) (default to 'gzip, deflate, br')
+    accept_encoding = 'gzip' # str |  (optional) (default to 'gzip')
     x_lognex_accept_timezone = 'x_lognex_accept_timezone_example' # str | Опциональный заголовок, в котором указана текущая дата на клиенте в RFC 3522. Таймзону обязательно указывать в формате знак и 4 символа. Пример: `Wed, 16 Aug 2017 23:07:01 +0700`. При подсчете показателей даты операций смещаются в таймзону клиента.  (optional)
 
     try:
@@ -1651,7 +1651,7 @@ Name | Type | Description  | Notes
  **moment_from** | **str**| Начало периода отчета в формате YYYY-MM-DD HH:MM:SS | [optional] 
  **moment_to** | **str**| Конец периода отчета в формате YYYY-MM-DD HH:MM:SS | [optional] 
  **accept** | **str**|  | [optional] [default to application/json;charset&#x3D;utf-8]
- **accept_encoding** | **str**|  | [optional] [default to &#39;gzip, deflate, br&#39;]
+ **accept_encoding** | **str**|  | [optional] [default to &#39;gzip&#39;]
  **x_lognex_accept_timezone** | **str**| Опциональный заголовок, в котором указана текущая дата на клиенте в RFC 3522. Таймзону обязательно указывать в формате знак и 4 символа. Пример: &#x60;Wed, 16 Aug 2017 23:07:01 +0700&#x60;. При подсчете показателей даты операций смещаются в таймзону клиента.  | [optional] 
 
 ### Return type
@@ -1665,7 +1665,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json, text/html;charset=UTF-8
+ - **Accept**: application/json
 
 ### HTTP response details
 
@@ -1723,7 +1723,7 @@ with moysklad_remap_12_sdk.ApiClient(configuration) as api_client:
     api_instance = moysklad_remap_12_sdk.ReportsApi(api_client)
     report_counterparty_query = moysklad_remap_12_sdk.ReportCounterpartyQuery() # ReportCounterpartyQuery | 
     accept = application/json;charset=utf-8 # str |  (optional) (default to application/json;charset=utf-8)
-    accept_encoding = 'gzip, deflate, br' # str |  (optional) (default to 'gzip, deflate, br')
+    accept_encoding = 'gzip' # str |  (optional) (default to 'gzip')
     content_type = application/json # str |  (optional) (default to application/json)
 
     try:
@@ -1744,7 +1744,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **report_counterparty_query** | [**ReportCounterpartyQuery**](ReportCounterpartyQuery.md)|  | 
  **accept** | **str**|  | [optional] [default to application/json;charset&#x3D;utf-8]
- **accept_encoding** | **str**|  | [optional] [default to &#39;gzip, deflate, br&#39;]
+ **accept_encoding** | **str**|  | [optional] [default to &#39;gzip&#39;]
  **content_type** | **str**|  | [optional] [default to application/json]
 
 ### Return type
@@ -1758,7 +1758,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: application/json, text/html;charset=UTF-8
+ - **Accept**: application/json
 
 ### HTTP response details
 

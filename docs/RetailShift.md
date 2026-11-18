@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 **name** | **str** | Наименование смены | [optional] 
 **moment** | **str** | Дата смены | [optional] 
 **retail_store** | [**RetailStore**](RetailStore.md) | Метаданные точки продаж | [optional] 
-**payments** | [**List[RetailShiftPaymentsInner]**](RetailShiftPaymentsInner.md) | Связанные платежи | [optional] 
+**payments** | [**List[RetailShiftPayment]**](RetailShiftPayment.md) | Связанные платежи | [optional] 
 **acquire** | [**Agent**](Agent.md) | Метаданные Банка-эквайера по операциям по карте | [optional] 
 **agent_account** | [**Account**](Account.md) | Метаданные счета контрагента | [optional] [readonly] 
 **attributes** | [**List[AttributeAbstract]**](AttributeAbstract.md) | Коллекция метаданных доп. полей | [optional] 
@@ -20,7 +20,6 @@ Name | Type | Description | Notes
 **bank_percent** | **float** | Комиссия банка-эквайера по операциям по карте (в процентах) | [optional] 
 **cheque** | [**RetailShiftCheque**](RetailShiftCheque.md) | Информация о смене ККТ | [optional] 
 **close_date** | **str** | Дата закрытия смены | [optional] 
-**contract** | [**Contract**](Contract.md) | Метаданные договора | [optional] [readonly] 
 **created** | **str** | Дата создания | [optional] [readonly] 
 **deleted** | **str** | Момент последнего удаления Розничной смены | [optional] [readonly] 
 **description** | **str** | Комментарий Розничной смены | [optional] 
@@ -45,8 +44,6 @@ Name | Type | Description | Notes
 **store** | [**Store**](Store.md) |  | [optional] 
 **sync_id** | **str** | ID синхронизации | [optional] 
 **updated** | **str** | Момент последнего обновления Розничной смены | [optional] [readonly] 
-**vat_enabled** | **bool** | Учитывается ли НДС | [optional] [readonly] 
-**vat_included** | **bool** | Включен ли НДС в цену | [optional] 
 
 ## Example
 

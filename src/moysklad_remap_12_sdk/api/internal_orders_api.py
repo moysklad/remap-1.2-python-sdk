@@ -22,7 +22,6 @@ from typing_extensions import Annotated
 from moysklad_remap_12_sdk.models.attribute_meta_info import AttributeMetaInfo
 from moysklad_remap_12_sdk.models.attribute_meta_info_list import AttributeMetaInfoList
 from moysklad_remap_12_sdk.models.batch_response_entity import BatchResponseEntity
-from moysklad_remap_12_sdk.models.create_internal_order_positions200_response_inner import CreateInternalOrderPositions200ResponseInner
 from moysklad_remap_12_sdk.models.delete_row_result import DeleteRowResult
 from moysklad_remap_12_sdk.models.document_metadata import DocumentMetadata
 from moysklad_remap_12_sdk.models.file import File
@@ -330,12 +329,25 @@ class InternalOrdersApi:
             _path_params['id'] = id
         # process the query parameters
         # process the header parameters
+        # default_headers клиента добавляются позже и не сливаются по регистру.
+        # Значение из спецификации не должно создавать второй Accept рядом с accept.
+        def _header_already_set(_name: str) -> bool:
+            return any(
+                _header_name.lower() == _name.lower()
+                for _header_name in (*_header_params, *self.api_client.default_headers)
+            )
         if accept is not None:
-            _header_params['accept'] = accept
+            _header_params['Accept'] = accept
+        elif not _header_already_set('Accept'):
+            _header_params['Accept'] = 'application/json;charset=utf-8'
         if accept_encoding is not None:
             _header_params['Accept-Encoding'] = accept_encoding
+        elif not _header_already_set('Accept-Encoding'):
+            _header_params['Accept-Encoding'] = 'gzip'
         if content_type is not None:
             _header_params['Content-Type'] = content_type
+        elif not _header_already_set('Content-Type'):
+            _header_params['Content-Type'] = 'application/json'
         # process the form parameters
         # process the body parameter
         if file_upload is not None:
@@ -343,11 +355,12 @@ class InternalOrdersApi:
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
+        # Имя сравнивается без учета регистра, включая заголовки клиента:
+        # явный accept не должен оставаться рядом со стандартным Accept.
+        if not _header_already_set('Accept'):
             _header_params['Accept'] = self.api_client.select_header_accept(
                 [
-                    'application/json', 
-                    'text/html;charset=UTF-8'
+                    'application/json'
                 ]
             )
 
@@ -667,12 +680,25 @@ class InternalOrdersApi:
             _path_params['id'] = id
         # process the query parameters
         # process the header parameters
+        # default_headers клиента добавляются позже и не сливаются по регистру.
+        # Значение из спецификации не должно создавать второй Accept рядом с accept.
+        def _header_already_set(_name: str) -> bool:
+            return any(
+                _header_name.lower() == _name.lower()
+                for _header_name in (*_header_params, *self.api_client.default_headers)
+            )
         if accept is not None:
-            _header_params['accept'] = accept
+            _header_params['Accept'] = accept
+        elif not _header_already_set('Accept'):
+            _header_params['Accept'] = 'application/json;charset=utf-8'
         if accept_encoding is not None:
             _header_params['Accept-Encoding'] = accept_encoding
+        elif not _header_already_set('Accept-Encoding'):
+            _header_params['Accept-Encoding'] = 'gzip'
         if content_type is not None:
             _header_params['Content-Type'] = content_type
+        elif not _header_already_set('Content-Type'):
+            _header_params['Content-Type'] = 'application/json'
         # process the form parameters
         # process the body parameter
         if file_upload is not None:
@@ -680,11 +706,12 @@ class InternalOrdersApi:
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
+        # Имя сравнивается без учета регистра, включая заголовки клиента:
+        # явный accept не должен оставаться рядом со стандартным Accept.
+        if not _header_already_set('Accept'):
             _header_params['Accept'] = self.api_client.select_header_accept(
                 [
-                    'application/json', 
-                    'text/html;charset=UTF-8'
+                    'application/json'
                 ]
             )
 
@@ -1002,12 +1029,25 @@ class InternalOrdersApi:
             _query_params.append(('expand', expand))
             
         # process the header parameters
+        # default_headers клиента добавляются позже и не сливаются по регистру.
+        # Значение из спецификации не должно создавать второй Accept рядом с accept.
+        def _header_already_set(_name: str) -> bool:
+            return any(
+                _header_name.lower() == _name.lower()
+                for _header_name in (*_header_params, *self.api_client.default_headers)
+            )
         if accept is not None:
-            _header_params['accept'] = accept
+            _header_params['Accept'] = accept
+        elif not _header_already_set('Accept'):
+            _header_params['Accept'] = 'application/json;charset=utf-8'
         if accept_encoding is not None:
             _header_params['Accept-Encoding'] = accept_encoding
+        elif not _header_already_set('Accept-Encoding'):
+            _header_params['Accept-Encoding'] = 'gzip'
         if content_type is not None:
             _header_params['Content-Type'] = content_type
+        elif not _header_already_set('Content-Type'):
+            _header_params['Content-Type'] = 'application/json'
         # process the form parameters
         # process the body parameter
         if internal_order is not None:
@@ -1015,11 +1055,12 @@ class InternalOrdersApi:
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
+        # Имя сравнивается без учета регистра, включая заголовки клиента:
+        # явный accept не должен оставаться рядом со стандартным Accept.
+        if not _header_already_set('Accept'):
             _header_params['Accept'] = self.api_client.select_header_accept(
                 [
-                    'application/json', 
-                    'text/html;charset=UTF-8'
+                    'application/json'
                 ]
             )
 
@@ -1131,6 +1172,8 @@ class InternalOrdersApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[BatchResponseEntity]",
+            '404': "BatchEntityErrorResponse",
+            '412': "BatchEntityErrorResponse",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1213,6 +1256,8 @@ class InternalOrdersApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[BatchResponseEntity]",
+            '404': "BatchEntityErrorResponse",
+            '412': "BatchEntityErrorResponse",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1295,6 +1340,8 @@ class InternalOrdersApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[BatchResponseEntity]",
+            '404': "BatchEntityErrorResponse",
+            '412': "BatchEntityErrorResponse",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1338,12 +1385,25 @@ class InternalOrdersApi:
             _query_params.append(('expand', expand))
             
         # process the header parameters
+        # default_headers клиента добавляются позже и не сливаются по регистру.
+        # Значение из спецификации не должно создавать второй Accept рядом с accept.
+        def _header_already_set(_name: str) -> bool:
+            return any(
+                _header_name.lower() == _name.lower()
+                for _header_name in (*_header_params, *self.api_client.default_headers)
+            )
         if accept is not None:
-            _header_params['accept'] = accept
+            _header_params['Accept'] = accept
+        elif not _header_already_set('Accept'):
+            _header_params['Accept'] = 'application/json;charset=utf-8'
         if accept_encoding is not None:
             _header_params['Accept-Encoding'] = accept_encoding
+        elif not _header_already_set('Accept-Encoding'):
+            _header_params['Accept-Encoding'] = 'gzip'
         if content_type is not None:
             _header_params['Content-Type'] = content_type
+        elif not _header_already_set('Content-Type'):
+            _header_params['Content-Type'] = 'application/json'
         # process the form parameters
         # process the body parameter
         if internal_order is not None:
@@ -1351,11 +1411,12 @@ class InternalOrdersApi:
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
+        # Имя сравнивается без учета регистра, включая заголовки клиента:
+        # явный accept не должен оставаться рядом со стандартным Accept.
+        if not _header_already_set('Accept'):
             _header_params['Accept'] = self.api_client.select_header_accept(
                 [
-                    'application/json', 
-                    'text/html;charset=UTF-8'
+                    'application/json'
                 ]
             )
 
@@ -1656,12 +1717,25 @@ class InternalOrdersApi:
         # process the path parameters
         # process the query parameters
         # process the header parameters
+        # default_headers клиента добавляются позже и не сливаются по регистру.
+        # Значение из спецификации не должно создавать второй Accept рядом с accept.
+        def _header_already_set(_name: str) -> bool:
+            return any(
+                _header_name.lower() == _name.lower()
+                for _header_name in (*_header_params, *self.api_client.default_headers)
+            )
         if accept is not None:
-            _header_params['accept'] = accept
+            _header_params['Accept'] = accept
+        elif not _header_already_set('Accept'):
+            _header_params['Accept'] = 'application/json;charset=utf-8'
         if accept_encoding is not None:
             _header_params['Accept-Encoding'] = accept_encoding
+        elif not _header_already_set('Accept-Encoding'):
+            _header_params['Accept-Encoding'] = 'gzip'
         if content_type is not None:
             _header_params['Content-Type'] = content_type
+        elif not _header_already_set('Content-Type'):
+            _header_params['Content-Type'] = 'application/json'
         # process the form parameters
         # process the body parameter
         if attribute_meta_info is not None:
@@ -1669,11 +1743,12 @@ class InternalOrdersApi:
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
+        # Имя сравнивается без учета регистра, включая заголовки клиента:
+        # явный accept не должен оставаться рядом со стандартным Accept.
+        if not _header_already_set('Accept'):
             _header_params['Accept'] = self.api_client.select_header_accept(
                 [
-                    'application/json', 
-                    'text/html;charset=UTF-8'
+                    'application/json'
                 ]
             )
 
@@ -1974,12 +2049,25 @@ class InternalOrdersApi:
         # process the path parameters
         # process the query parameters
         # process the header parameters
+        # default_headers клиента добавляются позже и не сливаются по регистру.
+        # Значение из спецификации не должно создавать второй Accept рядом с accept.
+        def _header_already_set(_name: str) -> bool:
+            return any(
+                _header_name.lower() == _name.lower()
+                for _header_name in (*_header_params, *self.api_client.default_headers)
+            )
         if accept is not None:
-            _header_params['accept'] = accept
+            _header_params['Accept'] = accept
+        elif not _header_already_set('Accept'):
+            _header_params['Accept'] = 'application/json;charset=utf-8'
         if accept_encoding is not None:
             _header_params['Accept-Encoding'] = accept_encoding
+        elif not _header_already_set('Accept-Encoding'):
+            _header_params['Accept-Encoding'] = 'gzip'
         if content_type is not None:
             _header_params['Content-Type'] = content_type
+        elif not _header_already_set('Content-Type'):
+            _header_params['Content-Type'] = 'application/json'
         # process the form parameters
         # process the body parameter
         if state is not None:
@@ -1987,11 +2075,12 @@ class InternalOrdersApi:
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
+        # Имя сравнивается без учета регистра, включая заголовки клиента:
+        # явный accept не должен оставаться рядом со стандартным Accept.
+        if not _header_already_set('Accept'):
             _header_params['Accept'] = self.api_client.select_header_accept(
                 [
-                    'application/json', 
-                    'text/html;charset=UTF-8'
+                    'application/json'
                 ]
             )
 
@@ -2293,12 +2382,25 @@ class InternalOrdersApi:
         # process the path parameters
         # process the query parameters
         # process the header parameters
+        # default_headers клиента добавляются позже и не сливаются по регистру.
+        # Значение из спецификации не должно создавать второй Accept рядом с accept.
+        def _header_already_set(_name: str) -> bool:
+            return any(
+                _header_name.lower() == _name.lower()
+                for _header_name in (*_header_params, *self.api_client.default_headers)
+            )
         if accept is not None:
-            _header_params['accept'] = accept
+            _header_params['Accept'] = accept
+        elif not _header_already_set('Accept'):
+            _header_params['Accept'] = 'application/json;charset=utf-8'
         if accept_encoding is not None:
             _header_params['Accept-Encoding'] = accept_encoding
+        elif not _header_already_set('Accept-Encoding'):
+            _header_params['Accept-Encoding'] = 'gzip'
         if content_type is not None:
             _header_params['Content-Type'] = content_type
+        elif not _header_already_set('Content-Type'):
+            _header_params['Content-Type'] = 'application/json'
         # process the form parameters
         # process the body parameter
         if state is not None:
@@ -2306,11 +2408,12 @@ class InternalOrdersApi:
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
+        # Имя сравнивается без учета регистра, включая заголовки клиента:
+        # явный accept не должен оставаться рядом со стандартным Accept.
+        if not _header_already_set('Accept'):
             _header_params['Accept'] = self.api_client.select_header_accept(
                 [
-                    'application/json', 
-                    'text/html;charset=UTF-8'
+                    'application/json'
                 ]
             )
 
@@ -2643,12 +2746,25 @@ class InternalOrdersApi:
             _query_params.append(('expand', expand))
             
         # process the header parameters
+        # default_headers клиента добавляются позже и не сливаются по регистру.
+        # Значение из спецификации не должно создавать второй Accept рядом с accept.
+        def _header_already_set(_name: str) -> bool:
+            return any(
+                _header_name.lower() == _name.lower()
+                for _header_name in (*_header_params, *self.api_client.default_headers)
+            )
         if accept is not None:
-            _header_params['accept'] = accept
+            _header_params['Accept'] = accept
+        elif not _header_already_set('Accept'):
+            _header_params['Accept'] = 'application/json;charset=utf-8'
         if accept_encoding is not None:
             _header_params['Accept-Encoding'] = accept_encoding
+        elif not _header_already_set('Accept-Encoding'):
+            _header_params['Accept-Encoding'] = 'gzip'
         if content_type is not None:
             _header_params['Content-Type'] = content_type
+        elif not _header_already_set('Content-Type'):
+            _header_params['Content-Type'] = 'application/json'
         # process the form parameters
         # process the body parameter
         if internal_order_position is not None:
@@ -2656,11 +2772,12 @@ class InternalOrdersApi:
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
+        # Имя сравнивается без учета регистра, включая заголовки клиента:
+        # явный accept не должен оставаться рядом со стандартным Accept.
+        if not _header_already_set('Accept'):
             _header_params['Accept'] = self.api_client.select_header_accept(
                 [
-                    'application/json', 
-                    'text/html;charset=UTF-8'
+                    'application/json'
                 ]
             )
 
@@ -2723,7 +2840,7 @@ class InternalOrdersApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> List[CreateInternalOrderPositions200ResponseInner]:
+    ) -> List[BatchResponseEntity]:
         """Массовое создание и обновление позиций Внутреннего заказа
 
 
@@ -2775,7 +2892,9 @@ class InternalOrdersApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "List[CreateInternalOrderPositions200ResponseInner]",
+            '200': "List[BatchResponseEntity]",
+            '404': "BatchEntityErrorResponse",
+            '412': "BatchEntityErrorResponse",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2809,7 +2928,7 @@ class InternalOrdersApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[List[CreateInternalOrderPositions200ResponseInner]]:
+    ) -> ApiResponse[List[BatchResponseEntity]]:
         """Массовое создание и обновление позиций Внутреннего заказа
 
 
@@ -2861,7 +2980,9 @@ class InternalOrdersApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "List[CreateInternalOrderPositions200ResponseInner]",
+            '200': "List[BatchResponseEntity]",
+            '404': "BatchEntityErrorResponse",
+            '412': "BatchEntityErrorResponse",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2947,7 +3068,9 @@ class InternalOrdersApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "List[CreateInternalOrderPositions200ResponseInner]",
+            '200': "List[BatchResponseEntity]",
+            '404': "BatchEntityErrorResponse",
+            '412': "BatchEntityErrorResponse",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2994,12 +3117,25 @@ class InternalOrdersApi:
             _query_params.append(('expand', expand))
             
         # process the header parameters
+        # default_headers клиента добавляются позже и не сливаются по регистру.
+        # Значение из спецификации не должно создавать второй Accept рядом с accept.
+        def _header_already_set(_name: str) -> bool:
+            return any(
+                _header_name.lower() == _name.lower()
+                for _header_name in (*_header_params, *self.api_client.default_headers)
+            )
         if accept is not None:
-            _header_params['accept'] = accept
+            _header_params['Accept'] = accept
+        elif not _header_already_set('Accept'):
+            _header_params['Accept'] = 'application/json;charset=utf-8'
         if accept_encoding is not None:
             _header_params['Accept-Encoding'] = accept_encoding
+        elif not _header_already_set('Accept-Encoding'):
+            _header_params['Accept-Encoding'] = 'gzip'
         if content_type is not None:
             _header_params['Content-Type'] = content_type
+        elif not _header_already_set('Content-Type'):
+            _header_params['Content-Type'] = 'application/json'
         # process the form parameters
         # process the body parameter
         if internal_order_position is not None:
@@ -3007,11 +3143,12 @@ class InternalOrdersApi:
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
+        # Имя сравнивается без учета регистра, включая заголовки клиента:
+        # явный accept не должен оставаться рядом со стандартным Accept.
+        if not _header_already_set('Accept'):
             _header_params['Accept'] = self.api_client.select_header_accept(
                 [
-                    'application/json', 
-                    'text/html;charset=UTF-8'
+                    'application/json'
                 ]
             )
 
@@ -3314,22 +3451,36 @@ class InternalOrdersApi:
             _path_params['id'] = id
         # process the query parameters
         # process the header parameters
+        # default_headers клиента добавляются позже и не сливаются по регистру.
+        # Значение из спецификации не должно создавать второй Accept рядом с accept.
+        def _header_already_set(_name: str) -> bool:
+            return any(
+                _header_name.lower() == _name.lower()
+                for _header_name in (*_header_params, *self.api_client.default_headers)
+            )
         if accept is not None:
-            _header_params['accept'] = accept
+            _header_params['Accept'] = accept
+        elif not _header_already_set('Accept'):
+            _header_params['Accept'] = 'application/json;charset=utf-8'
         if accept_encoding is not None:
             _header_params['Accept-Encoding'] = accept_encoding
+        elif not _header_already_set('Accept-Encoding'):
+            _header_params['Accept-Encoding'] = 'gzip'
         if content_type is not None:
             _header_params['Content-Type'] = content_type
+        elif not _header_already_set('Content-Type'):
+            _header_params['Content-Type'] = 'application/json'
         # process the form parameters
         # process the body parameter
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
+        # Имя сравнивается без учета регистра, включая заголовки клиента:
+        # явный accept не должен оставаться рядом со стандартным Accept.
+        if not _header_already_set('Accept'):
             _header_params['Accept'] = self.api_client.select_header_accept(
                 [
-                    'application/json', 
-                    'text/html;charset=UTF-8'
+                    'application/json'
                 ]
             )
 
@@ -3424,6 +3575,8 @@ class InternalOrdersApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[DeleteRowResult]",
+            '404': "BatchDeleteErrorResponse",
+            '412': "BatchDeleteErrorResponse",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3502,6 +3655,8 @@ class InternalOrdersApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[DeleteRowResult]",
+            '404': "BatchDeleteErrorResponse",
+            '412': "BatchDeleteErrorResponse",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3580,6 +3735,8 @@ class InternalOrdersApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[DeleteRowResult]",
+            '404': "BatchDeleteErrorResponse",
+            '412': "BatchDeleteErrorResponse",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3618,12 +3775,25 @@ class InternalOrdersApi:
         # process the path parameters
         # process the query parameters
         # process the header parameters
+        # default_headers клиента добавляются позже и не сливаются по регистру.
+        # Значение из спецификации не должно создавать второй Accept рядом с accept.
+        def _header_already_set(_name: str) -> bool:
+            return any(
+                _header_name.lower() == _name.lower()
+                for _header_name in (*_header_params, *self.api_client.default_headers)
+            )
         if accept is not None:
-            _header_params['accept'] = accept
+            _header_params['Accept'] = accept
+        elif not _header_already_set('Accept'):
+            _header_params['Accept'] = 'application/json;charset=utf-8'
         if accept_encoding is not None:
             _header_params['Accept-Encoding'] = accept_encoding
+        elif not _header_already_set('Accept-Encoding'):
+            _header_params['Accept-Encoding'] = 'gzip'
         if content_type is not None:
             _header_params['Content-Type'] = content_type
+        elif not _header_already_set('Content-Type'):
+            _header_params['Content-Type'] = 'application/json'
         # process the form parameters
         # process the body parameter
         if internal_order is not None:
@@ -3631,11 +3801,12 @@ class InternalOrdersApi:
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
+        # Имя сравнивается без учета регистра, включая заголовки клиента:
+        # явный accept не должен оставаться рядом со стандартным Accept.
+        if not _header_already_set('Accept'):
             _header_params['Accept'] = self.api_client.select_header_accept(
                 [
-                    'application/json', 
-                    'text/html;charset=UTF-8'
+                    'application/json'
                 ]
             )
 
@@ -3943,20 +4114,32 @@ class InternalOrdersApi:
             _path_params['fileId'] = file_id
         # process the query parameters
         # process the header parameters
+        # default_headers клиента добавляются позже и не сливаются по регистру.
+        # Значение из спецификации не должно создавать второй Accept рядом с accept.
+        def _header_already_set(_name: str) -> bool:
+            return any(
+                _header_name.lower() == _name.lower()
+                for _header_name in (*_header_params, *self.api_client.default_headers)
+            )
         if accept is not None:
-            _header_params['accept'] = accept
+            _header_params['Accept'] = accept
+        elif not _header_already_set('Accept'):
+            _header_params['Accept'] = 'application/json;charset=utf-8'
         if accept_encoding is not None:
             _header_params['Accept-Encoding'] = accept_encoding
+        elif not _header_already_set('Accept-Encoding'):
+            _header_params['Accept-Encoding'] = 'gzip'
         # process the form parameters
         # process the body parameter
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
+        # Имя сравнивается без учета регистра, включая заголовки клиента:
+        # явный accept не должен оставаться рядом со стандартным Accept.
+        if not _header_already_set('Accept'):
             _header_params['Accept'] = self.api_client.select_header_accept(
                 [
-                    'application/json', 
-                    'text/html;charset=UTF-8'
+                    'application/json'
                 ]
             )
 
@@ -4246,22 +4429,36 @@ class InternalOrdersApi:
             _path_params['id'] = id
         # process the query parameters
         # process the header parameters
+        # default_headers клиента добавляются позже и не сливаются по регистру.
+        # Значение из спецификации не должно создавать второй Accept рядом с accept.
+        def _header_already_set(_name: str) -> bool:
+            return any(
+                _header_name.lower() == _name.lower()
+                for _header_name in (*_header_params, *self.api_client.default_headers)
+            )
         if accept is not None:
-            _header_params['accept'] = accept
+            _header_params['Accept'] = accept
+        elif not _header_already_set('Accept'):
+            _header_params['Accept'] = 'application/json;charset=utf-8'
         if accept_encoding is not None:
             _header_params['Accept-Encoding'] = accept_encoding
+        elif not _header_already_set('Accept-Encoding'):
+            _header_params['Accept-Encoding'] = 'gzip'
         if content_type is not None:
             _header_params['Content-Type'] = content_type
+        elif not _header_already_set('Content-Type'):
+            _header_params['Content-Type'] = 'application/json'
         # process the form parameters
         # process the body parameter
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
+        # Имя сравнивается без учета регистра, включая заголовки клиента:
+        # явный accept не должен оставаться рядом со стандартным Accept.
+        if not _header_already_set('Accept'):
             _header_params['Accept'] = self.api_client.select_header_accept(
                 [
-                    'application/json', 
-                    'text/html;charset=UTF-8'
+                    'application/json'
                 ]
             )
 
@@ -4554,22 +4751,36 @@ class InternalOrdersApi:
             _path_params['id'] = id
         # process the query parameters
         # process the header parameters
+        # default_headers клиента добавляются позже и не сливаются по регистру.
+        # Значение из спецификации не должно создавать второй Accept рядом с accept.
+        def _header_already_set(_name: str) -> bool:
+            return any(
+                _header_name.lower() == _name.lower()
+                for _header_name in (*_header_params, *self.api_client.default_headers)
+            )
         if accept is not None:
-            _header_params['accept'] = accept
+            _header_params['Accept'] = accept
+        elif not _header_already_set('Accept'):
+            _header_params['Accept'] = 'application/json;charset=utf-8'
         if accept_encoding is not None:
             _header_params['Accept-Encoding'] = accept_encoding
+        elif not _header_already_set('Accept-Encoding'):
+            _header_params['Accept-Encoding'] = 'gzip'
         if content_type is not None:
             _header_params['Content-Type'] = content_type
+        elif not _header_already_set('Content-Type'):
+            _header_params['Content-Type'] = 'application/json'
         # process the form parameters
         # process the body parameter
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
+        # Имя сравнивается без учета регистра, включая заголовки клиента:
+        # явный accept не должен оставаться рядом со стандартным Accept.
+        if not _header_already_set('Accept'):
             _header_params['Accept'] = self.api_client.select_header_accept(
                 [
-                    'application/json', 
-                    'text/html;charset=UTF-8'
+                    'application/json'
                 ]
             )
 
@@ -4891,22 +5102,36 @@ class InternalOrdersApi:
             _query_params.append(('expand', expand))
             
         # process the header parameters
+        # default_headers клиента добавляются позже и не сливаются по регистру.
+        # Значение из спецификации не должно создавать второй Accept рядом с accept.
+        def _header_already_set(_name: str) -> bool:
+            return any(
+                _header_name.lower() == _name.lower()
+                for _header_name in (*_header_params, *self.api_client.default_headers)
+            )
         if accept is not None:
-            _header_params['accept'] = accept
+            _header_params['Accept'] = accept
+        elif not _header_already_set('Accept'):
+            _header_params['Accept'] = 'application/json;charset=utf-8'
         if accept_encoding is not None:
             _header_params['Accept-Encoding'] = accept_encoding
+        elif not _header_already_set('Accept-Encoding'):
+            _header_params['Accept-Encoding'] = 'gzip'
         if content_type is not None:
             _header_params['Content-Type'] = content_type
+        elif not _header_already_set('Content-Type'):
+            _header_params['Content-Type'] = 'application/json'
         # process the form parameters
         # process the body parameter
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
+        # Имя сравнивается без учета регистра, включая заголовки клиента:
+        # явный accept не должен оставаться рядом со стандартным Accept.
+        if not _header_already_set('Accept'):
             _header_params['Accept'] = self.api_client.select_header_accept(
                 [
-                    'application/json', 
-                    'text/html;charset=UTF-8'
+                    'application/json'
                 ]
             )
 
@@ -5005,6 +5230,8 @@ class InternalOrdersApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[DeleteRowResult]",
+            '404': "BatchDeleteErrorResponse",
+            '412': "BatchDeleteErrorResponse",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -5087,6 +5314,8 @@ class InternalOrdersApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[DeleteRowResult]",
+            '404': "BatchDeleteErrorResponse",
+            '412': "BatchDeleteErrorResponse",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -5169,6 +5398,8 @@ class InternalOrdersApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[DeleteRowResult]",
+            '404': "BatchDeleteErrorResponse",
+            '412': "BatchDeleteErrorResponse",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -5210,12 +5441,25 @@ class InternalOrdersApi:
             _path_params['id'] = id
         # process the query parameters
         # process the header parameters
+        # default_headers клиента добавляются позже и не сливаются по регистру.
+        # Значение из спецификации не должно создавать второй Accept рядом с accept.
+        def _header_already_set(_name: str) -> bool:
+            return any(
+                _header_name.lower() == _name.lower()
+                for _header_name in (*_header_params, *self.api_client.default_headers)
+            )
         if accept is not None:
-            _header_params['accept'] = accept
+            _header_params['Accept'] = accept
+        elif not _header_already_set('Accept'):
+            _header_params['Accept'] = 'application/json;charset=utf-8'
         if accept_encoding is not None:
             _header_params['Accept-Encoding'] = accept_encoding
+        elif not _header_already_set('Accept-Encoding'):
+            _header_params['Accept-Encoding'] = 'gzip'
         if content_type is not None:
             _header_params['Content-Type'] = content_type
+        elif not _header_already_set('Content-Type'):
+            _header_params['Content-Type'] = 'application/json'
         # process the form parameters
         # process the body parameter
         if internal_order_position is not None:
@@ -5223,11 +5467,12 @@ class InternalOrdersApi:
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
+        # Имя сравнивается без учета регистра, включая заголовки клиента:
+        # явный accept не должен оставаться рядом со стандартным Accept.
+        if not _header_already_set('Accept'):
             _header_params['Accept'] = self.api_client.select_header_accept(
                 [
-                    'application/json', 
-                    'text/html;charset=UTF-8'
+                    'application/json'
                 ]
             )
 
@@ -5547,22 +5792,36 @@ class InternalOrdersApi:
             _query_params.append(('expand', expand))
             
         # process the header parameters
+        # default_headers клиента добавляются позже и не сливаются по регистру.
+        # Значение из спецификации не должно создавать второй Accept рядом с accept.
+        def _header_already_set(_name: str) -> bool:
+            return any(
+                _header_name.lower() == _name.lower()
+                for _header_name in (*_header_params, *self.api_client.default_headers)
+            )
         if accept is not None:
-            _header_params['accept'] = accept
+            _header_params['Accept'] = accept
+        elif not _header_already_set('Accept'):
+            _header_params['Accept'] = 'application/json;charset=utf-8'
         if accept_encoding is not None:
             _header_params['Accept-Encoding'] = accept_encoding
+        elif not _header_already_set('Accept-Encoding'):
+            _header_params['Accept-Encoding'] = 'gzip'
         if content_type is not None:
             _header_params['Content-Type'] = content_type
+        elif not _header_already_set('Content-Type'):
+            _header_params['Content-Type'] = 'application/json'
         # process the form parameters
         # process the body parameter
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
+        # Имя сравнивается без учета регистра, включая заголовки клиента:
+        # явный accept не должен оставаться рядом со стандартным Accept.
+        if not _header_already_set('Accept'):
             _header_params['Accept'] = self.api_client.select_header_accept(
                 [
-                    'application/json', 
-                    'text/html;charset=UTF-8'
+                    'application/json'
                 ]
             )
 
@@ -5876,20 +6135,32 @@ class InternalOrdersApi:
             _query_params.append(('offset', offset))
             
         # process the header parameters
+        # default_headers клиента добавляются позже и не сливаются по регистру.
+        # Значение из спецификации не должно создавать второй Accept рядом с accept.
+        def _header_already_set(_name: str) -> bool:
+            return any(
+                _header_name.lower() == _name.lower()
+                for _header_name in (*_header_params, *self.api_client.default_headers)
+            )
         if accept is not None:
-            _header_params['accept'] = accept
+            _header_params['Accept'] = accept
+        elif not _header_already_set('Accept'):
+            _header_params['Accept'] = 'application/json;charset=utf-8'
         if accept_encoding is not None:
             _header_params['Accept-Encoding'] = accept_encoding
+        elif not _header_already_set('Accept-Encoding'):
+            _header_params['Accept-Encoding'] = 'gzip'
         # process the form parameters
         # process the body parameter
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
+        # Имя сравнивается без учета регистра, включая заголовки клиента:
+        # явный accept не должен оставаться рядом со стандартным Accept.
+        if not _header_already_set('Accept'):
             _header_params['Accept'] = self.api_client.select_header_accept(
                 [
-                    'application/json', 
-                    'text/html;charset=UTF-8'
+                    'application/json'
                 ]
             )
 
@@ -6232,22 +6503,36 @@ class InternalOrdersApi:
             _query_params.append(('expand', expand))
             
         # process the header parameters
+        # default_headers клиента добавляются позже и не сливаются по регистру.
+        # Значение из спецификации не должно создавать второй Accept рядом с accept.
+        def _header_already_set(_name: str) -> bool:
+            return any(
+                _header_name.lower() == _name.lower()
+                for _header_name in (*_header_params, *self.api_client.default_headers)
+            )
         if accept is not None:
-            _header_params['accept'] = accept
+            _header_params['Accept'] = accept
+        elif not _header_already_set('Accept'):
+            _header_params['Accept'] = 'application/json;charset=utf-8'
         if accept_encoding is not None:
             _header_params['Accept-Encoding'] = accept_encoding
+        elif not _header_already_set('Accept-Encoding'):
+            _header_params['Accept-Encoding'] = 'gzip'
         if content_type is not None:
             _header_params['Content-Type'] = content_type
+        elif not _header_already_set('Content-Type'):
+            _header_params['Content-Type'] = 'application/json'
         # process the form parameters
         # process the body parameter
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
+        # Имя сравнивается без учета регистра, включая заголовки клиента:
+        # явный accept не должен оставаться рядом со стандартным Accept.
+        if not _header_already_set('Accept'):
             _header_params['Accept'] = self.api_client.select_header_accept(
                 [
-                    'application/json', 
-                    'text/html;charset=UTF-8'
+                    'application/json'
                 ]
             )
 
@@ -6522,22 +6807,36 @@ class InternalOrdersApi:
         # process the path parameters
         # process the query parameters
         # process the header parameters
+        # default_headers клиента добавляются позже и не сливаются по регистру.
+        # Значение из спецификации не должно создавать второй Accept рядом с accept.
+        def _header_already_set(_name: str) -> bool:
+            return any(
+                _header_name.lower() == _name.lower()
+                for _header_name in (*_header_params, *self.api_client.default_headers)
+            )
         if accept is not None:
-            _header_params['accept'] = accept
+            _header_params['Accept'] = accept
+        elif not _header_already_set('Accept'):
+            _header_params['Accept'] = 'application/json;charset=utf-8'
         if accept_encoding is not None:
             _header_params['Accept-Encoding'] = accept_encoding
+        elif not _header_already_set('Accept-Encoding'):
+            _header_params['Accept-Encoding'] = 'gzip'
         if content_type is not None:
             _header_params['Content-Type'] = content_type
+        elif not _header_already_set('Content-Type'):
+            _header_params['Content-Type'] = 'application/json'
         # process the form parameters
         # process the body parameter
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
+        # Имя сравнивается без учета регистра, включая заголовки клиента:
+        # явный accept не должен оставаться рядом со стандартным Accept.
+        if not _header_already_set('Accept'):
             _header_params['Accept'] = self.api_client.select_header_accept(
                 [
-                    'application/json', 
-                    'text/html;charset=UTF-8'
+                    'application/json'
                 ]
             )
 
@@ -6846,22 +7145,36 @@ class InternalOrdersApi:
             _query_params.append(('limit', limit))
             
         # process the header parameters
+        # default_headers клиента добавляются позже и не сливаются по регистру.
+        # Значение из спецификации не должно создавать второй Accept рядом с accept.
+        def _header_already_set(_name: str) -> bool:
+            return any(
+                _header_name.lower() == _name.lower()
+                for _header_name in (*_header_params, *self.api_client.default_headers)
+            )
         if accept is not None:
-            _header_params['accept'] = accept
+            _header_params['Accept'] = accept
+        elif not _header_already_set('Accept'):
+            _header_params['Accept'] = 'application/json;charset=utf-8'
         if accept_encoding is not None:
             _header_params['Accept-Encoding'] = accept_encoding
+        elif not _header_already_set('Accept-Encoding'):
+            _header_params['Accept-Encoding'] = 'gzip'
         if content_type is not None:
             _header_params['Content-Type'] = content_type
+        elif not _header_already_set('Content-Type'):
+            _header_params['Content-Type'] = 'application/json'
         # process the form parameters
         # process the body parameter
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
+        # Имя сравнивается без учета регистра, включая заголовки клиента:
+        # явный accept не должен оставаться рядом со стандартным Accept.
+        if not _header_already_set('Accept'):
             _header_params['Accept'] = self.api_client.select_header_accept(
                 [
-                    'application/json', 
-                    'text/html;charset=UTF-8'
+                    'application/json'
                 ]
             )
 
@@ -7151,22 +7464,36 @@ class InternalOrdersApi:
             _path_params['id'] = id
         # process the query parameters
         # process the header parameters
+        # default_headers клиента добавляются позже и не сливаются по регистру.
+        # Значение из спецификации не должно создавать второй Accept рядом с accept.
+        def _header_already_set(_name: str) -> bool:
+            return any(
+                _header_name.lower() == _name.lower()
+                for _header_name in (*_header_params, *self.api_client.default_headers)
+            )
         if accept is not None:
-            _header_params['accept'] = accept
+            _header_params['Accept'] = accept
+        elif not _header_already_set('Accept'):
+            _header_params['Accept'] = 'application/json;charset=utf-8'
         if accept_encoding is not None:
             _header_params['Accept-Encoding'] = accept_encoding
+        elif not _header_already_set('Accept-Encoding'):
+            _header_params['Accept-Encoding'] = 'gzip'
         if content_type is not None:
             _header_params['Content-Type'] = content_type
+        elif not _header_already_set('Content-Type'):
+            _header_params['Content-Type'] = 'application/json'
         # process the form parameters
         # process the body parameter
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
+        # Имя сравнивается без учета регистра, включая заголовки клиента:
+        # явный accept не должен оставаться рядом со стандартным Accept.
+        if not _header_already_set('Accept'):
             _header_params['Accept'] = self.api_client.select_header_accept(
                 [
-                    'application/json', 
-                    'text/html;charset=UTF-8'
+                    'application/json'
                 ]
             )
 
@@ -7456,22 +7783,36 @@ class InternalOrdersApi:
             _path_params['id'] = id
         # process the query parameters
         # process the header parameters
+        # default_headers клиента добавляются позже и не сливаются по регистру.
+        # Значение из спецификации не должно создавать второй Accept рядом с accept.
+        def _header_already_set(_name: str) -> bool:
+            return any(
+                _header_name.lower() == _name.lower()
+                for _header_name in (*_header_params, *self.api_client.default_headers)
+            )
         if accept is not None:
-            _header_params['accept'] = accept
+            _header_params['Accept'] = accept
+        elif not _header_already_set('Accept'):
+            _header_params['Accept'] = 'application/json;charset=utf-8'
         if accept_encoding is not None:
             _header_params['Accept-Encoding'] = accept_encoding
+        elif not _header_already_set('Accept-Encoding'):
+            _header_params['Accept-Encoding'] = 'gzip'
         if content_type is not None:
             _header_params['Content-Type'] = content_type
+        elif not _header_already_set('Content-Type'):
+            _header_params['Content-Type'] = 'application/json'
         # process the form parameters
         # process the body parameter
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
+        # Имя сравнивается без учета регистра, включая заголовки клиента:
+        # явный accept не должен оставаться рядом со стандартным Accept.
+        if not _header_already_set('Accept'):
             _header_params['Accept'] = self.api_client.select_header_accept(
                 [
-                    'application/json', 
-                    'text/html;charset=UTF-8'
+                    'application/json'
                 ]
             )
 
@@ -7793,22 +8134,36 @@ class InternalOrdersApi:
             _query_params.append(('expand', expand))
             
         # process the header parameters
+        # default_headers клиента добавляются позже и не сливаются по регистру.
+        # Значение из спецификации не должно создавать второй Accept рядом с accept.
+        def _header_already_set(_name: str) -> bool:
+            return any(
+                _header_name.lower() == _name.lower()
+                for _header_name in (*_header_params, *self.api_client.default_headers)
+            )
         if accept is not None:
-            _header_params['accept'] = accept
+            _header_params['Accept'] = accept
+        elif not _header_already_set('Accept'):
+            _header_params['Accept'] = 'application/json;charset=utf-8'
         if accept_encoding is not None:
             _header_params['Accept-Encoding'] = accept_encoding
+        elif not _header_already_set('Accept-Encoding'):
+            _header_params['Accept-Encoding'] = 'gzip'
         if content_type is not None:
             _header_params['Content-Type'] = content_type
+        elif not _header_already_set('Content-Type'):
+            _header_params['Content-Type'] = 'application/json'
         # process the form parameters
         # process the body parameter
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
+        # Имя сравнивается без учета регистра, включая заголовки клиента:
+        # явный accept не должен оставаться рядом со стандартным Accept.
+        if not _header_already_set('Accept'):
             _header_params['Accept'] = self.api_client.select_header_accept(
                 [
-                    'application/json', 
-                    'text/html;charset=UTF-8'
+                    'application/json'
                 ]
             )
 
@@ -8136,20 +8491,32 @@ class InternalOrdersApi:
             _query_params.append(('expand', expand))
             
         # process the header parameters
+        # default_headers клиента добавляются позже и не сливаются по регистру.
+        # Значение из спецификации не должно создавать второй Accept рядом с accept.
+        def _header_already_set(_name: str) -> bool:
+            return any(
+                _header_name.lower() == _name.lower()
+                for _header_name in (*_header_params, *self.api_client.default_headers)
+            )
         if accept is not None:
-            _header_params['accept'] = accept
+            _header_params['Accept'] = accept
+        elif not _header_already_set('Accept'):
+            _header_params['Accept'] = 'application/json;charset=utf-8'
         if accept_encoding is not None:
             _header_params['Accept-Encoding'] = accept_encoding
+        elif not _header_already_set('Accept-Encoding'):
+            _header_params['Accept-Encoding'] = 'gzip'
         # process the form parameters
         # process the body parameter
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
+        # Имя сравнивается без учета регистра, включая заголовки клиента:
+        # явный accept не должен оставаться рядом со стандартным Accept.
+        if not _header_already_set('Accept'):
             _header_params['Accept'] = self.api_client.select_header_accept(
                 [
-                    'application/json', 
-                    'text/html;charset=UTF-8'
+                    'application/json'
                 ]
             )
 
@@ -8437,12 +8804,25 @@ class InternalOrdersApi:
         # process the path parameters
         # process the query parameters
         # process the header parameters
+        # default_headers клиента добавляются позже и не сливаются по регистру.
+        # Значение из спецификации не должно создавать второй Accept рядом с accept.
+        def _header_already_set(_name: str) -> bool:
+            return any(
+                _header_name.lower() == _name.lower()
+                for _header_name in (*_header_params, *self.api_client.default_headers)
+            )
         if accept is not None:
-            _header_params['accept'] = accept
+            _header_params['Accept'] = accept
+        elif not _header_already_set('Accept'):
+            _header_params['Accept'] = 'application/json;charset=utf-8'
         if accept_encoding is not None:
             _header_params['Accept-Encoding'] = accept_encoding
+        elif not _header_already_set('Accept-Encoding'):
+            _header_params['Accept-Encoding'] = 'gzip'
         if content_type is not None:
             _header_params['Content-Type'] = content_type
+        elif not _header_already_set('Content-Type'):
+            _header_params['Content-Type'] = 'application/json'
         # process the form parameters
         # process the body parameter
         if body is not None:
@@ -8450,11 +8830,12 @@ class InternalOrdersApi:
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
+        # Имя сравнивается без учета регистра, включая заголовки клиента:
+        # явный accept не должен оставаться рядом со стандартным Accept.
+        if not _header_already_set('Accept'):
             _header_params['Accept'] = self.api_client.select_header_accept(
                 [
-                    'application/json', 
-                    'text/html;charset=UTF-8'
+                    'application/json'
                 ]
             )
 
@@ -8502,6 +8883,7 @@ class InternalOrdersApi:
         id: Annotated[StrictStr, Field(description="ID сущности")],
         accept: Optional[StrictStr] = None,
         accept_encoding: Optional[StrictStr] = None,
+        content_type: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -8524,6 +8906,8 @@ class InternalOrdersApi:
         :type accept: str
         :param accept_encoding:
         :type accept_encoding: str
+        :param content_type:
+        :type content_type: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -8550,6 +8934,7 @@ class InternalOrdersApi:
             id=id,
             accept=accept,
             accept_encoding=accept_encoding,
+            content_type=content_type,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -8576,6 +8961,7 @@ class InternalOrdersApi:
         id: Annotated[StrictStr, Field(description="ID сущности")],
         accept: Optional[StrictStr] = None,
         accept_encoding: Optional[StrictStr] = None,
+        content_type: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -8598,6 +8984,8 @@ class InternalOrdersApi:
         :type accept: str
         :param accept_encoding:
         :type accept_encoding: str
+        :param content_type:
+        :type content_type: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -8624,6 +9012,7 @@ class InternalOrdersApi:
             id=id,
             accept=accept,
             accept_encoding=accept_encoding,
+            content_type=content_type,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -8650,6 +9039,7 @@ class InternalOrdersApi:
         id: Annotated[StrictStr, Field(description="ID сущности")],
         accept: Optional[StrictStr] = None,
         accept_encoding: Optional[StrictStr] = None,
+        content_type: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -8672,6 +9062,8 @@ class InternalOrdersApi:
         :type accept: str
         :param accept_encoding:
         :type accept_encoding: str
+        :param content_type:
+        :type content_type: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -8698,6 +9090,7 @@ class InternalOrdersApi:
             id=id,
             accept=accept,
             accept_encoding=accept_encoding,
+            content_type=content_type,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -8719,6 +9112,7 @@ class InternalOrdersApi:
         id,
         accept,
         accept_encoding,
+        content_type,
         _request_auth,
         _content_type,
         _headers,
@@ -8744,20 +9138,36 @@ class InternalOrdersApi:
             _path_params['id'] = id
         # process the query parameters
         # process the header parameters
+        # default_headers клиента добавляются позже и не сливаются по регистру.
+        # Значение из спецификации не должно создавать второй Accept рядом с accept.
+        def _header_already_set(_name: str) -> bool:
+            return any(
+                _header_name.lower() == _name.lower()
+                for _header_name in (*_header_params, *self.api_client.default_headers)
+            )
         if accept is not None:
-            _header_params['accept'] = accept
+            _header_params['Accept'] = accept
+        elif not _header_already_set('Accept'):
+            _header_params['Accept'] = 'application/json;charset=utf-8'
         if accept_encoding is not None:
             _header_params['Accept-Encoding'] = accept_encoding
+        elif not _header_already_set('Accept-Encoding'):
+            _header_params['Accept-Encoding'] = 'gzip'
+        if content_type is not None:
+            _header_params['Content-Type'] = content_type
+        elif not _header_already_set('Content-Type'):
+            _header_params['Content-Type'] = 'application/json'
         # process the form parameters
         # process the body parameter
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
+        # Имя сравнивается без учета регистра, включая заголовки клиента:
+        # явный accept не должен оставаться рядом со стандартным Accept.
+        if not _header_already_set('Accept'):
             _header_params['Accept'] = self.api_client.select_header_accept(
                 [
-                    'application/json', 
-                    'text/html;charset=UTF-8'
+                    'application/json'
                 ]
             )
 
@@ -9077,12 +9487,25 @@ class InternalOrdersApi:
             _query_params.append(('expand', expand))
             
         # process the header parameters
+        # default_headers клиента добавляются позже и не сливаются по регистру.
+        # Значение из спецификации не должно создавать второй Accept рядом с accept.
+        def _header_already_set(_name: str) -> bool:
+            return any(
+                _header_name.lower() == _name.lower()
+                for _header_name in (*_header_params, *self.api_client.default_headers)
+            )
         if accept is not None:
-            _header_params['accept'] = accept
+            _header_params['Accept'] = accept
+        elif not _header_already_set('Accept'):
+            _header_params['Accept'] = 'application/json;charset=utf-8'
         if accept_encoding is not None:
             _header_params['Accept-Encoding'] = accept_encoding
+        elif not _header_already_set('Accept-Encoding'):
+            _header_params['Accept-Encoding'] = 'gzip'
         if content_type is not None:
             _header_params['Content-Type'] = content_type
+        elif not _header_already_set('Content-Type'):
+            _header_params['Content-Type'] = 'application/json'
         # process the form parameters
         # process the body parameter
         if internal_order is not None:
@@ -9090,11 +9513,12 @@ class InternalOrdersApi:
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
+        # Имя сравнивается без учета регистра, включая заголовки клиента:
+        # явный accept не должен оставаться рядом со стандартным Accept.
+        if not _header_already_set('Accept'):
             _header_params['Accept'] = self.api_client.select_header_accept(
                 [
-                    'application/json', 
-                    'text/html;charset=UTF-8'
+                    'application/json'
                 ]
             )
 
@@ -9410,12 +9834,25 @@ class InternalOrdersApi:
             _path_params['id'] = id
         # process the query parameters
         # process the header parameters
+        # default_headers клиента добавляются позже и не сливаются по регистру.
+        # Значение из спецификации не должно создавать второй Accept рядом с accept.
+        def _header_already_set(_name: str) -> bool:
+            return any(
+                _header_name.lower() == _name.lower()
+                for _header_name in (*_header_params, *self.api_client.default_headers)
+            )
         if accept is not None:
-            _header_params['accept'] = accept
+            _header_params['Accept'] = accept
+        elif not _header_already_set('Accept'):
+            _header_params['Accept'] = 'application/json;charset=utf-8'
         if accept_encoding is not None:
             _header_params['Accept-Encoding'] = accept_encoding
+        elif not _header_already_set('Accept-Encoding'):
+            _header_params['Accept-Encoding'] = 'gzip'
         if content_type is not None:
             _header_params['Content-Type'] = content_type
+        elif not _header_already_set('Content-Type'):
+            _header_params['Content-Type'] = 'application/json'
         # process the form parameters
         # process the body parameter
         if attribute_meta_info is not None:
@@ -9423,11 +9860,12 @@ class InternalOrdersApi:
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
+        # Имя сравнивается без учета регистра, включая заголовки клиента:
+        # явный accept не должен оставаться рядом со стандартным Accept.
+        if not _header_already_set('Accept'):
             _header_params['Accept'] = self.api_client.select_header_accept(
                 [
-                    'application/json', 
-                    'text/html;charset=UTF-8'
+                    'application/json'
                 ]
             )
 
@@ -9743,12 +10181,25 @@ class InternalOrdersApi:
             _path_params['id'] = id
         # process the query parameters
         # process the header parameters
+        # default_headers клиента добавляются позже и не сливаются по регистру.
+        # Значение из спецификации не должно создавать второй Accept рядом с accept.
+        def _header_already_set(_name: str) -> bool:
+            return any(
+                _header_name.lower() == _name.lower()
+                for _header_name in (*_header_params, *self.api_client.default_headers)
+            )
         if accept is not None:
-            _header_params['accept'] = accept
+            _header_params['Accept'] = accept
+        elif not _header_already_set('Accept'):
+            _header_params['Accept'] = 'application/json;charset=utf-8'
         if accept_encoding is not None:
             _header_params['Accept-Encoding'] = accept_encoding
+        elif not _header_already_set('Accept-Encoding'):
+            _header_params['Accept-Encoding'] = 'gzip'
         if content_type is not None:
             _header_params['Content-Type'] = content_type
+        elif not _header_already_set('Content-Type'):
+            _header_params['Content-Type'] = 'application/json'
         # process the form parameters
         # process the body parameter
         if state is not None:
@@ -9756,11 +10207,12 @@ class InternalOrdersApi:
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
+        # Имя сравнивается без учета регистра, включая заголовки клиента:
+        # явный accept не должен оставаться рядом со стандартным Accept.
+        if not _header_already_set('Accept'):
             _header_params['Accept'] = self.api_client.select_header_accept(
                 [
-                    'application/json', 
-                    'text/html;charset=UTF-8'
+                    'application/json'
                 ]
             )
 
@@ -10108,12 +10560,25 @@ class InternalOrdersApi:
             _query_params.append(('expand', expand))
             
         # process the header parameters
+        # default_headers клиента добавляются позже и не сливаются по регистру.
+        # Значение из спецификации не должно создавать второй Accept рядом с accept.
+        def _header_already_set(_name: str) -> bool:
+            return any(
+                _header_name.lower() == _name.lower()
+                for _header_name in (*_header_params, *self.api_client.default_headers)
+            )
         if accept is not None:
-            _header_params['accept'] = accept
+            _header_params['Accept'] = accept
+        elif not _header_already_set('Accept'):
+            _header_params['Accept'] = 'application/json;charset=utf-8'
         if accept_encoding is not None:
             _header_params['Accept-Encoding'] = accept_encoding
+        elif not _header_already_set('Accept-Encoding'):
+            _header_params['Accept-Encoding'] = 'gzip'
         if content_type is not None:
             _header_params['Content-Type'] = content_type
+        elif not _header_already_set('Content-Type'):
+            _header_params['Content-Type'] = 'application/json'
         # process the form parameters
         # process the body parameter
         if internal_order_position is not None:
@@ -10121,11 +10586,12 @@ class InternalOrdersApi:
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
+        # Имя сравнивается без учета регистра, включая заголовки клиента:
+        # явный accept не должен оставаться рядом со стандартным Accept.
+        if not _header_already_set('Accept'):
             _header_params['Accept'] = self.api_client.select_header_accept(
                 [
-                    'application/json', 
-                    'text/html;charset=UTF-8'
+                    'application/json'
                 ]
             )
 

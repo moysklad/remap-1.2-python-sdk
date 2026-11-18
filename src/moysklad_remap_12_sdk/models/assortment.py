@@ -23,6 +23,7 @@ from typing_extensions import Annotated
 from moysklad_remap_12_sdk.models.agent import Agent
 from moysklad_remap_12_sdk.models.attribute_abstract import AttributeAbstract
 from moysklad_remap_12_sdk.models.barcode import Barcode
+from moysklad_remap_12_sdk.models.bundle_component_list import BundleComponentList
 from moysklad_remap_12_sdk.models.bundle_overhead import BundleOverhead
 from moysklad_remap_12_sdk.models.country import Country
 from moysklad_remap_12_sdk.models.employee import Employee
@@ -31,7 +32,6 @@ from moysklad_remap_12_sdk.models.group import Group
 from moysklad_remap_12_sdk.models.image_list import ImageList
 from moysklad_remap_12_sdk.models.meta import Meta
 from moysklad_remap_12_sdk.models.minimum_stock_abstract import MinimumStockAbstract
-from moysklad_remap_12_sdk.models.pack import Pack
 from moysklad_remap_12_sdk.models.price import Price
 from moysklad_remap_12_sdk.models.product import Product
 from moysklad_remap_12_sdk.models.product_alcoholic import ProductAlcoholic
@@ -40,6 +40,7 @@ from moysklad_remap_12_sdk.models.product_marker import ProductMarker
 from moysklad_remap_12_sdk.models.sale_price import SalePrice
 from moysklad_remap_12_sdk.models.uom import Uom
 from moysklad_remap_12_sdk.models.variant_characteristic_value import VariantCharacteristicValue
+from moysklad_remap_12_sdk.models.variant_pack import VariantPack
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -73,7 +74,7 @@ class Assortment(BaseModel):
     updated: Optional[StrictStr] = Field(default=None, description="Момент последнего обновления сущности")
     weight: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Вес")
     volume: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Объем")
-    buy_price: Optional[Price] = Field(default=None, alias="buyPrice")
+    buy_price: Optional[Price] = Field(default=None, description="Закупочная цена", alias="buyPrice")
     sale_prices: Optional[List[SalePrice]] = Field(default=None, description="Цены продажи", alias="salePrices")
     supplier: Optional[Agent] = Field(default=None, description="Метаданные контрагента или юрлица")
     country: Optional[Country] = Field(default=None, description="Метаданные Страны")
@@ -82,12 +83,13 @@ class Assortment(BaseModel):
     images: Optional[ImageList] = Field(default=None, description="Массив метаданных Изображений товара, к которому относится данная партия")
     files: Optional[FileList] = Field(default=None, description="Метаданные массива Файлов")
     barcodes: Optional[List[Barcode]] = Field(default=None, description="Штрихкоды Партии")
-    packs: Optional[List[Pack]] = Field(default=None, description="Упаковки Комплекта")
+    packs: Optional[List[VariantPack]] = Field(default=None, description="Упаковки Модификации")
     tracking_type: Optional[StrictStr] = Field(default=None, description="Тип маркируемой продукции. Известные значения описаны в TrackingType", alias="trackingType")
     tnved: Optional[Annotated[str, Field(strict=True, max_length=255)]] = Field(default=None, description="Код ТН ВЭД")
     payment_item_type: Optional[StrictStr] = Field(default=None, description="Признак предмета расчета. Известные значения описаны в PaymentItemType", alias="paymentItemType")
     tax_system: Optional[StrictStr] = Field(default=None, description="Код системы налогообложения. Известные значения описаны в TaxSystem", alias="taxSystem")
     attributes: Optional[List[AttributeAbstract]] = Field(default=None, description="Коллекция доп. полей Партии")
+    minimum_balance: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Неснижаемый остаток. Для очистки передайте null.", alias="minimumBalance")
     minimum_stock: Optional[MinimumStockAbstract] = Field(default=None, description="Неснижаемый остаток. Не выводится по умолчанию. Для получения передайте параметр `?fields=minimumStock`. ", alias="minimumStock")
     min_price: Optional[Price] = Field(default=None, alias="minPrice")
     weighed: Optional[StrictBool] = Field(default=None, description="Поле, показывающее является ли товар весовым")
@@ -99,7 +101,7 @@ class Assortment(BaseModel):
     product: Optional[Product] = None
     characteristics: Optional[List[VariantCharacteristicValue]] = Field(default=None, description="Характеристики Модификации")
     overhead: Optional[BundleOverhead] = None
-    components: Optional[BundleComponentList] = Field(default=None, description="""Массив компонентов Комплекта""", alias="components")
+    components: Optional[BundleComponentList] = None
     assortment: Optional[ProductMarker] = Field(default=None, description="Метаданные товара/услуги/комплекта/модификации, к которой относится Партия")
     expiry_date: Optional[StrictStr] = Field(default=None, description="Срок годности Партии", alias="expiryDate")
     label: Optional[Annotated[str, Field(strict=True, max_length=255)]] = Field(default=None, description="Метка Партии")
@@ -108,7 +110,7 @@ class Assortment(BaseModel):
     in_transit: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Ожидание", alias="inTransit")
     quantity: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Доступно")
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["meta", "id", "accountId", "alcoholic", "archived", "tobacco", "name", "code", "externalCode", "pathName", "article", "description", "vat", "vatEnabled", "useParentVat", "effectiveVat", "effectiveVatEnabled", "discountProhibited", "variantsCount", "isSerialTrackable", "shared", "group", "owner", "updated", "weight", "volume", "buyPrice", "salePrices", "supplier", "country", "uom", "productFolder", "images", "files", "barcodes", "packs", "trackingType", "tnved", "paymentItemType", "taxSystem", "attributes", "minimumStock", "minPrice", "weighed", "onTap", "partialDisposal", "things", "syncId", "ppeType", "product", "characteristics", "overhead", "components", "assortment", "expiryDate", "label", "stock", "reserve", "inTransit", "quantity"]
+    __properties: ClassVar[List[str]] = ["meta", "id", "accountId", "alcoholic", "archived", "tobacco", "name", "code", "externalCode", "pathName", "article", "description", "vat", "vatEnabled", "useParentVat", "effectiveVat", "effectiveVatEnabled", "discountProhibited", "variantsCount", "isSerialTrackable", "shared", "group", "owner", "updated", "weight", "volume", "buyPrice", "salePrices", "supplier", "country", "uom", "productFolder", "images", "files", "barcodes", "packs", "trackingType", "tnved", "paymentItemType", "taxSystem", "attributes", "minimumBalance", "minimumStock", "minPrice", "weighed", "onTap", "partialDisposal", "things", "syncId", "ppeType", "product", "characteristics", "overhead", "components", "assortment", "expiryDate", "label", "stock", "reserve", "inTransit", "quantity"]
 
     model_config = ConfigDict(
         extra="allow",
@@ -138,6 +140,24 @@ class Assortment(BaseModel):
         `None` is only added for nullable fields set at initialization.
         OpenAPI `readOnly` response fields are retained.
         """
+        def _json_model_value(value):
+            if isinstance(value, list):
+                return [_json_model_value(item) for item in value]
+            if value is not None and hasattr(value, "to_dict") and callable(value.to_dict):
+                return value.to_dict()
+            return value
+
+        def _model_value_replaces_schema_set(value):
+            if isinstance(value, set):
+                return True
+            if isinstance(value, list):
+                return any(_model_value_replaces_schema_set(item) for item in value)
+            if isinstance(value, dict):
+                if "one_of_schemas" in value or "any_of_schemas" in value:
+                    return True
+                return any(_model_value_replaces_schema_set(item) for item in value.values())
+            return False
+
         excluded_fields: Set[str] = {
             "additional_properties",
         }
@@ -215,11 +235,30 @@ class Assortment(BaseModel):
             for _key, _value in self.additional_properties.items():
                 _dict[_key] = _value
 
+        # oneOf/anyOf, унаследованные поля и лишние свойства не должны уносить в JSON
+        # служебное множество имен схем: оно не сериализуется.
+        for _field_name, _field in type(self).model_fields.items():
+            if _field_name == "additional_properties":
+                continue
+            _value = getattr(self, _field_name)
+            _alias = _field.alias or _field_name
+            if _model_value_replaces_schema_set(_dict.get(_alias)):
+                _converted = _json_model_value(_value)
+                if _converted is not None:
+                    _dict[_alias] = _converted
+        for _extra_key, _extra_value in (getattr(self, "__pydantic_extra__", None) or {}).items():
+            if _model_value_replaces_schema_set(_dict.get(_extra_key)):
+                _converted = _json_model_value(_extra_value)
+                if _converted is not None:
+                    _dict[_extra_key] = _converted
         if self.description is None and "description" in self.model_fields_set:
             _dict['description'] = None
 
         if self.owner is None and "owner" in self.model_fields_set:
             _dict['owner'] = None
+
+        if self.buy_price is None and "buy_price" in self.model_fields_set:
+            _dict['buyPrice'] = None
 
         if self.sale_prices is None and "sale_prices" in self.model_fields_set:
             _dict['salePrices'] = None
@@ -245,6 +284,9 @@ class Assortment(BaseModel):
         if self.attributes is None and "attributes" in self.model_fields_set:
             _dict['attributes'] = None
 
+        if self.minimum_balance is None and "minimum_balance" in self.model_fields_set:
+            _dict['minimumBalance'] = None
+
         if self.minimum_stock is None and "minimum_stock" in self.model_fields_set:
             _dict['minimumStock'] = None
 
@@ -259,6 +301,31 @@ class Assortment(BaseModel):
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
         """Create an instance of Assortment from a dict"""
+        if isinstance(obj, dict):
+            meta_type_value: Any = obj
+            for part in "meta.type".split("."):
+                if not isinstance(meta_type_value, dict):
+                    meta_type_value = None
+                    break
+                meta_type_value = meta_type_value.get(part)
+
+            meta_type_model = {
+                "product": ("product", "Product"),
+"service": ("service", "Service"),
+"bundle": ("bundle", "Bundle"),
+"variant": ("variant", "Variant"),
+"consignment": ("consignment", "Consignment")
+            }.get(meta_type_value)
+            if meta_type_model:
+                from importlib import import_module
+
+                module_name, target_name = meta_type_model
+                target_class = getattr(
+                    import_module(f"moysklad_remap_12_sdk.models.{module_name}"),
+                    target_name,
+                )
+                return target_class.from_dict(obj)
+
         if obj is None:
             return None
 
@@ -302,12 +369,13 @@ class Assortment(BaseModel):
             "images": ImageList.from_dict(obj["images"]) if obj.get("images") is not None else None,
             "files": FileList.from_dict(obj["files"]) if obj.get("files") is not None else None,
             "barcodes": [Barcode.from_dict(_item) for _item in obj["barcodes"]] if obj.get("barcodes") is not None else None,
-            "packs": [Pack.from_dict(_item) for _item in obj["packs"]] if obj.get("packs") is not None else None,
+            "packs": [VariantPack.from_dict(_item) for _item in obj["packs"]] if obj.get("packs") is not None else None,
             "trackingType": obj.get("trackingType"),
             "tnved": obj.get("tnved"),
             "paymentItemType": obj.get("paymentItemType"),
             "taxSystem": obj.get("taxSystem"),
             "attributes": [AttributeAbstract.from_dict(_item) for _item in obj["attributes"]] if obj.get("attributes") is not None else None,
+            "minimumBalance": obj.get("minimumBalance"),
             "minimumStock": MinimumStockAbstract.from_dict(obj["minimumStock"]) if obj.get("minimumStock") is not None else None,
             "minPrice": Price.from_dict(obj["minPrice"]) if obj.get("minPrice") is not None else None,
             "weighed": obj.get("weighed"),
@@ -434,7 +502,7 @@ from moysklad_remap_12_sdk.models.barcode import Barcode
 
 
 
-from moysklad_remap_12_sdk.models.pack import Pack
+from moysklad_remap_12_sdk.models.variant_pack import VariantPack
 
 
 
@@ -447,6 +515,8 @@ from moysklad_remap_12_sdk.models.pack import Pack
 
 
 from moysklad_remap_12_sdk.models.attribute_abstract import AttributeAbstract
+
+
 
 
 from moysklad_remap_12_sdk.models.minimum_stock_abstract import MinimumStockAbstract

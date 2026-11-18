@@ -40,13 +40,11 @@ Name | Type | Description | Notes
 **images** | [**ImageList**](ImageList.md) | Массив метаданных Изображений | [optional] 
 **files** | [**FileList**](FileList.md) | Метаданные массива Файлов | [optional] 
 **barcodes** | [**List[Barcode]**](Barcode.md) | Штрихкоды Комплекта | [optional] 
-**packs** | [**List[Pack]**](Pack.md) | Упаковки Комплекта | [optional] 
 **sale_prices** | [**List[SalePrice]**](SalePrice.md) | Цены продажи | [optional] 
-**buy_price** | [**Price**](Price.md) |  | [optional] 
 **min_price** | [**Price**](Price.md) |  | [optional] 
 **overhead** | [**BundleOverhead**](BundleOverhead.md) |  | [optional] 
 **attributes** | [**List[AttributeAbstract]**](AttributeAbstract.md) | Коллекция метаданных доп. полей | [optional] 
-**components** | [**BundleComponentList**](.md) | Массив компонентов Комплекта | [optional] 
+**components** | [**BundleComponentList**](BundleComponentList.md) |  | [optional] 
 
 ## Example
 

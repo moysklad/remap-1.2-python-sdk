@@ -24,6 +24,7 @@ from moysklad_remap_12_sdk.models.agent import Agent
 from moysklad_remap_12_sdk.models.attribute_abstract import AttributeAbstract
 from moysklad_remap_12_sdk.models.contract import Contract
 from moysklad_remap_12_sdk.models.employee import Employee
+from moysklad_remap_12_sdk.models.facture_out_payment import FactureOutPayment
 from moysklad_remap_12_sdk.models.file_list import FileList
 from moysklad_remap_12_sdk.models.group import Group
 from moysklad_remap_12_sdk.models.meta import Meta
@@ -32,7 +33,9 @@ from moysklad_remap_12_sdk.models.state import State
 from typing import Optional, Set
 from typing_extensions import Self
 
-class FactureOut(BaseModel):
+from moysklad_remap_12_sdk.models.entity_with_meta import EntityWithMeta
+
+class FactureOut(EntityWithMeta):
     """
     Счет-фактура выданный (factureout)
     """ # noqa: E501
@@ -67,7 +70,7 @@ class FactureOut(BaseModel):
     payment_purpose: Optional[Annotated[str, Field(strict=True, max_length=255)]] = Field(default=None, description="Назначение платежа. Доступно только для счетов-фактур с основаниями-платежами. ", alias="paymentPurpose")
     vat_sum: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Сумма включая НДС. Доступно только для счетов-фактур с основаниями-платежами. ", alias="vatSum")
     demands: Optional[List[Demand]] = Field(default=None, description="Связанные отгрузки (метаданные)")
-    payments: Optional[List[PaymentIn]] = Field(default=None, description="Связанные входящие платежи (метаданные)")
+    payments: Optional[List[FactureOutPayment]] = Field(default=None, description="Связанные входящие платежи (метаданные)")
     returns: Optional[List[PurchaseReturn]] = Field(default=None, description="Связанные возвраты поставщикам (метаданные)")
     consignee: Optional[Agent] = Field(default=None, description="Грузополучатель (контрагент или юрлицо)")
     payment_number: Optional[Annotated[str, Field(strict=True, max_length=255)]] = Field(default=None, description="Название платежного документа", alias="paymentNumber")
@@ -122,6 +125,24 @@ class FactureOut(BaseModel):
         `None` is only added for nullable fields set at initialization.
         OpenAPI `readOnly` response fields are retained.
         """
+        def _json_model_value(value):
+            if isinstance(value, list):
+                return [_json_model_value(item) for item in value]
+            if value is not None and hasattr(value, "to_dict") and callable(value.to_dict):
+                return value.to_dict()
+            return value
+
+        def _model_value_replaces_schema_set(value):
+            if isinstance(value, set):
+                return True
+            if isinstance(value, list):
+                return any(_model_value_replaces_schema_set(item) for item in value)
+            if isinstance(value, dict):
+                if "one_of_schemas" in value or "any_of_schemas" in value:
+                    return True
+                return any(_model_value_replaces_schema_set(item) for item in value.values())
+            return False
+
         excluded_fields: Set[str] = {
             "additional_properties",
         }
@@ -179,6 +200,22 @@ class FactureOut(BaseModel):
             for _key, _value in self.additional_properties.items():
                 _dict[_key] = _value
 
+        # oneOf/anyOf, унаследованные поля и лишние свойства не должны уносить в JSON
+        # служебное множество имен схем: оно не сериализуется.
+        for _field_name, _field in type(self).model_fields.items():
+            if _field_name == "additional_properties":
+                continue
+            _value = getattr(self, _field_name)
+            _alias = _field.alias or _field_name
+            if _model_value_replaces_schema_set(_dict.get(_alias)):
+                _converted = _json_model_value(_value)
+                if _converted is not None:
+                    _dict[_alias] = _converted
+        for _extra_key, _extra_value in (getattr(self, "__pydantic_extra__", None) or {}).items():
+            if _model_value_replaces_schema_set(_dict.get(_extra_key)):
+                _converted = _json_model_value(_extra_value)
+                if _converted is not None:
+                    _dict[_extra_key] = _converted
         if self.attributes is None and "attributes" in self.model_fields_set:
             _dict['attributes'] = None
 
@@ -253,7 +290,7 @@ class FactureOut(BaseModel):
             "paymentPurpose": obj.get("paymentPurpose"),
             "vatSum": obj.get("vatSum"),
             "demands": [Demand.from_dict(_item) for _item in obj["demands"]] if obj.get("demands") is not None else None,
-            "payments": [PaymentIn.from_dict(_item) for _item in obj["payments"]] if obj.get("payments") is not None else None,
+            "payments": [FactureOutPayment.from_dict(_item) for _item in obj["payments"]] if obj.get("payments") is not None else None,
             "returns": [PurchaseReturn.from_dict(_item) for _item in obj["returns"]] if obj.get("returns") is not None else None,
             "consignee": Agent.from_dict(obj["consignee"]) if obj.get("consignee") is not None else None,
             "paymentNumber": obj.get("paymentNumber"),
@@ -267,7 +304,6 @@ class FactureOut(BaseModel):
         return _obj
 
 from moysklad_remap_12_sdk.models.demand import Demand
-from moysklad_remap_12_sdk.models.payment_in import PaymentIn
 from moysklad_remap_12_sdk.models.purchase_return import PurchaseReturn
 # TODO: Rewrite to not use raise_errors
 FactureOut.model_rebuild(raise_errors=False)
@@ -358,7 +394,7 @@ from moysklad_remap_12_sdk.models.demand import Demand
 
 
 
-from moysklad_remap_12_sdk.models.payment_in import PaymentIn
+from moysklad_remap_12_sdk.models.facture_out_payment import FactureOutPayment
 
 
 

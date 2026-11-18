@@ -49,7 +49,7 @@ Name | Type | Description | Notes
 **customer_orders** | [**List[CustomerOrder]**](CustomerOrder.md) | Массив ссылок на связанные заказы покупателей | [optional] 
 **invoices_in** | [**List[InvoiceIn]**](InvoiceIn.md) | Массив ссылок на связанные счета поставщиков | [optional] 
 **supplies** | [**List[Supply]**](Supply.md) | Массив ссылок на связанные приемки | [optional] 
-**payments** | [**List[SalesReturnPaymentsInner]**](SalesReturnPaymentsInner.md) | Массив ссылок на связанные платежи | [optional] 
+**payments** | [**List[PurchaseOrderPayment]**](PurchaseOrderPayment.md) | Массив ссылок на связанные платежи | [optional] 
 **production_tasks** | [**List[ProductionTask]**](ProductionTask.md) | Массив ссылок на связанные производственные задания | [optional] 
 
 ## Example

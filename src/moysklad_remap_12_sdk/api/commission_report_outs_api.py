@@ -330,12 +330,25 @@ class CommissionReportOutsApi:
             _path_params['id'] = id
         # process the query parameters
         # process the header parameters
+        # default_headers клиента добавляются позже и не сливаются по регистру.
+        # Значение из спецификации не должно создавать второй Accept рядом с accept.
+        def _header_already_set(_name: str) -> bool:
+            return any(
+                _header_name.lower() == _name.lower()
+                for _header_name in (*_header_params, *self.api_client.default_headers)
+            )
         if accept is not None:
-            _header_params['accept'] = accept
+            _header_params['Accept'] = accept
+        elif not _header_already_set('Accept'):
+            _header_params['Accept'] = 'application/json;charset=utf-8'
         if accept_encoding is not None:
             _header_params['Accept-Encoding'] = accept_encoding
+        elif not _header_already_set('Accept-Encoding'):
+            _header_params['Accept-Encoding'] = 'gzip'
         if content_type is not None:
             _header_params['Content-Type'] = content_type
+        elif not _header_already_set('Content-Type'):
+            _header_params['Content-Type'] = 'application/json'
         # process the form parameters
         # process the body parameter
         if file_upload is not None:
@@ -343,11 +356,12 @@ class CommissionReportOutsApi:
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
+        # Имя сравнивается без учета регистра, включая заголовки клиента:
+        # явный accept не должен оставаться рядом со стандартным Accept.
+        if not _header_already_set('Accept'):
             _header_params['Accept'] = self.api_client.select_header_accept(
                 [
-                    'application/json', 
-                    'text/html;charset=UTF-8'
+                    'application/json'
                 ]
             )
 
@@ -667,12 +681,25 @@ class CommissionReportOutsApi:
             _path_params['id'] = id
         # process the query parameters
         # process the header parameters
+        # default_headers клиента добавляются позже и не сливаются по регистру.
+        # Значение из спецификации не должно создавать второй Accept рядом с accept.
+        def _header_already_set(_name: str) -> bool:
+            return any(
+                _header_name.lower() == _name.lower()
+                for _header_name in (*_header_params, *self.api_client.default_headers)
+            )
         if accept is not None:
-            _header_params['accept'] = accept
+            _header_params['Accept'] = accept
+        elif not _header_already_set('Accept'):
+            _header_params['Accept'] = 'application/json;charset=utf-8'
         if accept_encoding is not None:
             _header_params['Accept-Encoding'] = accept_encoding
+        elif not _header_already_set('Accept-Encoding'):
+            _header_params['Accept-Encoding'] = 'gzip'
         if content_type is not None:
             _header_params['Content-Type'] = content_type
+        elif not _header_already_set('Content-Type'):
+            _header_params['Content-Type'] = 'application/json'
         # process the form parameters
         # process the body parameter
         if file_upload is not None:
@@ -680,11 +707,12 @@ class CommissionReportOutsApi:
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
+        # Имя сравнивается без учета регистра, включая заголовки клиента:
+        # явный accept не должен оставаться рядом со стандартным Accept.
+        if not _header_already_set('Accept'):
             _header_params['Accept'] = self.api_client.select_header_accept(
                 [
-                    'application/json', 
-                    'text/html;charset=UTF-8'
+                    'application/json'
                 ]
             )
 
@@ -1002,12 +1030,25 @@ class CommissionReportOutsApi:
             _query_params.append(('expand', expand))
             
         # process the header parameters
+        # default_headers клиента добавляются позже и не сливаются по регистру.
+        # Значение из спецификации не должно создавать второй Accept рядом с accept.
+        def _header_already_set(_name: str) -> bool:
+            return any(
+                _header_name.lower() == _name.lower()
+                for _header_name in (*_header_params, *self.api_client.default_headers)
+            )
         if accept is not None:
-            _header_params['accept'] = accept
+            _header_params['Accept'] = accept
+        elif not _header_already_set('Accept'):
+            _header_params['Accept'] = 'application/json;charset=utf-8'
         if accept_encoding is not None:
             _header_params['Accept-Encoding'] = accept_encoding
+        elif not _header_already_set('Accept-Encoding'):
+            _header_params['Accept-Encoding'] = 'gzip'
         if content_type is not None:
             _header_params['Content-Type'] = content_type
+        elif not _header_already_set('Content-Type'):
+            _header_params['Content-Type'] = 'application/json'
         # process the form parameters
         # process the body parameter
         if commission_report_out is not None:
@@ -1015,11 +1056,12 @@ class CommissionReportOutsApi:
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
+        # Имя сравнивается без учета регистра, включая заголовки клиента:
+        # явный accept не должен оставаться рядом со стандартным Accept.
+        if not _header_already_set('Accept'):
             _header_params['Accept'] = self.api_client.select_header_accept(
                 [
-                    'application/json', 
-                    'text/html;charset=UTF-8'
+                    'application/json'
                 ]
             )
 
@@ -1131,6 +1173,8 @@ class CommissionReportOutsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[BatchResponseEntity]",
+            '404': "BatchEntityErrorResponse",
+            '412': "BatchEntityErrorResponse",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1213,6 +1257,8 @@ class CommissionReportOutsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[BatchResponseEntity]",
+            '404': "BatchEntityErrorResponse",
+            '412': "BatchEntityErrorResponse",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1295,6 +1341,8 @@ class CommissionReportOutsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[BatchResponseEntity]",
+            '404': "BatchEntityErrorResponse",
+            '412': "BatchEntityErrorResponse",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -1338,12 +1386,25 @@ class CommissionReportOutsApi:
             _query_params.append(('expand', expand))
             
         # process the header parameters
+        # default_headers клиента добавляются позже и не сливаются по регистру.
+        # Значение из спецификации не должно создавать второй Accept рядом с accept.
+        def _header_already_set(_name: str) -> bool:
+            return any(
+                _header_name.lower() == _name.lower()
+                for _header_name in (*_header_params, *self.api_client.default_headers)
+            )
         if accept is not None:
-            _header_params['accept'] = accept
+            _header_params['Accept'] = accept
+        elif not _header_already_set('Accept'):
+            _header_params['Accept'] = 'application/json;charset=utf-8'
         if accept_encoding is not None:
             _header_params['Accept-Encoding'] = accept_encoding
+        elif not _header_already_set('Accept-Encoding'):
+            _header_params['Accept-Encoding'] = 'gzip'
         if content_type is not None:
             _header_params['Content-Type'] = content_type
+        elif not _header_already_set('Content-Type'):
+            _header_params['Content-Type'] = 'application/json'
         # process the form parameters
         # process the body parameter
         if commission_report_out is not None:
@@ -1351,11 +1412,12 @@ class CommissionReportOutsApi:
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
+        # Имя сравнивается без учета регистра, включая заголовки клиента:
+        # явный accept не должен оставаться рядом со стандартным Accept.
+        if not _header_already_set('Accept'):
             _header_params['Accept'] = self.api_client.select_header_accept(
                 [
-                    'application/json', 
-                    'text/html;charset=UTF-8'
+                    'application/json'
                 ]
             )
 
@@ -1656,12 +1718,25 @@ class CommissionReportOutsApi:
         # process the path parameters
         # process the query parameters
         # process the header parameters
+        # default_headers клиента добавляются позже и не сливаются по регистру.
+        # Значение из спецификации не должно создавать второй Accept рядом с accept.
+        def _header_already_set(_name: str) -> bool:
+            return any(
+                _header_name.lower() == _name.lower()
+                for _header_name in (*_header_params, *self.api_client.default_headers)
+            )
         if accept is not None:
-            _header_params['accept'] = accept
+            _header_params['Accept'] = accept
+        elif not _header_already_set('Accept'):
+            _header_params['Accept'] = 'application/json;charset=utf-8'
         if accept_encoding is not None:
             _header_params['Accept-Encoding'] = accept_encoding
+        elif not _header_already_set('Accept-Encoding'):
+            _header_params['Accept-Encoding'] = 'gzip'
         if content_type is not None:
             _header_params['Content-Type'] = content_type
+        elif not _header_already_set('Content-Type'):
+            _header_params['Content-Type'] = 'application/json'
         # process the form parameters
         # process the body parameter
         if attribute_meta_info is not None:
@@ -1669,11 +1744,12 @@ class CommissionReportOutsApi:
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
+        # Имя сравнивается без учета регистра, включая заголовки клиента:
+        # явный accept не должен оставаться рядом со стандартным Accept.
+        if not _header_already_set('Accept'):
             _header_params['Accept'] = self.api_client.select_header_accept(
                 [
-                    'application/json', 
-                    'text/html;charset=UTF-8'
+                    'application/json'
                 ]
             )
 
@@ -1974,12 +2050,25 @@ class CommissionReportOutsApi:
         # process the path parameters
         # process the query parameters
         # process the header parameters
+        # default_headers клиента добавляются позже и не сливаются по регистру.
+        # Значение из спецификации не должно создавать второй Accept рядом с accept.
+        def _header_already_set(_name: str) -> bool:
+            return any(
+                _header_name.lower() == _name.lower()
+                for _header_name in (*_header_params, *self.api_client.default_headers)
+            )
         if accept is not None:
-            _header_params['accept'] = accept
+            _header_params['Accept'] = accept
+        elif not _header_already_set('Accept'):
+            _header_params['Accept'] = 'application/json;charset=utf-8'
         if accept_encoding is not None:
             _header_params['Accept-Encoding'] = accept_encoding
+        elif not _header_already_set('Accept-Encoding'):
+            _header_params['Accept-Encoding'] = 'gzip'
         if content_type is not None:
             _header_params['Content-Type'] = content_type
+        elif not _header_already_set('Content-Type'):
+            _header_params['Content-Type'] = 'application/json'
         # process the form parameters
         # process the body parameter
         if state is not None:
@@ -1987,11 +2076,12 @@ class CommissionReportOutsApi:
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
+        # Имя сравнивается без учета регистра, включая заголовки клиента:
+        # явный accept не должен оставаться рядом со стандартным Accept.
+        if not _header_already_set('Accept'):
             _header_params['Accept'] = self.api_client.select_header_accept(
                 [
-                    'application/json', 
-                    'text/html;charset=UTF-8'
+                    'application/json'
                 ]
             )
 
@@ -2293,12 +2383,25 @@ class CommissionReportOutsApi:
         # process the path parameters
         # process the query parameters
         # process the header parameters
+        # default_headers клиента добавляются позже и не сливаются по регистру.
+        # Значение из спецификации не должно создавать второй Accept рядом с accept.
+        def _header_already_set(_name: str) -> bool:
+            return any(
+                _header_name.lower() == _name.lower()
+                for _header_name in (*_header_params, *self.api_client.default_headers)
+            )
         if accept is not None:
-            _header_params['accept'] = accept
+            _header_params['Accept'] = accept
+        elif not _header_already_set('Accept'):
+            _header_params['Accept'] = 'application/json;charset=utf-8'
         if accept_encoding is not None:
             _header_params['Accept-Encoding'] = accept_encoding
+        elif not _header_already_set('Accept-Encoding'):
+            _header_params['Accept-Encoding'] = 'gzip'
         if content_type is not None:
             _header_params['Content-Type'] = content_type
+        elif not _header_already_set('Content-Type'):
+            _header_params['Content-Type'] = 'application/json'
         # process the form parameters
         # process the body parameter
         if state is not None:
@@ -2306,11 +2409,12 @@ class CommissionReportOutsApi:
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
+        # Имя сравнивается без учета регистра, включая заголовки клиента:
+        # явный accept не должен оставаться рядом со стандартным Accept.
+        if not _header_already_set('Accept'):
             _header_params['Accept'] = self.api_client.select_header_accept(
                 [
-                    'application/json', 
-                    'text/html;charset=UTF-8'
+                    'application/json'
                 ]
             )
 
@@ -2629,12 +2733,25 @@ class CommissionReportOutsApi:
             _path_params['id'] = id
         # process the query parameters
         # process the header parameters
+        # default_headers клиента добавляются позже и не сливаются по регистру.
+        # Значение из спецификации не должно создавать второй Accept рядом с accept.
+        def _header_already_set(_name: str) -> bool:
+            return any(
+                _header_name.lower() == _name.lower()
+                for _header_name in (*_header_params, *self.api_client.default_headers)
+            )
         if accept is not None:
-            _header_params['accept'] = accept
+            _header_params['Accept'] = accept
+        elif not _header_already_set('Accept'):
+            _header_params['Accept'] = 'application/json;charset=utf-8'
         if accept_encoding is not None:
             _header_params['Accept-Encoding'] = accept_encoding
+        elif not _header_already_set('Accept-Encoding'):
+            _header_params['Accept-Encoding'] = 'gzip'
         if content_type is not None:
             _header_params['Content-Type'] = content_type
+        elif not _header_already_set('Content-Type'):
+            _header_params['Content-Type'] = 'application/json'
         # process the form parameters
         # process the body parameter
         if event_note is not None:
@@ -2642,11 +2759,12 @@ class CommissionReportOutsApi:
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
+        # Имя сравнивается без учета регистра, включая заголовки клиента:
+        # явный accept не должен оставаться рядом со стандартным Accept.
+        if not _header_already_set('Accept'):
             _header_params['Accept'] = self.api_client.select_header_accept(
                 [
-                    'application/json', 
-                    'text/html;charset=UTF-8'
+                    'application/json'
                 ]
             )
 
@@ -2966,12 +3084,25 @@ class CommissionReportOutsApi:
             _path_params['id'] = id
         # process the query parameters
         # process the header parameters
+        # default_headers клиента добавляются позже и не сливаются по регистру.
+        # Значение из спецификации не должно создавать второй Accept рядом с accept.
+        def _header_already_set(_name: str) -> bool:
+            return any(
+                _header_name.lower() == _name.lower()
+                for _header_name in (*_header_params, *self.api_client.default_headers)
+            )
         if accept is not None:
-            _header_params['accept'] = accept
+            _header_params['Accept'] = accept
+        elif not _header_already_set('Accept'):
+            _header_params['Accept'] = 'application/json;charset=utf-8'
         if accept_encoding is not None:
             _header_params['Accept-Encoding'] = accept_encoding
+        elif not _header_already_set('Accept-Encoding'):
+            _header_params['Accept-Encoding'] = 'gzip'
         if content_type is not None:
             _header_params['Content-Type'] = content_type
+        elif not _header_already_set('Content-Type'):
+            _header_params['Content-Type'] = 'application/json'
         # process the form parameters
         # process the body parameter
         if event_note is not None:
@@ -2979,11 +3110,12 @@ class CommissionReportOutsApi:
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
+        # Имя сравнивается без учета регистра, включая заголовки клиента:
+        # явный accept не должен оставаться рядом со стандартным Accept.
+        if not _header_already_set('Accept'):
             _header_params['Accept'] = self.api_client.select_header_accept(
                 [
-                    'application/json', 
-                    'text/html;charset=UTF-8'
+                    'application/json'
                 ]
             )
 
@@ -3316,12 +3448,25 @@ class CommissionReportOutsApi:
             _query_params.append(('expand', expand))
             
         # process the header parameters
+        # default_headers клиента добавляются позже и не сливаются по регистру.
+        # Значение из спецификации не должно создавать второй Accept рядом с accept.
+        def _header_already_set(_name: str) -> bool:
+            return any(
+                _header_name.lower() == _name.lower()
+                for _header_name in (*_header_params, *self.api_client.default_headers)
+            )
         if accept is not None:
-            _header_params['accept'] = accept
+            _header_params['Accept'] = accept
+        elif not _header_already_set('Accept'):
+            _header_params['Accept'] = 'application/json;charset=utf-8'
         if accept_encoding is not None:
             _header_params['Accept-Encoding'] = accept_encoding
+        elif not _header_already_set('Accept-Encoding'):
+            _header_params['Accept-Encoding'] = 'gzip'
         if content_type is not None:
             _header_params['Content-Type'] = content_type
+        elif not _header_already_set('Content-Type'):
+            _header_params['Content-Type'] = 'application/json'
         # process the form parameters
         # process the body parameter
         if commission_report_out_position is not None:
@@ -3329,11 +3474,12 @@ class CommissionReportOutsApi:
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
+        # Имя сравнивается без учета регистра, включая заголовки клиента:
+        # явный accept не должен оставаться рядом со стандартным Accept.
+        if not _header_already_set('Accept'):
             _header_params['Accept'] = self.api_client.select_header_accept(
                 [
-                    'application/json', 
-                    'text/html;charset=UTF-8'
+                    'application/json'
                 ]
             )
 
@@ -3449,6 +3595,8 @@ class CommissionReportOutsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[BatchResponseEntity]",
+            '404': "BatchEntityErrorResponse",
+            '412': "BatchEntityErrorResponse",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3535,6 +3683,8 @@ class CommissionReportOutsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[BatchResponseEntity]",
+            '404': "BatchEntityErrorResponse",
+            '412': "BatchEntityErrorResponse",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3621,6 +3771,8 @@ class CommissionReportOutsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[BatchResponseEntity]",
+            '404': "BatchEntityErrorResponse",
+            '412': "BatchEntityErrorResponse",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3667,12 +3819,25 @@ class CommissionReportOutsApi:
             _query_params.append(('expand', expand))
             
         # process the header parameters
+        # default_headers клиента добавляются позже и не сливаются по регистру.
+        # Значение из спецификации не должно создавать второй Accept рядом с accept.
+        def _header_already_set(_name: str) -> bool:
+            return any(
+                _header_name.lower() == _name.lower()
+                for _header_name in (*_header_params, *self.api_client.default_headers)
+            )
         if accept is not None:
-            _header_params['accept'] = accept
+            _header_params['Accept'] = accept
+        elif not _header_already_set('Accept'):
+            _header_params['Accept'] = 'application/json;charset=utf-8'
         if accept_encoding is not None:
             _header_params['Accept-Encoding'] = accept_encoding
+        elif not _header_already_set('Accept-Encoding'):
+            _header_params['Accept-Encoding'] = 'gzip'
         if content_type is not None:
             _header_params['Content-Type'] = content_type
+        elif not _header_already_set('Content-Type'):
+            _header_params['Content-Type'] = 'application/json'
         # process the form parameters
         # process the body parameter
         if commission_report_out_position is not None:
@@ -3680,11 +3845,12 @@ class CommissionReportOutsApi:
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
+        # Имя сравнивается без учета регистра, включая заголовки клиента:
+        # явный accept не должен оставаться рядом со стандартным Accept.
+        if not _header_already_set('Accept'):
             _header_params['Accept'] = self.api_client.select_header_accept(
                 [
-                    'application/json', 
-                    'text/html;charset=UTF-8'
+                    'application/json'
                 ]
             )
 
@@ -3987,22 +4153,36 @@ class CommissionReportOutsApi:
             _path_params['id'] = id
         # process the query parameters
         # process the header parameters
+        # default_headers клиента добавляются позже и не сливаются по регистру.
+        # Значение из спецификации не должно создавать второй Accept рядом с accept.
+        def _header_already_set(_name: str) -> bool:
+            return any(
+                _header_name.lower() == _name.lower()
+                for _header_name in (*_header_params, *self.api_client.default_headers)
+            )
         if accept is not None:
-            _header_params['accept'] = accept
+            _header_params['Accept'] = accept
+        elif not _header_already_set('Accept'):
+            _header_params['Accept'] = 'application/json;charset=utf-8'
         if accept_encoding is not None:
             _header_params['Accept-Encoding'] = accept_encoding
+        elif not _header_already_set('Accept-Encoding'):
+            _header_params['Accept-Encoding'] = 'gzip'
         if content_type is not None:
             _header_params['Content-Type'] = content_type
+        elif not _header_already_set('Content-Type'):
+            _header_params['Content-Type'] = 'application/json'
         # process the form parameters
         # process the body parameter
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
+        # Имя сравнивается без учета регистра, включая заголовки клиента:
+        # явный accept не должен оставаться рядом со стандартным Accept.
+        if not _header_already_set('Accept'):
             _header_params['Accept'] = self.api_client.select_header_accept(
                 [
-                    'application/json', 
-                    'text/html;charset=UTF-8'
+                    'application/json'
                 ]
             )
 
@@ -4097,6 +4277,8 @@ class CommissionReportOutsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[DeleteRowResult]",
+            '404': "BatchDeleteErrorResponse",
+            '412': "BatchDeleteErrorResponse",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -4175,6 +4357,8 @@ class CommissionReportOutsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[DeleteRowResult]",
+            '404': "BatchDeleteErrorResponse",
+            '412': "BatchDeleteErrorResponse",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -4253,6 +4437,8 @@ class CommissionReportOutsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[DeleteRowResult]",
+            '404': "BatchDeleteErrorResponse",
+            '412': "BatchDeleteErrorResponse",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -4291,12 +4477,25 @@ class CommissionReportOutsApi:
         # process the path parameters
         # process the query parameters
         # process the header parameters
+        # default_headers клиента добавляются позже и не сливаются по регистру.
+        # Значение из спецификации не должно создавать второй Accept рядом с accept.
+        def _header_already_set(_name: str) -> bool:
+            return any(
+                _header_name.lower() == _name.lower()
+                for _header_name in (*_header_params, *self.api_client.default_headers)
+            )
         if accept is not None:
-            _header_params['accept'] = accept
+            _header_params['Accept'] = accept
+        elif not _header_already_set('Accept'):
+            _header_params['Accept'] = 'application/json;charset=utf-8'
         if accept_encoding is not None:
             _header_params['Accept-Encoding'] = accept_encoding
+        elif not _header_already_set('Accept-Encoding'):
+            _header_params['Accept-Encoding'] = 'gzip'
         if content_type is not None:
             _header_params['Content-Type'] = content_type
+        elif not _header_already_set('Content-Type'):
+            _header_params['Content-Type'] = 'application/json'
         # process the form parameters
         # process the body parameter
         if commission_report_out is not None:
@@ -4304,11 +4503,12 @@ class CommissionReportOutsApi:
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
+        # Имя сравнивается без учета регистра, включая заголовки клиента:
+        # явный accept не должен оставаться рядом со стандартным Accept.
+        if not _header_already_set('Accept'):
             _header_params['Accept'] = self.api_client.select_header_accept(
                 [
-                    'application/json', 
-                    'text/html;charset=UTF-8'
+                    'application/json'
                 ]
             )
 
@@ -4616,20 +4816,32 @@ class CommissionReportOutsApi:
             _path_params['fileId'] = file_id
         # process the query parameters
         # process the header parameters
+        # default_headers клиента добавляются позже и не сливаются по регистру.
+        # Значение из спецификации не должно создавать второй Accept рядом с accept.
+        def _header_already_set(_name: str) -> bool:
+            return any(
+                _header_name.lower() == _name.lower()
+                for _header_name in (*_header_params, *self.api_client.default_headers)
+            )
         if accept is not None:
-            _header_params['accept'] = accept
+            _header_params['Accept'] = accept
+        elif not _header_already_set('Accept'):
+            _header_params['Accept'] = 'application/json;charset=utf-8'
         if accept_encoding is not None:
             _header_params['Accept-Encoding'] = accept_encoding
+        elif not _header_already_set('Accept-Encoding'):
+            _header_params['Accept-Encoding'] = 'gzip'
         # process the form parameters
         # process the body parameter
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
+        # Имя сравнивается без учета регистра, включая заголовки клиента:
+        # явный accept не должен оставаться рядом со стандартным Accept.
+        if not _header_already_set('Accept'):
             _header_params['Accept'] = self.api_client.select_header_accept(
                 [
-                    'application/json', 
-                    'text/html;charset=UTF-8'
+                    'application/json'
                 ]
             )
 
@@ -4919,22 +5131,36 @@ class CommissionReportOutsApi:
             _path_params['id'] = id
         # process the query parameters
         # process the header parameters
+        # default_headers клиента добавляются позже и не сливаются по регистру.
+        # Значение из спецификации не должно создавать второй Accept рядом с accept.
+        def _header_already_set(_name: str) -> bool:
+            return any(
+                _header_name.lower() == _name.lower()
+                for _header_name in (*_header_params, *self.api_client.default_headers)
+            )
         if accept is not None:
-            _header_params['accept'] = accept
+            _header_params['Accept'] = accept
+        elif not _header_already_set('Accept'):
+            _header_params['Accept'] = 'application/json;charset=utf-8'
         if accept_encoding is not None:
             _header_params['Accept-Encoding'] = accept_encoding
+        elif not _header_already_set('Accept-Encoding'):
+            _header_params['Accept-Encoding'] = 'gzip'
         if content_type is not None:
             _header_params['Content-Type'] = content_type
+        elif not _header_already_set('Content-Type'):
+            _header_params['Content-Type'] = 'application/json'
         # process the form parameters
         # process the body parameter
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
+        # Имя сравнивается без учета регистра, включая заголовки клиента:
+        # явный accept не должен оставаться рядом со стандартным Accept.
+        if not _header_already_set('Accept'):
             _header_params['Accept'] = self.api_client.select_header_accept(
                 [
-                    'application/json', 
-                    'text/html;charset=UTF-8'
+                    'application/json'
                 ]
             )
 
@@ -5227,22 +5453,36 @@ class CommissionReportOutsApi:
             _path_params['id'] = id
         # process the query parameters
         # process the header parameters
+        # default_headers клиента добавляются позже и не сливаются по регистру.
+        # Значение из спецификации не должно создавать второй Accept рядом с accept.
+        def _header_already_set(_name: str) -> bool:
+            return any(
+                _header_name.lower() == _name.lower()
+                for _header_name in (*_header_params, *self.api_client.default_headers)
+            )
         if accept is not None:
-            _header_params['accept'] = accept
+            _header_params['Accept'] = accept
+        elif not _header_already_set('Accept'):
+            _header_params['Accept'] = 'application/json;charset=utf-8'
         if accept_encoding is not None:
             _header_params['Accept-Encoding'] = accept_encoding
+        elif not _header_already_set('Accept-Encoding'):
+            _header_params['Accept-Encoding'] = 'gzip'
         if content_type is not None:
             _header_params['Content-Type'] = content_type
+        elif not _header_already_set('Content-Type'):
+            _header_params['Content-Type'] = 'application/json'
         # process the form parameters
         # process the body parameter
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
+        # Имя сравнивается без учета регистра, включая заголовки клиента:
+        # явный accept не должен оставаться рядом со стандартным Accept.
+        if not _header_already_set('Accept'):
             _header_params['Accept'] = self.api_client.select_header_accept(
                 [
-                    'application/json', 
-                    'text/html;charset=UTF-8'
+                    'application/json'
                 ]
             )
 
@@ -5537,20 +5777,32 @@ class CommissionReportOutsApi:
             _path_params['noteId'] = note_id
         # process the query parameters
         # process the header parameters
+        # default_headers клиента добавляются позже и не сливаются по регистру.
+        # Значение из спецификации не должно создавать второй Accept рядом с accept.
+        def _header_already_set(_name: str) -> bool:
+            return any(
+                _header_name.lower() == _name.lower()
+                for _header_name in (*_header_params, *self.api_client.default_headers)
+            )
         if accept is not None:
-            _header_params['accept'] = accept
+            _header_params['Accept'] = accept
+        elif not _header_already_set('Accept'):
+            _header_params['Accept'] = 'application/json;charset=utf-8'
         if accept_encoding is not None:
             _header_params['Accept-Encoding'] = accept_encoding
+        elif not _header_already_set('Accept-Encoding'):
+            _header_params['Accept-Encoding'] = 'gzip'
         # process the form parameters
         # process the body parameter
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
+        # Имя сравнивается без учета регистра, включая заголовки клиента:
+        # явный accept не должен оставаться рядом со стандартным Accept.
+        if not _header_already_set('Accept'):
             _header_params['Accept'] = self.api_client.select_header_accept(
                 [
-                    'application/json', 
-                    'text/html;charset=UTF-8'
+                    'application/json'
                 ]
             )
 
@@ -5857,12 +6109,25 @@ class CommissionReportOutsApi:
             _path_params['id'] = id
         # process the query parameters
         # process the header parameters
+        # default_headers клиента добавляются позже и не сливаются по регистру.
+        # Значение из спецификации не должно создавать второй Accept рядом с accept.
+        def _header_already_set(_name: str) -> bool:
+            return any(
+                _header_name.lower() == _name.lower()
+                for _header_name in (*_header_params, *self.api_client.default_headers)
+            )
         if accept is not None:
-            _header_params['accept'] = accept
+            _header_params['Accept'] = accept
+        elif not _header_already_set('Accept'):
+            _header_params['Accept'] = 'application/json;charset=utf-8'
         if accept_encoding is not None:
             _header_params['Accept-Encoding'] = accept_encoding
+        elif not _header_already_set('Accept-Encoding'):
+            _header_params['Accept-Encoding'] = 'gzip'
         if content_type is not None:
             _header_params['Content-Type'] = content_type
+        elif not _header_already_set('Content-Type'):
+            _header_params['Content-Type'] = 'application/json'
         # process the form parameters
         # process the body parameter
         if event_note is not None:
@@ -5870,11 +6135,12 @@ class CommissionReportOutsApi:
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
+        # Имя сравнивается без учета регистра, включая заголовки клиента:
+        # явный accept не должен оставаться рядом со стандартным Accept.
+        if not _header_already_set('Accept'):
             _header_params['Accept'] = self.api_client.select_header_accept(
                 [
-                    'application/json', 
-                    'text/html;charset=UTF-8'
+                    'application/json'
                 ]
             )
 
@@ -6209,22 +6475,36 @@ class CommissionReportOutsApi:
             _query_params.append(('expand', expand))
             
         # process the header parameters
+        # default_headers клиента добавляются позже и не сливаются по регистру.
+        # Значение из спецификации не должно создавать второй Accept рядом с accept.
+        def _header_already_set(_name: str) -> bool:
+            return any(
+                _header_name.lower() == _name.lower()
+                for _header_name in (*_header_params, *self.api_client.default_headers)
+            )
         if accept is not None:
-            _header_params['accept'] = accept
+            _header_params['Accept'] = accept
+        elif not _header_already_set('Accept'):
+            _header_params['Accept'] = 'application/json;charset=utf-8'
         if accept_encoding is not None:
             _header_params['Accept-Encoding'] = accept_encoding
+        elif not _header_already_set('Accept-Encoding'):
+            _header_params['Accept-Encoding'] = 'gzip'
         if content_type is not None:
             _header_params['Content-Type'] = content_type
+        elif not _header_already_set('Content-Type'):
+            _header_params['Content-Type'] = 'application/json'
         # process the form parameters
         # process the body parameter
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
+        # Имя сравнивается без учета регистра, включая заголовки клиента:
+        # явный accept не должен оставаться рядом со стандартным Accept.
+        if not _header_already_set('Accept'):
             _header_params['Accept'] = self.api_client.select_header_accept(
                 [
-                    'application/json', 
-                    'text/html;charset=UTF-8'
+                    'application/json'
                 ]
             )
 
@@ -6323,6 +6603,8 @@ class CommissionReportOutsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[DeleteRowResult]",
+            '404': "BatchDeleteErrorResponse",
+            '412': "BatchDeleteErrorResponse",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -6405,6 +6687,8 @@ class CommissionReportOutsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[DeleteRowResult]",
+            '404': "BatchDeleteErrorResponse",
+            '412': "BatchDeleteErrorResponse",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -6487,6 +6771,8 @@ class CommissionReportOutsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             '200': "List[DeleteRowResult]",
+            '404': "BatchDeleteErrorResponse",
+            '412': "BatchDeleteErrorResponse",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -6528,12 +6814,25 @@ class CommissionReportOutsApi:
             _path_params['id'] = id
         # process the query parameters
         # process the header parameters
+        # default_headers клиента добавляются позже и не сливаются по регистру.
+        # Значение из спецификации не должно создавать второй Accept рядом с accept.
+        def _header_already_set(_name: str) -> bool:
+            return any(
+                _header_name.lower() == _name.lower()
+                for _header_name in (*_header_params, *self.api_client.default_headers)
+            )
         if accept is not None:
-            _header_params['accept'] = accept
+            _header_params['Accept'] = accept
+        elif not _header_already_set('Accept'):
+            _header_params['Accept'] = 'application/json;charset=utf-8'
         if accept_encoding is not None:
             _header_params['Accept-Encoding'] = accept_encoding
+        elif not _header_already_set('Accept-Encoding'):
+            _header_params['Accept-Encoding'] = 'gzip'
         if content_type is not None:
             _header_params['Content-Type'] = content_type
+        elif not _header_already_set('Content-Type'):
+            _header_params['Content-Type'] = 'application/json'
         # process the form parameters
         # process the body parameter
         if commission_report_out_position is not None:
@@ -6541,11 +6840,12 @@ class CommissionReportOutsApi:
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
+        # Имя сравнивается без учета регистра, включая заголовки клиента:
+        # явный accept не должен оставаться рядом со стандартным Accept.
+        if not _header_already_set('Accept'):
             _header_params['Accept'] = self.api_client.select_header_accept(
                 [
-                    'application/json', 
-                    'text/html;charset=UTF-8'
+                    'application/json'
                 ]
             )
 
@@ -6865,22 +7165,36 @@ class CommissionReportOutsApi:
             _query_params.append(('expand', expand))
             
         # process the header parameters
+        # default_headers клиента добавляются позже и не сливаются по регистру.
+        # Значение из спецификации не должно создавать второй Accept рядом с accept.
+        def _header_already_set(_name: str) -> bool:
+            return any(
+                _header_name.lower() == _name.lower()
+                for _header_name in (*_header_params, *self.api_client.default_headers)
+            )
         if accept is not None:
-            _header_params['accept'] = accept
+            _header_params['Accept'] = accept
+        elif not _header_already_set('Accept'):
+            _header_params['Accept'] = 'application/json;charset=utf-8'
         if accept_encoding is not None:
             _header_params['Accept-Encoding'] = accept_encoding
+        elif not _header_already_set('Accept-Encoding'):
+            _header_params['Accept-Encoding'] = 'gzip'
         if content_type is not None:
             _header_params['Content-Type'] = content_type
+        elif not _header_already_set('Content-Type'):
+            _header_params['Content-Type'] = 'application/json'
         # process the form parameters
         # process the body parameter
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
+        # Имя сравнивается без учета регистра, включая заголовки клиента:
+        # явный accept не должен оставаться рядом со стандартным Accept.
+        if not _header_already_set('Accept'):
             _header_params['Accept'] = self.api_client.select_header_accept(
                 [
-                    'application/json', 
-                    'text/html;charset=UTF-8'
+                    'application/json'
                 ]
             )
 
@@ -7194,20 +7508,32 @@ class CommissionReportOutsApi:
             _query_params.append(('offset', offset))
             
         # process the header parameters
+        # default_headers клиента добавляются позже и не сливаются по регистру.
+        # Значение из спецификации не должно создавать второй Accept рядом с accept.
+        def _header_already_set(_name: str) -> bool:
+            return any(
+                _header_name.lower() == _name.lower()
+                for _header_name in (*_header_params, *self.api_client.default_headers)
+            )
         if accept is not None:
-            _header_params['accept'] = accept
+            _header_params['Accept'] = accept
+        elif not _header_already_set('Accept'):
+            _header_params['Accept'] = 'application/json;charset=utf-8'
         if accept_encoding is not None:
             _header_params['Accept-Encoding'] = accept_encoding
+        elif not _header_already_set('Accept-Encoding'):
+            _header_params['Accept-Encoding'] = 'gzip'
         # process the form parameters
         # process the body parameter
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
+        # Имя сравнивается без учета регистра, включая заголовки клиента:
+        # явный accept не должен оставаться рядом со стандартным Accept.
+        if not _header_already_set('Accept'):
             _header_params['Accept'] = self.api_client.select_header_accept(
                 [
-                    'application/json', 
-                    'text/html;charset=UTF-8'
+                    'application/json'
                 ]
             )
 
@@ -7550,22 +7876,36 @@ class CommissionReportOutsApi:
             _query_params.append(('expand', expand))
             
         # process the header parameters
+        # default_headers клиента добавляются позже и не сливаются по регистру.
+        # Значение из спецификации не должно создавать второй Accept рядом с accept.
+        def _header_already_set(_name: str) -> bool:
+            return any(
+                _header_name.lower() == _name.lower()
+                for _header_name in (*_header_params, *self.api_client.default_headers)
+            )
         if accept is not None:
-            _header_params['accept'] = accept
+            _header_params['Accept'] = accept
+        elif not _header_already_set('Accept'):
+            _header_params['Accept'] = 'application/json;charset=utf-8'
         if accept_encoding is not None:
             _header_params['Accept-Encoding'] = accept_encoding
+        elif not _header_already_set('Accept-Encoding'):
+            _header_params['Accept-Encoding'] = 'gzip'
         if content_type is not None:
             _header_params['Content-Type'] = content_type
+        elif not _header_already_set('Content-Type'):
+            _header_params['Content-Type'] = 'application/json'
         # process the form parameters
         # process the body parameter
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
+        # Имя сравнивается без учета регистра, включая заголовки клиента:
+        # явный accept не должен оставаться рядом со стандартным Accept.
+        if not _header_already_set('Accept'):
             _header_params['Accept'] = self.api_client.select_header_accept(
                 [
-                    'application/json', 
-                    'text/html;charset=UTF-8'
+                    'application/json'
                 ]
             )
 
@@ -7840,22 +8180,36 @@ class CommissionReportOutsApi:
         # process the path parameters
         # process the query parameters
         # process the header parameters
+        # default_headers клиента добавляются позже и не сливаются по регистру.
+        # Значение из спецификации не должно создавать второй Accept рядом с accept.
+        def _header_already_set(_name: str) -> bool:
+            return any(
+                _header_name.lower() == _name.lower()
+                for _header_name in (*_header_params, *self.api_client.default_headers)
+            )
         if accept is not None:
-            _header_params['accept'] = accept
+            _header_params['Accept'] = accept
+        elif not _header_already_set('Accept'):
+            _header_params['Accept'] = 'application/json;charset=utf-8'
         if accept_encoding is not None:
             _header_params['Accept-Encoding'] = accept_encoding
+        elif not _header_already_set('Accept-Encoding'):
+            _header_params['Accept-Encoding'] = 'gzip'
         if content_type is not None:
             _header_params['Content-Type'] = content_type
+        elif not _header_already_set('Content-Type'):
+            _header_params['Content-Type'] = 'application/json'
         # process the form parameters
         # process the body parameter
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
+        # Имя сравнивается без учета регистра, включая заголовки клиента:
+        # явный accept не должен оставаться рядом со стандартным Accept.
+        if not _header_already_set('Accept'):
             _header_params['Accept'] = self.api_client.select_header_accept(
                 [
-                    'application/json', 
-                    'text/html;charset=UTF-8'
+                    'application/json'
                 ]
             )
 
@@ -8164,22 +8518,36 @@ class CommissionReportOutsApi:
             _query_params.append(('limit', limit))
             
         # process the header parameters
+        # default_headers клиента добавляются позже и не сливаются по регистру.
+        # Значение из спецификации не должно создавать второй Accept рядом с accept.
+        def _header_already_set(_name: str) -> bool:
+            return any(
+                _header_name.lower() == _name.lower()
+                for _header_name in (*_header_params, *self.api_client.default_headers)
+            )
         if accept is not None:
-            _header_params['accept'] = accept
+            _header_params['Accept'] = accept
+        elif not _header_already_set('Accept'):
+            _header_params['Accept'] = 'application/json;charset=utf-8'
         if accept_encoding is not None:
             _header_params['Accept-Encoding'] = accept_encoding
+        elif not _header_already_set('Accept-Encoding'):
+            _header_params['Accept-Encoding'] = 'gzip'
         if content_type is not None:
             _header_params['Content-Type'] = content_type
+        elif not _header_already_set('Content-Type'):
+            _header_params['Content-Type'] = 'application/json'
         # process the form parameters
         # process the body parameter
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
+        # Имя сравнивается без учета регистра, включая заголовки клиента:
+        # явный accept не должен оставаться рядом со стандартным Accept.
+        if not _header_already_set('Accept'):
             _header_params['Accept'] = self.api_client.select_header_accept(
                 [
-                    'application/json', 
-                    'text/html;charset=UTF-8'
+                    'application/json'
                 ]
             )
 
@@ -8469,22 +8837,36 @@ class CommissionReportOutsApi:
             _path_params['id'] = id
         # process the query parameters
         # process the header parameters
+        # default_headers клиента добавляются позже и не сливаются по регистру.
+        # Значение из спецификации не должно создавать второй Accept рядом с accept.
+        def _header_already_set(_name: str) -> bool:
+            return any(
+                _header_name.lower() == _name.lower()
+                for _header_name in (*_header_params, *self.api_client.default_headers)
+            )
         if accept is not None:
-            _header_params['accept'] = accept
+            _header_params['Accept'] = accept
+        elif not _header_already_set('Accept'):
+            _header_params['Accept'] = 'application/json;charset=utf-8'
         if accept_encoding is not None:
             _header_params['Accept-Encoding'] = accept_encoding
+        elif not _header_already_set('Accept-Encoding'):
+            _header_params['Accept-Encoding'] = 'gzip'
         if content_type is not None:
             _header_params['Content-Type'] = content_type
+        elif not _header_already_set('Content-Type'):
+            _header_params['Content-Type'] = 'application/json'
         # process the form parameters
         # process the body parameter
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
+        # Имя сравнивается без учета регистра, включая заголовки клиента:
+        # явный accept не должен оставаться рядом со стандартным Accept.
+        if not _header_already_set('Accept'):
             _header_params['Accept'] = self.api_client.select_header_accept(
                 [
-                    'application/json', 
-                    'text/html;charset=UTF-8'
+                    'application/json'
                 ]
             )
 
@@ -8774,22 +9156,36 @@ class CommissionReportOutsApi:
             _path_params['id'] = id
         # process the query parameters
         # process the header parameters
+        # default_headers клиента добавляются позже и не сливаются по регистру.
+        # Значение из спецификации не должно создавать второй Accept рядом с accept.
+        def _header_already_set(_name: str) -> bool:
+            return any(
+                _header_name.lower() == _name.lower()
+                for _header_name in (*_header_params, *self.api_client.default_headers)
+            )
         if accept is not None:
-            _header_params['accept'] = accept
+            _header_params['Accept'] = accept
+        elif not _header_already_set('Accept'):
+            _header_params['Accept'] = 'application/json;charset=utf-8'
         if accept_encoding is not None:
             _header_params['Accept-Encoding'] = accept_encoding
+        elif not _header_already_set('Accept-Encoding'):
+            _header_params['Accept-Encoding'] = 'gzip'
         if content_type is not None:
             _header_params['Content-Type'] = content_type
+        elif not _header_already_set('Content-Type'):
+            _header_params['Content-Type'] = 'application/json'
         # process the form parameters
         # process the body parameter
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
+        # Имя сравнивается без учета регистра, включая заголовки клиента:
+        # явный accept не должен оставаться рядом со стандартным Accept.
+        if not _header_already_set('Accept'):
             _header_params['Accept'] = self.api_client.select_header_accept(
                 [
-                    'application/json', 
-                    'text/html;charset=UTF-8'
+                    'application/json'
                 ]
             )
 
@@ -9084,20 +9480,32 @@ class CommissionReportOutsApi:
             _path_params['noteId'] = note_id
         # process the query parameters
         # process the header parameters
+        # default_headers клиента добавляются позже и не сливаются по регистру.
+        # Значение из спецификации не должно создавать второй Accept рядом с accept.
+        def _header_already_set(_name: str) -> bool:
+            return any(
+                _header_name.lower() == _name.lower()
+                for _header_name in (*_header_params, *self.api_client.default_headers)
+            )
         if accept is not None:
-            _header_params['accept'] = accept
+            _header_params['Accept'] = accept
+        elif not _header_already_set('Accept'):
+            _header_params['Accept'] = 'application/json;charset=utf-8'
         if accept_encoding is not None:
             _header_params['Accept-Encoding'] = accept_encoding
+        elif not _header_already_set('Accept-Encoding'):
+            _header_params['Accept-Encoding'] = 'gzip'
         # process the form parameters
         # process the body parameter
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
+        # Имя сравнивается без учета регистра, включая заголовки клиента:
+        # явный accept не должен оставаться рядом со стандартным Accept.
+        if not _header_already_set('Accept'):
             _header_params['Accept'] = self.api_client.select_header_accept(
                 [
-                    'application/json', 
-                    'text/html;charset=UTF-8'
+                    'application/json'
                 ]
             )
 
@@ -9428,20 +9836,32 @@ class CommissionReportOutsApi:
             _query_params.append(('expand', expand))
             
         # process the header parameters
+        # default_headers клиента добавляются позже и не сливаются по регистру.
+        # Значение из спецификации не должно создавать второй Accept рядом с accept.
+        def _header_already_set(_name: str) -> bool:
+            return any(
+                _header_name.lower() == _name.lower()
+                for _header_name in (*_header_params, *self.api_client.default_headers)
+            )
         if accept is not None:
-            _header_params['accept'] = accept
+            _header_params['Accept'] = accept
+        elif not _header_already_set('Accept'):
+            _header_params['Accept'] = 'application/json;charset=utf-8'
         if accept_encoding is not None:
             _header_params['Accept-Encoding'] = accept_encoding
+        elif not _header_already_set('Accept-Encoding'):
+            _header_params['Accept-Encoding'] = 'gzip'
         # process the form parameters
         # process the body parameter
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
+        # Имя сравнивается без учета регистра, включая заголовки клиента:
+        # явный accept не должен оставаться рядом со стандартным Accept.
+        if not _header_already_set('Accept'):
             _header_params['Accept'] = self.api_client.select_header_accept(
                 [
-                    'application/json', 
-                    'text/html;charset=UTF-8'
+                    'application/json'
                 ]
             )
 
@@ -9763,22 +10183,36 @@ class CommissionReportOutsApi:
             _query_params.append(('expand', expand))
             
         # process the header parameters
+        # default_headers клиента добавляются позже и не сливаются по регистру.
+        # Значение из спецификации не должно создавать второй Accept рядом с accept.
+        def _header_already_set(_name: str) -> bool:
+            return any(
+                _header_name.lower() == _name.lower()
+                for _header_name in (*_header_params, *self.api_client.default_headers)
+            )
         if accept is not None:
-            _header_params['accept'] = accept
+            _header_params['Accept'] = accept
+        elif not _header_already_set('Accept'):
+            _header_params['Accept'] = 'application/json;charset=utf-8'
         if accept_encoding is not None:
             _header_params['Accept-Encoding'] = accept_encoding
+        elif not _header_already_set('Accept-Encoding'):
+            _header_params['Accept-Encoding'] = 'gzip'
         if content_type is not None:
             _header_params['Content-Type'] = content_type
+        elif not _header_already_set('Content-Type'):
+            _header_params['Content-Type'] = 'application/json'
         # process the form parameters
         # process the body parameter
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
+        # Имя сравнивается без учета регистра, включая заголовки клиента:
+        # явный accept не должен оставаться рядом со стандартным Accept.
+        if not _header_already_set('Accept'):
             _header_params['Accept'] = self.api_client.select_header_accept(
                 [
-                    'application/json', 
-                    'text/html;charset=UTF-8'
+                    'application/json'
                 ]
             )
 
@@ -10119,22 +10553,36 @@ class CommissionReportOutsApi:
             _query_params.append(('expand', expand))
             
         # process the header parameters
+        # default_headers клиента добавляются позже и не сливаются по регистру.
+        # Значение из спецификации не должно создавать второй Accept рядом с accept.
+        def _header_already_set(_name: str) -> bool:
+            return any(
+                _header_name.lower() == _name.lower()
+                for _header_name in (*_header_params, *self.api_client.default_headers)
+            )
         if accept is not None:
-            _header_params['accept'] = accept
+            _header_params['Accept'] = accept
+        elif not _header_already_set('Accept'):
+            _header_params['Accept'] = 'application/json;charset=utf-8'
         if accept_encoding is not None:
             _header_params['Accept-Encoding'] = accept_encoding
+        elif not _header_already_set('Accept-Encoding'):
+            _header_params['Accept-Encoding'] = 'gzip'
         if content_type is not None:
             _header_params['Content-Type'] = content_type
+        elif not _header_already_set('Content-Type'):
+            _header_params['Content-Type'] = 'application/json'
         # process the form parameters
         # process the body parameter
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
+        # Имя сравнивается без учета регистра, включая заголовки клиента:
+        # явный accept не должен оставаться рядом со стандартным Accept.
+        if not _header_already_set('Accept'):
             _header_params['Accept'] = self.api_client.select_header_accept(
                 [
-                    'application/json', 
-                    'text/html;charset=UTF-8'
+                    'application/json'
                 ]
             )
 
@@ -10169,6 +10617,7 @@ class CommissionReportOutsApi:
         id: Annotated[StrictStr, Field(description="ID сущности")],
         accept: Optional[StrictStr] = None,
         accept_encoding: Optional[StrictStr] = None,
+        content_type: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -10191,6 +10640,8 @@ class CommissionReportOutsApi:
         :type accept: str
         :param accept_encoding:
         :type accept_encoding: str
+        :param content_type:
+        :type content_type: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -10217,6 +10668,7 @@ class CommissionReportOutsApi:
             id=id,
             accept=accept,
             accept_encoding=accept_encoding,
+            content_type=content_type,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -10243,6 +10695,7 @@ class CommissionReportOutsApi:
         id: Annotated[StrictStr, Field(description="ID сущности")],
         accept: Optional[StrictStr] = None,
         accept_encoding: Optional[StrictStr] = None,
+        content_type: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -10265,6 +10718,8 @@ class CommissionReportOutsApi:
         :type accept: str
         :param accept_encoding:
         :type accept_encoding: str
+        :param content_type:
+        :type content_type: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -10291,6 +10746,7 @@ class CommissionReportOutsApi:
             id=id,
             accept=accept,
             accept_encoding=accept_encoding,
+            content_type=content_type,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -10317,6 +10773,7 @@ class CommissionReportOutsApi:
         id: Annotated[StrictStr, Field(description="ID сущности")],
         accept: Optional[StrictStr] = None,
         accept_encoding: Optional[StrictStr] = None,
+        content_type: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -10339,6 +10796,8 @@ class CommissionReportOutsApi:
         :type accept: str
         :param accept_encoding:
         :type accept_encoding: str
+        :param content_type:
+        :type content_type: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -10365,6 +10824,7 @@ class CommissionReportOutsApi:
             id=id,
             accept=accept,
             accept_encoding=accept_encoding,
+            content_type=content_type,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -10386,6 +10846,7 @@ class CommissionReportOutsApi:
         id,
         accept,
         accept_encoding,
+        content_type,
         _request_auth,
         _content_type,
         _headers,
@@ -10411,20 +10872,36 @@ class CommissionReportOutsApi:
             _path_params['id'] = id
         # process the query parameters
         # process the header parameters
+        # default_headers клиента добавляются позже и не сливаются по регистру.
+        # Значение из спецификации не должно создавать второй Accept рядом с accept.
+        def _header_already_set(_name: str) -> bool:
+            return any(
+                _header_name.lower() == _name.lower()
+                for _header_name in (*_header_params, *self.api_client.default_headers)
+            )
         if accept is not None:
-            _header_params['accept'] = accept
+            _header_params['Accept'] = accept
+        elif not _header_already_set('Accept'):
+            _header_params['Accept'] = 'application/json;charset=utf-8'
         if accept_encoding is not None:
             _header_params['Accept-Encoding'] = accept_encoding
+        elif not _header_already_set('Accept-Encoding'):
+            _header_params['Accept-Encoding'] = 'gzip'
+        if content_type is not None:
+            _header_params['Content-Type'] = content_type
+        elif not _header_already_set('Content-Type'):
+            _header_params['Content-Type'] = 'application/json'
         # process the form parameters
         # process the body parameter
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
+        # Имя сравнивается без учета регистра, включая заголовки клиента:
+        # явный accept не должен оставаться рядом со стандартным Accept.
+        if not _header_already_set('Accept'):
             _header_params['Accept'] = self.api_client.select_header_accept(
                 [
-                    'application/json', 
-                    'text/html;charset=UTF-8'
+                    'application/json'
                 ]
             )
 
@@ -10744,12 +11221,25 @@ class CommissionReportOutsApi:
             _query_params.append(('expand', expand))
             
         # process the header parameters
+        # default_headers клиента добавляются позже и не сливаются по регистру.
+        # Значение из спецификации не должно создавать второй Accept рядом с accept.
+        def _header_already_set(_name: str) -> bool:
+            return any(
+                _header_name.lower() == _name.lower()
+                for _header_name in (*_header_params, *self.api_client.default_headers)
+            )
         if accept is not None:
-            _header_params['accept'] = accept
+            _header_params['Accept'] = accept
+        elif not _header_already_set('Accept'):
+            _header_params['Accept'] = 'application/json;charset=utf-8'
         if accept_encoding is not None:
             _header_params['Accept-Encoding'] = accept_encoding
+        elif not _header_already_set('Accept-Encoding'):
+            _header_params['Accept-Encoding'] = 'gzip'
         if content_type is not None:
             _header_params['Content-Type'] = content_type
+        elif not _header_already_set('Content-Type'):
+            _header_params['Content-Type'] = 'application/json'
         # process the form parameters
         # process the body parameter
         if commission_report_out is not None:
@@ -10757,11 +11247,12 @@ class CommissionReportOutsApi:
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
+        # Имя сравнивается без учета регистра, включая заголовки клиента:
+        # явный accept не должен оставаться рядом со стандартным Accept.
+        if not _header_already_set('Accept'):
             _header_params['Accept'] = self.api_client.select_header_accept(
                 [
-                    'application/json', 
-                    'text/html;charset=UTF-8'
+                    'application/json'
                 ]
             )
 
@@ -11077,12 +11568,25 @@ class CommissionReportOutsApi:
             _path_params['id'] = id
         # process the query parameters
         # process the header parameters
+        # default_headers клиента добавляются позже и не сливаются по регистру.
+        # Значение из спецификации не должно создавать второй Accept рядом с accept.
+        def _header_already_set(_name: str) -> bool:
+            return any(
+                _header_name.lower() == _name.lower()
+                for _header_name in (*_header_params, *self.api_client.default_headers)
+            )
         if accept is not None:
-            _header_params['accept'] = accept
+            _header_params['Accept'] = accept
+        elif not _header_already_set('Accept'):
+            _header_params['Accept'] = 'application/json;charset=utf-8'
         if accept_encoding is not None:
             _header_params['Accept-Encoding'] = accept_encoding
+        elif not _header_already_set('Accept-Encoding'):
+            _header_params['Accept-Encoding'] = 'gzip'
         if content_type is not None:
             _header_params['Content-Type'] = content_type
+        elif not _header_already_set('Content-Type'):
+            _header_params['Content-Type'] = 'application/json'
         # process the form parameters
         # process the body parameter
         if attribute_meta_info is not None:
@@ -11090,11 +11594,12 @@ class CommissionReportOutsApi:
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
+        # Имя сравнивается без учета регистра, включая заголовки клиента:
+        # явный accept не должен оставаться рядом со стандартным Accept.
+        if not _header_already_set('Accept'):
             _header_params['Accept'] = self.api_client.select_header_accept(
                 [
-                    'application/json', 
-                    'text/html;charset=UTF-8'
+                    'application/json'
                 ]
             )
 
@@ -11410,12 +11915,25 @@ class CommissionReportOutsApi:
             _path_params['id'] = id
         # process the query parameters
         # process the header parameters
+        # default_headers клиента добавляются позже и не сливаются по регистру.
+        # Значение из спецификации не должно создавать второй Accept рядом с accept.
+        def _header_already_set(_name: str) -> bool:
+            return any(
+                _header_name.lower() == _name.lower()
+                for _header_name in (*_header_params, *self.api_client.default_headers)
+            )
         if accept is not None:
-            _header_params['accept'] = accept
+            _header_params['Accept'] = accept
+        elif not _header_already_set('Accept'):
+            _header_params['Accept'] = 'application/json;charset=utf-8'
         if accept_encoding is not None:
             _header_params['Accept-Encoding'] = accept_encoding
+        elif not _header_already_set('Accept-Encoding'):
+            _header_params['Accept-Encoding'] = 'gzip'
         if content_type is not None:
             _header_params['Content-Type'] = content_type
+        elif not _header_already_set('Content-Type'):
+            _header_params['Content-Type'] = 'application/json'
         # process the form parameters
         # process the body parameter
         if state is not None:
@@ -11423,11 +11941,12 @@ class CommissionReportOutsApi:
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
+        # Имя сравнивается без учета регистра, включая заголовки клиента:
+        # явный accept не должен оставаться рядом со стандартным Accept.
+        if not _header_already_set('Accept'):
             _header_params['Accept'] = self.api_client.select_header_accept(
                 [
-                    'application/json', 
-                    'text/html;charset=UTF-8'
+                    'application/json'
                 ]
             )
 
@@ -11761,12 +12280,25 @@ class CommissionReportOutsApi:
             _path_params['noteId'] = note_id
         # process the query parameters
         # process the header parameters
+        # default_headers клиента добавляются позже и не сливаются по регистру.
+        # Значение из спецификации не должно создавать второй Accept рядом с accept.
+        def _header_already_set(_name: str) -> bool:
+            return any(
+                _header_name.lower() == _name.lower()
+                for _header_name in (*_header_params, *self.api_client.default_headers)
+            )
         if accept is not None:
-            _header_params['accept'] = accept
+            _header_params['Accept'] = accept
+        elif not _header_already_set('Accept'):
+            _header_params['Accept'] = 'application/json;charset=utf-8'
         if accept_encoding is not None:
             _header_params['Accept-Encoding'] = accept_encoding
+        elif not _header_already_set('Accept-Encoding'):
+            _header_params['Accept-Encoding'] = 'gzip'
         if content_type is not None:
             _header_params['Content-Type'] = content_type
+        elif not _header_already_set('Content-Type'):
+            _header_params['Content-Type'] = 'application/json'
         # process the form parameters
         # process the body parameter
         if event_note is not None:
@@ -11774,11 +12306,12 @@ class CommissionReportOutsApi:
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
+        # Имя сравнивается без учета регистра, включая заголовки клиента:
+        # явный accept не должен оставаться рядом со стандартным Accept.
+        if not _header_already_set('Accept'):
             _header_params['Accept'] = self.api_client.select_header_accept(
                 [
-                    'application/json', 
-                    'text/html;charset=UTF-8'
+                    'application/json'
                 ]
             )
 
@@ -12126,12 +12659,25 @@ class CommissionReportOutsApi:
             _query_params.append(('expand', expand))
             
         # process the header parameters
+        # default_headers клиента добавляются позже и не сливаются по регистру.
+        # Значение из спецификации не должно создавать второй Accept рядом с accept.
+        def _header_already_set(_name: str) -> bool:
+            return any(
+                _header_name.lower() == _name.lower()
+                for _header_name in (*_header_params, *self.api_client.default_headers)
+            )
         if accept is not None:
-            _header_params['accept'] = accept
+            _header_params['Accept'] = accept
+        elif not _header_already_set('Accept'):
+            _header_params['Accept'] = 'application/json;charset=utf-8'
         if accept_encoding is not None:
             _header_params['Accept-Encoding'] = accept_encoding
+        elif not _header_already_set('Accept-Encoding'):
+            _header_params['Accept-Encoding'] = 'gzip'
         if content_type is not None:
             _header_params['Content-Type'] = content_type
+        elif not _header_already_set('Content-Type'):
+            _header_params['Content-Type'] = 'application/json'
         # process the form parameters
         # process the body parameter
         if commission_report_out_position is not None:
@@ -12139,11 +12685,12 @@ class CommissionReportOutsApi:
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
+        # Имя сравнивается без учета регистра, включая заголовки клиента:
+        # явный accept не должен оставаться рядом со стандартным Accept.
+        if not _header_already_set('Accept'):
             _header_params['Accept'] = self.api_client.select_header_accept(
                 [
-                    'application/json', 
-                    'text/html;charset=UTF-8'
+                    'application/json'
                 ]
             )
 

@@ -292,20 +292,32 @@ class ReportsStockByOperationApi:
             _query_params.append(('operation.id', operation_id))
             
         # process the header parameters
+        # default_headers клиента добавляются позже и не сливаются по регистру.
+        # Значение из спецификации не должно создавать второй Accept рядом с accept.
+        def _header_already_set(_name: str) -> bool:
+            return any(
+                _header_name.lower() == _name.lower()
+                for _header_name in (*_header_params, *self.api_client.default_headers)
+            )
         if accept is not None:
-            _header_params['accept'] = accept
+            _header_params['Accept'] = accept
+        elif not _header_already_set('Accept'):
+            _header_params['Accept'] = 'application/json;charset=utf-8'
         if accept_encoding is not None:
             _header_params['Accept-Encoding'] = accept_encoding
+        elif not _header_already_set('Accept-Encoding'):
+            _header_params['Accept-Encoding'] = 'gzip'
         # process the form parameters
         # process the body parameter
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
+        # Имя сравнивается без учета регистра, включая заголовки клиента:
+        # явный accept не должен оставаться рядом со стандартным Accept.
+        if not _header_already_set('Accept'):
             _header_params['Accept'] = self.api_client.select_header_accept(
                 [
-                    'application/json', 
-                    'text/html;charset=UTF-8'
+                    'application/json'
                 ]
             )
 

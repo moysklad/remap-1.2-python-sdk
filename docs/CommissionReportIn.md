@@ -48,7 +48,7 @@ Name | Type | Description | Notes
 **vat_enabled** | **bool** | Учитывается ли НДС | [optional] 
 **vat_included** | **bool** | Включен ли НДС в цену | [optional] 
 **vat_sum** | **float** | Сумма НДС | [optional] 
-**payments** | [**List[RetailShiftPaymentsInner]**](RetailShiftPaymentsInner.md) | Массив ссылок на связанные платежи | [optional] 
+**payments** | [**List[CommissionReportInPayment]**](CommissionReportInPayment.md) | Массив ссылок на связанные платежи | [optional] 
 
 ## Example
 

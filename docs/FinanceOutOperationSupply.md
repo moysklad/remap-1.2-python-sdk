@@ -47,9 +47,9 @@ Name | Type | Description | Notes
 **purchase_order** | [**PurchaseOrder**](PurchaseOrder.md) | Заказ поставщику, с которым связана Приемка  | [optional] 
 **facture_in** | [**FactureIn**](FactureIn.md) | Счет-фактура полученный, с которым связана эта Приемка | [optional] 
 **invoices_in** | [**List[InvoiceIn]**](InvoiceIn.md) | Массив ссылок на связанные счета поставщиков | [optional] 
-**payments** | [**List[SupplyPaymentsInner]**](SupplyPaymentsInner.md) | Массив ссылок на связанные платежи | [optional] 
+**payments** | [**List[SupplyPayment]**](SupplyPayment.md) | Массив ссылок на связанные платежи | [optional] 
 **production_task** | [**ProductionTask**](ProductionTask.md) | Связанное производственное задание | [optional] 
-**returns** | [**List[SupplyReturnsInner]**](SupplyReturnsInner.md) | Массив ссылок на связанные возвраты  | [optional] 
+**returns** | [**List[PurchaseReturn]**](PurchaseReturn.md) | Массив ссылок на связанные возвраты поставщику  | [optional] 
 
 ## Example
 

@@ -44,7 +44,7 @@ Name | Type | Description | Notes
 **supply** | [**Supply**](Supply.md) | Приемка, по которой произошел возврат | [optional] 
 **facture_out** | [**FactureOut**](FactureOut.md) | Счет-фактура выданный, с которым связан этот возврат | [optional] 
 **facture_in** | [**FactureIn**](FactureIn.md) | Счет-фактура полученный, с которым связан этот возврат | [optional] 
-**payments** | [**List[RetailShiftPaymentsInner]**](RetailShiftPaymentsInner.md) | Массив ссылок на связанные платежи | [optional] 
+**payments** | [**List[PurchaseReturnPayment]**](PurchaseReturnPayment.md) | Массив ссылок на связанные платежи | [optional] 
 
 ## Example
 

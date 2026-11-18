@@ -60,7 +60,7 @@ with moysklad_remap_12_sdk.ApiClient(configuration) as api_client:
     stock_type = stock # str | Тип рассчитываемого значения остатка. По умолчанию `stock`.  (optional) (default to stock)
     filter = 'filter_example' # str | Фильтрация отчета по ID сущностей. Поддерживаемые поля: `assortmentId`, `storeId`.  (optional)
     accept = application/json;charset=utf-8 # str |  (optional) (default to application/json;charset=utf-8)
-    accept_encoding = 'gzip, deflate, br' # str |  (optional) (default to 'gzip, deflate, br')
+    accept_encoding = 'gzip' # str |  (optional) (default to 'gzip')
 
     try:
         # Получить Краткий отчет об остатках
@@ -83,7 +83,7 @@ Name | Type | Description  | Notes
  **stock_type** | **str**| Тип рассчитываемого значения остатка. По умолчанию &#x60;stock&#x60;.  | [optional] [default to stock]
  **filter** | **str**| Фильтрация отчета по ID сущностей. Поддерживаемые поля: &#x60;assortmentId&#x60;, &#x60;storeId&#x60;.  | [optional] 
  **accept** | **str**|  | [optional] [default to application/json;charset&#x3D;utf-8]
- **accept_encoding** | **str**|  | [optional] [default to &#39;gzip, deflate, br&#39;]
+ **accept_encoding** | **str**|  | [optional] [default to &#39;gzip&#39;]
 
 ### Return type
 
@@ -96,7 +96,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json, text/html;charset=UTF-8
+ - **Accept**: application/json
 
 ### HTTP response details
 
@@ -159,7 +159,7 @@ with moysklad_remap_12_sdk.ApiClient(configuration) as api_client:
     stock_type = stock # str | Тип рассчитываемого значения остатка. По умолчанию `stock`.  (optional) (default to stock)
     filter = 'filter_example' # str | Фильтрация отчета по ID сущностей. Поддерживаемые поля: `assortmentId`, `storeId`.  (optional)
     accept = application/json;charset=utf-8 # str |  (optional) (default to application/json;charset=utf-8)
-    accept_encoding = 'gzip, deflate, br' # str |  (optional) (default to 'gzip, deflate, br')
+    accept_encoding = 'gzip' # str |  (optional) (default to 'gzip')
 
     try:
         # Получить Краткий отчет об остатках по ячейкам
@@ -181,7 +181,7 @@ Name | Type | Description  | Notes
  **stock_type** | **str**| Тип рассчитываемого значения остатка. По умолчанию &#x60;stock&#x60;.  | [optional] [default to stock]
  **filter** | **str**| Фильтрация отчета по ID сущностей. Поддерживаемые поля: &#x60;assortmentId&#x60;, &#x60;storeId&#x60;.  | [optional] 
  **accept** | **str**|  | [optional] [default to application/json;charset&#x3D;utf-8]
- **accept_encoding** | **str**|  | [optional] [default to &#39;gzip, deflate, br&#39;]
+ **accept_encoding** | **str**|  | [optional] [default to &#39;gzip&#39;]
 
 ### Return type
 
@@ -194,7 +194,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json, text/html;charset=UTF-8
+ - **Accept**: application/json
 
 ### HTTP response details
 
@@ -257,7 +257,7 @@ with moysklad_remap_12_sdk.ApiClient(configuration) as api_client:
     with_recalculate = True # bool | Включает позиции, по которым остаток пересчитывается. Для таких позиций значение остатка может быть `null`.  (optional)
     filter = 'filter_example' # str | Фильтрация отчета по ID сущностей. Поддерживаемые поля: `assortmentId`, `storeId`.  (optional)
     accept = application/json;charset=utf-8 # str |  (optional) (default to application/json;charset=utf-8)
-    accept_encoding = 'gzip, deflate, br' # str |  (optional) (default to 'gzip, deflate, br')
+    accept_encoding = 'gzip' # str |  (optional) (default to 'gzip')
 
     try:
         # Получить Краткий отчет об остатках по складам
@@ -281,7 +281,7 @@ Name | Type | Description  | Notes
  **with_recalculate** | **bool**| Включает позиции, по которым остаток пересчитывается. Для таких позиций значение остатка может быть &#x60;null&#x60;.  | [optional] 
  **filter** | **str**| Фильтрация отчета по ID сущностей. Поддерживаемые поля: &#x60;assortmentId&#x60;, &#x60;storeId&#x60;.  | [optional] 
  **accept** | **str**|  | [optional] [default to application/json;charset&#x3D;utf-8]
- **accept_encoding** | **str**|  | [optional] [default to &#39;gzip, deflate, br&#39;]
+ **accept_encoding** | **str**|  | [optional] [default to &#39;gzip&#39;]
 
 ### Return type
 
@@ -294,7 +294,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json, text/html;charset=UTF-8
+ - **Accept**: application/json
 
 ### HTTP response details
 

@@ -21,7 +21,7 @@ from moysklad_remap_12_sdk.models.product import Product
 from moysklad_remap_12_sdk.models.service import Service
 from moysklad_remap_12_sdk.models.variant import Variant
 from pydantic import StrictStr, Field
-from typing import Union, List, Set, Optional, Dict
+from typing import Union, List, Set, Optional, Dict, ClassVar
 from typing_extensions import Literal, Self
 
 DISCOUNTASSORTMENTITEM_ONE_OF_SCHEMAS = ["Product", "Service", "Variant"]
@@ -37,7 +37,7 @@ class DiscountAssortmentItem(BaseModel):
     # data type: Variant
     oneof_schema_3_validator: Optional[Variant] = None
     actual_instance: Optional[Union[Product, Service, Variant]] = None
-    one_of_schemas: Set[str] = { "Product", "Service", "Variant" }
+    one_of_schemas: ClassVar[Set[str]] = { "Product", "Service", "Variant" }
 
     model_config = ConfigDict(
         validate_assignment=True,
@@ -92,6 +92,20 @@ class DiscountAssortmentItem(BaseModel):
     def from_json(cls, json_str: str) -> Self:
         """Returns the object represented by the json string"""
         instance = cls.model_construct()
+        # JSON API entity names (Product, Service, Variant, etc.) correspond to meta.type.
+        # Meta-only references can satisfy several schemas, so select the entity before validation.
+        data = json.loads(json_str)
+        meta = data.get('meta') if isinstance(data, dict) else None
+        entity_type = meta.get('type') if isinstance(meta, dict) else None
+        if entity_type == 'Product'.lower():
+            instance.actual_instance = Product.from_dict(data)
+            return instance
+        if entity_type == 'Service'.lower():
+            instance.actual_instance = Service.from_dict(data)
+            return instance
+        if entity_type == 'Variant'.lower():
+            instance.actual_instance = Variant.from_dict(data)
+            return instance
         error_messages = []
         match = 0
 

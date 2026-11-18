@@ -33,7 +33,7 @@ Name | Type | Description | Notes
 **sync_id** | **str** | ID синхронизации | [optional] 
 **updated** | **str** | Момент последнего обновления Счета-фактуры полученного | [optional] [readonly] 
 **supplies** | [**List[Supply]**](Supply.md) | Массив ссылок на связанные приемки | [optional] 
-**payments** | [**List[PaymentOut]**](PaymentOut.md) | Массив ссылок на связанные исходящие платежи | [optional] 
+**payments** | [**List[FactureInPayment]**](FactureInPayment.md) | Массив ссылок на связанные исходящие платежи | [optional] 
 **incoming_number** | **str** | Входящий номер | [optional] 
 **incoming_date** | **str** | Входящая дата | [optional] 
 

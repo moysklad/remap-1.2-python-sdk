@@ -26,6 +26,7 @@ from moysklad_remap_12_sdk.models.agent import Agent
 from moysklad_remap_12_sdk.models.attribute_abstract import AttributeAbstract
 from moysklad_remap_12_sdk.models.contract import Contract
 from moysklad_remap_12_sdk.models.currency_rate import CurrencyRate
+from moysklad_remap_12_sdk.models.customer_order_payment import CustomerOrderPayment
 from moysklad_remap_12_sdk.models.customer_order_position_list import CustomerOrderPositionList
 from moysklad_remap_12_sdk.models.employee import Employee
 from moysklad_remap_12_sdk.models.file_list import FileList
@@ -92,7 +93,7 @@ class CustomerOrder(EntityWithMeta):
     shipment_address_full: Optional[Address] = Field(default=None, description="Адрес доставки Заказа покупателя с детализацией по отдельным полям", alias="shipmentAddressFull")
     invoices_out: Optional[List[InvoiceOut]] = Field(default=None, description="Массив ссылок на связанные счета покупателям", alias="invoicesOut")
     demands: Optional[List[Demand]] = Field(default=None, description="Массив ссылок на связанные отгрузки")
-    payments: Optional[List[RetailShiftPaymentsInner]] = Field(default=None, description="Массив ссылок на связанные платежи")
+    payments: Optional[List[CustomerOrderPayment]] = Field(default=None, description="Массив ссылок на связанные платежи")
     prepayments: Optional[List[Prepayment]] = Field(default=None, description="Массив ссылок на связанные предоплаты")
     purchase_orders: Optional[List[PurchaseOrder]] = Field(default=None, description="Массив ссылок на связанные заказы поставщикам", alias="purchaseOrders")
     moves: Optional[List[Move]] = Field(default=None, description="Массив ссылок на связанные перемещения")
@@ -147,6 +148,24 @@ class CustomerOrder(EntityWithMeta):
         `None` is only added for nullable fields set at initialization.
         OpenAPI `readOnly` response fields are retained.
         """
+        def _json_model_value(value):
+            if isinstance(value, list):
+                return [_json_model_value(item) for item in value]
+            if value is not None and hasattr(value, "to_dict") and callable(value.to_dict):
+                return value.to_dict()
+            return value
+
+        def _model_value_replaces_schema_set(value):
+            if isinstance(value, set):
+                return True
+            if isinstance(value, list):
+                return any(_model_value_replaces_schema_set(item) for item in value)
+            if isinstance(value, dict):
+                if "one_of_schemas" in value or "any_of_schemas" in value:
+                    return True
+                return any(_model_value_replaces_schema_set(item) for item in value.values())
+            return False
+
         excluded_fields: Set[str] = {
             "additional_properties",
         }
@@ -240,6 +259,22 @@ class CustomerOrder(EntityWithMeta):
             for _key, _value in self.additional_properties.items():
                 _dict[_key] = _value
 
+        # oneOf/anyOf, унаследованные поля и лишние свойства не должны уносить в JSON
+        # служебное множество имен схем: оно не сериализуется.
+        for _field_name, _field in type(self).model_fields.items():
+            if _field_name == "additional_properties":
+                continue
+            _value = getattr(self, _field_name)
+            _alias = _field.alias or _field_name
+            if _model_value_replaces_schema_set(_dict.get(_alias)):
+                _converted = _json_model_value(_value)
+                if _converted is not None:
+                    _dict[_alias] = _converted
+        for _extra_key, _extra_value in (getattr(self, "__pydantic_extra__", None) or {}).items():
+            if _model_value_replaces_schema_set(_dict.get(_extra_key)):
+                _converted = _json_model_value(_extra_value)
+                if _converted is not None:
+                    _dict[_extra_key] = _converted
         if self.description is None and "description" in self.model_fields_set:
             _dict['description'] = None
 
@@ -358,7 +393,7 @@ class CustomerOrder(EntityWithMeta):
             "shipmentAddressFull": Address.from_dict(obj["shipmentAddressFull"]) if obj.get("shipmentAddressFull") is not None else None,
             "invoicesOut": [InvoiceOut.from_dict(_item) for _item in obj["invoicesOut"]] if obj.get("invoicesOut") is not None else None,
             "demands": [Demand.from_dict(_item) for _item in obj["demands"]] if obj.get("demands") is not None else None,
-            "payments": [RetailShiftPaymentsInner.from_dict(_item) for _item in obj["payments"]] if obj.get("payments") is not None else None,
+            "payments": [CustomerOrderPayment.from_dict(_item) for _item in obj["payments"]] if obj.get("payments") is not None else None,
             "prepayments": [Prepayment.from_dict(_item) for _item in obj["prepayments"]] if obj.get("prepayments") is not None else None,
             "purchaseOrders": [PurchaseOrder.from_dict(_item) for _item in obj["purchaseOrders"]] if obj.get("purchaseOrders") is not None else None,
             "moves": [Move.from_dict(_item) for _item in obj["moves"]] if obj.get("moves") is not None else None,
@@ -375,7 +410,6 @@ from moysklad_remap_12_sdk.models.demand import Demand
 from moysklad_remap_12_sdk.models.invoice_out import InvoiceOut
 from moysklad_remap_12_sdk.models.move import Move
 from moysklad_remap_12_sdk.models.purchase_order import PurchaseOrder
-from moysklad_remap_12_sdk.models.retail_shift_payments_inner import RetailShiftPaymentsInner
 # TODO: Rewrite to not use raise_errors
 CustomerOrder.model_rebuild(raise_errors=False)
 
@@ -509,7 +543,7 @@ from moysklad_remap_12_sdk.models.demand import Demand
 
 
 
-from moysklad_remap_12_sdk.models.retail_shift_payments_inner import RetailShiftPaymentsInner
+from moysklad_remap_12_sdk.models.customer_order_payment import CustomerOrderPayment
 
 
 

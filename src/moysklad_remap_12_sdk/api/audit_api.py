@@ -45,7 +45,7 @@ class AuditApi:
     def get_audit_context_events(
         self,
         id: Annotated[StrictStr, Field(description="ID контекста аудита")],
-        limit: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=1)]], Field(description="Максимальное количество элементов в выданном списке (максимум 1000)")] = None,
+        limit: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="Максимальное количество событий аудита в выданном списке (максимум 100)")] = None,
         offset: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="Отступ в выданном списке")] = None,
         accept: Optional[StrictStr] = None,
         accept_encoding: Optional[StrictStr] = None,
@@ -68,7 +68,7 @@ class AuditApi:
 
         :param id: ID контекста аудита (required)
         :type id: str
-        :param limit: Максимальное количество элементов в выданном списке (максимум 1000)
+        :param limit: Максимальное количество событий аудита в выданном списке (максимум 100)
         :type limit: int
         :param offset: Отступ в выданном списке
         :type offset: int
@@ -128,7 +128,7 @@ class AuditApi:
     def get_audit_context_events_with_http_info(
         self,
         id: Annotated[StrictStr, Field(description="ID контекста аудита")],
-        limit: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=1)]], Field(description="Максимальное количество элементов в выданном списке (максимум 1000)")] = None,
+        limit: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="Максимальное количество событий аудита в выданном списке (максимум 100)")] = None,
         offset: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="Отступ в выданном списке")] = None,
         accept: Optional[StrictStr] = None,
         accept_encoding: Optional[StrictStr] = None,
@@ -151,7 +151,7 @@ class AuditApi:
 
         :param id: ID контекста аудита (required)
         :type id: str
-        :param limit: Максимальное количество элементов в выданном списке (максимум 1000)
+        :param limit: Максимальное количество событий аудита в выданном списке (максимум 100)
         :type limit: int
         :param offset: Отступ в выданном списке
         :type offset: int
@@ -211,7 +211,7 @@ class AuditApi:
     def get_audit_context_events_without_preload_content(
         self,
         id: Annotated[StrictStr, Field(description="ID контекста аудита")],
-        limit: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=1)]], Field(description="Максимальное количество элементов в выданном списке (максимум 1000)")] = None,
+        limit: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="Максимальное количество событий аудита в выданном списке (максимум 100)")] = None,
         offset: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="Отступ в выданном списке")] = None,
         accept: Optional[StrictStr] = None,
         accept_encoding: Optional[StrictStr] = None,
@@ -234,7 +234,7 @@ class AuditApi:
 
         :param id: ID контекста аудита (required)
         :type id: str
-        :param limit: Максимальное количество элементов в выданном списке (максимум 1000)
+        :param limit: Максимальное количество событий аудита в выданном списке (максимум 100)
         :type limit: int
         :param offset: Отступ в выданном списке
         :type offset: int
@@ -326,20 +326,32 @@ class AuditApi:
             _query_params.append(('offset', offset))
             
         # process the header parameters
+        # default_headers клиента добавляются позже и не сливаются по регистру.
+        # Значение из спецификации не должно создавать второй Accept рядом с accept.
+        def _header_already_set(_name: str) -> bool:
+            return any(
+                _header_name.lower() == _name.lower()
+                for _header_name in (*_header_params, *self.api_client.default_headers)
+            )
         if accept is not None:
-            _header_params['accept'] = accept
+            _header_params['Accept'] = accept
+        elif not _header_already_set('Accept'):
+            _header_params['Accept'] = 'application/json;charset=utf-8'
         if accept_encoding is not None:
             _header_params['Accept-Encoding'] = accept_encoding
+        elif not _header_already_set('Accept-Encoding'):
+            _header_params['Accept-Encoding'] = 'gzip'
         # process the form parameters
         # process the body parameter
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
+        # Имя сравнивается без учета регистра, включая заголовки клиента:
+        # явный accept не должен оставаться рядом со стандартным Accept.
+        if not _header_already_set('Accept'):
             _header_params['Accept'] = self.api_client.select_header_accept(
                 [
-                    'application/json', 
-                    'text/html;charset=UTF-8'
+                    'application/json'
                 ]
             )
 
@@ -371,7 +383,7 @@ class AuditApi:
     @validate_call
     def get_audit_contexts(
         self,
-        limit: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=1)]], Field(description="Максимальное количество элементов в выданном списке (максимум 1000)")] = None,
+        limit: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="Максимальное количество событий аудита в выданном списке (максимум 100)")] = None,
         offset: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="Отступ в выданном списке")] = None,
         filter: Annotated[Optional[StrictStr], Field(description="Фильтрация выборки")] = None,
         accept: Optional[StrictStr] = None,
@@ -393,7 +405,7 @@ class AuditApi:
 
         Возвращает общую ленту изменений (контексты аудита). Поддерживает пагинацию и фильтрацию через параметр `filter`. 
 
-        :param limit: Максимальное количество элементов в выданном списке (максимум 1000)
+        :param limit: Максимальное количество событий аудита в выданном списке (максимум 100)
         :type limit: int
         :param offset: Отступ в выданном списке
         :type offset: int
@@ -454,7 +466,7 @@ class AuditApi:
     @validate_call
     def get_audit_contexts_with_http_info(
         self,
-        limit: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=1)]], Field(description="Максимальное количество элементов в выданном списке (максимум 1000)")] = None,
+        limit: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="Максимальное количество событий аудита в выданном списке (максимум 100)")] = None,
         offset: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="Отступ в выданном списке")] = None,
         filter: Annotated[Optional[StrictStr], Field(description="Фильтрация выборки")] = None,
         accept: Optional[StrictStr] = None,
@@ -476,7 +488,7 @@ class AuditApi:
 
         Возвращает общую ленту изменений (контексты аудита). Поддерживает пагинацию и фильтрацию через параметр `filter`. 
 
-        :param limit: Максимальное количество элементов в выданном списке (максимум 1000)
+        :param limit: Максимальное количество событий аудита в выданном списке (максимум 100)
         :type limit: int
         :param offset: Отступ в выданном списке
         :type offset: int
@@ -537,7 +549,7 @@ class AuditApi:
     @validate_call
     def get_audit_contexts_without_preload_content(
         self,
-        limit: Annotated[Optional[Annotated[int, Field(le=1000, strict=True, ge=1)]], Field(description="Максимальное количество элементов в выданном списке (максимум 1000)")] = None,
+        limit: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="Максимальное количество событий аудита в выданном списке (максимум 100)")] = None,
         offset: Annotated[Optional[Annotated[int, Field(strict=True, ge=0)]], Field(description="Отступ в выданном списке")] = None,
         filter: Annotated[Optional[StrictStr], Field(description="Фильтрация выборки")] = None,
         accept: Optional[StrictStr] = None,
@@ -559,7 +571,7 @@ class AuditApi:
 
         Возвращает общую ленту изменений (контексты аудита). Поддерживает пагинацию и фильтрацию через параметр `filter`. 
 
-        :param limit: Максимальное количество элементов в выданном списке (максимум 1000)
+        :param limit: Максимальное количество событий аудита в выданном списке (максимум 100)
         :type limit: int
         :param offset: Отступ в выданном списке
         :type offset: int
@@ -655,20 +667,32 @@ class AuditApi:
             _query_params.append(('filter', filter))
             
         # process the header parameters
+        # default_headers клиента добавляются позже и не сливаются по регистру.
+        # Значение из спецификации не должно создавать второй Accept рядом с accept.
+        def _header_already_set(_name: str) -> bool:
+            return any(
+                _header_name.lower() == _name.lower()
+                for _header_name in (*_header_params, *self.api_client.default_headers)
+            )
         if accept is not None:
-            _header_params['accept'] = accept
+            _header_params['Accept'] = accept
+        elif not _header_already_set('Accept'):
+            _header_params['Accept'] = 'application/json;charset=utf-8'
         if accept_encoding is not None:
             _header_params['Accept-Encoding'] = accept_encoding
+        elif not _header_already_set('Accept-Encoding'):
+            _header_params['Accept-Encoding'] = 'gzip'
         # process the form parameters
         # process the body parameter
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
+        # Имя сравнивается без учета регистра, включая заголовки клиента:
+        # явный accept не должен оставаться рядом со стандартным Accept.
+        if not _header_already_set('Accept'):
             _header_params['Accept'] = self.api_client.select_header_accept(
                 [
-                    'application/json', 
-                    'text/html;charset=UTF-8'
+                    'application/json'
                 ]
             )
 
@@ -933,20 +957,32 @@ class AuditApi:
         # process the path parameters
         # process the query parameters
         # process the header parameters
+        # default_headers клиента добавляются позже и не сливаются по регистру.
+        # Значение из спецификации не должно создавать второй Accept рядом с accept.
+        def _header_already_set(_name: str) -> bool:
+            return any(
+                _header_name.lower() == _name.lower()
+                for _header_name in (*_header_params, *self.api_client.default_headers)
+            )
         if accept is not None:
-            _header_params['accept'] = accept
+            _header_params['Accept'] = accept
+        elif not _header_already_set('Accept'):
+            _header_params['Accept'] = 'application/json;charset=utf-8'
         if accept_encoding is not None:
             _header_params['Accept-Encoding'] = accept_encoding
+        elif not _header_already_set('Accept-Encoding'):
+            _header_params['Accept-Encoding'] = 'gzip'
         # process the form parameters
         # process the body parameter
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
+        # Имя сравнивается без учета регистра, включая заголовки клиента:
+        # явный accept не должен оставаться рядом со стандартным Accept.
+        if not _header_already_set('Accept'):
             _header_params['Accept'] = self.api_client.select_header_accept(
                 [
-                    'application/json', 
-                    'text/html;charset=UTF-8'
+                    'application/json'
                 ]
             )
 
@@ -1275,20 +1311,32 @@ class AuditApi:
             _query_params.append(('offset', offset))
             
         # process the header parameters
+        # default_headers клиента добавляются позже и не сливаются по регистру.
+        # Значение из спецификации не должно создавать второй Accept рядом с accept.
+        def _header_already_set(_name: str) -> bool:
+            return any(
+                _header_name.lower() == _name.lower()
+                for _header_name in (*_header_params, *self.api_client.default_headers)
+            )
         if accept is not None:
-            _header_params['accept'] = accept
+            _header_params['Accept'] = accept
+        elif not _header_already_set('Accept'):
+            _header_params['Accept'] = 'application/json;charset=utf-8'
         if accept_encoding is not None:
             _header_params['Accept-Encoding'] = accept_encoding
+        elif not _header_already_set('Accept-Encoding'):
+            _header_params['Accept-Encoding'] = 'gzip'
         # process the form parameters
         # process the body parameter
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
+        # Имя сравнивается без учета регистра, включая заголовки клиента:
+        # явный accept не должен оставаться рядом со стандартным Accept.
+        if not _header_already_set('Accept'):
             _header_params['Accept'] = self.api_client.select_header_accept(
                 [
-                    'application/json', 
-                    'text/html;charset=UTF-8'
+                    'application/json'
                 ]
             )
 

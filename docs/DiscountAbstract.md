@@ -13,7 +13,6 @@ Name | Type | Description | Notes
 **all_agents** | **bool** | Для всех ли агентов скидка | [optional] 
 **agent_tags** | **List[str]** | Тэги агентов | [optional] 
 **all_products** | **bool** | Действует ли скидка на все товары | [optional] 
-**assortment** | [**List[DiscountAssortmentItem]**](DiscountAssortmentItem.md) | Массив метаданных товаров, услуг и модификаций | [optional] 
 
 ## Example
 

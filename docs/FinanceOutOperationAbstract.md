@@ -6,6 +6,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**meta** | [**Meta**](Meta.md) |  | 
 **linked_sum** | **float** | Сумма, оплаченная по данному документу | 
 
 ## Example

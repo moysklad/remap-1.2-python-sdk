@@ -14,7 +14,7 @@
 """  # noqa: E501
 
 
-__version__ = "0.34.0"
+__version__ = "0.37.0"
 
 # Define package exports
 __all__ = [
@@ -162,12 +162,16 @@ __all__ = [
     "AuditList",
     "AuditSourceType",
     "Barcode",
+    "BatchDeleteErrorResponse",
+    "BatchEntityErrorResponse",
     "BatchResponseEntity",
     "BonusProgram",
     "BonusProgramList",
     "BonusTransaction",
     "BonusTransactionList",
     "BonusTransactionParentDocument",
+    "BonusTransactionParentRetailDemand",
+    "BonusTransactionParentRetailSalesReturn",
     "Bundle",
     "BundleComponent",
     "BundleComponentList",
@@ -192,12 +196,18 @@ __all__ = [
     "CommissionReportIn",
     "CommissionReportInCommissionOverhead",
     "CommissionReportInList",
+    "CommissionReportInPayment",
+    "CommissionReportInPaymentCashIn",
+    "CommissionReportInPaymentPaymentIn",
     "CommissionReportInPosition",
     "CommissionReportInPositionList",
     "CommissionReportInReturnedPosition",
     "CommissionReportInReturnedPositionList",
     "CommissionReportOut",
     "CommissionReportOutList",
+    "CommissionReportOutPayment",
+    "CommissionReportOutPaymentCashOut",
+    "CommissionReportOutPaymentPaymentOut",
     "CommissionReportOutPosition",
     "CommissionReportOutPositionList",
     "CompanySettings",
@@ -221,29 +231,6 @@ __all__ = [
     "CounterpartyNotes",
     "Country",
     "CountryList",
-    "CreateCommissionReportInPositions200ResponseInner",
-    "CreateCustomerOrderPositions200ResponseInner",
-    "CreateDemandPositions200ResponseInner",
-    "CreateEnterPositions200ResponseInner",
-    "CreateFactureInsBatch200ResponseInner",
-    "CreateFactureOutsBatch200ResponseInner",
-    "CreateInternalOrderPositions200ResponseInner",
-    "CreateInventoryPositions200ResponseInner",
-    "CreateInvoiceInBatch200ResponseInner",
-    "CreateInvoiceInPositionsBatch200ResponseInner",
-    "CreateInvoiceOutBatch200ResponseInner",
-    "CreateInvoiceOutPositionsBatch200ResponseInner",
-    "CreateLossPositions200ResponseInner",
-    "CreatePriceListPositionsBatch200ResponseInner",
-    "CreateProcessingOrderPositions200ResponseInner",
-    "CreateProcessingProcessPositions200ResponseInner",
-    "CreatePurchaseOrderPositions200ResponseInner",
-    "CreatePurchaseReturnPositions200ResponseInner",
-    "CreateRetailDemandPositions200ResponseInner",
-    "CreateRetailSalesReturnPositions200ResponseInner",
-    "CreateRetailSalesReturnsBatch200ResponseInner",
-    "CreateRetailShiftBatch200ResponseInner",
-    "CreateSalesReturnPositions200ResponseInner",
     "Currency",
     "CurrencyList",
     "CurrencyMajorUnit",
@@ -257,16 +244,21 @@ __all__ = [
     "CustomRoleList",
     "CustomerOrder",
     "CustomerOrderList",
+    "CustomerOrderPayment",
+    "CustomerOrderPaymentCashIn",
+    "CustomerOrderPaymentPaymentIn",
     "CustomerOrderPosition",
     "CustomerOrderPositionList",
     "DeclarationInner",
     "DefaultScreen",
     "DeleteInfo",
-    "DeleteInvoiceOutBatch200ResponseInner",
     "DeleteProductImagesRequestInner",
     "DeleteRowResult",
     "Demand",
     "DemandList",
+    "DemandPayment",
+    "DemandPaymentCashIn",
+    "DemandPaymentPaymentIn",
     "DemandPosition",
     "DemandPositionList",
     "DemandPositionTrackingCode1162",
@@ -307,8 +299,14 @@ __all__ = [
     "FacebookTokenExpirationNotification",
     "FactureIn",
     "FactureInList",
+    "FactureInPayment",
+    "FactureInPaymentCashOut",
+    "FactureInPaymentPaymentOut",
     "FactureOut",
     "FactureOutList",
+    "FactureOutPayment",
+    "FactureOutPaymentCashIn",
+    "FactureOutPaymentPaymentIn",
     "File",
     "FileList",
     "FileUpload",
@@ -350,10 +348,16 @@ __all__ = [
     "InventoryPositionList",
     "InvoiceIn",
     "InvoiceInList",
+    "InvoiceInPayment",
+    "InvoiceInPaymentCashOut",
+    "InvoiceInPaymentPaymentOut",
     "InvoiceInPosition",
     "InvoiceInPositionList",
     "InvoiceOut",
     "InvoiceOutList",
+    "InvoiceOutPayment",
+    "InvoiceOutPaymentCashIn",
+    "InvoiceOutPaymentPaymentIn",
     "InvoiceOutPosition",
     "InvoiceOutPositionList",
     "LabelPrintRequest",
@@ -503,11 +507,17 @@ __all__ = [
     "PublicationList",
     "PurchaseOrder",
     "PurchaseOrderList",
+    "PurchaseOrderPayment",
+    "PurchaseOrderPaymentCashOut",
+    "PurchaseOrderPaymentPaymentOut",
     "PurchaseOrderPosition",
     "PurchaseOrderPositionList",
     "PurchaseOrderRate",
     "PurchaseReturn",
     "PurchaseReturnList",
+    "PurchaseReturnPayment",
+    "PurchaseReturnPaymentCashIn",
+    "PurchaseReturnPaymentPaymentIn",
     "PurchaseReturnPosition",
     "PurchaseReturnPositionList",
     "RateUpdateType",
@@ -575,10 +585,12 @@ __all__ = [
     "RetailShiftOperationRetailDrawerCashIn",
     "RetailShiftOperationRetailDrawerCashOut",
     "RetailShiftOperationRetailSalesReturn",
+    "RetailShiftPayment",
+    "RetailShiftPaymentCashIn",
     "RetailShiftPaymentOperation",
     "RetailShiftPaymentOperationCashIn",
     "RetailShiftPaymentOperationPaymentIn",
-    "RetailShiftPaymentsInner",
+    "RetailShiftPaymentPaymentIn",
     "RetailStore",
     "RetailStoreEnvironment",
     "RetailStoreEnvironmentChequePrinter",
@@ -607,7 +619,9 @@ __all__ = [
     "SalesManagerChatMessage",
     "SalesReturn",
     "SalesReturnList",
-    "SalesReturnPaymentsInner",
+    "SalesReturnPayment",
+    "SalesReturnPaymentCashOut",
+    "SalesReturnPaymentPaymentOut",
     "SalesReturnPosition",
     "SalesReturnPositionList",
     "ScriptPermissionValue",
@@ -645,10 +659,11 @@ __all__ = [
     "SubscriptionTariff",
     "Supply",
     "SupplyList",
-    "SupplyPaymentsInner",
+    "SupplyPayment",
+    "SupplyPaymentCashOut",
+    "SupplyPaymentPaymentOut",
     "SupplyPosition",
     "SupplyPositionList",
-    "SupplyReturnsInner",
     "Task",
     "TaskList",
     "TaskNote",
@@ -839,12 +854,16 @@ from moysklad_remap_12_sdk.models.audit_filters import AuditFilters as AuditFilt
 from moysklad_remap_12_sdk.models.audit_list import AuditList as AuditList
 from moysklad_remap_12_sdk.models.audit_source_type import AuditSourceType as AuditSourceType
 from moysklad_remap_12_sdk.models.barcode import Barcode as Barcode
+from moysklad_remap_12_sdk.models.batch_delete_error_response import BatchDeleteErrorResponse as BatchDeleteErrorResponse
+from moysklad_remap_12_sdk.models.batch_entity_error_response import BatchEntityErrorResponse as BatchEntityErrorResponse
 from moysklad_remap_12_sdk.models.batch_response_entity import BatchResponseEntity as BatchResponseEntity
 from moysklad_remap_12_sdk.models.bonus_program import BonusProgram as BonusProgram
 from moysklad_remap_12_sdk.models.bonus_program_list import BonusProgramList as BonusProgramList
 from moysklad_remap_12_sdk.models.bonus_transaction import BonusTransaction as BonusTransaction
 from moysklad_remap_12_sdk.models.bonus_transaction_list import BonusTransactionList as BonusTransactionList
 from moysklad_remap_12_sdk.models.bonus_transaction_parent_document import BonusTransactionParentDocument as BonusTransactionParentDocument
+from moysklad_remap_12_sdk.models.bonus_transaction_parent_retail_demand import BonusTransactionParentRetailDemand as BonusTransactionParentRetailDemand
+from moysklad_remap_12_sdk.models.bonus_transaction_parent_retail_sales_return import BonusTransactionParentRetailSalesReturn as BonusTransactionParentRetailSalesReturn
 from moysklad_remap_12_sdk.models.bundle import Bundle as Bundle
 from moysklad_remap_12_sdk.models.bundle_component import BundleComponent as BundleComponent
 from moysklad_remap_12_sdk.models.bundle_component_list import BundleComponentList as BundleComponentList
@@ -869,12 +888,18 @@ from moysklad_remap_12_sdk.models.category_type import CategoryType as CategoryT
 from moysklad_remap_12_sdk.models.commission_report_in import CommissionReportIn as CommissionReportIn
 from moysklad_remap_12_sdk.models.commission_report_in_commission_overhead import CommissionReportInCommissionOverhead as CommissionReportInCommissionOverhead
 from moysklad_remap_12_sdk.models.commission_report_in_list import CommissionReportInList as CommissionReportInList
+from moysklad_remap_12_sdk.models.commission_report_in_payment import CommissionReportInPayment as CommissionReportInPayment
+from moysklad_remap_12_sdk.models.commission_report_in_payment_cash_in import CommissionReportInPaymentCashIn as CommissionReportInPaymentCashIn
+from moysklad_remap_12_sdk.models.commission_report_in_payment_payment_in import CommissionReportInPaymentPaymentIn as CommissionReportInPaymentPaymentIn
 from moysklad_remap_12_sdk.models.commission_report_in_position import CommissionReportInPosition as CommissionReportInPosition
 from moysklad_remap_12_sdk.models.commission_report_in_position_list import CommissionReportInPositionList as CommissionReportInPositionList
 from moysklad_remap_12_sdk.models.commission_report_in_returned_position import CommissionReportInReturnedPosition as CommissionReportInReturnedPosition
 from moysklad_remap_12_sdk.models.commission_report_in_returned_position_list import CommissionReportInReturnedPositionList as CommissionReportInReturnedPositionList
 from moysklad_remap_12_sdk.models.commission_report_out import CommissionReportOut as CommissionReportOut
 from moysklad_remap_12_sdk.models.commission_report_out_list import CommissionReportOutList as CommissionReportOutList
+from moysklad_remap_12_sdk.models.commission_report_out_payment import CommissionReportOutPayment as CommissionReportOutPayment
+from moysklad_remap_12_sdk.models.commission_report_out_payment_cash_out import CommissionReportOutPaymentCashOut as CommissionReportOutPaymentCashOut
+from moysklad_remap_12_sdk.models.commission_report_out_payment_payment_out import CommissionReportOutPaymentPaymentOut as CommissionReportOutPaymentPaymentOut
 from moysklad_remap_12_sdk.models.commission_report_out_position import CommissionReportOutPosition as CommissionReportOutPosition
 from moysklad_remap_12_sdk.models.commission_report_out_position_list import CommissionReportOutPositionList as CommissionReportOutPositionList
 from moysklad_remap_12_sdk.models.company_settings import CompanySettings as CompanySettings
@@ -898,29 +923,6 @@ from moysklad_remap_12_sdk.models.counterparty_metadata import CounterpartyMetad
 from moysklad_remap_12_sdk.models.counterparty_notes import CounterpartyNotes as CounterpartyNotes
 from moysklad_remap_12_sdk.models.country import Country as Country
 from moysklad_remap_12_sdk.models.country_list import CountryList as CountryList
-from moysklad_remap_12_sdk.models.create_commission_report_in_positions200_response_inner import CreateCommissionReportInPositions200ResponseInner as CreateCommissionReportInPositions200ResponseInner
-from moysklad_remap_12_sdk.models.create_customer_order_positions200_response_inner import CreateCustomerOrderPositions200ResponseInner as CreateCustomerOrderPositions200ResponseInner
-from moysklad_remap_12_sdk.models.create_demand_positions200_response_inner import CreateDemandPositions200ResponseInner as CreateDemandPositions200ResponseInner
-from moysklad_remap_12_sdk.models.create_enter_positions200_response_inner import CreateEnterPositions200ResponseInner as CreateEnterPositions200ResponseInner
-from moysklad_remap_12_sdk.models.create_facture_ins_batch200_response_inner import CreateFactureInsBatch200ResponseInner as CreateFactureInsBatch200ResponseInner
-from moysklad_remap_12_sdk.models.create_facture_outs_batch200_response_inner import CreateFactureOutsBatch200ResponseInner as CreateFactureOutsBatch200ResponseInner
-from moysklad_remap_12_sdk.models.create_internal_order_positions200_response_inner import CreateInternalOrderPositions200ResponseInner as CreateInternalOrderPositions200ResponseInner
-from moysklad_remap_12_sdk.models.create_inventory_positions200_response_inner import CreateInventoryPositions200ResponseInner as CreateInventoryPositions200ResponseInner
-from moysklad_remap_12_sdk.models.create_invoice_in_batch200_response_inner import CreateInvoiceInBatch200ResponseInner as CreateInvoiceInBatch200ResponseInner
-from moysklad_remap_12_sdk.models.create_invoice_in_positions_batch200_response_inner import CreateInvoiceInPositionsBatch200ResponseInner as CreateInvoiceInPositionsBatch200ResponseInner
-from moysklad_remap_12_sdk.models.create_invoice_out_batch200_response_inner import CreateInvoiceOutBatch200ResponseInner as CreateInvoiceOutBatch200ResponseInner
-from moysklad_remap_12_sdk.models.create_invoice_out_positions_batch200_response_inner import CreateInvoiceOutPositionsBatch200ResponseInner as CreateInvoiceOutPositionsBatch200ResponseInner
-from moysklad_remap_12_sdk.models.create_loss_positions200_response_inner import CreateLossPositions200ResponseInner as CreateLossPositions200ResponseInner
-from moysklad_remap_12_sdk.models.create_price_list_positions_batch200_response_inner import CreatePriceListPositionsBatch200ResponseInner as CreatePriceListPositionsBatch200ResponseInner
-from moysklad_remap_12_sdk.models.create_processing_order_positions200_response_inner import CreateProcessingOrderPositions200ResponseInner as CreateProcessingOrderPositions200ResponseInner
-from moysklad_remap_12_sdk.models.create_processing_process_positions200_response_inner import CreateProcessingProcessPositions200ResponseInner as CreateProcessingProcessPositions200ResponseInner
-from moysklad_remap_12_sdk.models.create_purchase_order_positions200_response_inner import CreatePurchaseOrderPositions200ResponseInner as CreatePurchaseOrderPositions200ResponseInner
-from moysklad_remap_12_sdk.models.create_purchase_return_positions200_response_inner import CreatePurchaseReturnPositions200ResponseInner as CreatePurchaseReturnPositions200ResponseInner
-from moysklad_remap_12_sdk.models.create_retail_demand_positions200_response_inner import CreateRetailDemandPositions200ResponseInner as CreateRetailDemandPositions200ResponseInner
-from moysklad_remap_12_sdk.models.create_retail_sales_return_positions200_response_inner import CreateRetailSalesReturnPositions200ResponseInner as CreateRetailSalesReturnPositions200ResponseInner
-from moysklad_remap_12_sdk.models.create_retail_sales_returns_batch200_response_inner import CreateRetailSalesReturnsBatch200ResponseInner as CreateRetailSalesReturnsBatch200ResponseInner
-from moysklad_remap_12_sdk.models.create_retail_shift_batch200_response_inner import CreateRetailShiftBatch200ResponseInner as CreateRetailShiftBatch200ResponseInner
-from moysklad_remap_12_sdk.models.create_sales_return_positions200_response_inner import CreateSalesReturnPositions200ResponseInner as CreateSalesReturnPositions200ResponseInner
 from moysklad_remap_12_sdk.models.currency import Currency as Currency
 from moysklad_remap_12_sdk.models.currency_list import CurrencyList as CurrencyList
 from moysklad_remap_12_sdk.models.currency_major_unit import CurrencyMajorUnit as CurrencyMajorUnit
@@ -934,16 +936,21 @@ from moysklad_remap_12_sdk.models.custom_role import CustomRole as CustomRole
 from moysklad_remap_12_sdk.models.custom_role_list import CustomRoleList as CustomRoleList
 from moysklad_remap_12_sdk.models.customer_order import CustomerOrder as CustomerOrder
 from moysklad_remap_12_sdk.models.customer_order_list import CustomerOrderList as CustomerOrderList
+from moysklad_remap_12_sdk.models.customer_order_payment import CustomerOrderPayment as CustomerOrderPayment
+from moysklad_remap_12_sdk.models.customer_order_payment_cash_in import CustomerOrderPaymentCashIn as CustomerOrderPaymentCashIn
+from moysklad_remap_12_sdk.models.customer_order_payment_payment_in import CustomerOrderPaymentPaymentIn as CustomerOrderPaymentPaymentIn
 from moysklad_remap_12_sdk.models.customer_order_position import CustomerOrderPosition as CustomerOrderPosition
 from moysklad_remap_12_sdk.models.customer_order_position_list import CustomerOrderPositionList as CustomerOrderPositionList
 from moysklad_remap_12_sdk.models.declaration_inner import DeclarationInner as DeclarationInner
 from moysklad_remap_12_sdk.models.default_screen import DefaultScreen as DefaultScreen
 from moysklad_remap_12_sdk.models.delete_info import DeleteInfo as DeleteInfo
-from moysklad_remap_12_sdk.models.delete_invoice_out_batch200_response_inner import DeleteInvoiceOutBatch200ResponseInner as DeleteInvoiceOutBatch200ResponseInner
 from moysklad_remap_12_sdk.models.delete_product_images_request_inner import DeleteProductImagesRequestInner as DeleteProductImagesRequestInner
 from moysklad_remap_12_sdk.models.delete_row_result import DeleteRowResult as DeleteRowResult
 from moysklad_remap_12_sdk.models.demand import Demand as Demand
 from moysklad_remap_12_sdk.models.demand_list import DemandList as DemandList
+from moysklad_remap_12_sdk.models.demand_payment import DemandPayment as DemandPayment
+from moysklad_remap_12_sdk.models.demand_payment_cash_in import DemandPaymentCashIn as DemandPaymentCashIn
+from moysklad_remap_12_sdk.models.demand_payment_payment_in import DemandPaymentPaymentIn as DemandPaymentPaymentIn
 from moysklad_remap_12_sdk.models.demand_position import DemandPosition as DemandPosition
 from moysklad_remap_12_sdk.models.demand_position_list import DemandPositionList as DemandPositionList
 from moysklad_remap_12_sdk.models.demand_position_tracking_code1162 import DemandPositionTrackingCode1162 as DemandPositionTrackingCode1162
@@ -984,8 +991,14 @@ from moysklad_remap_12_sdk.models.export_request import ExportRequest as ExportR
 from moysklad_remap_12_sdk.models.facebook_token_expiration_notification import FacebookTokenExpirationNotification as FacebookTokenExpirationNotification
 from moysklad_remap_12_sdk.models.facture_in import FactureIn as FactureIn
 from moysklad_remap_12_sdk.models.facture_in_list import FactureInList as FactureInList
+from moysklad_remap_12_sdk.models.facture_in_payment import FactureInPayment as FactureInPayment
+from moysklad_remap_12_sdk.models.facture_in_payment_cash_out import FactureInPaymentCashOut as FactureInPaymentCashOut
+from moysklad_remap_12_sdk.models.facture_in_payment_payment_out import FactureInPaymentPaymentOut as FactureInPaymentPaymentOut
 from moysklad_remap_12_sdk.models.facture_out import FactureOut as FactureOut
 from moysklad_remap_12_sdk.models.facture_out_list import FactureOutList as FactureOutList
+from moysklad_remap_12_sdk.models.facture_out_payment import FactureOutPayment as FactureOutPayment
+from moysklad_remap_12_sdk.models.facture_out_payment_cash_in import FactureOutPaymentCashIn as FactureOutPaymentCashIn
+from moysklad_remap_12_sdk.models.facture_out_payment_payment_in import FactureOutPaymentPaymentIn as FactureOutPaymentPaymentIn
 from moysklad_remap_12_sdk.models.file import File as File
 from moysklad_remap_12_sdk.models.file_list import FileList as FileList
 from moysklad_remap_12_sdk.models.file_upload import FileUpload as FileUpload
@@ -1027,10 +1040,16 @@ from moysklad_remap_12_sdk.models.inventory_position import InventoryPosition as
 from moysklad_remap_12_sdk.models.inventory_position_list import InventoryPositionList as InventoryPositionList
 from moysklad_remap_12_sdk.models.invoice_in import InvoiceIn as InvoiceIn
 from moysklad_remap_12_sdk.models.invoice_in_list import InvoiceInList as InvoiceInList
+from moysklad_remap_12_sdk.models.invoice_in_payment import InvoiceInPayment as InvoiceInPayment
+from moysklad_remap_12_sdk.models.invoice_in_payment_cash_out import InvoiceInPaymentCashOut as InvoiceInPaymentCashOut
+from moysklad_remap_12_sdk.models.invoice_in_payment_payment_out import InvoiceInPaymentPaymentOut as InvoiceInPaymentPaymentOut
 from moysklad_remap_12_sdk.models.invoice_in_position import InvoiceInPosition as InvoiceInPosition
 from moysklad_remap_12_sdk.models.invoice_in_position_list import InvoiceInPositionList as InvoiceInPositionList
 from moysklad_remap_12_sdk.models.invoice_out import InvoiceOut as InvoiceOut
 from moysklad_remap_12_sdk.models.invoice_out_list import InvoiceOutList as InvoiceOutList
+from moysklad_remap_12_sdk.models.invoice_out_payment import InvoiceOutPayment as InvoiceOutPayment
+from moysklad_remap_12_sdk.models.invoice_out_payment_cash_in import InvoiceOutPaymentCashIn as InvoiceOutPaymentCashIn
+from moysklad_remap_12_sdk.models.invoice_out_payment_payment_in import InvoiceOutPaymentPaymentIn as InvoiceOutPaymentPaymentIn
 from moysklad_remap_12_sdk.models.invoice_out_position import InvoiceOutPosition as InvoiceOutPosition
 from moysklad_remap_12_sdk.models.invoice_out_position_list import InvoiceOutPositionList as InvoiceOutPositionList
 from moysklad_remap_12_sdk.models.label_print_request import LabelPrintRequest as LabelPrintRequest
@@ -1180,11 +1199,17 @@ from moysklad_remap_12_sdk.models.publication import Publication as Publication
 from moysklad_remap_12_sdk.models.publication_list import PublicationList as PublicationList
 from moysklad_remap_12_sdk.models.purchase_order import PurchaseOrder as PurchaseOrder
 from moysklad_remap_12_sdk.models.purchase_order_list import PurchaseOrderList as PurchaseOrderList
+from moysklad_remap_12_sdk.models.purchase_order_payment import PurchaseOrderPayment as PurchaseOrderPayment
+from moysklad_remap_12_sdk.models.purchase_order_payment_cash_out import PurchaseOrderPaymentCashOut as PurchaseOrderPaymentCashOut
+from moysklad_remap_12_sdk.models.purchase_order_payment_payment_out import PurchaseOrderPaymentPaymentOut as PurchaseOrderPaymentPaymentOut
 from moysklad_remap_12_sdk.models.purchase_order_position import PurchaseOrderPosition as PurchaseOrderPosition
 from moysklad_remap_12_sdk.models.purchase_order_position_list import PurchaseOrderPositionList as PurchaseOrderPositionList
 from moysklad_remap_12_sdk.models.purchase_order_rate import PurchaseOrderRate as PurchaseOrderRate
 from moysklad_remap_12_sdk.models.purchase_return import PurchaseReturn as PurchaseReturn
 from moysklad_remap_12_sdk.models.purchase_return_list import PurchaseReturnList as PurchaseReturnList
+from moysklad_remap_12_sdk.models.purchase_return_payment import PurchaseReturnPayment as PurchaseReturnPayment
+from moysklad_remap_12_sdk.models.purchase_return_payment_cash_in import PurchaseReturnPaymentCashIn as PurchaseReturnPaymentCashIn
+from moysklad_remap_12_sdk.models.purchase_return_payment_payment_in import PurchaseReturnPaymentPaymentIn as PurchaseReturnPaymentPaymentIn
 from moysklad_remap_12_sdk.models.purchase_return_position import PurchaseReturnPosition as PurchaseReturnPosition
 from moysklad_remap_12_sdk.models.purchase_return_position_list import PurchaseReturnPositionList as PurchaseReturnPositionList
 from moysklad_remap_12_sdk.models.rate_update_type import RateUpdateType as RateUpdateType
@@ -1252,10 +1277,12 @@ from moysklad_remap_12_sdk.models.retail_shift_operation_retail_demand import Re
 from moysklad_remap_12_sdk.models.retail_shift_operation_retail_drawer_cash_in import RetailShiftOperationRetailDrawerCashIn as RetailShiftOperationRetailDrawerCashIn
 from moysklad_remap_12_sdk.models.retail_shift_operation_retail_drawer_cash_out import RetailShiftOperationRetailDrawerCashOut as RetailShiftOperationRetailDrawerCashOut
 from moysklad_remap_12_sdk.models.retail_shift_operation_retail_sales_return import RetailShiftOperationRetailSalesReturn as RetailShiftOperationRetailSalesReturn
+from moysklad_remap_12_sdk.models.retail_shift_payment import RetailShiftPayment as RetailShiftPayment
+from moysklad_remap_12_sdk.models.retail_shift_payment_cash_in import RetailShiftPaymentCashIn as RetailShiftPaymentCashIn
 from moysklad_remap_12_sdk.models.retail_shift_payment_operation import RetailShiftPaymentOperation as RetailShiftPaymentOperation
 from moysklad_remap_12_sdk.models.retail_shift_payment_operation_cash_in import RetailShiftPaymentOperationCashIn as RetailShiftPaymentOperationCashIn
 from moysklad_remap_12_sdk.models.retail_shift_payment_operation_payment_in import RetailShiftPaymentOperationPaymentIn as RetailShiftPaymentOperationPaymentIn
-from moysklad_remap_12_sdk.models.retail_shift_payments_inner import RetailShiftPaymentsInner as RetailShiftPaymentsInner
+from moysklad_remap_12_sdk.models.retail_shift_payment_payment_in import RetailShiftPaymentPaymentIn as RetailShiftPaymentPaymentIn
 from moysklad_remap_12_sdk.models.retail_store import RetailStore as RetailStore
 from moysklad_remap_12_sdk.models.retail_store_environment import RetailStoreEnvironment as RetailStoreEnvironment
 from moysklad_remap_12_sdk.models.retail_store_environment_cheque_printer import RetailStoreEnvironmentChequePrinter as RetailStoreEnvironmentChequePrinter
@@ -1284,7 +1311,9 @@ from moysklad_remap_12_sdk.models.sales_channel_type import SalesChannelType as 
 from moysklad_remap_12_sdk.models.sales_manager_chat_message import SalesManagerChatMessage as SalesManagerChatMessage
 from moysklad_remap_12_sdk.models.sales_return import SalesReturn as SalesReturn
 from moysklad_remap_12_sdk.models.sales_return_list import SalesReturnList as SalesReturnList
-from moysklad_remap_12_sdk.models.sales_return_payments_inner import SalesReturnPaymentsInner as SalesReturnPaymentsInner
+from moysklad_remap_12_sdk.models.sales_return_payment import SalesReturnPayment as SalesReturnPayment
+from moysklad_remap_12_sdk.models.sales_return_payment_cash_out import SalesReturnPaymentCashOut as SalesReturnPaymentCashOut
+from moysklad_remap_12_sdk.models.sales_return_payment_payment_out import SalesReturnPaymentPaymentOut as SalesReturnPaymentPaymentOut
 from moysklad_remap_12_sdk.models.sales_return_position import SalesReturnPosition as SalesReturnPosition
 from moysklad_remap_12_sdk.models.sales_return_position_list import SalesReturnPositionList as SalesReturnPositionList
 from moysklad_remap_12_sdk.models.script_permission_value import ScriptPermissionValue as ScriptPermissionValue
@@ -1322,10 +1351,11 @@ from moysklad_remap_12_sdk.models.subscription import Subscription as Subscripti
 from moysklad_remap_12_sdk.models.subscription_tariff import SubscriptionTariff as SubscriptionTariff
 from moysklad_remap_12_sdk.models.supply import Supply as Supply
 from moysklad_remap_12_sdk.models.supply_list import SupplyList as SupplyList
-from moysklad_remap_12_sdk.models.supply_payments_inner import SupplyPaymentsInner as SupplyPaymentsInner
+from moysklad_remap_12_sdk.models.supply_payment import SupplyPayment as SupplyPayment
+from moysklad_remap_12_sdk.models.supply_payment_cash_out import SupplyPaymentCashOut as SupplyPaymentCashOut
+from moysklad_remap_12_sdk.models.supply_payment_payment_out import SupplyPaymentPaymentOut as SupplyPaymentPaymentOut
 from moysklad_remap_12_sdk.models.supply_position import SupplyPosition as SupplyPosition
 from moysklad_remap_12_sdk.models.supply_position_list import SupplyPositionList as SupplyPositionList
-from moysklad_remap_12_sdk.models.supply_returns_inner import SupplyReturnsInner as SupplyReturnsInner
 from moysklad_remap_12_sdk.models.task import Task as Task
 from moysklad_remap_12_sdk.models.task_list import TaskList as TaskList
 from moysklad_remap_12_sdk.models.task_note import TaskNote as TaskNote

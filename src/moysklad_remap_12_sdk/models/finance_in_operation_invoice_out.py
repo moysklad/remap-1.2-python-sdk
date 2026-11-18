@@ -30,11 +30,11 @@ from moysklad_remap_12_sdk.models.demand import Demand
 from moysklad_remap_12_sdk.models.employee import Employee
 from moysklad_remap_12_sdk.models.file_list import FileList
 from moysklad_remap_12_sdk.models.group import Group
+from moysklad_remap_12_sdk.models.invoice_out_payment import InvoiceOutPayment
 from moysklad_remap_12_sdk.models.invoice_out_position_list import InvoiceOutPositionList
 from moysklad_remap_12_sdk.models.meta import Meta
 from moysklad_remap_12_sdk.models.organization import Organization
 from moysklad_remap_12_sdk.models.project import Project
-from moysklad_remap_12_sdk.models.retail_shift_payments_inner import RetailShiftPaymentsInner
 from moysklad_remap_12_sdk.models.sales_channel import SalesChannel
 from moysklad_remap_12_sdk.models.state import State
 from moysklad_remap_12_sdk.models.store import Store
@@ -87,7 +87,7 @@ class FinanceInOperationInvoiceOut(FinanceInOperationAbstract):
     sales_channel: Optional[SalesChannel] = Field(default=None, description="Метаданные канала продаж", alias="salesChannel")
     customer_order: Optional[CustomerOrder] = Field(default=None, description="Заказ покупателя, с которым связан Счет покупателю", alias="customerOrder")
     demands: Optional[List[Demand]] = Field(default=None, description="Массив ссылок на связанные отгрузки")
-    payments: Optional[List[RetailShiftPaymentsInner]] = Field(default=None, description="Массив ссылок на связанные операции")
+    payments: Optional[List[InvoiceOutPayment]] = Field(default=None, description="Массив ссылок на связанные операции")
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["meta", "id", "accountId", "name", "code", "externalCode", "syncId", "description", "created", "deleted", "updated", "moment", "paymentPlannedMoment", "applicable", "printed", "published", "shared", "vatEnabled", "vatIncluded", "vatSum", "sum", "payedSum", "shippedSum", "organization", "organizationAccount", "agent", "agentAccount", "store", "state", "contract", "project", "owner", "group", "attributes", "files", "rate", "positions", "salesChannel", "customerOrder", "demands", "payments"]
 
@@ -119,6 +119,24 @@ class FinanceInOperationInvoiceOut(FinanceInOperationAbstract):
         `None` is only added for nullable fields set at initialization.
         OpenAPI `readOnly` response fields are retained.
         """
+        def _json_model_value(value):
+            if isinstance(value, list):
+                return [_json_model_value(item) for item in value]
+            if value is not None and hasattr(value, "to_dict") and callable(value.to_dict):
+                return value.to_dict()
+            return value
+
+        def _model_value_replaces_schema_set(value):
+            if isinstance(value, set):
+                return True
+            if isinstance(value, list):
+                return any(_model_value_replaces_schema_set(item) for item in value)
+            if isinstance(value, dict):
+                if "one_of_schemas" in value or "any_of_schemas" in value:
+                    return True
+                return any(_model_value_replaces_schema_set(item) for item in value.values())
+            return False
+
         excluded_fields: Set[str] = {
             "additional_properties",
         }
@@ -182,6 +200,22 @@ class FinanceInOperationInvoiceOut(FinanceInOperationAbstract):
             for _key, _value in self.additional_properties.items():
                 _dict[_key] = _value
 
+        # oneOf/anyOf, унаследованные поля и лишние свойства не должны уносить в JSON
+        # служебное множество имен схем: оно не сериализуется.
+        for _field_name, _field in type(self).model_fields.items():
+            if _field_name == "additional_properties":
+                continue
+            _value = getattr(self, _field_name)
+            _alias = _field.alias or _field_name
+            if _model_value_replaces_schema_set(_dict.get(_alias)):
+                _converted = _json_model_value(_value)
+                if _converted is not None:
+                    _dict[_alias] = _converted
+        for _extra_key, _extra_value in (getattr(self, "__pydantic_extra__", None) or {}).items():
+            if _model_value_replaces_schema_set(_dict.get(_extra_key)):
+                _converted = _json_model_value(_extra_value)
+                if _converted is not None:
+                    _dict[_extra_key] = _converted
         if self.description is None and "description" in self.model_fields_set:
             _dict['description'] = None
 
@@ -277,7 +311,7 @@ class FinanceInOperationInvoiceOut(FinanceInOperationAbstract):
             "salesChannel": SalesChannel.from_dict(obj["salesChannel"]) if obj.get("salesChannel") is not None else None,
             "customerOrder": CustomerOrder.from_dict(obj["customerOrder"]) if obj.get("customerOrder") is not None else None,
             "demands": [Demand.from_dict(_item) for _item in obj["demands"]] if obj.get("demands") is not None else None,
-            "payments": [RetailShiftPaymentsInner.from_dict(_item) for _item in obj["payments"]] if obj.get("payments") is not None else None
+            "payments": [InvoiceOutPayment.from_dict(_item) for _item in obj["payments"]] if obj.get("payments") is not None else None
         })
         _obj = cls.model_validate(_data)
         for _key in obj.keys():
@@ -405,6 +439,6 @@ from moysklad_remap_12_sdk.models.demand import Demand
 
 
 
-from moysklad_remap_12_sdk.models.retail_shift_payments_inner import RetailShiftPaymentsInner
+from moysklad_remap_12_sdk.models.invoice_out_payment import InvoiceOutPayment
 
 

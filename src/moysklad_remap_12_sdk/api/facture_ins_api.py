@@ -21,8 +21,8 @@ from typing import Any, Dict, List, Optional
 from typing_extensions import Annotated
 from moysklad_remap_12_sdk.models.attribute_meta_info import AttributeMetaInfo
 from moysklad_remap_12_sdk.models.attribute_meta_info_list import AttributeMetaInfoList
-from moysklad_remap_12_sdk.models.create_facture_ins_batch200_response_inner import CreateFactureInsBatch200ResponseInner
-from moysklad_remap_12_sdk.models.delete_invoice_out_batch200_response_inner import DeleteInvoiceOutBatch200ResponseInner
+from moysklad_remap_12_sdk.models.batch_response_entity import BatchResponseEntity
+from moysklad_remap_12_sdk.models.delete_row_result import DeleteRowResult
 from moysklad_remap_12_sdk.models.document_metadata import DocumentMetadata
 from moysklad_remap_12_sdk.models.facture_in import FactureIn
 from moysklad_remap_12_sdk.models.facture_in_list import FactureInList
@@ -327,12 +327,25 @@ class FactureInsApi:
             _path_params['id'] = id
         # process the query parameters
         # process the header parameters
+        # default_headers клиента добавляются позже и не сливаются по регистру.
+        # Значение из спецификации не должно создавать второй Accept рядом с accept.
+        def _header_already_set(_name: str) -> bool:
+            return any(
+                _header_name.lower() == _name.lower()
+                for _header_name in (*_header_params, *self.api_client.default_headers)
+            )
         if accept is not None:
-            _header_params['accept'] = accept
+            _header_params['Accept'] = accept
+        elif not _header_already_set('Accept'):
+            _header_params['Accept'] = 'application/json;charset=utf-8'
         if accept_encoding is not None:
             _header_params['Accept-Encoding'] = accept_encoding
+        elif not _header_already_set('Accept-Encoding'):
+            _header_params['Accept-Encoding'] = 'gzip'
         if content_type is not None:
             _header_params['Content-Type'] = content_type
+        elif not _header_already_set('Content-Type'):
+            _header_params['Content-Type'] = 'application/json'
         # process the form parameters
         # process the body parameter
         if file_upload is not None:
@@ -340,11 +353,12 @@ class FactureInsApi:
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
+        # Имя сравнивается без учета регистра, включая заголовки клиента:
+        # явный accept не должен оставаться рядом со стандартным Accept.
+        if not _header_already_set('Accept'):
             _header_params['Accept'] = self.api_client.select_header_accept(
                 [
-                    'application/json', 
-                    'text/html;charset=UTF-8'
+                    'application/json'
                 ]
             )
 
@@ -664,12 +678,25 @@ class FactureInsApi:
             _path_params['id'] = id
         # process the query parameters
         # process the header parameters
+        # default_headers клиента добавляются позже и не сливаются по регистру.
+        # Значение из спецификации не должно создавать второй Accept рядом с accept.
+        def _header_already_set(_name: str) -> bool:
+            return any(
+                _header_name.lower() == _name.lower()
+                for _header_name in (*_header_params, *self.api_client.default_headers)
+            )
         if accept is not None:
-            _header_params['accept'] = accept
+            _header_params['Accept'] = accept
+        elif not _header_already_set('Accept'):
+            _header_params['Accept'] = 'application/json;charset=utf-8'
         if accept_encoding is not None:
             _header_params['Accept-Encoding'] = accept_encoding
+        elif not _header_already_set('Accept-Encoding'):
+            _header_params['Accept-Encoding'] = 'gzip'
         if content_type is not None:
             _header_params['Content-Type'] = content_type
+        elif not _header_already_set('Content-Type'):
+            _header_params['Content-Type'] = 'application/json'
         # process the form parameters
         # process the body parameter
         if file_upload is not None:
@@ -677,11 +704,12 @@ class FactureInsApi:
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
+        # Имя сравнивается без учета регистра, включая заголовки клиента:
+        # явный accept не должен оставаться рядом со стандартным Accept.
+        if not _header_already_set('Accept'):
             _header_params['Accept'] = self.api_client.select_header_accept(
                 [
-                    'application/json', 
-                    'text/html;charset=UTF-8'
+                    'application/json'
                 ]
             )
 
@@ -999,12 +1027,25 @@ class FactureInsApi:
             _query_params.append(('expand', expand))
             
         # process the header parameters
+        # default_headers клиента добавляются позже и не сливаются по регистру.
+        # Значение из спецификации не должно создавать второй Accept рядом с accept.
+        def _header_already_set(_name: str) -> bool:
+            return any(
+                _header_name.lower() == _name.lower()
+                for _header_name in (*_header_params, *self.api_client.default_headers)
+            )
         if accept is not None:
-            _header_params['accept'] = accept
+            _header_params['Accept'] = accept
+        elif not _header_already_set('Accept'):
+            _header_params['Accept'] = 'application/json;charset=utf-8'
         if accept_encoding is not None:
             _header_params['Accept-Encoding'] = accept_encoding
+        elif not _header_already_set('Accept-Encoding'):
+            _header_params['Accept-Encoding'] = 'gzip'
         if content_type is not None:
             _header_params['Content-Type'] = content_type
+        elif not _header_already_set('Content-Type'):
+            _header_params['Content-Type'] = 'application/json'
         # process the form parameters
         # process the body parameter
         if facture_in is not None:
@@ -1012,11 +1053,12 @@ class FactureInsApi:
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
+        # Имя сравнивается без учета регистра, включая заголовки клиента:
+        # явный accept не должен оставаться рядом со стандартным Accept.
+        if not _header_already_set('Accept'):
             _header_params['Accept'] = self.api_client.select_header_accept(
                 [
-                    'application/json', 
-                    'text/html;charset=UTF-8'
+                    'application/json'
                 ]
             )
 
@@ -1317,12 +1359,25 @@ class FactureInsApi:
         # process the path parameters
         # process the query parameters
         # process the header parameters
+        # default_headers клиента добавляются позже и не сливаются по регистру.
+        # Значение из спецификации не должно создавать второй Accept рядом с accept.
+        def _header_already_set(_name: str) -> bool:
+            return any(
+                _header_name.lower() == _name.lower()
+                for _header_name in (*_header_params, *self.api_client.default_headers)
+            )
         if accept is not None:
-            _header_params['accept'] = accept
+            _header_params['Accept'] = accept
+        elif not _header_already_set('Accept'):
+            _header_params['Accept'] = 'application/json;charset=utf-8'
         if accept_encoding is not None:
             _header_params['Accept-Encoding'] = accept_encoding
+        elif not _header_already_set('Accept-Encoding'):
+            _header_params['Accept-Encoding'] = 'gzip'
         if content_type is not None:
             _header_params['Content-Type'] = content_type
+        elif not _header_already_set('Content-Type'):
+            _header_params['Content-Type'] = 'application/json'
         # process the form parameters
         # process the body parameter
         if attribute_meta_info is not None:
@@ -1330,11 +1385,12 @@ class FactureInsApi:
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
+        # Имя сравнивается без учета регистра, включая заголовки клиента:
+        # явный accept не должен оставаться рядом со стандартным Accept.
+        if not _header_already_set('Accept'):
             _header_params['Accept'] = self.api_client.select_header_accept(
                 [
-                    'application/json', 
-                    'text/html;charset=UTF-8'
+                    'application/json'
                 ]
             )
 
@@ -1635,12 +1691,25 @@ class FactureInsApi:
         # process the path parameters
         # process the query parameters
         # process the header parameters
+        # default_headers клиента добавляются позже и не сливаются по регистру.
+        # Значение из спецификации не должно создавать второй Accept рядом с accept.
+        def _header_already_set(_name: str) -> bool:
+            return any(
+                _header_name.lower() == _name.lower()
+                for _header_name in (*_header_params, *self.api_client.default_headers)
+            )
         if accept is not None:
-            _header_params['accept'] = accept
+            _header_params['Accept'] = accept
+        elif not _header_already_set('Accept'):
+            _header_params['Accept'] = 'application/json;charset=utf-8'
         if accept_encoding is not None:
             _header_params['Accept-Encoding'] = accept_encoding
+        elif not _header_already_set('Accept-Encoding'):
+            _header_params['Accept-Encoding'] = 'gzip'
         if content_type is not None:
             _header_params['Content-Type'] = content_type
+        elif not _header_already_set('Content-Type'):
+            _header_params['Content-Type'] = 'application/json'
         # process the form parameters
         # process the body parameter
         if state is not None:
@@ -1648,11 +1717,12 @@ class FactureInsApi:
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
+        # Имя сравнивается без учета регистра, включая заголовки клиента:
+        # явный accept не должен оставаться рядом со стандартным Accept.
+        if not _header_already_set('Accept'):
             _header_params['Accept'] = self.api_client.select_header_accept(
                 [
-                    'application/json', 
-                    'text/html;charset=UTF-8'
+                    'application/json'
                 ]
             )
 
@@ -1954,12 +2024,25 @@ class FactureInsApi:
         # process the path parameters
         # process the query parameters
         # process the header parameters
+        # default_headers клиента добавляются позже и не сливаются по регистру.
+        # Значение из спецификации не должно создавать второй Accept рядом с accept.
+        def _header_already_set(_name: str) -> bool:
+            return any(
+                _header_name.lower() == _name.lower()
+                for _header_name in (*_header_params, *self.api_client.default_headers)
+            )
         if accept is not None:
-            _header_params['accept'] = accept
+            _header_params['Accept'] = accept
+        elif not _header_already_set('Accept'):
+            _header_params['Accept'] = 'application/json;charset=utf-8'
         if accept_encoding is not None:
             _header_params['Accept-Encoding'] = accept_encoding
+        elif not _header_already_set('Accept-Encoding'):
+            _header_params['Accept-Encoding'] = 'gzip'
         if content_type is not None:
             _header_params['Content-Type'] = content_type
+        elif not _header_already_set('Content-Type'):
+            _header_params['Content-Type'] = 'application/json'
         # process the form parameters
         # process the body parameter
         if state is not None:
@@ -1967,11 +2050,12 @@ class FactureInsApi:
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
+        # Имя сравнивается без учета регистра, включая заголовки клиента:
+        # явный accept не должен оставаться рядом со стандартным Accept.
+        if not _header_already_set('Accept'):
             _header_params['Accept'] = self.api_client.select_header_accept(
                 [
-                    'application/json', 
-                    'text/html;charset=UTF-8'
+                    'application/json'
                 ]
             )
 
@@ -2033,7 +2117,7 @@ class FactureInsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> List[CreateFactureInsBatch200ResponseInner]:
+    ) -> List[BatchResponseEntity]:
         """Массовое создание и обновление Счетов-фактур полученных
 
 
@@ -2082,7 +2166,9 @@ class FactureInsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "List[CreateFactureInsBatch200ResponseInner]",
+            '200': "List[BatchResponseEntity]",
+            '404': "BatchEntityErrorResponse",
+            '412': "BatchEntityErrorResponse",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2115,7 +2201,7 @@ class FactureInsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[List[CreateFactureInsBatch200ResponseInner]]:
+    ) -> ApiResponse[List[BatchResponseEntity]]:
         """Массовое создание и обновление Счетов-фактур полученных
 
 
@@ -2164,7 +2250,9 @@ class FactureInsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "List[CreateFactureInsBatch200ResponseInner]",
+            '200': "List[BatchResponseEntity]",
+            '404': "BatchEntityErrorResponse",
+            '412': "BatchEntityErrorResponse",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2246,7 +2334,9 @@ class FactureInsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "List[CreateFactureInsBatch200ResponseInner]",
+            '200': "List[BatchResponseEntity]",
+            '404': "BatchEntityErrorResponse",
+            '412': "BatchEntityErrorResponse",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -2290,12 +2380,25 @@ class FactureInsApi:
             _query_params.append(('expand', expand))
             
         # process the header parameters
+        # default_headers клиента добавляются позже и не сливаются по регистру.
+        # Значение из спецификации не должно создавать второй Accept рядом с accept.
+        def _header_already_set(_name: str) -> bool:
+            return any(
+                _header_name.lower() == _name.lower()
+                for _header_name in (*_header_params, *self.api_client.default_headers)
+            )
         if accept is not None:
-            _header_params['accept'] = accept
+            _header_params['Accept'] = accept
+        elif not _header_already_set('Accept'):
+            _header_params['Accept'] = 'application/json;charset=utf-8'
         if accept_encoding is not None:
             _header_params['Accept-Encoding'] = accept_encoding
+        elif not _header_already_set('Accept-Encoding'):
+            _header_params['Accept-Encoding'] = 'gzip'
         if content_type is not None:
             _header_params['Content-Type'] = content_type
+        elif not _header_already_set('Content-Type'):
+            _header_params['Content-Type'] = 'application/json'
         # process the form parameters
         # process the body parameter
         if facture_in is not None:
@@ -2303,11 +2406,12 @@ class FactureInsApi:
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
+        # Имя сравнивается без учета регистра, включая заголовки клиента:
+        # явный accept не должен оставаться рядом со стандартным Accept.
+        if not _header_already_set('Accept'):
             _header_params['Accept'] = self.api_client.select_header_accept(
                 [
-                    'application/json', 
-                    'text/html;charset=UTF-8'
+                    'application/json'
                 ]
             )
 
@@ -2597,20 +2701,32 @@ class FactureInsApi:
             _path_params['id'] = id
         # process the query parameters
         # process the header parameters
+        # default_headers клиента добавляются позже и не сливаются по регистру.
+        # Значение из спецификации не должно создавать второй Accept рядом с accept.
+        def _header_already_set(_name: str) -> bool:
+            return any(
+                _header_name.lower() == _name.lower()
+                for _header_name in (*_header_params, *self.api_client.default_headers)
+            )
         if accept is not None:
-            _header_params['accept'] = accept
+            _header_params['Accept'] = accept
+        elif not _header_already_set('Accept'):
+            _header_params['Accept'] = 'application/json;charset=utf-8'
         if accept_encoding is not None:
             _header_params['Accept-Encoding'] = accept_encoding
+        elif not _header_already_set('Accept-Encoding'):
+            _header_params['Accept-Encoding'] = 'gzip'
         # process the form parameters
         # process the body parameter
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
+        # Имя сравнивается без учета регистра, включая заголовки клиента:
+        # явный accept не должен оставаться рядом со стандартным Accept.
+        if not _header_already_set('Accept'):
             _header_params['Accept'] = self.api_client.select_header_accept(
                 [
-                    'application/json', 
-                    'text/html;charset=UTF-8'
+                    'application/json'
                 ]
             )
 
@@ -2905,20 +3021,32 @@ class FactureInsApi:
             _path_params['fileId'] = file_id
         # process the query parameters
         # process the header parameters
+        # default_headers клиента добавляются позже и не сливаются по регистру.
+        # Значение из спецификации не должно создавать второй Accept рядом с accept.
+        def _header_already_set(_name: str) -> bool:
+            return any(
+                _header_name.lower() == _name.lower()
+                for _header_name in (*_header_params, *self.api_client.default_headers)
+            )
         if accept is not None:
-            _header_params['accept'] = accept
+            _header_params['Accept'] = accept
+        elif not _header_already_set('Accept'):
+            _header_params['Accept'] = 'application/json;charset=utf-8'
         if accept_encoding is not None:
             _header_params['Accept-Encoding'] = accept_encoding
+        elif not _header_already_set('Accept-Encoding'):
+            _header_params['Accept-Encoding'] = 'gzip'
         # process the form parameters
         # process the body parameter
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
+        # Имя сравнивается без учета регистра, включая заголовки клиента:
+        # явный accept не должен оставаться рядом со стандартным Accept.
+        if not _header_already_set('Accept'):
             _header_params['Accept'] = self.api_client.select_header_accept(
                 [
-                    'application/json', 
-                    'text/html;charset=UTF-8'
+                    'application/json'
                 ]
             )
 
@@ -3195,20 +3323,32 @@ class FactureInsApi:
             _path_params['id'] = id
         # process the query parameters
         # process the header parameters
+        # default_headers клиента добавляются позже и не сливаются по регистру.
+        # Значение из спецификации не должно создавать второй Accept рядом с accept.
+        def _header_already_set(_name: str) -> bool:
+            return any(
+                _header_name.lower() == _name.lower()
+                for _header_name in (*_header_params, *self.api_client.default_headers)
+            )
         if accept is not None:
-            _header_params['accept'] = accept
+            _header_params['Accept'] = accept
+        elif not _header_already_set('Accept'):
+            _header_params['Accept'] = 'application/json;charset=utf-8'
         if accept_encoding is not None:
             _header_params['Accept-Encoding'] = accept_encoding
+        elif not _header_already_set('Accept-Encoding'):
+            _header_params['Accept-Encoding'] = 'gzip'
         # process the form parameters
         # process the body parameter
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
+        # Имя сравнивается без учета регистра, включая заголовки клиента:
+        # явный accept не должен оставаться рядом со стандартным Accept.
+        if not _header_already_set('Accept'):
             _header_params['Accept'] = self.api_client.select_header_accept(
                 [
-                    'application/json', 
-                    'text/html;charset=UTF-8'
+                    'application/json'
                 ]
             )
 
@@ -3488,20 +3628,32 @@ class FactureInsApi:
             _path_params['id'] = id
         # process the query parameters
         # process the header parameters
+        # default_headers клиента добавляются позже и не сливаются по регистру.
+        # Значение из спецификации не должно создавать второй Accept рядом с accept.
+        def _header_already_set(_name: str) -> bool:
+            return any(
+                _header_name.lower() == _name.lower()
+                for _header_name in (*_header_params, *self.api_client.default_headers)
+            )
         if accept is not None:
-            _header_params['accept'] = accept
+            _header_params['Accept'] = accept
+        elif not _header_already_set('Accept'):
+            _header_params['Accept'] = 'application/json;charset=utf-8'
         if accept_encoding is not None:
             _header_params['Accept-Encoding'] = accept_encoding
+        elif not _header_already_set('Accept-Encoding'):
+            _header_params['Accept-Encoding'] = 'gzip'
         # process the form parameters
         # process the body parameter
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
+        # Имя сравнивается без учета регистра, включая заголовки клиента:
+        # явный accept не должен оставаться рядом со стандартным Accept.
+        if not _header_already_set('Accept'):
             _header_params['Accept'] = self.api_client.select_header_accept(
                 [
-                    'application/json', 
-                    'text/html;charset=UTF-8'
+                    'application/json'
                 ]
             )
 
@@ -3549,7 +3701,7 @@ class FactureInsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> List[DeleteInvoiceOutBatch200ResponseInner]:
+    ) -> List[DeleteRowResult]:
         """Массовое удаление Счетов-фактур полученных
 
         Массовое удаление Счетов-фактур полученных по их мета-объектам
@@ -3596,7 +3748,9 @@ class FactureInsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "List[DeleteInvoiceOutBatch200ResponseInner]",
+            '200': "List[DeleteRowResult]",
+            '404': "BatchDeleteErrorResponse",
+            '412': "BatchDeleteErrorResponse",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3628,7 +3782,7 @@ class FactureInsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[List[DeleteInvoiceOutBatch200ResponseInner]]:
+    ) -> ApiResponse[List[DeleteRowResult]]:
         """Массовое удаление Счетов-фактур полученных
 
         Массовое удаление Счетов-фактур полученных по их мета-объектам
@@ -3675,7 +3829,9 @@ class FactureInsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "List[DeleteInvoiceOutBatch200ResponseInner]",
+            '200': "List[DeleteRowResult]",
+            '404': "BatchDeleteErrorResponse",
+            '412': "BatchDeleteErrorResponse",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3754,7 +3910,9 @@ class FactureInsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            '200': "List[DeleteInvoiceOutBatch200ResponseInner]",
+            '200': "List[DeleteRowResult]",
+            '404': "BatchDeleteErrorResponse",
+            '412': "BatchDeleteErrorResponse",
         }
         response_data = self.api_client.call_api(
             *_param,
@@ -3793,12 +3951,25 @@ class FactureInsApi:
         # process the path parameters
         # process the query parameters
         # process the header parameters
+        # default_headers клиента добавляются позже и не сливаются по регистру.
+        # Значение из спецификации не должно создавать второй Accept рядом с accept.
+        def _header_already_set(_name: str) -> bool:
+            return any(
+                _header_name.lower() == _name.lower()
+                for _header_name in (*_header_params, *self.api_client.default_headers)
+            )
         if accept is not None:
-            _header_params['accept'] = accept
+            _header_params['Accept'] = accept
+        elif not _header_already_set('Accept'):
+            _header_params['Accept'] = 'application/json;charset=utf-8'
         if accept_encoding is not None:
             _header_params['Accept-Encoding'] = accept_encoding
+        elif not _header_already_set('Accept-Encoding'):
+            _header_params['Accept-Encoding'] = 'gzip'
         if content_type is not None:
             _header_params['Content-Type'] = content_type
+        elif not _header_already_set('Content-Type'):
+            _header_params['Content-Type'] = 'application/json'
         # process the form parameters
         # process the body parameter
         if facture_in is not None:
@@ -3806,11 +3977,12 @@ class FactureInsApi:
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
+        # Имя сравнивается без учета регистра, включая заголовки клиента:
+        # явный accept не должен оставаться рядом со стандартным Accept.
+        if not _header_already_set('Accept'):
             _header_params['Accept'] = self.api_client.select_header_accept(
                 [
-                    'application/json', 
-                    'text/html;charset=UTF-8'
+                    'application/json'
                 ]
             )
 
@@ -4117,20 +4289,32 @@ class FactureInsApi:
             _query_params.append(('expand', expand))
             
         # process the header parameters
+        # default_headers клиента добавляются позже и не сливаются по регистру.
+        # Значение из спецификации не должно создавать второй Accept рядом с accept.
+        def _header_already_set(_name: str) -> bool:
+            return any(
+                _header_name.lower() == _name.lower()
+                for _header_name in (*_header_params, *self.api_client.default_headers)
+            )
         if accept is not None:
-            _header_params['accept'] = accept
+            _header_params['Accept'] = accept
+        elif not _header_already_set('Accept'):
+            _header_params['Accept'] = 'application/json;charset=utf-8'
         if accept_encoding is not None:
             _header_params['Accept-Encoding'] = accept_encoding
+        elif not _header_already_set('Accept-Encoding'):
+            _header_params['Accept-Encoding'] = 'gzip'
         # process the form parameters
         # process the body parameter
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
+        # Имя сравнивается без учета регистра, включая заголовки клиента:
+        # явный accept не должен оставаться рядом со стандартным Accept.
+        if not _header_already_set('Accept'):
             _header_params['Accept'] = self.api_client.select_header_accept(
                 [
-                    'application/json', 
-                    'text/html;charset=UTF-8'
+                    'application/json'
                 ]
             )
 
@@ -4444,20 +4628,32 @@ class FactureInsApi:
             _query_params.append(('offset', offset))
             
         # process the header parameters
+        # default_headers клиента добавляются позже и не сливаются по регистру.
+        # Значение из спецификации не должно создавать второй Accept рядом с accept.
+        def _header_already_set(_name: str) -> bool:
+            return any(
+                _header_name.lower() == _name.lower()
+                for _header_name in (*_header_params, *self.api_client.default_headers)
+            )
         if accept is not None:
-            _header_params['accept'] = accept
+            _header_params['Accept'] = accept
+        elif not _header_already_set('Accept'):
+            _header_params['Accept'] = 'application/json;charset=utf-8'
         if accept_encoding is not None:
             _header_params['Accept-Encoding'] = accept_encoding
+        elif not _header_already_set('Accept-Encoding'):
+            _header_params['Accept-Encoding'] = 'gzip'
         # process the form parameters
         # process the body parameter
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
+        # Имя сравнивается без учета регистра, включая заголовки клиента:
+        # явный accept не должен оставаться рядом со стандартным Accept.
+        if not _header_already_set('Accept'):
             _header_params['Accept'] = self.api_client.select_header_accept(
                 [
-                    'application/json', 
-                    'text/html;charset=UTF-8'
+                    'application/json'
                 ]
             )
 
@@ -4739,20 +4935,32 @@ class FactureInsApi:
             _query_params.append(('expand', expand))
             
         # process the header parameters
+        # default_headers клиента добавляются позже и не сливаются по регистру.
+        # Значение из спецификации не должно создавать второй Accept рядом с accept.
+        def _header_already_set(_name: str) -> bool:
+            return any(
+                _header_name.lower() == _name.lower()
+                for _header_name in (*_header_params, *self.api_client.default_headers)
+            )
         if accept is not None:
-            _header_params['accept'] = accept
+            _header_params['Accept'] = accept
+        elif not _header_already_set('Accept'):
+            _header_params['Accept'] = 'application/json;charset=utf-8'
         if accept_encoding is not None:
             _header_params['Accept-Encoding'] = accept_encoding
+        elif not _header_already_set('Accept-Encoding'):
+            _header_params['Accept-Encoding'] = 'gzip'
         # process the form parameters
         # process the body parameter
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
+        # Имя сравнивается без учета регистра, включая заголовки клиента:
+        # явный accept не должен оставаться рядом со стандартным Accept.
+        if not _header_already_set('Accept'):
             _header_params['Accept'] = self.api_client.select_header_accept(
                 [
-                    'application/json', 
-                    'text/html;charset=UTF-8'
+                    'application/json'
                 ]
             )
 
@@ -5029,20 +5237,32 @@ class FactureInsApi:
             _path_params['id'] = id
         # process the query parameters
         # process the header parameters
+        # default_headers клиента добавляются позже и не сливаются по регистру.
+        # Значение из спецификации не должно создавать второй Accept рядом с accept.
+        def _header_already_set(_name: str) -> bool:
+            return any(
+                _header_name.lower() == _name.lower()
+                for _header_name in (*_header_params, *self.api_client.default_headers)
+            )
         if accept is not None:
-            _header_params['accept'] = accept
+            _header_params['Accept'] = accept
+        elif not _header_already_set('Accept'):
+            _header_params['Accept'] = 'application/json;charset=utf-8'
         if accept_encoding is not None:
             _header_params['Accept-Encoding'] = accept_encoding
+        elif not _header_already_set('Accept-Encoding'):
+            _header_params['Accept-Encoding'] = 'gzip'
         # process the form parameters
         # process the body parameter
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
+        # Имя сравнивается без учета регистра, включая заголовки клиента:
+        # явный accept не должен оставаться рядом со стандартным Accept.
+        if not _header_already_set('Accept'):
             _header_params['Accept'] = self.api_client.select_header_accept(
                 [
-                    'application/json', 
-                    'text/html;charset=UTF-8'
+                    'application/json'
                 ]
             )
 
@@ -5338,20 +5558,32 @@ class FactureInsApi:
             _query_params.append(('limit', limit))
             
         # process the header parameters
+        # default_headers клиента добавляются позже и не сливаются по регистру.
+        # Значение из спецификации не должно создавать второй Accept рядом с accept.
+        def _header_already_set(_name: str) -> bool:
+            return any(
+                _header_name.lower() == _name.lower()
+                for _header_name in (*_header_params, *self.api_client.default_headers)
+            )
         if accept is not None:
-            _header_params['accept'] = accept
+            _header_params['Accept'] = accept
+        elif not _header_already_set('Accept'):
+            _header_params['Accept'] = 'application/json;charset=utf-8'
         if accept_encoding is not None:
             _header_params['Accept-Encoding'] = accept_encoding
+        elif not _header_already_set('Accept-Encoding'):
+            _header_params['Accept-Encoding'] = 'gzip'
         # process the form parameters
         # process the body parameter
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
+        # Имя сравнивается без учета регистра, включая заголовки клиента:
+        # явный accept не должен оставаться рядом со стандартным Accept.
+        if not _header_already_set('Accept'):
             _header_params['Accept'] = self.api_client.select_header_accept(
                 [
-                    'application/json', 
-                    'text/html;charset=UTF-8'
+                    'application/json'
                 ]
             )
 
@@ -5628,20 +5860,32 @@ class FactureInsApi:
             _path_params['id'] = id
         # process the query parameters
         # process the header parameters
+        # default_headers клиента добавляются позже и не сливаются по регистру.
+        # Значение из спецификации не должно создавать второй Accept рядом с accept.
+        def _header_already_set(_name: str) -> bool:
+            return any(
+                _header_name.lower() == _name.lower()
+                for _header_name in (*_header_params, *self.api_client.default_headers)
+            )
         if accept is not None:
-            _header_params['accept'] = accept
+            _header_params['Accept'] = accept
+        elif not _header_already_set('Accept'):
+            _header_params['Accept'] = 'application/json;charset=utf-8'
         if accept_encoding is not None:
             _header_params['Accept-Encoding'] = accept_encoding
+        elif not _header_already_set('Accept-Encoding'):
+            _header_params['Accept-Encoding'] = 'gzip'
         # process the form parameters
         # process the body parameter
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
+        # Имя сравнивается без учета регистра, включая заголовки клиента:
+        # явный accept не должен оставаться рядом со стандартным Accept.
+        if not _header_already_set('Accept'):
             _header_params['Accept'] = self.api_client.select_header_accept(
                 [
-                    'application/json', 
-                    'text/html;charset=UTF-8'
+                    'application/json'
                 ]
             )
 
@@ -5932,12 +6176,25 @@ class FactureInsApi:
         # process the path parameters
         # process the query parameters
         # process the header parameters
+        # default_headers клиента добавляются позже и не сливаются по регистру.
+        # Значение из спецификации не должно создавать второй Accept рядом с accept.
+        def _header_already_set(_name: str) -> bool:
+            return any(
+                _header_name.lower() == _name.lower()
+                for _header_name in (*_header_params, *self.api_client.default_headers)
+            )
         if accept is not None:
-            _header_params['accept'] = accept
+            _header_params['Accept'] = accept
+        elif not _header_already_set('Accept'):
+            _header_params['Accept'] = 'application/json;charset=utf-8'
         if accept_encoding is not None:
             _header_params['Accept-Encoding'] = accept_encoding
+        elif not _header_already_set('Accept-Encoding'):
+            _header_params['Accept-Encoding'] = 'gzip'
         if content_type is not None:
             _header_params['Content-Type'] = content_type
+        elif not _header_already_set('Content-Type'):
+            _header_params['Content-Type'] = 'application/json'
         # process the form parameters
         # process the body parameter
         if body is not None:
@@ -5945,11 +6202,12 @@ class FactureInsApi:
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
+        # Имя сравнивается без учета регистра, включая заголовки клиента:
+        # явный accept не должен оставаться рядом со стандартным Accept.
+        if not _header_already_set('Accept'):
             _header_params['Accept'] = self.api_client.select_header_accept(
                 [
-                    'application/json', 
-                    'text/html;charset=UTF-8'
+                    'application/json'
                 ]
             )
 
@@ -6326,20 +6584,32 @@ class FactureInsApi:
             _query_params.append(('order', order))
             
         # process the header parameters
+        # default_headers клиента добавляются позже и не сливаются по регистру.
+        # Значение из спецификации не должно создавать второй Accept рядом с accept.
+        def _header_already_set(_name: str) -> bool:
+            return any(
+                _header_name.lower() == _name.lower()
+                for _header_name in (*_header_params, *self.api_client.default_headers)
+            )
         if accept is not None:
-            _header_params['accept'] = accept
+            _header_params['Accept'] = accept
+        elif not _header_already_set('Accept'):
+            _header_params['Accept'] = 'application/json;charset=utf-8'
         if accept_encoding is not None:
             _header_params['Accept-Encoding'] = accept_encoding
+        elif not _header_already_set('Accept-Encoding'):
+            _header_params['Accept-Encoding'] = 'gzip'
         # process the form parameters
         # process the body parameter
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
+        # Имя сравнивается без учета регистра, включая заголовки клиента:
+        # явный accept не должен оставаться рядом со стандартным Accept.
+        if not _header_already_set('Accept'):
             _header_params['Accept'] = self.api_client.select_header_accept(
                 [
-                    'application/json', 
-                    'text/html;charset=UTF-8'
+                    'application/json'
                 ]
             )
 
@@ -6374,6 +6644,7 @@ class FactureInsApi:
         id: Annotated[StrictStr, Field(description="ID сущности")],
         accept: Optional[StrictStr] = None,
         accept_encoding: Optional[StrictStr] = None,
+        content_type: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -6396,6 +6667,8 @@ class FactureInsApi:
         :type accept: str
         :param accept_encoding:
         :type accept_encoding: str
+        :param content_type:
+        :type content_type: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -6422,6 +6695,7 @@ class FactureInsApi:
             id=id,
             accept=accept,
             accept_encoding=accept_encoding,
+            content_type=content_type,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -6448,6 +6722,7 @@ class FactureInsApi:
         id: Annotated[StrictStr, Field(description="ID сущности")],
         accept: Optional[StrictStr] = None,
         accept_encoding: Optional[StrictStr] = None,
+        content_type: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -6470,6 +6745,8 @@ class FactureInsApi:
         :type accept: str
         :param accept_encoding:
         :type accept_encoding: str
+        :param content_type:
+        :type content_type: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -6496,6 +6773,7 @@ class FactureInsApi:
             id=id,
             accept=accept,
             accept_encoding=accept_encoding,
+            content_type=content_type,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -6522,6 +6800,7 @@ class FactureInsApi:
         id: Annotated[StrictStr, Field(description="ID сущности")],
         accept: Optional[StrictStr] = None,
         accept_encoding: Optional[StrictStr] = None,
+        content_type: Optional[StrictStr] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -6544,6 +6823,8 @@ class FactureInsApi:
         :type accept: str
         :param accept_encoding:
         :type accept_encoding: str
+        :param content_type:
+        :type content_type: str
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -6570,6 +6851,7 @@ class FactureInsApi:
             id=id,
             accept=accept,
             accept_encoding=accept_encoding,
+            content_type=content_type,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -6591,6 +6873,7 @@ class FactureInsApi:
         id,
         accept,
         accept_encoding,
+        content_type,
         _request_auth,
         _content_type,
         _headers,
@@ -6616,20 +6899,36 @@ class FactureInsApi:
             _path_params['id'] = id
         # process the query parameters
         # process the header parameters
+        # default_headers клиента добавляются позже и не сливаются по регистру.
+        # Значение из спецификации не должно создавать второй Accept рядом с accept.
+        def _header_already_set(_name: str) -> bool:
+            return any(
+                _header_name.lower() == _name.lower()
+                for _header_name in (*_header_params, *self.api_client.default_headers)
+            )
         if accept is not None:
-            _header_params['accept'] = accept
+            _header_params['Accept'] = accept
+        elif not _header_already_set('Accept'):
+            _header_params['Accept'] = 'application/json;charset=utf-8'
         if accept_encoding is not None:
             _header_params['Accept-Encoding'] = accept_encoding
+        elif not _header_already_set('Accept-Encoding'):
+            _header_params['Accept-Encoding'] = 'gzip'
+        if content_type is not None:
+            _header_params['Content-Type'] = content_type
+        elif not _header_already_set('Content-Type'):
+            _header_params['Content-Type'] = 'application/json'
         # process the form parameters
         # process the body parameter
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
+        # Имя сравнивается без учета регистра, включая заголовки клиента:
+        # явный accept не должен оставаться рядом со стандартным Accept.
+        if not _header_already_set('Accept'):
             _header_params['Accept'] = self.api_client.select_header_accept(
                 [
-                    'application/json', 
-                    'text/html;charset=UTF-8'
+                    'application/json'
                 ]
             )
 
@@ -6949,12 +7248,25 @@ class FactureInsApi:
             _query_params.append(('expand', expand))
             
         # process the header parameters
+        # default_headers клиента добавляются позже и не сливаются по регистру.
+        # Значение из спецификации не должно создавать второй Accept рядом с accept.
+        def _header_already_set(_name: str) -> bool:
+            return any(
+                _header_name.lower() == _name.lower()
+                for _header_name in (*_header_params, *self.api_client.default_headers)
+            )
         if accept is not None:
-            _header_params['accept'] = accept
+            _header_params['Accept'] = accept
+        elif not _header_already_set('Accept'):
+            _header_params['Accept'] = 'application/json;charset=utf-8'
         if accept_encoding is not None:
             _header_params['Accept-Encoding'] = accept_encoding
+        elif not _header_already_set('Accept-Encoding'):
+            _header_params['Accept-Encoding'] = 'gzip'
         if content_type is not None:
             _header_params['Content-Type'] = content_type
+        elif not _header_already_set('Content-Type'):
+            _header_params['Content-Type'] = 'application/json'
         # process the form parameters
         # process the body parameter
         if facture_in is not None:
@@ -6962,11 +7274,12 @@ class FactureInsApi:
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
+        # Имя сравнивается без учета регистра, включая заголовки клиента:
+        # явный accept не должен оставаться рядом со стандартным Accept.
+        if not _header_already_set('Accept'):
             _header_params['Accept'] = self.api_client.select_header_accept(
                 [
-                    'application/json', 
-                    'text/html;charset=UTF-8'
+                    'application/json'
                 ]
             )
 
@@ -7282,12 +7595,25 @@ class FactureInsApi:
             _path_params['id'] = id
         # process the query parameters
         # process the header parameters
+        # default_headers клиента добавляются позже и не сливаются по регистру.
+        # Значение из спецификации не должно создавать второй Accept рядом с accept.
+        def _header_already_set(_name: str) -> bool:
+            return any(
+                _header_name.lower() == _name.lower()
+                for _header_name in (*_header_params, *self.api_client.default_headers)
+            )
         if accept is not None:
-            _header_params['accept'] = accept
+            _header_params['Accept'] = accept
+        elif not _header_already_set('Accept'):
+            _header_params['Accept'] = 'application/json;charset=utf-8'
         if accept_encoding is not None:
             _header_params['Accept-Encoding'] = accept_encoding
+        elif not _header_already_set('Accept-Encoding'):
+            _header_params['Accept-Encoding'] = 'gzip'
         if content_type is not None:
             _header_params['Content-Type'] = content_type
+        elif not _header_already_set('Content-Type'):
+            _header_params['Content-Type'] = 'application/json'
         # process the form parameters
         # process the body parameter
         if attribute_meta_info is not None:
@@ -7295,11 +7621,12 @@ class FactureInsApi:
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
+        # Имя сравнивается без учета регистра, включая заголовки клиента:
+        # явный accept не должен оставаться рядом со стандартным Accept.
+        if not _header_already_set('Accept'):
             _header_params['Accept'] = self.api_client.select_header_accept(
                 [
-                    'application/json', 
-                    'text/html;charset=UTF-8'
+                    'application/json'
                 ]
             )
 
@@ -7615,12 +7942,25 @@ class FactureInsApi:
             _path_params['id'] = id
         # process the query parameters
         # process the header parameters
+        # default_headers клиента добавляются позже и не сливаются по регистру.
+        # Значение из спецификации не должно создавать второй Accept рядом с accept.
+        def _header_already_set(_name: str) -> bool:
+            return any(
+                _header_name.lower() == _name.lower()
+                for _header_name in (*_header_params, *self.api_client.default_headers)
+            )
         if accept is not None:
-            _header_params['accept'] = accept
+            _header_params['Accept'] = accept
+        elif not _header_already_set('Accept'):
+            _header_params['Accept'] = 'application/json;charset=utf-8'
         if accept_encoding is not None:
             _header_params['Accept-Encoding'] = accept_encoding
+        elif not _header_already_set('Accept-Encoding'):
+            _header_params['Accept-Encoding'] = 'gzip'
         if content_type is not None:
             _header_params['Content-Type'] = content_type
+        elif not _header_already_set('Content-Type'):
+            _header_params['Content-Type'] = 'application/json'
         # process the form parameters
         # process the body parameter
         if state is not None:
@@ -7628,11 +7968,12 @@ class FactureInsApi:
 
 
         # set the HTTP header `Accept`
-        if 'Accept' not in _header_params:
+        # Имя сравнивается без учета регистра, включая заголовки клиента:
+        # явный accept не должен оставаться рядом со стандартным Accept.
+        if not _header_already_set('Accept'):
             _header_params['Accept'] = self.api_client.select_header_accept(
                 [
-                    'application/json', 
-                    'text/html;charset=UTF-8'
+                    'application/json'
                 ]
             )
 

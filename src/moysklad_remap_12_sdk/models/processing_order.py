@@ -26,6 +26,7 @@ from moysklad_remap_12_sdk.models.file_list import FileList
 from moysklad_remap_12_sdk.models.group import Group
 from moysklad_remap_12_sdk.models.meta import Meta
 from moysklad_remap_12_sdk.models.organization import Organization
+from moysklad_remap_12_sdk.models.processing_order_position_list import ProcessingOrderPositionList
 from moysklad_remap_12_sdk.models.processing_plan import ProcessingPlan
 from moysklad_remap_12_sdk.models.project import Project
 from moysklad_remap_12_sdk.models.state import State
@@ -65,7 +66,7 @@ class ProcessingOrder(EntityWithMeta):
     group: Optional[Group] = None
     attributes: Optional[List[AttributeAbstract]] = Field(default=None, description="Коллекция метаданных доп. полей")
     files: Optional[FileList] = Field(default=None, description="Метаданные массива Файлов")
-    positions: Optional[ProcessingOrderPositionList] = Field(default=None, description="""Позиции Заказа на производство""", alias="positions")
+    positions: Optional[ProcessingOrderPositionList] = None
     quantity: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Объем производства")
     processings: Optional[List[Processing]] = Field(default=None, description="Массив ссылок на связанные техоперации")
     additional_properties: Dict[str, Any] = {}
@@ -118,6 +119,24 @@ class ProcessingOrder(EntityWithMeta):
         `None` is only added for nullable fields set at initialization.
         OpenAPI `readOnly` response fields are retained.
         """
+        def _json_model_value(value):
+            if isinstance(value, list):
+                return [_json_model_value(item) for item in value]
+            if value is not None and hasattr(value, "to_dict") and callable(value.to_dict):
+                return value.to_dict()
+            return value
+
+        def _model_value_replaces_schema_set(value):
+            if isinstance(value, set):
+                return True
+            if isinstance(value, list):
+                return any(_model_value_replaces_schema_set(item) for item in value)
+            if isinstance(value, dict):
+                if "one_of_schemas" in value or "any_of_schemas" in value:
+                    return True
+                return any(_model_value_replaces_schema_set(item) for item in value.values())
+            return False
+
         excluded_fields: Set[str] = {
             "additional_properties",
         }
@@ -163,6 +182,22 @@ class ProcessingOrder(EntityWithMeta):
             for _key, _value in self.additional_properties.items():
                 _dict[_key] = _value
 
+        # oneOf/anyOf, унаследованные поля и лишние свойства не должны уносить в JSON
+        # служебное множество имен схем: оно не сериализуется.
+        for _field_name, _field in type(self).model_fields.items():
+            if _field_name == "additional_properties":
+                continue
+            _value = getattr(self, _field_name)
+            _alias = _field.alias or _field_name
+            if _model_value_replaces_schema_set(_dict.get(_alias)):
+                _converted = _json_model_value(_value)
+                if _converted is not None:
+                    _dict[_alias] = _converted
+        for _extra_key, _extra_value in (getattr(self, "__pydantic_extra__", None) or {}).items():
+            if _model_value_replaces_schema_set(_dict.get(_extra_key)):
+                _converted = _json_model_value(_extra_value)
+                if _converted is not None:
+                    _dict[_extra_key] = _converted
         if self.description is None and "description" in self.model_fields_set:
             _dict['description'] = None
 

@@ -60,7 +60,7 @@ with moysklad_remap_12_sdk.ApiClient(configuration) as api_client:
     order = 'order_example' # str | Сортировка (optional)
     group_by = 'group_by_example' # str | Тип, по которому нужно сгруппировать выдачу. Значение по умолчанию `variant`. - `product` — выдает только товары - `variant` — выдает товары и модификации - `consignment` — выдает товары, модификации, партии  (optional)
     accept = application/json;charset=utf-8 # str |  (optional) (default to application/json;charset=utf-8)
-    accept_encoding = 'gzip, deflate, br' # str |  (optional) (default to 'gzip, deflate, br')
+    accept_encoding = 'gzip' # str |  (optional) (default to 'gzip')
 
     try:
         # Получить Остатки по складам
@@ -84,7 +84,7 @@ Name | Type | Description  | Notes
  **order** | **str**| Сортировка | [optional] 
  **group_by** | **str**| Тип, по которому нужно сгруппировать выдачу. Значение по умолчанию &#x60;variant&#x60;. - &#x60;product&#x60; — выдает только товары - &#x60;variant&#x60; — выдает товары и модификации - &#x60;consignment&#x60; — выдает товары, модификации, партии  | [optional] 
  **accept** | **str**|  | [optional] [default to application/json;charset&#x3D;utf-8]
- **accept_encoding** | **str**|  | [optional] [default to &#39;gzip, deflate, br&#39;]
+ **accept_encoding** | **str**|  | [optional] [default to &#39;gzip&#39;]
 
 ### Return type
 
@@ -97,7 +97,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json, text/html;charset=UTF-8
+ - **Accept**: application/json
 
 ### HTTP response details
 

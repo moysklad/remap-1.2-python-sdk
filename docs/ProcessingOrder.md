@@ -32,7 +32,7 @@ Name | Type | Description | Notes
 **group** | [**Group**](Group.md) |  | [optional] 
 **attributes** | [**List[AttributeAbstract]**](AttributeAbstract.md) | Коллекция метаданных доп. полей | [optional] 
 **files** | [**FileList**](FileList.md) | Метаданные массива Файлов | [optional] 
-**positions** | [**ProcessingOrderPositionList**](.md) | Позиции Заказа на производство | [optional] 
+**positions** | [**ProcessingOrderPositionList**](ProcessingOrderPositionList.md) |  | [optional] 
 **quantity** | **float** | Объем производства | [optional] 
 **processings** | [**List[Processing]**](Processing.md) | Массив ссылок на связанные техоперации | [optional] 
 

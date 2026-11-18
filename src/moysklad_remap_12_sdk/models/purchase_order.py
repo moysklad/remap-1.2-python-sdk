@@ -31,6 +31,7 @@ from moysklad_remap_12_sdk.models.meta import Meta
 from moysklad_remap_12_sdk.models.organization import Organization
 from moysklad_remap_12_sdk.models.production_task import ProductionTask
 from moysklad_remap_12_sdk.models.project import Project
+from moysklad_remap_12_sdk.models.purchase_order_payment import PurchaseOrderPayment
 from moysklad_remap_12_sdk.models.purchase_order_position_list import PurchaseOrderPositionList
 from moysklad_remap_12_sdk.models.purchase_order_rate import PurchaseOrderRate
 from moysklad_remap_12_sdk.models.state import State
@@ -87,7 +88,7 @@ class PurchaseOrder(EntityWithMeta):
     customer_orders: Optional[List[CustomerOrder]] = Field(default=None, description="Массив ссылок на связанные заказы покупателей", alias="customerOrders")
     invoices_in: Optional[List[InvoiceIn]] = Field(default=None, description="Массив ссылок на связанные счета поставщиков", alias="invoicesIn")
     supplies: Optional[List[Supply]] = Field(default=None, description="Массив ссылок на связанные приемки")
-    payments: Optional[List[SalesReturnPaymentsInner]] = Field(default=None, description="Массив ссылок на связанные платежи")
+    payments: Optional[List[PurchaseOrderPayment]] = Field(default=None, description="Массив ссылок на связанные платежи")
     production_tasks: Optional[List[ProductionTask]] = Field(default=None, description="Массив ссылок на связанные производственные задания", alias="productionTasks")
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["meta", "id", "accountId", "name", "code", "externalCode", "syncId", "description", "created", "deleted", "updated", "moment", "deliveryPlannedMoment", "applicable", "printed", "published", "shared", "vatEnabled", "vatIncluded", "vatSum", "sum", "payedSum", "shippedSum", "invoicedSum", "waitSum", "organization", "organizationAccount", "agent", "agentAccount", "store", "state", "contract", "project", "owner", "group", "attributes", "files", "rate", "positions", "internalOrder", "customerOrders", "invoicesIn", "supplies", "payments", "productionTasks"]
@@ -139,6 +140,24 @@ class PurchaseOrder(EntityWithMeta):
         `None` is only added for nullable fields set at initialization.
         OpenAPI `readOnly` response fields are retained.
         """
+        def _json_model_value(value):
+            if isinstance(value, list):
+                return [_json_model_value(item) for item in value]
+            if value is not None and hasattr(value, "to_dict") and callable(value.to_dict):
+                return value.to_dict()
+            return value
+
+        def _model_value_replaces_schema_set(value):
+            if isinstance(value, set):
+                return True
+            if isinstance(value, list):
+                return any(_model_value_replaces_schema_set(item) for item in value)
+            if isinstance(value, dict):
+                if "one_of_schemas" in value or "any_of_schemas" in value:
+                    return True
+                return any(_model_value_replaces_schema_set(item) for item in value.values())
+            return False
+
         excluded_fields: Set[str] = {
             "additional_properties",
         }
@@ -218,6 +237,22 @@ class PurchaseOrder(EntityWithMeta):
             for _key, _value in self.additional_properties.items():
                 _dict[_key] = _value
 
+        # oneOf/anyOf, унаследованные поля и лишние свойства не должны уносить в JSON
+        # служебное множество имен схем: оно не сериализуется.
+        for _field_name, _field in type(self).model_fields.items():
+            if _field_name == "additional_properties":
+                continue
+            _value = getattr(self, _field_name)
+            _alias = _field.alias or _field_name
+            if _model_value_replaces_schema_set(_dict.get(_alias)):
+                _converted = _json_model_value(_value)
+                if _converted is not None:
+                    _dict[_alias] = _converted
+        for _extra_key, _extra_value in (getattr(self, "__pydantic_extra__", None) or {}).items():
+            if _model_value_replaces_schema_set(_dict.get(_extra_key)):
+                _converted = _json_model_value(_extra_value)
+                if _converted is not None:
+                    _dict[_extra_key] = _converted
         if self.description is None and "description" in self.model_fields_set:
             _dict['description'] = None
 
@@ -322,7 +357,7 @@ class PurchaseOrder(EntityWithMeta):
             "customerOrders": [CustomerOrder.from_dict(_item) for _item in obj["customerOrders"]] if obj.get("customerOrders") is not None else None,
             "invoicesIn": [InvoiceIn.from_dict(_item) for _item in obj["invoicesIn"]] if obj.get("invoicesIn") is not None else None,
             "supplies": [Supply.from_dict(_item) for _item in obj["supplies"]] if obj.get("supplies") is not None else None,
-            "payments": [SalesReturnPaymentsInner.from_dict(_item) for _item in obj["payments"]] if obj.get("payments") is not None else None,
+            "payments": [PurchaseOrderPayment.from_dict(_item) for _item in obj["payments"]] if obj.get("payments") is not None else None,
             "productionTasks": [ProductionTask.from_dict(_item) for _item in obj["productionTasks"]] if obj.get("productionTasks") is not None else None
         })
         _obj = cls.model_validate(_data)
@@ -335,7 +370,6 @@ class PurchaseOrder(EntityWithMeta):
 from moysklad_remap_12_sdk.models.customer_order import CustomerOrder
 from moysklad_remap_12_sdk.models.internal_order import InternalOrder
 from moysklad_remap_12_sdk.models.invoice_in import InvoiceIn
-from moysklad_remap_12_sdk.models.sales_return_payments_inner import SalesReturnPaymentsInner
 from moysklad_remap_12_sdk.models.supply import Supply
 # TODO: Rewrite to not use raise_errors
 PurchaseOrder.model_rebuild(raise_errors=False)
@@ -466,7 +500,7 @@ from moysklad_remap_12_sdk.models.supply import Supply
 
 
 
-from moysklad_remap_12_sdk.models.sales_return_payments_inner import SalesReturnPaymentsInner
+from moysklad_remap_12_sdk.models.purchase_order_payment import PurchaseOrderPayment
 
 
 

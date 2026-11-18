@@ -15,7 +15,7 @@ Name | Type | Description | Notes
 **created** | **str** | Дата создания | [optional] [readonly] 
 **deleted** | **str** | Момент последнего удаления Списания | [optional] [readonly] 
 **description** | **str** | Комментарий Списания | [optional] 
-**expense_item** | [**ExpenseItem**](ExpenseItem.md) | Метаданные Статьи расходов | [optional] [readonly] 
+**expense_item** | [**ExpenseItem**](ExpenseItem.md) | Метаданные Статьи расходов | [optional] 
 **external_code** | **str** | Внешний код Списания | [optional] 
 **files** | [**FileList**](FileList.md) | Метаданные массива Файлов (Максимальное количество файлов - 100) | [optional] 
 **group** | [**Group**](Group.md) |  | [optional] 

@@ -23,7 +23,6 @@ from typing_extensions import Annotated
 from moysklad_remap_12_sdk.models.account import Account
 from moysklad_remap_12_sdk.models.agent import Agent
 from moysklad_remap_12_sdk.models.attribute_abstract import AttributeAbstract
-from moysklad_remap_12_sdk.models.contract import Contract
 from moysklad_remap_12_sdk.models.employee import Employee
 from moysklad_remap_12_sdk.models.file_list import FileList
 from moysklad_remap_12_sdk.models.group import Group
@@ -31,8 +30,8 @@ from moysklad_remap_12_sdk.models.meta import Meta
 from moysklad_remap_12_sdk.models.organization import Organization
 from moysklad_remap_12_sdk.models.retail_shift_cheque import RetailShiftCheque
 from moysklad_remap_12_sdk.models.retail_shift_operation import RetailShiftOperation
+from moysklad_remap_12_sdk.models.retail_shift_payment import RetailShiftPayment
 from moysklad_remap_12_sdk.models.retail_shift_payment_operation import RetailShiftPaymentOperation
-from moysklad_remap_12_sdk.models.retail_shift_payments_inner import RetailShiftPaymentsInner
 from moysklad_remap_12_sdk.models.retail_store import RetailStore
 from moysklad_remap_12_sdk.models.store import Store
 from typing import Optional, Set
@@ -50,7 +49,7 @@ class FinanceInOperationRetailShift(FinanceInOperationAbstract):
     name: Optional[Annotated[str, Field(strict=True, max_length=255)]] = Field(default=None, description="Наименование смены")
     moment: Optional[StrictStr] = Field(default=None, description="Дата смены")
     retail_store: Optional[RetailStore] = Field(default=None, description="Метаданные точки продаж", alias="retailStore")
-    payments: Optional[List[RetailShiftPaymentsInner]] = Field(default=None, description="Связанные платежи")
+    payments: Optional[List[RetailShiftPayment]] = Field(default=None, description="Связанные платежи")
     acquire: Optional[Agent] = Field(default=None, description="Метаданные Банка-эквайера по операциям по карте")
     agent_account: Optional[Account] = Field(default=None, description="Метаданные счета контрагента", alias="agentAccount")
     attributes: Optional[List[AttributeAbstract]] = Field(default=None, description="Коллекция метаданных доп. полей")
@@ -58,7 +57,6 @@ class FinanceInOperationRetailShift(FinanceInOperationAbstract):
     bank_percent: Optional[Union[Annotated[float, Field(le=100, strict=True, ge=0)], Annotated[int, Field(le=100, strict=True, ge=0)]]] = Field(default=None, description="Комиссия банка-эквайера по операциям по карте (в процентах)", alias="bankPercent")
     cheque: Optional[RetailShiftCheque] = Field(default=None, description="Информация о смене ККТ")
     close_date: Optional[StrictStr] = Field(default=None, description="Дата закрытия смены", alias="closeDate")
-    contract: Optional[Contract] = Field(default=None, description="Метаданные договора")
     created: Optional[StrictStr] = Field(default=None, description="Дата создания")
     deleted: Optional[StrictStr] = Field(default=None, description="Момент последнего удаления Розничной смены")
     description: Optional[Annotated[str, Field(strict=True, max_length=4096)]] = Field(default=None, description="Комментарий Розничной смены")
@@ -83,10 +81,8 @@ class FinanceInOperationRetailShift(FinanceInOperationAbstract):
     store: Optional[Store] = None
     sync_id: Optional[StrictStr] = Field(default=None, description="ID синхронизации", alias="syncId")
     updated: Optional[StrictStr] = Field(default=None, description="Момент последнего обновления Розничной смены")
-    vat_enabled: Optional[StrictBool] = Field(default=None, description="Учитывается ли НДС", alias="vatEnabled")
-    vat_included: Optional[StrictBool] = Field(default=None, description="Включен ли НДС в цену", alias="vatIncluded")
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["meta", "id", "accountId", "name", "moment", "retailStore", "payments", "acquire", "agentAccount", "attributes", "bankComission", "bankPercent", "cheque", "closeDate", "contract", "created", "deleted", "description", "externalCode", "files", "group", "operations", "organization", "organizationAccount", "owner", "paymentOperations", "printed", "proceedsCash", "proceedsNoCash", "published", "qrAcquire", "qrBankComission", "qrBankPercent", "receivedCash", "receivedNoCash", "shared", "store", "syncId", "updated", "vatEnabled", "vatIncluded"]
+    __properties: ClassVar[List[str]] = ["meta", "id", "accountId", "name", "moment", "retailStore", "payments", "acquire", "agentAccount", "attributes", "bankComission", "bankPercent", "cheque", "closeDate", "created", "deleted", "description", "externalCode", "files", "group", "operations", "organization", "organizationAccount", "owner", "paymentOperations", "printed", "proceedsCash", "proceedsNoCash", "published", "qrAcquire", "qrBankComission", "qrBankPercent", "receivedCash", "receivedNoCash", "shared", "store", "syncId", "updated"]
 
     model_config = ConfigDict(
         extra="allow",
@@ -116,6 +112,24 @@ class FinanceInOperationRetailShift(FinanceInOperationAbstract):
         `None` is only added for nullable fields set at initialization.
         OpenAPI `readOnly` response fields are retained.
         """
+        def _json_model_value(value):
+            if isinstance(value, list):
+                return [_json_model_value(item) for item in value]
+            if value is not None and hasattr(value, "to_dict") and callable(value.to_dict):
+                return value.to_dict()
+            return value
+
+        def _model_value_replaces_schema_set(value):
+            if isinstance(value, set):
+                return True
+            if isinstance(value, list):
+                return any(_model_value_replaces_schema_set(item) for item in value)
+            if isinstance(value, dict):
+                if "one_of_schemas" in value or "any_of_schemas" in value:
+                    return True
+                return any(_model_value_replaces_schema_set(item) for item in value.values())
+            return False
+
         excluded_fields: Set[str] = {
             "additional_properties",
         }
@@ -147,8 +161,6 @@ class FinanceInOperationRetailShift(FinanceInOperationAbstract):
             _dict['attributes'] = _items
         if self.cheque:
             _dict['cheque'] = self.cheque.to_dict()
-        if self.contract:
-            _dict['contract'] = self.contract.to_dict()
         if self.files:
             _dict['files'] = self.files.to_dict()
         if self.group:
@@ -179,6 +191,22 @@ class FinanceInOperationRetailShift(FinanceInOperationAbstract):
             for _key, _value in self.additional_properties.items():
                 _dict[_key] = _value
 
+        # oneOf/anyOf, унаследованные поля и лишние свойства не должны уносить в JSON
+        # служебное множество имен схем: оно не сериализуется.
+        for _field_name, _field in type(self).model_fields.items():
+            if _field_name == "additional_properties":
+                continue
+            _value = getattr(self, _field_name)
+            _alias = _field.alias or _field_name
+            if _model_value_replaces_schema_set(_dict.get(_alias)):
+                _converted = _json_model_value(_value)
+                if _converted is not None:
+                    _dict[_alias] = _converted
+        for _extra_key, _extra_value in (getattr(self, "__pydantic_extra__", None) or {}).items():
+            if _model_value_replaces_schema_set(_dict.get(_extra_key)):
+                _converted = _json_model_value(_extra_value)
+                if _converted is not None:
+                    _dict[_extra_key] = _converted
         if self.retail_store is None and "retail_store" in self.model_fields_set:
             _dict['retailStore'] = None
 
@@ -199,9 +227,6 @@ class FinanceInOperationRetailShift(FinanceInOperationAbstract):
 
         if self.close_date is None and "close_date" in self.model_fields_set:
             _dict['closeDate'] = None
-
-        if self.contract is None and "contract" in self.model_fields_set:
-            _dict['contract'] = None
 
         if self.deleted is None and "deleted" in self.model_fields_set:
             _dict['deleted'] = None
@@ -246,7 +271,7 @@ class FinanceInOperationRetailShift(FinanceInOperationAbstract):
             "name": obj.get("name"),
             "moment": obj.get("moment"),
             "retailStore": RetailStore.from_dict(obj["retailStore"]) if obj.get("retailStore") is not None else None,
-            "payments": [RetailShiftPaymentsInner.from_dict(_item) for _item in obj["payments"]] if obj.get("payments") is not None else None,
+            "payments": [RetailShiftPayment.from_dict(_item) for _item in obj["payments"]] if obj.get("payments") is not None else None,
             "acquire": Agent.from_dict(obj["acquire"]) if obj.get("acquire") is not None else None,
             "agentAccount": Account.from_dict(obj["agentAccount"]) if obj.get("agentAccount") is not None else None,
             "attributes": [AttributeAbstract.from_dict(_item) for _item in obj["attributes"]] if obj.get("attributes") is not None else None,
@@ -254,7 +279,6 @@ class FinanceInOperationRetailShift(FinanceInOperationAbstract):
             "bankPercent": obj.get("bankPercent"),
             "cheque": RetailShiftCheque.from_dict(obj["cheque"]) if obj.get("cheque") is not None else None,
             "closeDate": obj.get("closeDate"),
-            "contract": Contract.from_dict(obj["contract"]) if obj.get("contract") is not None else None,
             "created": obj.get("created"),
             "deleted": obj.get("deleted"),
             "description": obj.get("description"),
@@ -278,9 +302,7 @@ class FinanceInOperationRetailShift(FinanceInOperationAbstract):
             "shared": obj.get("shared"),
             "store": Store.from_dict(obj["store"]) if obj.get("store") is not None else None,
             "syncId": obj.get("syncId"),
-            "updated": obj.get("updated"),
-            "vatEnabled": obj.get("vatEnabled"),
-            "vatIncluded": obj.get("vatIncluded")
+            "updated": obj.get("updated")
         })
         _obj = cls.model_validate(_data)
         for _key in obj.keys():
@@ -308,7 +330,7 @@ from moysklad_remap_12_sdk.models.retail_store import RetailStore
 
 
 
-from moysklad_remap_12_sdk.models.retail_shift_payments_inner import RetailShiftPaymentsInner
+from moysklad_remap_12_sdk.models.retail_shift_payment import RetailShiftPayment
 
 
 from moysklad_remap_12_sdk.models.agent import Agent
@@ -330,10 +352,6 @@ from moysklad_remap_12_sdk.models.attribute_abstract import AttributeAbstract
 from moysklad_remap_12_sdk.models.retail_shift_cheque import RetailShiftCheque
 
 
-
-
-
-from moysklad_remap_12_sdk.models.contract import Contract
 
 
 
@@ -396,10 +414,6 @@ from moysklad_remap_12_sdk.models.agent import Agent
 
 
 from moysklad_remap_12_sdk.models.store import Store
-
-
-
-
 
 
 

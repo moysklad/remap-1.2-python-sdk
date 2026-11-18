@@ -22,6 +22,7 @@ from typing import Any, ClassVar, Dict, List, Optional, Union
 from typing_extensions import Annotated
 from moysklad_remap_12_sdk.models.attribute_abstract import AttributeAbstract
 from moysklad_remap_12_sdk.models.barcode import Barcode
+from moysklad_remap_12_sdk.models.bundle_component_list import BundleComponentList
 from moysklad_remap_12_sdk.models.bundle_overhead import BundleOverhead
 from moysklad_remap_12_sdk.models.country import Country
 from moysklad_remap_12_sdk.models.employee import Employee
@@ -29,7 +30,6 @@ from moysklad_remap_12_sdk.models.file_list import FileList
 from moysklad_remap_12_sdk.models.group import Group
 from moysklad_remap_12_sdk.models.image_list import ImageList
 from moysklad_remap_12_sdk.models.meta import Meta
-from moysklad_remap_12_sdk.models.pack import Pack
 from moysklad_remap_12_sdk.models.price import Price
 from moysklad_remap_12_sdk.models.product_folder import ProductFolder
 from moysklad_remap_12_sdk.models.sale_price import SalePrice
@@ -77,15 +77,13 @@ class Bundle(ProductMarker):
     images: Optional[ImageList] = Field(default=None, description="Массив метаданных Изображений")
     files: Optional[FileList] = Field(default=None, description="Метаданные массива Файлов")
     barcodes: Optional[List[Barcode]] = Field(default=None, description="Штрихкоды Комплекта")
-    packs: Optional[List[Pack]] = Field(default=None, description="Упаковки Комплекта")
     sale_prices: Optional[List[SalePrice]] = Field(default=None, description="Цены продажи", alias="salePrices")
-    buy_price: Optional[Price] = Field(default=None, alias="buyPrice")
     min_price: Optional[Price] = Field(default=None, alias="minPrice")
     overhead: Optional[BundleOverhead] = None
     attributes: Optional[List[AttributeAbstract]] = Field(default=None, description="Коллекция метаданных доп. полей")
-    components: Optional[BundleComponentList] = Field(default=None, description="""Массив компонентов Комплекта""", alias="components")
+    components: Optional[BundleComponentList] = None
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["meta", "id", "accountId", "name", "code", "externalCode", "syncId", "updated", "archived", "shared", "description", "article", "pathName", "discountProhibited", "partialDisposal", "vat", "vatEnabled", "useParentVat", "effectiveVat", "effectiveVatEnabled", "paymentItemType", "taxSystem", "trackingType", "tnved", "weight", "volume", "group", "owner", "country", "uom", "productFolder", "images", "files", "barcodes", "packs", "salePrices", "buyPrice", "minPrice", "overhead", "attributes", "components"]
+    __properties: ClassVar[List[str]] = ["meta", "id", "accountId", "name", "code", "externalCode", "syncId", "updated", "archived", "shared", "description", "article", "pathName", "discountProhibited", "partialDisposal", "vat", "vatEnabled", "useParentVat", "effectiveVat", "effectiveVatEnabled", "paymentItemType", "taxSystem", "trackingType", "tnved", "weight", "volume", "group", "owner", "country", "uom", "productFolder", "images", "files", "barcodes", "salePrices", "minPrice", "overhead", "attributes", "components"]
 
     model_config = ConfigDict(
         extra="allow",
@@ -134,6 +132,24 @@ class Bundle(ProductMarker):
         `None` is only added for nullable fields set at initialization.
         OpenAPI `readOnly` response fields are retained.
         """
+        def _json_model_value(value):
+            if isinstance(value, list):
+                return [_json_model_value(item) for item in value]
+            if value is not None and hasattr(value, "to_dict") and callable(value.to_dict):
+                return value.to_dict()
+            return value
+
+        def _model_value_replaces_schema_set(value):
+            if isinstance(value, set):
+                return True
+            if isinstance(value, list):
+                return any(_model_value_replaces_schema_set(item) for item in value)
+            if isinstance(value, dict):
+                if "one_of_schemas" in value or "any_of_schemas" in value:
+                    return True
+                return any(_model_value_replaces_schema_set(item) for item in value.values())
+            return False
+
         excluded_fields: Set[str] = {
             "additional_properties",
         }
@@ -166,19 +182,11 @@ class Bundle(ProductMarker):
                     _items.append(_item_barcodes.to_dict())
             _dict['barcodes'] = _items
         _items = []
-        if self.packs:
-            for _item_packs in self.packs:
-                if _item_packs:
-                    _items.append(_item_packs.to_dict())
-            _dict['packs'] = _items
-        _items = []
         if self.sale_prices:
             for _item_sale_prices in self.sale_prices:
                 if _item_sale_prices:
                     _items.append(_item_sale_prices.to_dict())
             _dict['salePrices'] = _items
-        if self.buy_price:
-            _dict['buyPrice'] = self.buy_price.to_dict()
         if self.min_price:
             _dict['minPrice'] = self.min_price.to_dict()
         if self.overhead:
@@ -195,6 +203,22 @@ class Bundle(ProductMarker):
             for _key, _value in self.additional_properties.items():
                 _dict[_key] = _value
 
+        # oneOf/anyOf, унаследованные поля и лишние свойства не должны уносить в JSON
+        # служебное множество имен схем: оно не сериализуется.
+        for _field_name, _field in type(self).model_fields.items():
+            if _field_name == "additional_properties":
+                continue
+            _value = getattr(self, _field_name)
+            _alias = _field.alias or _field_name
+            if _model_value_replaces_schema_set(_dict.get(_alias)):
+                _converted = _json_model_value(_value)
+                if _converted is not None:
+                    _dict[_alias] = _converted
+        for _extra_key, _extra_value in (getattr(self, "__pydantic_extra__", None) or {}).items():
+            if _model_value_replaces_schema_set(_dict.get(_extra_key)):
+                _converted = _json_model_value(_extra_value)
+                if _converted is not None:
+                    _dict[_extra_key] = _converted
         if self.description is None and "description" in self.model_fields_set:
             _dict['description'] = None
 
@@ -218,9 +242,6 @@ class Bundle(ProductMarker):
 
         if self.barcodes is None and "barcodes" in self.model_fields_set:
             _dict['barcodes'] = None
-
-        if self.packs is None and "packs" in self.model_fields_set:
-            _dict['packs'] = None
 
         if self.sale_prices is None and "sale_prices" in self.model_fields_set:
             _dict['salePrices'] = None
@@ -275,9 +296,7 @@ class Bundle(ProductMarker):
             "images": ImageList.from_dict(obj["images"]) if obj.get("images") is not None else None,
             "files": FileList.from_dict(obj["files"]) if obj.get("files") is not None else None,
             "barcodes": [Barcode.from_dict(_item) for _item in obj["barcodes"]] if obj.get("barcodes") is not None else None,
-            "packs": [Pack.from_dict(_item) for _item in obj["packs"]] if obj.get("packs") is not None else None,
             "salePrices": [SalePrice.from_dict(_item) for _item in obj["salePrices"]] if obj.get("salePrices") is not None else None,
-            "buyPrice": Price.from_dict(obj["buyPrice"]) if obj.get("buyPrice") is not None else None,
             "minPrice": Price.from_dict(obj["minPrice"]) if obj.get("minPrice") is not None else None,
             "overhead": BundleOverhead.from_dict(obj["overhead"]) if obj.get("overhead") is not None else None,
             "attributes": [AttributeAbstract.from_dict(_item) for _item in obj["attributes"]] if obj.get("attributes") is not None else None,
@@ -379,15 +398,7 @@ from moysklad_remap_12_sdk.models.barcode import Barcode
 
 
 
-from moysklad_remap_12_sdk.models.pack import Pack
-
-
-
 from moysklad_remap_12_sdk.models.sale_price import SalePrice
-
-
-from moysklad_remap_12_sdk.models.price import Price
-
 
 
 from moysklad_remap_12_sdk.models.price import Price

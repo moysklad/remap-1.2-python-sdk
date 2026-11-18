@@ -24,6 +24,7 @@ from moysklad_remap_12_sdk.models.agent import Agent
 from moysklad_remap_12_sdk.models.attribute_abstract import AttributeAbstract
 from moysklad_remap_12_sdk.models.contract import Contract
 from moysklad_remap_12_sdk.models.employee import Employee
+from moysklad_remap_12_sdk.models.facture_in_payment import FactureInPayment
 from moysklad_remap_12_sdk.models.file_list import FileList
 from moysklad_remap_12_sdk.models.group import Group
 from moysklad_remap_12_sdk.models.meta import Meta
@@ -32,7 +33,9 @@ from moysklad_remap_12_sdk.models.state import State
 from typing import Optional, Set
 from typing_extensions import Self
 
-class FactureIn(BaseModel):
+from moysklad_remap_12_sdk.models.entity_with_meta import EntityWithMeta
+
+class FactureIn(EntityWithMeta):
     """
     Счет-фактура полученный (facturein)
     """ # noqa: E501
@@ -63,7 +66,7 @@ class FactureIn(BaseModel):
     sync_id: Optional[StrictStr] = Field(default=None, description="ID синхронизации", alias="syncId")
     updated: Optional[StrictStr] = Field(default=None, description="Момент последнего обновления Счета-фактуры полученного")
     supplies: Optional[List[Supply]] = Field(default=None, description="Массив ссылок на связанные приемки")
-    payments: Optional[List[PaymentOut]] = Field(default=None, description="Массив ссылок на связанные исходящие платежи")
+    payments: Optional[List[FactureInPayment]] = Field(default=None, description="Массив ссылок на связанные исходящие платежи")
     incoming_number: Optional[Annotated[str, Field(strict=True, max_length=255)]] = Field(default=None, description="Входящий номер", alias="incomingNumber")
     incoming_date: Optional[StrictStr] = Field(default=None, description="Входящая дата", alias="incomingDate")
     additional_properties: Dict[str, Any] = {}
@@ -116,6 +119,24 @@ class FactureIn(BaseModel):
         `None` is only added for nullable fields set at initialization.
         OpenAPI `readOnly` response fields are retained.
         """
+        def _json_model_value(value):
+            if isinstance(value, list):
+                return [_json_model_value(item) for item in value]
+            if value is not None and hasattr(value, "to_dict") and callable(value.to_dict):
+                return value.to_dict()
+            return value
+
+        def _model_value_replaces_schema_set(value):
+            if isinstance(value, set):
+                return True
+            if isinstance(value, list):
+                return any(_model_value_replaces_schema_set(item) for item in value)
+            if isinstance(value, dict):
+                if "one_of_schemas" in value or "any_of_schemas" in value:
+                    return True
+                return any(_model_value_replaces_schema_set(item) for item in value.values())
+            return False
+
         excluded_fields: Set[str] = {
             "additional_properties",
         }
@@ -165,6 +186,22 @@ class FactureIn(BaseModel):
             for _key, _value in self.additional_properties.items():
                 _dict[_key] = _value
 
+        # oneOf/anyOf, унаследованные поля и лишние свойства не должны уносить в JSON
+        # служебное множество имен схем: оно не сериализуется.
+        for _field_name, _field in type(self).model_fields.items():
+            if _field_name == "additional_properties":
+                continue
+            _value = getattr(self, _field_name)
+            _alias = _field.alias or _field_name
+            if _model_value_replaces_schema_set(_dict.get(_alias)):
+                _converted = _json_model_value(_value)
+                if _converted is not None:
+                    _dict[_alias] = _converted
+        for _extra_key, _extra_value in (getattr(self, "__pydantic_extra__", None) or {}).items():
+            if _model_value_replaces_schema_set(_dict.get(_extra_key)):
+                _converted = _json_model_value(_extra_value)
+                if _converted is not None:
+                    _dict[_extra_key] = _converted
         if self.attributes is None and "attributes" in self.model_fields_set:
             _dict['attributes'] = None
 
@@ -235,7 +272,7 @@ class FactureIn(BaseModel):
             "syncId": obj.get("syncId"),
             "updated": obj.get("updated"),
             "supplies": [Supply.from_dict(_item) for _item in obj["supplies"]] if obj.get("supplies") is not None else None,
-            "payments": [PaymentOut.from_dict(_item) for _item in obj["payments"]] if obj.get("payments") is not None else None,
+            "payments": [FactureInPayment.from_dict(_item) for _item in obj["payments"]] if obj.get("payments") is not None else None,
             "incomingNumber": obj.get("incomingNumber"),
             "incomingDate": obj.get("incomingDate")
         })
@@ -246,7 +283,6 @@ class FactureIn(BaseModel):
 
         return _obj
 
-from moysklad_remap_12_sdk.models.payment_out import PaymentOut
 from moysklad_remap_12_sdk.models.supply import Supply
 # TODO: Rewrite to not use raise_errors
 FactureIn.model_rebuild(raise_errors=False)
@@ -329,7 +365,7 @@ from moysklad_remap_12_sdk.models.supply import Supply
 
 
 
-from moysklad_remap_12_sdk.models.payment_out import PaymentOut
+from moysklad_remap_12_sdk.models.facture_in_payment import FactureInPayment
 
 
 

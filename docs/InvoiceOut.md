@@ -46,7 +46,7 @@ Name | Type | Description | Notes
 **sales_channel** | [**SalesChannel**](SalesChannel.md) | Метаданные канала продаж | [optional] 
 **customer_order** | [**CustomerOrder**](CustomerOrder.md) | Заказ покупателя, с которым связан Счет покупателю | [optional] 
 **demands** | [**List[Demand]**](Demand.md) | Массив ссылок на связанные отгрузки | [optional] 
-**payments** | [**List[RetailShiftPaymentsInner]**](RetailShiftPaymentsInner.md) | Массив ссылок на связанные операции | [optional] 
+**payments** | [**List[InvoiceOutPayment]**](InvoiceOutPayment.md) | Массив ссылок на связанные операции | [optional] 
 
 ## Example
 

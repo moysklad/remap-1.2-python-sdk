@@ -20,7 +20,7 @@ from typing import Any, List, Optional
 from moysklad_remap_12_sdk.models.delete_info import DeleteInfo
 from moysklad_remap_12_sdk.models.errors import Errors
 from pydantic import StrictStr, Field
-from typing import Union, List, Set, Optional, Dict
+from typing import Union, List, Set, Optional, Dict, ClassVar
 from typing_extensions import Literal, Self
 
 DELETEROWRESULT_ONE_OF_SCHEMAS = ["DeleteInfo", "Errors"]
@@ -34,7 +34,7 @@ class DeleteRowResult(BaseModel):
     # data type: Errors
     oneof_schema_2_validator: Optional[Errors] = None
     actual_instance: Optional[Union[DeleteInfo, Errors]] = None
-    one_of_schemas: Set[str] = { "DeleteInfo", "Errors" }
+    one_of_schemas: ClassVar[Set[str]] = { "DeleteInfo", "Errors" }
 
     model_config = ConfigDict(
         validate_assignment=True,
@@ -84,6 +84,17 @@ class DeleteRowResult(BaseModel):
     def from_json(cls, json_str: str) -> Self:
         """Returns the object represented by the json string"""
         instance = cls.model_construct()
+        # JSON API entity names (Product, Service, Variant, etc.) correspond to meta.type.
+        # Meta-only references can satisfy several schemas, so select the entity before validation.
+        data = json.loads(json_str)
+        meta = data.get('meta') if isinstance(data, dict) else None
+        entity_type = meta.get('type') if isinstance(meta, dict) else None
+        if entity_type == 'DeleteInfo'.lower():
+            instance.actual_instance = DeleteInfo.from_dict(data)
+            return instance
+        if entity_type == 'Errors'.lower():
+            instance.actual_instance = Errors.from_dict(data)
+            return instance
         error_messages = []
         match = 0
 

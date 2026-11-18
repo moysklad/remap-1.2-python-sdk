@@ -12,6 +12,7 @@ Name | Type | Description | Notes
 **use_price_type** | **bool** | Использовать ли специальную цену | [optional] 
 **discount** | **float** | Процент скидки (используется при usePriceType&#x3D;false) | [optional] 
 **special_price** | [**SpecialPriceDiscountSpecialPrice**](SpecialPriceDiscountSpecialPrice.md) |  | [optional] 
+**assortment** | [**List[DiscountAssortmentItem]**](DiscountAssortmentItem.md) | Массив метаданных товаров, услуг и модификаций | [optional] 
 
 ## Example
 

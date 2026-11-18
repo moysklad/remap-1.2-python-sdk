@@ -27,6 +27,7 @@ from moysklad_remap_12_sdk.models.attribute_abstract import AttributeAbstract
 from moysklad_remap_12_sdk.models.contract import Contract
 from moysklad_remap_12_sdk.models.currency_rate import CurrencyRate
 from moysklad_remap_12_sdk.models.customer_order import CustomerOrder
+from moysklad_remap_12_sdk.models.demand_payment import DemandPayment
 from moysklad_remap_12_sdk.models.demand_position_list import DemandPositionList
 from moysklad_remap_12_sdk.models.employee import Employee
 from moysklad_remap_12_sdk.models.facture_out import FactureOut
@@ -38,7 +39,6 @@ from moysklad_remap_12_sdk.models.organization import Organization
 from moysklad_remap_12_sdk.models.overhead import Overhead
 from moysklad_remap_12_sdk.models.production_task import ProductionTask
 from moysklad_remap_12_sdk.models.project import Project
-from moysklad_remap_12_sdk.models.retail_shift_payments_inner import RetailShiftPaymentsInner
 from moysklad_remap_12_sdk.models.sales_channel import SalesChannel
 from moysklad_remap_12_sdk.models.sales_return import SalesReturn
 from moysklad_remap_12_sdk.models.state import State
@@ -94,7 +94,7 @@ class FinanceInOperationDemand(FinanceInOperationAbstract):
     customer_order: Optional[CustomerOrder] = Field(default=None, description="Заказ покупателя, с которым связана Отгрузка", alias="customerOrder")
     facture_out: Optional[FactureOut] = Field(default=None, description="Счёт-фактура выданный, с которым связана Отгрузка", alias="factureOut")
     returns: Optional[List[SalesReturn]] = Field(default=None, description="Связанные возвраты")
-    payments: Optional[List[RetailShiftPaymentsInner]] = Field(default=None, description="Связанные платежи")
+    payments: Optional[List[DemandPayment]] = Field(default=None, description="Связанные платежи")
     production_tasks: Optional[List[ProductionTask]] = Field(default=None, description="Связанные производственные задания", alias="productionTasks")
     invoices_out: Optional[List[InvoiceOut]] = Field(default=None, description="Связанные счета покупателям", alias="invoicesOut")
     cargo_name: Optional[Annotated[str, Field(strict=True, max_length=255)]] = Field(default=None, description="Наименование груза", alias="cargoName")
@@ -136,6 +136,24 @@ class FinanceInOperationDemand(FinanceInOperationAbstract):
         `None` is only added for nullable fields set at initialization.
         OpenAPI `readOnly` response fields are retained.
         """
+        def _json_model_value(value):
+            if isinstance(value, list):
+                return [_json_model_value(item) for item in value]
+            if value is not None and hasattr(value, "to_dict") and callable(value.to_dict):
+                return value.to_dict()
+            return value
+
+        def _model_value_replaces_schema_set(value):
+            if isinstance(value, set):
+                return True
+            if isinstance(value, list):
+                return any(_model_value_replaces_schema_set(item) for item in value)
+            if isinstance(value, dict):
+                if "one_of_schemas" in value or "any_of_schemas" in value:
+                    return True
+                return any(_model_value_replaces_schema_set(item) for item in value.values())
+            return False
+
         excluded_fields: Set[str] = {
             "additional_properties",
         }
@@ -221,6 +239,22 @@ class FinanceInOperationDemand(FinanceInOperationAbstract):
             for _key, _value in self.additional_properties.items():
                 _dict[_key] = _value
 
+        # oneOf/anyOf, унаследованные поля и лишние свойства не должны уносить в JSON
+        # служебное множество имен схем: оно не сериализуется.
+        for _field_name, _field in type(self).model_fields.items():
+            if _field_name == "additional_properties":
+                continue
+            _value = getattr(self, _field_name)
+            _alias = _field.alias or _field_name
+            if _model_value_replaces_schema_set(_dict.get(_alias)):
+                _converted = _json_model_value(_value)
+                if _converted is not None:
+                    _dict[_alias] = _converted
+        for _extra_key, _extra_value in (getattr(self, "__pydantic_extra__", None) or {}).items():
+            if _model_value_replaces_schema_set(_dict.get(_extra_key)):
+                _converted = _json_model_value(_extra_value)
+                if _converted is not None:
+                    _dict[_extra_key] = _converted
         if self.description is None and "description" in self.model_fields_set:
             _dict['description'] = None
 
@@ -336,7 +370,7 @@ class FinanceInOperationDemand(FinanceInOperationAbstract):
             "customerOrder": CustomerOrder.from_dict(obj["customerOrder"]) if obj.get("customerOrder") is not None else None,
             "factureOut": FactureOut.from_dict(obj["factureOut"]) if obj.get("factureOut") is not None else None,
             "returns": [SalesReturn.from_dict(_item) for _item in obj["returns"]] if obj.get("returns") is not None else None,
-            "payments": [RetailShiftPaymentsInner.from_dict(_item) for _item in obj["payments"]] if obj.get("payments") is not None else None,
+            "payments": [DemandPayment.from_dict(_item) for _item in obj["payments"]] if obj.get("payments") is not None else None,
             "productionTasks": [ProductionTask.from_dict(_item) for _item in obj["productionTasks"]] if obj.get("productionTasks") is not None else None,
             "invoicesOut": [InvoiceOut.from_dict(_item) for _item in obj["invoicesOut"]] if obj.get("invoicesOut") is not None else None,
             "cargoName": obj.get("cargoName"),
@@ -484,7 +518,7 @@ from moysklad_remap_12_sdk.models.sales_return import SalesReturn
 
 
 
-from moysklad_remap_12_sdk.models.retail_shift_payments_inner import RetailShiftPaymentsInner
+from moysklad_remap_12_sdk.models.demand_payment import DemandPayment
 
 
 

@@ -18,7 +18,7 @@ Name | Type | Description | Notes
 **in_transit** | **float** | Ожидание | [optional] 
 **reserve** | **float** | Резерв | [optional] 
 **quantity** | **float** | Доступно | [optional] 
-**stock_days** | **int** | Количество дней на складе | [optional] 
+**stock_days** | **float** | Количество дней на складе | [optional] 
 **price** | **float** | Себестоимость в копейках | [optional] 
 **sale_price** | **float** | Цена продажи | [optional] 
 

@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **type** | **str** |  | [optional] 
 **value** | **str** |  | [optional] 
+**file** | [**FileUpload**](FileUpload.md) | Файл для загрузки. Для очистки передается null. | [optional] 
 **download** | **object** |  | [optional] 
 
 ## Example

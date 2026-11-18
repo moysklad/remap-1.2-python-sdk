@@ -48,7 +48,7 @@ Name | Type | Description | Notes
 **customer_order** | [**CustomerOrder**](CustomerOrder.md) | Заказ покупателя, с которым связана Отгрузка | [optional] 
 **facture_out** | [**FactureOut**](FactureOut.md) | Счёт-фактура выданный, с которым связана Отгрузка | [optional] 
 **returns** | [**List[SalesReturn]**](SalesReturn.md) | Связанные возвраты | [optional] 
-**payments** | [**List[RetailShiftPaymentsInner]**](RetailShiftPaymentsInner.md) | Связанные платежи | [optional] 
+**payments** | [**List[DemandPayment]**](DemandPayment.md) | Связанные платежи | [optional] 
 **production_tasks** | [**List[ProductionTask]**](ProductionTask.md) | Связанные производственные задания | [optional] 
 **invoices_out** | [**List[InvoiceOut]**](InvoiceOut.md) | Связанные счета покупателям | [optional] 
 **cargo_name** | **str** | Наименование груза | [optional] 

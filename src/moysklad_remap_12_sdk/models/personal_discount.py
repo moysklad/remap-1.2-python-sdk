@@ -19,6 +19,7 @@ import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
+from moysklad_remap_12_sdk.models.discount_assortment_item import DiscountAssortmentItem
 from moysklad_remap_12_sdk.models.meta import Meta
 from moysklad_remap_12_sdk.models.product_folder import ProductFolder
 from typing import Optional, Set
@@ -33,8 +34,9 @@ class PersonalDiscount(DiscountAbstract):
     id: Optional[StrictStr] = Field(default=None, description="ID дополнительного поля")
     meta: Optional[Meta] = None
     product_folders: Optional[List[ProductFolder]] = Field(default=None, description="Группы товаров со скидкой", alias="productFolders")
+    assortment: Optional[List[DiscountAssortmentItem]] = Field(default=None, description="Массив метаданных товаров, услуг и модификаций")
     additional_properties: Dict[str, Any] = {}
-    __properties: ClassVar[List[str]] = ["id", "meta", "productFolders"]
+    __properties: ClassVar[List[str]] = ["id", "meta", "productFolders", "assortment"]
 
     model_config = ConfigDict(
         extra="allow",
@@ -83,6 +85,24 @@ class PersonalDiscount(DiscountAbstract):
         `None` is only added for nullable fields set at initialization.
         OpenAPI `readOnly` response fields are retained.
         """
+        def _json_model_value(value):
+            if isinstance(value, list):
+                return [_json_model_value(item) for item in value]
+            if value is not None and hasattr(value, "to_dict") and callable(value.to_dict):
+                return value.to_dict()
+            return value
+
+        def _model_value_replaces_schema_set(value):
+            if isinstance(value, set):
+                return True
+            if isinstance(value, list):
+                return any(_model_value_replaces_schema_set(item) for item in value)
+            if isinstance(value, dict):
+                if "one_of_schemas" in value or "any_of_schemas" in value:
+                    return True
+                return any(_model_value_replaces_schema_set(item) for item in value.values())
+            return False
+
         excluded_fields: Set[str] = {
             "additional_properties",
         }
@@ -100,9 +120,34 @@ class PersonalDiscount(DiscountAbstract):
                 if _item_product_folders:
                     _items.append(_item_product_folders.to_dict())
             _dict['productFolders'] = _items
+        _items = []
+        if self.assortment:
+            for _item_assortment in self.assortment:
+                if _item_assortment:
+                    _items.append(_item_assortment.to_dict())
+            _dict['assortment'] = _items
         if self.additional_properties is not None:
             for _key, _value in self.additional_properties.items():
                 _dict[_key] = _value
+
+        # oneOf/anyOf, унаследованные поля и лишние свойства не должны уносить в JSON
+        # служебное множество имен схем: оно не сериализуется.
+        for _field_name, _field in type(self).model_fields.items():
+            if _field_name == "additional_properties":
+                continue
+            _value = getattr(self, _field_name)
+            _alias = _field.alias or _field_name
+            if _model_value_replaces_schema_set(_dict.get(_alias)):
+                _converted = _json_model_value(_value)
+                if _converted is not None:
+                    _dict[_alias] = _converted
+        for _extra_key, _extra_value in (getattr(self, "__pydantic_extra__", None) or {}).items():
+            if _model_value_replaces_schema_set(_dict.get(_extra_key)):
+                _converted = _json_model_value(_extra_value)
+                if _converted is not None:
+                    _dict[_extra_key] = _converted
+        if self.assortment is None and "assortment" in self.model_fields_set:
+            _dict['assortment'] = None
 
         return _dict
 
@@ -119,7 +164,8 @@ class PersonalDiscount(DiscountAbstract):
         _data.update({
             "id": obj.get("id"),
             "meta": Meta.from_dict(obj["meta"]) if obj.get("meta") is not None else None,
-            "productFolders": [ProductFolder.from_dict(_item) for _item in obj["productFolders"]] if obj.get("productFolders") is not None else None
+            "productFolders": [ProductFolder.from_dict(_item) for _item in obj["productFolders"]] if obj.get("productFolders") is not None else None,
+            "assortment": [DiscountAssortmentItem.from_dict(_item) for _item in obj["assortment"]] if obj.get("assortment") is not None else None
         })
         _obj = cls.model_validate(_data)
         for _key in obj.keys():
@@ -138,5 +184,9 @@ from moysklad_remap_12_sdk.models.meta import Meta
 
 
 from moysklad_remap_12_sdk.models.product_folder import ProductFolder
+
+
+
+from moysklad_remap_12_sdk.models.discount_assortment_item import DiscountAssortmentItem
 
 

@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **id** | **str** | ID дополнительного поля | [optional] [readonly] 
 **meta** | [**Meta**](Meta.md) |  | [optional] 
 **product_folders** | [**List[ProductFolder]**](ProductFolder.md) | Массив метаданных Групп товаров | [optional] 
+**assortment** | [**List[DiscountAssortmentItem]**](DiscountAssortmentItem.md) | Массив метаданных товаров, услуг и модификаций | [optional] 
 
 ## Example
 

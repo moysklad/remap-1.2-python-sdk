@@ -51,7 +51,7 @@ Name | Type | Description | Notes
 **shipment_address_full** | [**Address**](Address.md) | Адрес доставки Заказа покупателя с детализацией по отдельным полям | [optional] 
 **invoices_out** | [**List[InvoiceOut]**](InvoiceOut.md) | Массив ссылок на связанные счета покупателям | [optional] 
 **demands** | [**List[Demand]**](Demand.md) | Массив ссылок на связанные отгрузки | [optional] 
-**payments** | [**List[RetailShiftPaymentsInner]**](RetailShiftPaymentsInner.md) | Массив ссылок на связанные платежи | [optional] 
+**payments** | [**List[CustomerOrderPayment]**](CustomerOrderPayment.md) | Массив ссылок на связанные платежи | [optional] 
 **prepayments** | [**List[Prepayment]**](Prepayment.md) | Массив ссылок на связанные предоплаты | [optional] 
 **purchase_orders** | [**List[PurchaseOrder]**](PurchaseOrder.md) | Массив ссылок на связанные заказы поставщикам | [optional] 
 **moves** | [**List[Move]**](Move.md) | Массив ссылок на связанные перемещения | [optional] 
